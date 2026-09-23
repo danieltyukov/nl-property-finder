@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Proof: Canal Light 3D hero</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400..600&display=swap">
+<script>document.documentElement.dataset.theme = new URLSearchParams(location.search).get('theme') || 'light';</script>
+<style>
+:root {
+  --bg: #F5F2EA; --text: #13201F; --muted: #56625F; --line: rgb(19 32 31 / .12);
+  --paper: #F5F2EA; --oranje: #FF7A33; --apricot: #FFB26B; --haze: #FFD9A8; --brick: #E0582F;
+  --ember: #9A3417; --ember-deep: #3A1409;
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-sans: "Instrument Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --grain-opacity: .26; --grain-blend: multiply;
+  --bleed:
+    radial-gradient(52% 80% at 6% 88%, var(--ember-deep) 0%, rgb(58 20 9 / 0) 72%),
+    radial-gradient(58% 95% at 16% 62%, var(--ember) 0%, rgb(154 52 23 / 0) 74%),
+    radial-gradient(46% 90% at 34% 38%, rgb(224 88 47 / .92) 0%, rgb(224 88 47 / 0) 70%),
+    radial-gradient(40% 70% at 47% 78%, rgb(255 154 77 / .75) 0%, rgb(255 154 77 / 0) 70%),
+    radial-gradient(34% 56% at 56% 16%, rgb(255 217 168 / .65) 0%, rgb(255 217 168 / 0) 70%);
+  --on-bleed: #F5F2EA; --nav-right: #13201F; --label-far: rgb(245 242 234 / .6);
+}
+:root[data-theme='dark'] {
+  --bg: #0C1515; --text: #ECF1EE; --muted: #9AA8A4; --line: rgb(236 241 238 / .1);
+  --grain-opacity: .16; --grain-blend: overlay;
+  --bleed:
+    radial-gradient(55% 70% at 4% 96%, rgb(154 52 23 / .95) 0%, rgb(154 52 23 / 0) 72%),
+    radial-gradient(45% 60% at 26% 88%, rgb(255 122 51 / .55) 0%, rgb(255 122 51 / 0) 70%),
+    radial-gradient(40% 50% at 44% 96%, rgb(255 178 107 / .22) 0%, rgb(255 178 107 / 0) 70%),
+    radial-gradient(70% 70% at 96% 0%, rgb(58 96 122 / .6) 0%, rgb(58 96 122 / 0) 70%);
+  --on-bleed: #ECF1EE; --nav-right: #ECF1EE; --label-far: rgb(236 241 238 / .5);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--text); }
+body { font: 400 17px/1.6 var(--font-sans); }
+.hero { position: relative; height: 900px; overflow: hidden; isolation: isolate; background: var(--bleed), var(--bg); }
+#scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+.grain { position: absolute; inset: 0; z-index: 6; pointer-events: none; opacity: var(--grain-opacity); mix-blend-mode: var(--grain-blend);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px; }
+.nav { position: absolute; z-index: 8; top: 0; left: 0; right: 0; height: 88px; padding: 0 32px; display: flex; align-items: center; gap: 24px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--on-bleed); font: 600 19px/1 var(--font-sans); letter-spacing: -.01em; text-decoration: none; }
+.brand svg { width: 26px; height: 26px; }
+.links { margin-left: auto; display: flex; align-items: center; gap: 14px; font: 500 13px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .04em; color: var(--nav-right); }
+.links a { color: inherit; text-decoration: none; }
+.links .sep { opacity: .55; }
+.theme { font: 500 12px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--nav-right); border: 1px solid currentColor; background: none; height: 32px; padding: 0 12px; opacity: .8; }
+.cut { display: inline-flex; align-items: center; height: 44px; padding: 0 20px; font: 600 13px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .06em; text-decoration: none;
+  color: var(--bg); background: var(--text); clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); }
+.copy { position: absolute; z-index: 7; left: 32px; bottom: 44px; color: var(--on-bleed); }
+.chip { display: inline-flex; align-items: stretch; gap: 4px; margin-bottom: 18px; }
+.chip span { background: var(--paper); color: var(--ember-deep); font: 500 15px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .02em; padding: 7px 12px 6px; }
+.chip i { width: 4px; background: var(--paper); }
+:root[data-theme='dark'] .chip span { color: #0C1515; }
+h1 { margin: 0; font-weight: 500; }
+h1 .l1, h1 .l3 { display: block; font: 500 76px/.98 var(--font-mono); text-transform: uppercase; letter-spacing: -.045em; }
+h1 .l2 { display: flex; align-items: baseline; gap: 22px; }
+h1 .rule { width: 118px; height: 3px; background: linear-gradient(90deg, rgb(245 242 234 / 0), var(--on-bleed)); align-self: center; margin-top: 10px; }
+h1 em { font: italic 400 96px/1 var(--font-display); letter-spacing: -.02em; text-transform: none; }
+.lede { position: absolute; z-index: 7; right: 40px; bottom: 64px; width: 470px; margin: 0; font: 400 14.5px/1.62 var(--font-mono); color: var(--text); }
+.sample { position: absolute; z-index: 7; right: 40px; bottom: 30px; margin: 0; font: 500 11px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.overlay { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
+.overlay line { stroke: #fff; stroke-width: 1.2; }
+:root[data-theme='light'] .overlay line { stroke: #13201F; }
+.diamond { position: absolute; z-index: 5; width: 14px; height: 14px; margin: -7px 0 0 -7px; background: #fff; transform: rotate(45deg); box-shadow: 0 0 0 1px rgb(19 32 31 / .5); }
+.diamond::after { content: ""; position: absolute; inset: 4px; background: #13201F; }
+.callout { position: absolute; z-index: 7; width: 300px; padding: 4px 0 4px 18px; font: 400 13px/1.55 var(--font-mono); color: var(--text); }
+.callout::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px; border: 1.5px solid currentColor; border-right: 0; }
+.callout h3 { display: flex; align-items: center; gap: 8px; margin: 0 0 6px; font: 500 15px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .02em; }
+.callout h3 b { width: 12px; height: 12px; border: 1.5px solid currentColor; display: grid; place-items: center; }
+.callout h3 b::after { content: ""; width: 6px; height: 6px; background: #1F6F66; }
+:root[data-theme='dark'] .callout h3 b::after { background: #62C9B8; }
+.callout p { margin: 0; }
+.callout .muted { color: var(--muted); }
+.tag { position: absolute; z-index: 4; font: 400 12px/1 var(--font-mono); letter-spacing: .02em; color: var(--label-far); white-space: nowrap; }
+.tag.far { filter: blur(1.1px); opacity: .7; }
+.tag.ink { color: rgb(19 32 31 / .45); }
+:root[data-theme='dark'] .tag.ink { color: rgb(236 241 238 / .45); }
+</style>
+</head>
+<body>
+<section class="hero" aria-labelledby="h1">
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <svg class="overlay" aria-hidden="true"><line id="cline" x1="0" y1="0" x2="0" y2="0"/></svg>
+  <div class="diamond" id="diamond" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="nav">
+    <a class="brand" href="#"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M2 15V7h2V4h2V1h4v3h2v3h2v8zM9 9h3v3H9z"/><rect x="9" y="9" width="3" height="3" fill="#FF7A33"/></svg>nl-property-finder</a>
+    <nav class="links" aria-label="Sections"><a href="#">How it works</a><span class="sep">/</span><a href="#">Inbox</a><span class="sep">/</span><a href="#">Claude</a><span class="sep">/</span><a href="#">Privacy</a><span class="sep">/</span><a href="#">Cost</a></nav>
+    <button class="theme" type="button">Dark mode</button>
+    <a class="cut" href="#">GitHub</a>
+  </header>
+  <div class="copy">
+    <div class="chip"><span>Local agent for</span><i></i><i></i></div>
+    <h1 id="h1"><span class="l1">Renting in</span><span class="l2"><span class="rule" aria-hidden="true"></span><span class="l3">the <em>Netherlands</em></span></span></h1>
+  </div>
+  <aside class="callout" id="callout" aria-label="Sample event">
+    <h3><b aria-hidden="true"></b>Found 21:04:17</h3>
+    <p>Oudegracht 112-B, Utrecht</p>
+    <p>€1.180 a month, 42 m², Pararius</p>
+    <p class="muted">Message sent 32 s later</p>
+  </aside>
+  <p class="lede">It watches Dutch rental sites and writes to the landlord within a minute of a new listing that matches your search. Replies are sorted. The ones that need a person come to you. It runs on your computer and costs nothing.</p>
+  <p class="sample">Sample data. Addresses are made up.</p>
+  <span class="tag" id="t0">3512XK_02</span><span class="tag far" id="t1">0142_found</span><span class="tag ink" id="t2">€1.180 / 42m²</span><span class="tag ink far" id="t3">01_0110_1</span>
+</section>
+<script type="module">
+document.addEventListener('scene-ready', e => {
+  const { anchor, labelAnchors } = e.detail;
+  const d = document.getElementById('diamond'); d.style.left = anchor.x + 'px'; d.style.top = anchor.y + 'px';
+  const c = document.getElementById('callout'); const cx = 1080, cy = anchor.y + 70;
+  c.style.left = cx + 'px'; c.style.top = cy + 'px';
+  const l = document.getElementById('cline'); l.setAttribute('x1', anchor.x); l.setAttribute('y1', anchor.y); l.setAttribute('x2', cx - 6); l.setAttribute('y2', cy + 10);
+  const off = [[-150, -30], [-40, -90], [60, -60], [90, 10]];
+  labelAnchors.forEach((p, i) => { const t = document.getElementById('t' + i); t.style.left = (p.x + off[i][0]) + 'px'; t.style.top = (p.y + off[i][1]) + 'px'; });
+  document.documentElement.dataset.ready = '1';
+});
+</script>
+<script type="module" src="dist/scene.js"></script>
+</body>
+</html>
