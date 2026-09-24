@@ -34,6 +34,8 @@ export interface ImapMailboxOptions {
   backoff?: { minMs: number; maxMs: number };
   /** Attempts before a message whose handler keeps failing is skipped (left unread). Default 3. */
   maxAttempts?: number;
+  /** How long `stop` waits for a message that is still being handled before closing anyway. Default 30 s. */
+  stopTimeoutMs?: number;
   clientFactory?: (options: ImapFlowOptions) => ImapClient;
   sender?: MailSender;
 }
@@ -97,6 +99,7 @@ export function createImapMailbox(cfg: Config['mail'], password: string, log: Lo
   const maxAttempts = opts.maxAttempts ?? 3;
   const lookbackDays = opts.firstRunLookbackDays ?? 2;
   const pollIntervalMs = opts.pollIntervalMs ?? 5 * 60_000;
+  const stopTimeoutMs = opts.stopTimeoutMs ?? 30_000;
   const sender = opts.sender ?? createSmtpSender(cfg, password, { fromName: opts.fromName });
   const factory =
     opts.clientFactory ??
@@ -189,7 +192,9 @@ export function createImapMailbox(cfg: Config['mail'], password: string, log: Lo
       delay = backoff.minMs;
       setStatus({ connected: true, lastIdleAt: new Date().toISOString() }, true);
       log.info('mailbox connected', { folder: cfg.folder });
-      await queueSync(c);
+      // Not awaited: `start` resolves once the folder is open, and the backlog is handled in the
+      // background, so a slow handler never holds up the daemon's startup.
+      void queueSync(c);
     } catch (err) {
       if (client === c) client = null;
       setStatus({ connected: false, error: message(err) });
@@ -360,7 +365,17 @@ export function createImapMailbox(cfg: Config['mail'], password: string, log: Lo
       if (pollTimer) clearInterval(pollTimer);
       reconnectTimer = undefined;
       pollTimer = undefined;
-      await Promise.race([syncing, new Promise((r) => setTimeout(r, 5000).unref?.())]);
+      // A message being handled keeps the connection open until its handler settles, so it is
+      // marked read and counted in the watermark before the socket closes.
+      let timer: ReturnType<typeof setTimeout> | undefined;
+      const timedOut = await Promise.race([
+        syncing.then(() => false),
+        new Promise<boolean>((r) => {
+          timer = setTimeout(() => r(true), stopTimeoutMs);
+        }),
+      ]);
+      if (timer) clearTimeout(timer);
+      if (timedOut) log.warn('a message handler is still running; closing the mailbox anyway', { waitedMs: stopTimeoutMs });
       const c = client;
       client = null;
       if (c) {

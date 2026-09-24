@@ -344,6 +344,39 @@ describe('IMAP mailbox', () => {
     expect(readFileSync(att!.path!, 'utf8')).toBe('%PDF-1.4 fake');
   });
 
+  test('stop waits for a handler that is still running before it closes the connection', async () => {
+    const server = new FakeServer();
+    server.add(rawMail('slow'));
+    const { mb } = setup(server);
+    let release!: () => void;
+    const gate = new Promise<void>((r) => (release = r));
+    let finished = false;
+    await mb.start(async () => {
+      await gate;
+      finished = true;
+    });
+    await settle();
+    const stopping = mb.stop();
+    await settle(50);
+    expect(server.live).toBeDefined(); // still connected while the handler runs
+    release();
+    await stopping;
+    expect(finished).toBe(true);
+    expect(server.messages[0]!.seen).toBe(true); // marked read before the connection closed
+    expect(mb.watermark()).toBe(1);
+  });
+
+  test('stop gives up waiting after stopTimeoutMs and says so', async () => {
+    const server = new FakeServer();
+    server.add(rawMail('stuck'));
+    const { mb, log } = setup(server, { stopTimeoutMs: 30 });
+    await mb.start(() => new Promise<void>(() => {}));
+    await settle();
+    await mb.stop();
+    expect(mb.status().connected).toBe(false);
+    expect(log.entries.some((e) => e.lvl === 'warn' && /still running/i.test(e.msg))).toBe(true);
+  });
+
   test('stop logs out, and mail that arrives afterwards is not handled', async () => {
     const server = new FakeServer();
     const { mb, got, onMessage } = setup(server);
