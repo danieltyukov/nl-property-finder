@@ -237,6 +237,7 @@ async function watchResidences(page: Page, url: string, waitMs: number, signal: 
     }
     const deadline = Date.now() + waitMs;
     let html = '';
+    let settled = false;
     for (;;) {
       const captured = await page.evaluate('window.__nlpfH2S ? Array.from(window.__nlpfH2S) : []').catch(() => []);
       html = await page.content().catch(() => html);
@@ -256,7 +257,13 @@ async function watchResidences(page: Page, url: string, waitMs: number, signal: 
           // not the pages-router data blob
         }
       }
-      if (blocks.length) return { blocks };
+      if (blocks.length) {
+        // The page may ask for more than one list (say, bookable units and lottery units); give the rest a moment.
+        if (settled) return { blocks };
+        settled = true;
+        await sleep(1_000, signal);
+        continue;
+      }
       if (Date.now() >= deadline) {
         const marker = detectChallenge(html);
         if (marker) return { challenge: /turnstile|cf-turnstile-response/i.test(html) ? 'turnstile' : marker, ...(status !== undefined ? { status } : {}) };
