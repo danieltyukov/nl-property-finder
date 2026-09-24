@@ -133,7 +133,7 @@ export function applyPdok(addr: Address, hit: PdokAddress): Address {
     municipality: hit.municipality,
   };
   if (addition && addition === hitAddition) out.addition = hit.addition;
-  else if (addition) out.addition = addr.addition ?? splitHouseNumber(addr.houseNumber).addition;
+  else if (addition) out.addition = /^[a-z]$/.test(addition) ? addition.toUpperCase() : addition;
   else delete out.addition;
   if (hit.neighbourhood) out.neighbourhood = hit.neighbourhood;
   if (hit.lat !== undefined && hit.lon !== undefined) {
