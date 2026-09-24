@@ -1,0 +1,143 @@
+{
+  "_fixture": "SYNTHETIC: the residences data could not be recorded (an interactive Turnstile blocked the page, see challenge.html). Shape follows the site's whitelisted GetCategories query as published by 751K/holland2stay-monitor (h2s_gql.py, docs/H2S.md, REPORTED 2026-08-18): products.aggregations with attribute_code and options, items with name, sku, city, url_key, available_to_book, next_contract_startdate, living_area, no_of_rooms, finishing, basic_rent, price_range, energy_label, media_gallery. available_startdate is the older field the plan names. Status ids 179 (available to book) and 336 (lottery) are REPORTED; attribute option ids and all values are invented.",
+  "data": {
+    "products": {
+      "sort_fields": { "options": [{ "label": "Price", "value": "price", "__typename": "SortField" }], "__typename": "SortFields" },
+      "aggregations": [
+        {
+          "label": "City",
+          "count": 2,
+          "attribute_code": "city",
+          "options": [
+            { "label": "Delft", "count": 3, "value": "6186", "__typename": "AggregationOption" },
+            { "label": "Rotterdam", "count": 1, "value": "6190", "__typename": "AggregationOption" }
+          ],
+          "position": 1,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Finishing",
+          "count": 2,
+          "attribute_code": "finishing",
+          "options": [
+            { "label": "Furnished", "count": 2, "value": "6205", "__typename": "AggregationOption" },
+            { "label": "Upholstered", "count": 2, "value": "6206", "__typename": "AggregationOption" }
+          ],
+          "position": 2,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Number of rooms",
+          "count": 2,
+          "attribute_code": "no_of_rooms",
+          "options": [
+            { "label": "Studio", "count": 2, "value": "104", "__typename": "AggregationOption" },
+            { "label": "2", "count": 2, "value": "106", "__typename": "AggregationOption" }
+          ],
+          "position": 3,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Energy label",
+          "count": 1,
+          "attribute_code": "energy_label",
+          "options": [{ "label": "A", "count": 4, "value": "6150", "__typename": "AggregationOption" }],
+          "position": 4,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Type of contract",
+          "count": 1,
+          "attribute_code": "type_of_contract",
+          "options": [{ "label": "Indefinite", "count": 4, "value": "6225", "__typename": "AggregationOption" }],
+          "position": 5,
+          "__typename": "Aggregation"
+        }
+      ],
+      "items": [
+        {
+          "name": "Voorbeeldlaan 12-301",
+          "sku": "VBL-12-301",
+          "city": "6186",
+          "url_key": "voorbeeldlaan-12-301",
+          "available_to_book": "179",
+          "available_startdate": "2026-10-01",
+          "next_contract_startdate": "2026-10-01",
+          "current_lottery_subscribers": null,
+          "finishing": "6205",
+          "living_area": "26.4",
+          "no_of_rooms": "104",
+          "offer_text_two": null,
+          "offer_text": null,
+          "maximum_number_of_persons": "1",
+          "type_of_contract": "6225",
+          "price_analysis_text": null,
+          "allowance_price": 812.5,
+          "floor": "3",
+          "basic_rent": 812.5,
+          "price_range": { "minimum_price": { "regular_price": { "value": 985.37, "__typename": "Money" }, "__typename": "ProductPrice" }, "__typename": "PriceRange" },
+          "energy_label": "6150",
+          "minimum_stay": "6",
+          "media_gallery": [
+            { "url": "https://www.holland2stay.com/media/catalog/product/example/voorbeeldlaan-2.jpg", "label": null, "position": 2, "disabled": false, "__typename": "ProductImage" },
+            { "url": "https://www.holland2stay.com/media/catalog/product/example/voorbeeldlaan-1.jpg", "label": null, "position": 1, "disabled": false, "__typename": "ProductImage" },
+            { "url": "https://www.holland2stay.com/media/catalog/product/example/hidden.jpg", "label": null, "position": 3, "disabled": true, "__typename": "ProductImage" }
+          ],
+          "image_manager": { "tour360": null, "images": [], "__typename": "ImageManager" },
+          "__typename": "SimpleProduct"
+        },
+        {
+          "name": "Voorbeeldlaan 12-512",
+          "sku": "VBL-12-512",
+          "city": "6186",
+          "url_key": "voorbeeldlaan-12-512",
+          "available_to_book": "336",
+          "next_contract_startdate": "2026-11-01",
+          "current_lottery_subscribers": 143,
+          "finishing": "6206",
+          "living_area": "48",
+          "no_of_rooms": "106",
+          "maximum_number_of_persons": "2",
+          "type_of_contract": "6225",
+          "basic_rent": 1105,
+          "price_range": { "minimum_price": { "regular_price": { "value": 1240 } } },
+          "energy_label": "6150",
+          "minimum_stay": "12",
+          "media_gallery": [],
+          "__typename": "SimpleProduct"
+        },
+        {
+          "name": "Voorbeeldlaan 12-118",
+          "sku": "VBL-12-118",
+          "city": "6186",
+          "url_key": "voorbeeldlaan-12-118",
+          "available_to_book": "385",
+          "next_contract_startdate": "2050-01-01",
+          "finishing": "6205",
+          "living_area": "25",
+          "no_of_rooms": "104",
+          "basic_rent": 790,
+          "price_range": { "minimum_price": { "regular_price": { "value": 960 } } },
+          "__typename": "SimpleProduct"
+        },
+        {
+          "name": "Havenkade 7-04",
+          "sku": "HVK-7-04",
+          "city": "6190",
+          "url_key": "havenkade-7-04",
+          "available_to_book": "179",
+          "next_contract_startdate": "2050-01-01",
+          "finishing": "6205",
+          "living_area": "31",
+          "no_of_rooms": "104",
+          "basic_rent": 899,
+          "price_range": { "minimum_price": { "regular_price": { "value": 1050 } } },
+          "__typename": "SimpleProduct"
+        }
+      ],
+      "page_info": { "total_pages": 1, "__typename": "SearchResultPageInfo" },
+      "total_count": 4,
+      "__typename": "Products"
+    }
+  }
+}
