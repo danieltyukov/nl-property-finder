@@ -43,6 +43,7 @@ form.stack label { display: grid; gap: 4px; }
 input, textarea, select, button { font: inherit; padding: 8px 10px; }
 textarea { min-height: 140px; }
 .notice { border: 1px solid GrayText; border-radius: 8px; padding: 12px 16px; }
+.object-media { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; max-width: 640px; }
 `;
 
 export function page(opts: {
@@ -81,8 +82,8 @@ export function facadeSvg(id: string, n: number): string {
   let h = n * 7919;
   for (const ch of id) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
   const floors = 2 + (h % 3);
-  const cols = 2 + ((h >> 3) % 2);
-  const stepped = ((h >> 5) & 1) === 1;
+  const cols = 2 + ((h >>> 3) % 2);
+  const stepped = ((h >>> 5) & 1) === 1;
   const w = 240;
   const top = 60;
   const floorH = 50;
@@ -93,10 +94,12 @@ export function facadeSvg(id: string, n: number): string {
   const windows: string[] = [];
   for (let f = 0; f < floors; f++) {
     for (let c = 0; c < cols; c++) {
+      // Leave room for the front door on the ground floor.
+      if (f === floors - 1 && cols % 2 === 1 && c === (cols - 1) / 2) continue;
       const cw = 120 / cols;
       const x = 60 + c * cw + cw * 0.2;
       const y = top + f * floorH + 10;
-      const lit = ((h >> (f * 3 + c)) & 3) === 0;
+      const lit = ((h >>> (f * 3 + c)) & 3) === 0;
       windows.push(
         `<rect x="${x.toFixed(1)}" y="${y}" width="${(cw * 0.6).toFixed(1)}" height="30" rx="2" fill="currentColor" fill-opacity="${lit ? 0.12 : 0.45}"/>`,
       );
