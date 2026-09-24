@@ -101,7 +101,7 @@ export function TopBar({ crumb }: { crumb?: string }) {
           {crumb ? <li aria-current="page">{crumb}</li> : null}
         </ol>
       </nav>
-      <button type="button" className="command-field" onClick={() => ui.setPaletteOpen(true)} aria-haspopup="dialog">
+      <button type="button" className="command-field" onClick={() => ui.setPaletteOpen(true)} aria-haspopup="dialog" aria-keyshortcuts="Control+K Meta+K">
         <span className="command-slash" aria-hidden="true">
           /
         </span>

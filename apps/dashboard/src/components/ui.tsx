@@ -44,8 +44,26 @@ export function Chip({ children }: { children: ReactNode }) {
   );
 }
 
+/*
+ * A visible key hint. It is hidden from assistive technology because the
+ * button it sits in announces the same key through aria-keyshortcuts, which
+ * keeps the button's accessible name to its words ("Confirm", not "Confirm A").
+ */
 export function Kbd({ children }: { children: ReactNode }) {
-  return <kbd className="kbd">{children}</kbd>;
+  return (
+    <kbd className="kbd" aria-hidden="true">
+      {children}
+    </kbd>
+  );
+}
+
+/** "Ctrl Enter" as the aria-keyshortcuts value "Control+Enter". */
+export function keyshortcuts(label: string): string {
+  const map: Record<string, string> = { Ctrl: 'Control', Cmd: 'Meta', Esc: 'Escape' };
+  return label
+    .split(' ')
+    .map((k) => map[k] ?? k)
+    .join('+');
 }
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -63,7 +81,12 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
  */
 export function Button({ variant = 'secondary', icon, shortcut, size = 'md', className, children, type, ...rest }: ButtonProps) {
   return (
-    <button type={type ?? 'button'} className={`btn btn-${variant} btn-${size}${className ? ` ${className}` : ''}`} {...rest}>
+    <button
+      type={type ?? 'button'}
+      className={`btn btn-${variant} btn-${size}${className ? ` ${className}` : ''}`}
+      aria-keyshortcuts={shortcut ? keyshortcuts(shortcut) : undefined}
+      {...rest}
+    >
       {icon ? <Icon name={icon} size={14} /> : null}
       {children ? <span className="btn-label">{children}</span> : null}
       {shortcut ? <Kbd>{shortcut}</Kbd> : null}
@@ -100,13 +123,13 @@ export function Card({
   return (
     <Tag className={`card${className ? ` ${className}` : ''}`} aria-labelledby={label ? headingId : undefined} id={id}>
       {label ? (
-        <header className="card-head">
+        <div className="card-head">
           <h2 className="label" id={headingId}>
             {label}
           </h2>
           {count !== undefined && count !== null ? <span className="card-count">{count}</span> : null}
           {action ? <div className="card-action">{action}</div> : null}
-        </header>
+        </div>
       ) : null}
       {children}
     </Tag>
@@ -115,14 +138,14 @@ export function Card({
 
 export function PageHeader({ eyebrow, title, lede, actions }: { eyebrow: string; title: string; lede?: ReactNode; actions?: ReactNode }) {
   return (
-    <header className="page-head">
+    <div className="page-head">
       <div className="page-head-text">
         <Chip>{eyebrow}</Chip>
         <h1 className="page-title">{title}</h1>
         {lede ? <p className="page-lede">{lede}</p> : null}
       </div>
       {actions ? <div className="page-actions">{actions}</div> : null}
-    </header>
+    </div>
   );
 }
 

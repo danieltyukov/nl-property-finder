@@ -71,12 +71,12 @@ function DrawerBody({ view }: { view: PropertyView }) {
 
   return (
     <div className="drawer-body">
-      <header className="drawer-head">
+      <div className="drawer-head">
         <StatusPill status={status} />
         <h2 className="drawer-title">{street(property.address, property.title)}</h2>
         <p className="drawer-sub">{[place(property.address), property.address.neighbourhood].filter(Boolean).join(' · ')}</p>
         <p className="drawer-action-line">{lastAction(view)}</p>
-      </header>
+      </div>
 
       <dl className="facts">
         {facts.map(([k, v]) => (

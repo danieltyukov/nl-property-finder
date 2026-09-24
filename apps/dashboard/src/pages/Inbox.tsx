@@ -51,12 +51,12 @@ export function InboxPage() {
 
   return (
     <div className="page page-home">
-      <header className="page-head compact">
+      <div className="page-head compact">
         <div className="page-head-text">
           <Chip>{`Today, ${day(Date.now())}`}</Chip>
           <h1 className="page-title">{title}</h1>
         </div>
-      </header>
+      </div>
       <PipelineStrip status={status.data} stats={stats.data} />
       <div className="home-grid">
         <InboxCard tasks={visible} loading={tasks.isLoading} error={tasks.error} />
@@ -86,7 +86,7 @@ export function InboxCard({ tasks, loading, error }: { tasks: Task[]; loading?: 
   const focusItem = useCallback((id: string | undefined) => {
     if (!id) return;
     setSelectedId(id);
-    requestAnimationFrame(() => listRef.current?.querySelector<HTMLElement>(`[data-task="${CSS.escape(id)}"]`)?.focus());
+    requestAnimationFrame(() => listRef.current?.querySelector<HTMLElement>(`[data-task="${id.replace(/["\\]/g, '\\$&')}"]`)?.focus());
   }, []);
 
   const move = useCallback(

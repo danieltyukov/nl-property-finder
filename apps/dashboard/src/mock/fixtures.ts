@@ -488,10 +488,8 @@ export function buildWorld(now: number = Date.now(), opts: { fresh?: boolean } =
     },
   ];
 
-  const config = ConfigSchema.parse({
-    profile: opts.fresh
-      ? {}
-      : {
+  const config = ConfigSchema.parse(opts.fresh ? {} : {
+    profile: {
           firstName: 'Sam', lastName: 'de Vries', email: 'sam.zoekt.huis@gmail.com', phone: '06 1234 5678', birthYear: 1997, nationality: 'Dutch',
           occupation: 'phd', organisation: 'TU Delft', incomeMonthlyGrossEur: 2950, languages: ['en', 'nl'], moveInFrom: '2026-10-15', moveInLatest: '2026-12-01', stayMonths: 24,
           about: 'I am a PhD candidate in civil engineering at TU Delft. I cycle everywhere, cook a lot and like a quiet house. I have lived in Delft for four years and always paid rent on time.',
@@ -516,7 +514,7 @@ export function buildWorld(now: number = Date.now(), opts: { fresh?: boolean } =
       { portal: 'Woonnet Haaglanden', since: '2023-02-01', renewBy: '2026-10-14', url: 'https://www.woonnet-haaglanden.nl' },
       { portal: 'ROOM (DUWO, RoomMatch)', since: '2022-08-20', url: 'https://www.roommatch.nl' },
     ],
-    sources: opts.fresh ? {} : {
+    sources: {
       funda: { contact: 'auto', termsAcknowledgedAt: new Date(now - 9 * DAY).toISOString() },
       pararius: { contact: 'auto', termsAcknowledgedAt: new Date(now - 9 * DAY).toISOString() },
       vesteda: { enabled: false },
@@ -539,7 +537,7 @@ export function buildWorld(now: number = Date.now(), opts: { fresh?: boolean } =
     notify: { ntfy: { server: 'https://ntfy.sh', topic: 'nlpf-k3v9q2m7xd', actions: true }, desktop: true, quietHours: { start: '23:00', end: '07:30' }, minPriority: 3 },
     ai: { provider: 'claude', monthlyTokenBudget: 5_000_000 },
   }) as ConfigView;
-  config.secretsPresent = ['ANTHROPIC_API_KEY', 'NLPF_MAIL_PASSWORD'];
+  config.secretsPresent = opts.fresh ? [] : ['ANTHROPIC_API_KEY', 'NLPF_MAIL_PASSWORD'];
 
   const documents: DocumentView[] = opts.fresh
     ? []

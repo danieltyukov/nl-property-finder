@@ -98,7 +98,7 @@ function SourceCard({ source, now }: { source: SourceView; now: number }) {
 
   return (
     <li className={`card source-card${source.enabled ? '' : ' off'}`}>
-      <header className="source-head">
+      <div className="source-head">
         <Dot tone={health.tone} pulse={source.enabled && source.health === 'ok'} />
         <h2 className="source-name">{source.name}</h2>
         <StatusPill status={health} />
@@ -107,7 +107,7 @@ function SourceCard({ source, now }: { source: SourceView; now: number }) {
             <Icon name="external" size={14} />
           </a>
         ) : null}
-      </header>
+      </div>
       <dl className="source-facts">
         <div>
           <dt>Last check</dt>

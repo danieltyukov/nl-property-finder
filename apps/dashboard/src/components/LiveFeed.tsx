@@ -56,7 +56,7 @@ export function LiveFeed({ className, limit = 150 }: { className?: string; limit
 
   return (
     <section className={`card feed${className ? ` ${className}` : ''}`} aria-labelledby="feed-title">
-      <header className="card-head">
+      <div className="card-head">
         <h2 className="label" id="feed-title">
           Live feed
         </h2>
@@ -64,7 +64,7 @@ export function LiveFeed({ className, limit = 150 }: { className?: string; limit
           <span className={`dot ${paused || !connected ? 'closed' : 'live'}${!paused && connected ? ' pulse' : ''}`} aria-hidden="true" />
           {paused ? 'Paused' : connected ? 'Live' : 'Reconnecting'}
         </span>
-      </header>
+      </div>
       <div className="feed-filters" role="group" aria-label="Filter the feed">
         {FEED_FILTERS.map((f) => (
           <button key={f.id} type="button" className="filter-chip" aria-pressed={filter === f.id} onClick={() => setFilter(f.id)}>

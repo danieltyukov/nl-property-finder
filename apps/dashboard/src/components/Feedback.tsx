@@ -170,7 +170,7 @@ export function FeedbackProvider({ children, undoMs = 5000 }: { children: ReactN
           <div key={t.id} className={`toast ${t.tone}`}>
             <p className="toast-text">{t.message}</p>
             {t.undoable ? (
-              <button type="button" className="btn btn-ghost btn-sm" onClick={() => undo(t.id)}>
+              <button type="button" className="btn btn-ghost btn-sm" aria-keyshortcuts="U" onClick={() => undo(t.id)}>
                 <span className="btn-label">Undo</span>
                 <Kbd>U</Kbd>
               </button>

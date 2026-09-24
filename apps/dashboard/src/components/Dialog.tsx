@@ -84,21 +84,21 @@ export function Dialog({
         aria-describedby={description ? descId : undefined}
         tabIndex={-1}
       >
-        <header className="dialog-head">
+        <div className="dialog-head">
           <h2 id={titleId} className="dialog-title">
             {title}
           </h2>
           <button type="button" className="icon-btn" aria-label="Close" onClick={onClose}>
             <Icon name="close" />
           </button>
-        </header>
+        </div>
         {description ? (
           <p id={descId} className="dialog-desc">
             {description}
           </p>
         ) : null}
         <div className="dialog-body">{children}</div>
-        {footer ? <footer className="dialog-foot">{footer}</footer> : null}
+        {footer ? <div className="dialog-foot">{footer}</div> : null}
       </div>
     </div>,
     document.body,

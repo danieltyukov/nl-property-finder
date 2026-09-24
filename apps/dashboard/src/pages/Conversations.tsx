@@ -116,7 +116,7 @@ function ConversationDetail({ id, onBack }: { id: string; onBack: () => void }) 
 
   return (
     <div className="conv-detail">
-      <header className="conv-head">
+      <div className="conv-head">
         <button type="button" className="icon-btn conv-back" aria-label="Back to the list" onClick={onBack}>
           <Icon name="left" />
         </button>
@@ -133,7 +133,7 @@ function ConversationDetail({ id, onBack }: { id: string; onBack: () => void }) 
             {p.priceEur ? <span className="mono"> · {eur(p.priceEur)}</span> : null}
           </Link>
         ) : null}
-      </header>
+      </div>
       <Thread messages={data.messages} />
       <form
         className="composer"

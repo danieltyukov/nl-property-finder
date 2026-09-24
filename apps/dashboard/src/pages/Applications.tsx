@@ -52,19 +52,19 @@ export function ApplicationsPage() {
         </EmptyState>
       ) : null}
       {all.length ? (
-        <div className="board" role="list" aria-label="Applications by status">
+        <div className="board">
           {COLUMNS.map((column) => {
             const cards = all
               .filter((a) => column.statuses.includes(a.application.status))
               .sort((a, b) => Date.parse(b.application.updatedAt) - Date.parse(a.application.updatedAt));
             return (
-              <section key={column.id} className="board-col" role="listitem" aria-labelledby={`col-${column.id}`}>
-                <header className="board-col-head">
+              <section key={column.id} className="board-col" aria-labelledby={`col-${column.id}`}>
+                <div className="board-col-head">
                   <h2 className="label" id={`col-${column.id}`}>
                     {column.label}
                   </h2>
                   <span className="card-count">{cards.length}</span>
-                </header>
+                </div>
                 <ul className="board-cards">
                   {cards.length === 0 ? <li className="board-empty">None</li> : null}
                   {cards.map((view) => (

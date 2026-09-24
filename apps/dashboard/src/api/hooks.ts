@@ -176,7 +176,7 @@ export function useWithdrawAll() {
   const api = useApi();
   const invalidate = useInvalidate();
   return useMutation({
-    mutationFn: api.withdrawAll,
+    mutationFn: (body: Parameters<typeof api.withdrawAll>[0]) => api.withdrawAll(body),
     onSettled: () => invalidate(qk.applications, qk.status, qk.config, qk.conversations),
   });
 }
@@ -192,14 +192,14 @@ export function useSendMessage(conversationId: string) {
 
 export function useDraft() {
   const api = useApi();
-  return useMutation({ mutationFn: api.draft });
+  return useMutation({ mutationFn: (body: Parameters<typeof api.draft>[0]) => api.draft(body) });
 }
 
 export function useDocumentMutations() {
   const api = useApi();
   const invalidate = useInvalidate();
   return {
-    upload: useMutation({ mutationFn: api.uploadDocument, onSettled: () => invalidate(qk.documents) }),
-    remove: useMutation({ mutationFn: api.deleteDocument, onSettled: () => invalidate(qk.documents) }),
+    upload: useMutation({ mutationFn: (form: FormData) => api.uploadDocument(form), onSettled: () => invalidate(qk.documents) }),
+    remove: useMutation({ mutationFn: (name: string) => api.deleteDocument(name), onSettled: () => invalidate(qk.documents) }),
   };
 }
