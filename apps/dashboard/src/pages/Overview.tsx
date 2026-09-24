@@ -19,6 +19,7 @@ export function OverviewPage() {
   const s = stats.data;
   const enabled = (sources.data ?? []).filter((x) => x.enabled);
   const healthy = enabled.filter((x) => x.health === 'ok' || x.health === 'watch_only').length;
+  const ranked = (s?.perSource ?? []).filter((r) => r.medianReactionMs != null).sort((a, b) => (a.medianReactionMs ?? 0) - (b.medianReactionMs ?? 0));
 
   return (
     <div className="page">
@@ -32,6 +33,12 @@ export function OverviewPage() {
                 <span className="stat stat-xl">{s?.reactionMsMedian7d != null ? duration(s.reactionMsMedian7d) : 'None yet'}</span>
                 <span className="kpi-note">from first seen to message sent</span>
               </p>
+              {ranked.length > 1 ? (
+                <p className="kpi-foot">
+                  Fastest <strong>{sourceName(ranked[0]!.sourceId, names)}</strong> at {duration(ranked[0]!.medianReactionMs)}, slowest{' '}
+                  <strong>{sourceName(ranked[ranked.length - 1]!.sourceId, names)}</strong> at {duration(ranked[ranked.length - 1]!.medianReactionMs)}.
+                </p>
+              ) : null}
             </Card>
             <Card label="Sources" action={<Link href="/sources">All sources</Link>}>
               <p className="kpi">
@@ -88,7 +95,7 @@ export function OverviewPage() {
             )}
           </Card>
 
-          <div className="two-col">
+          <div className="stack">
             <Card label="Agencies" className="table-card">
               {s?.perAgency.length ? (
                 <div className="table-wrap">

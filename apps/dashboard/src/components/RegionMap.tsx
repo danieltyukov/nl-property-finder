@@ -59,6 +59,7 @@ export default function RegionMap({ label, regions, markers, draw, onPolygon, he
     void (draw ? import('@geoman-io/leaflet-geoman-free') : Promise.resolve()).then(() => {
       if (cancelled) return;
       map = L.map(node, { scrollWheelZoom: false, zoomSnap: 0.5 }).setView([51.98, 4.36], 10);
+      map.attributionControl.setPrefix('<a href="https://leafletjs.com">Leaflet</a>');
       const tiles = window.__NLPF__?.tiles;
       if (tiles !== false) {
         L.tileLayer(typeof tiles === 'string' ? tiles : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {

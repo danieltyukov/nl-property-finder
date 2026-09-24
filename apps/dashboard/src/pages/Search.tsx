@@ -165,59 +165,6 @@ function SearchForm({ search, onChange, onRemove }: { search: NamedSearch; onCha
       </Card>
 
       <Card label="Areas" count={search.regions.length}>
-        <ul className="region-list">
-          {search.regions.map((region, i) => (
-            <li key={`${i}-${search.regions.length}`} className="region-row">
-              <div className="form-grid three">
-                <Field label="Area name">
-                  {(id) => (
-                    <input id={id} className="input" value={region.name} onChange={(e) => { const v = e.currentTarget.value; set('regions', search.regions.map((r, j) => (j === i ? { ...r, name: v } : r))); }} />
-                  )}
-                </Field>
-                <Field label="Municipalities" hint="Comma separated, for example Delft, Rijswijk">
-                  {(id, hint) => (
-                    <input
-                      id={id}
-                      className="input"
-                      aria-describedby={hint}
-                      defaultValue={region.municipalities.join(', ')}
-                      onBlur={(e) => { const v = splitList(e.currentTarget.value); set('regions', search.regions.map((r, j) => (j === i ? { ...r, municipalities: v } : r))); }}
-                    />
-                  )}
-                </Field>
-                <Field label="Postcode ranges" hint="Four digits or a range, for example 2611-2629">
-                  {(id, hint) => (
-                    <input
-                      id={id}
-                      className="input mono"
-                      aria-describedby={hint}
-                      defaultValue={region.postcodes.join(', ')}
-                      onBlur={(e) => {
-                        const v = splitList(e.currentTarget.value).filter((x) => /^\d{4}(-\d{4})?$/.test(x));
-                        set('regions', search.regions.map((r, j) => (j === i ? { ...r, postcodes: v } : r)));
-                      }}
-                    />
-                  )}
-                </Field>
-              </div>
-              <div className="region-meta">
-                {region.polygon?.length ? <Tag>drawn area, {region.polygon.length} points</Tag> : null}
-                {region.polygon?.length ? (
-                  <Button size="sm" variant="ghost" onClick={() => set('regions', search.regions.map((r, j) => (j === i ? { ...r, polygon: undefined } : r)))}>
-                    Remove drawing
-                  </Button>
-                ) : null}
-                <IconButton icon="trash" label={`Remove area ${region.name}`} onClick={() => set('regions', search.regions.filter((_, j) => j !== i))} />
-              </div>
-            </li>
-          ))}
-        </ul>
-        <div className="card-foot">
-          <Button icon="plus" size="sm" onClick={() => set('regions', [...search.regions, { name: `Area ${search.regions.length + 1}`, municipalities: [], postcodes: [] }])}>
-            Add area
-          </Button>
-          <p className="field-hint">Or draw a polygon or rectangle on the map. Each drawing becomes an area.</p>
-        </div>
         <Suspense fallback={<Loading label="Loading the map" />}>
           <RegionMap
             label="Search areas on the map"
@@ -228,6 +175,70 @@ function SearchForm({ search, onChange, onRemove }: { search: NamedSearch; onCha
             }
           />
         </Suspense>
+        <p className="field-hint">Draw a polygon or a rectangle with the tools on the map; each drawing becomes an area. Or name municipalities and postcode ranges below.</p>
+        <div className="region-table" role="table" aria-label="Areas">
+          <div className="region-head" role="row">
+            <span role="columnheader">Area</span>
+            <span role="columnheader">Municipalities</span>
+            <span role="columnheader">Postcode ranges</span>
+            <span role="columnheader">
+              <span className="sr-only">Drawing and remove</span>
+            </span>
+          </div>
+          {search.regions.map((region, i) => (
+            <div key={`${i}-${search.regions.length}`} className="region-line" role="row">
+              <span role="cell">
+                <input
+                  className="input"
+                  aria-label={`Name of area ${i + 1}`}
+                  value={region.name}
+                  onChange={(e) => {
+                    const v = e.currentTarget.value;
+                    set('regions', search.regions.map((r, j) => (j === i ? { ...r, name: v } : r)));
+                  }}
+                />
+              </span>
+              <span role="cell">
+                <input
+                  className="input"
+                  aria-label={`Municipalities in ${region.name}, comma separated`}
+                  placeholder="Delft, Rijswijk"
+                  defaultValue={region.municipalities.join(', ')}
+                  onBlur={(e) => {
+                    const v = splitList(e.currentTarget.value);
+                    set('regions', search.regions.map((r, j) => (j === i ? { ...r, municipalities: v } : r)));
+                  }}
+                />
+              </span>
+              <span role="cell">
+                <input
+                  className="input mono"
+                  aria-label={`Postcode ranges in ${region.name}, for example 2611-2629`}
+                  placeholder="2611-2629"
+                  defaultValue={region.postcodes.join(', ')}
+                  onBlur={(e) => {
+                    const v = splitList(e.currentTarget.value).filter((x) => /^\d{4}(-\d{4})?$/.test(x));
+                    set('regions', search.regions.map((r, j) => (j === i ? { ...r, postcodes: v } : r)));
+                  }}
+                />
+              </span>
+              <span role="cell" className="region-tools">
+                {region.polygon?.length ? (
+                  <Button size="sm" variant="ghost" title="Remove the drawn outline" onClick={() => set('regions', search.regions.map((r, j) => (j === i ? { ...r, polygon: undefined } : r)))}>
+                    Drawn, {region.polygon.length} points
+                    <Icon name="close" size={12} />
+                  </Button>
+                ) : null}
+                <IconButton icon="trash" label={`Remove area ${region.name}`} onClick={() => set('regions', search.regions.filter((_, j) => j !== i))} />
+              </span>
+            </div>
+          ))}
+        </div>
+        <div className="card-foot">
+          <Button icon="plus" size="sm" onClick={() => set('regions', [...search.regions, { name: `Area ${search.regions.length + 1}`, municipalities: [], postcodes: [] }])}>
+            Add area
+          </Button>
+        </div>
       </Card>
 
       <Card label="Rent and size">

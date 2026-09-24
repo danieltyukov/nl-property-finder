@@ -44,6 +44,6 @@ export function lastAction(view: PropertyView): string {
   }
   if (match?.scam.level === 'likely') return `Not contacted: ${match.scam.signals.length} scam signals`;
   if (match && !match.passed) return `Skipped: ${match.failedRule ?? 'did not pass the filters'}`;
-  if (match) return 'Matched; the source is watch only';
+  if (match) return 'Matched, not contacted yet';
   return 'Being evaluated';
 }

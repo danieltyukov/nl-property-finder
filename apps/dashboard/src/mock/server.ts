@@ -108,7 +108,7 @@ function simulate() {
   }, 1500);
 
   // Now and then a landlord answers, which opens an inbox item.
-  if (tick % 5 === 3) {
+  if (tick % 5 === 3 && world.tasks.filter((t) => t.id.startsWith('t_live_') && t.state === 'open').length < 2) {
     setTimeout(() => {
       const target = world.properties.find((p) => p.application?.status === 'contacted' && p.property.id !== id);
       if (!target) return;
