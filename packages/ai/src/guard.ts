@@ -1,4 +1,4 @@
-import type { ClassifyOutput, ComposeOutput, ContractReview, ExtractOutput, Profile, ProposedSlot, ReplyOutput, Requirements } from '@nlpf/core';
+import { fromAmsterdam, type ClassifyOutput, type ComposeOutput, type ContractReview, type ExtractOutput, type Profile, type ProposedSlot, type ReplyOutput, type Requirements } from '@nlpf/core';
 import { cleanCopy, dropPaymentPromises, fitToLength, scrubDeep, scrubSensitive } from './text.js';
 
 /**
@@ -48,13 +48,33 @@ export function finaliseMessage<T extends ComposeOutput | ReplyOutput>(out: T, c
   return result;
 }
 
+const LOCAL_ISO = /^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2})(?::\d{2}(?:\.\d+)?)?)?$/;
+
+/**
+ * An instant from a model's ISO string. A time without a zone is Amsterdam
+ * wall-clock time (never the host's zone); a date without a time is
+ * `dateOnlyAt` on that day. `local` tells whether the string had no zone.
+ */
+export function parseInstant(value: string, dateOnlyAt: [number, number] = [12, 0]): { date: Date; local: boolean; dateOnly: boolean } | undefined {
+  const v = value.trim();
+  const m = LOCAL_ISO.exec(v);
+  if (m) {
+    const dateOnly = m[4] === undefined;
+    const [h, mi] = dateOnly ? dateOnlyAt : [Number(m[4]), Number(m[5])];
+    const date = fromAmsterdam(Number(m[1]), Number(m[2]), Number(m[3]), h, mi);
+    return Number.isNaN(date.getTime()) ? undefined : { date, local: true, dateOnly };
+  }
+  const date = new Date(v);
+  return Number.isNaN(date.getTime()) ? undefined : { date, local: false, dateOnly: false };
+}
+
 function saneSlot(s: ProposedSlot): ProposedSlot | undefined {
-  const start = new Date(s.start);
-  if (Number.isNaN(start.getTime())) return undefined;
-  const slot: ProposedSlot = { start: start.toISOString(), text: clean(s.text).slice(0, 200), certain: Boolean(s.certain) };
+  const start = parseInstant(s.start);
+  if (!start) return undefined;
+  const slot: ProposedSlot = { start: start.date.toISOString(), text: clean(s.text).slice(0, 200), certain: Boolean(s.certain) && !start.dateOnly };
   if (s.end) {
-    const end = new Date(s.end);
-    if (!Number.isNaN(end.getTime()) && end > start) slot.end = end.toISOString();
+    const end = parseInstant(s.end);
+    if (end && !end.dateOnly && end.date > start.date) slot.end = end.date.toISOString();
   }
   return slot;
 }
@@ -68,7 +88,8 @@ export function finaliseClassify(out: ClassifyOutput): ClassifyOutput {
     documents: [...new Set(out.documents.map((d) => d.trim().toLowerCase()).filter(Boolean))].slice(0, 12),
     summary: clean(out.summary),
   };
-  if (out.deadline && !Number.isNaN(new Date(out.deadline).getTime())) result.deadline = new Date(out.deadline).toISOString();
+  const deadline = out.deadline ? parseInstant(out.deadline, [23, 59]) : undefined;
+  if (deadline) result.deadline = deadline.date.toISOString();
   const address = out.addressMention ? clean(out.addressMention) : '';
   if (address) result.addressMention = address.slice(0, 120);
   return result;

@@ -8,11 +8,15 @@ type Weighted = [RegExp, number];
 
 /* ---------- phrase lists (matched against lowercased text without accents) ---------- */
 
+const HOME = '(?:woning|kamer|studio|appartement|huis|pand|object|home|room|apartment|flat|house|property|place)';
 const LISTING_GONE: Weighted[] = [
-  [/\b(?:is|zijn|werd|wordt|al|reeds|inmiddels|intussen)\s+(?:al\s+|reeds\s+|inmiddels\s+)?(?:verhuurd|vergeven|weg)\b/, 3],
-  [/\bniet\s+(?:meer\s+)?beschikbaar\b/, 3],
+  // "al verhuurd", "is inmiddels vergeven", "is verhuurd." but never "wordt verhuurd voor onbepaalde tijd"
+  [/\b(?:al|reeds|inmiddels|intussen)\s+(?:verhuurd|vergeven|weg)\b/, 3],
+  [/\b(?:is|zijn|werd)\s+(?:helaas\s+)?(?:verhuurd|vergeven)\b(?!\s+(?:voor|per|aan|tot|vanaf|met|onder|for|to))/, 3],
+  [/\bniet\s+(?:meer|langer)\s+beschikbaar\b/, 3],
+  [new RegExp(String.raw`\b${HOME}\s+(?:is|zijn)\s+(?:helaas\s+)?niet\s+beschikbaar\b`), 3],
   [/\bno longer (?:available|on the market)\b/, 3],
-  [/\b(?:already|has been|have been|is)\s+(?:been\s+)?(?:rented|let|taken|leased)(?:\s+out)?\b/, 3],
+  [/\b(?:already\s+(?:been\s+)?|(?:has|have)\s+(?:already\s+)?been\s+)(?:rented|let|taken|leased)(?:\s+out)?\b(?!\s+(?:into|for|to|per|on|by|in|with|over|care|up))/, 3],
   [/\bonder optie\b/, 2],
   [/\boffline (?:gehaald|gezet)\b/, 2],
   [/\b(?:advertentie|listing)\s+(?:is\s+)?(?:verwijderd|removed|closed|gesloten)\b/, 2],
@@ -23,8 +27,9 @@ const LISTING_GONE: Weighted[] = [
 const REJECTION: Weighted[] = [
   [/\bhelaas\b/, 1],
   [/\bunfortunately\b/, 1],
-  [/\b(?:een\s+)?andere\s+(?:kandidaat|huurder|gegadigde|aanvrager)\b/, 3],
-  [/\b(?:other|another)\s+(?:candidate|applicant|tenant)\b/, 3],
+  [/\b(?:gekozen|gegaan|besloten|verhuurd|toegewezen|geselecteerd)\s+(?:voor|aan|met)\s+(?:een\s+)?andere\s+(?:kandidaat|kandidaten|huurder|gegadigde|aanvrager|partij)\b/, 3],
+  [/\bandere\s+(?:kandidaat|huurder|gegadigde|aanvrager|partij)\b[^.?!\n]{0,30}\b(?:gekozen|geselecteerd|toegewezen)\b/, 3],
+  [/\b(?:chose|chosen|selected|gone with|went with|decided on|opted for|picked|given to|gone to|rented to|proceed with|proceeding with)\s+(?:an?\s+|the\s+)?(?:other|another|different)\s+(?:candidate|applicant|tenant|party)\b/, 3],
   [/\bniet\s+(?:in aanmerking|geselecteerd|gekozen|uitgenodigd)\b/, 3],
   [/\bnot\s+(?:been\s+)?(?:selected|eligible|chosen|shortlisted|invited)\b/, 3],
   [/\bafgewezen\b/, 3],
@@ -171,6 +176,35 @@ const PRIORITY: Intent[] = [
 
 const score = (t: string, table: Weighted[]) => table.reduce((s, [re, w]) => (re.test(t) ? s + w : s), 0);
 
+/** "Als u niet geselecteerd wordt", "if you have not been selected": conditions, not decisions. */
+const CONDITIONAL = /(?:^|[,;:])\s*als\b|\bals\s+(?:u|je|jij|wij|we|er|het|uw|jouw)\b|\b(?:indien|mocht|mochten|zodra|tenzij|wordt u|word je|if|should|in case|unless)\b/;
+
+const NEGATION = /\b(?:niet|geen|not|no|never|nooit)\b/;
+
+/**
+ * Like `score`, but a match only counts when the start of its sentence does
+ * not pass `skip`. Used to ignore conditions ("als u niet geselecteerd
+ * wordt") that read like decisions.
+ */
+function scoreWhere(t: string, table: Weighted[], skip: (sentenceStart: string) => boolean): number {
+  let total = 0;
+  for (const [re, w] of table) {
+    const global = new RegExp(re.source, re.flags.includes('g') ? re.flags : `${re.flags}g`);
+    for (const m of t.matchAll(global)) {
+      const before = t.slice(0, m.index);
+      const start = Math.max(before.lastIndexOf('. '), before.lastIndexOf('? '), before.lastIndexOf('! '), before.lastIndexOf('\n')) + 1;
+      if (!skip(before.slice(start))) {
+        total += w;
+        break;
+      }
+    }
+  }
+  return total;
+}
+const unconditional = (prefix: string) => CONDITIONAL.test(prefix);
+/** "Wordt u niet uitgenodigd voor een bezichtiging, dan..." mentions a viewing without offering one. */
+const conditionalNegation = (prefix: string) => CONDITIONAL.test(prefix) && NEGATION.test(prefix);
+
 /* ---------- helpers ---------- */
 
 /** Cuts the quoted history below a reply ("Op ... schreef", "On ... wrote", "> ..."), unless nothing would be left. */
@@ -313,7 +347,8 @@ const SCAM_WHY: [RegExp, string, string][] = [
 /* ---------- operation ---------- */
 
 export function rulesClassify(input: ClassifyInput, summaryLang: Lang): ClassifyOutput {
-  const now = new Date(input.now);
+  const parsedNow = new Date(input.now);
+  const now = Number.isNaN(parsedNow.getTime()) ? new Date() : parsedNow;
   const raw = stripQuoted(input.message.text);
   const t = normalise(raw);
   const subject = normalise(input.message.subject ?? '');
@@ -330,12 +365,12 @@ export function rulesClassify(input: ClassifyInput, summaryLang: Lang): Classify
   }
   if (docs.size > 1) docs.delete('other');
 
-  const viewing = score(t, VIEWING);
+  const viewing = scoreWhere(t, VIEWING, conditionalNegation);
   if (viewing > 0) slots.push(...parseSimpleSlots(raw, now));
 
   const scores: Partial<Record<Intent, number>> = {
-    listing_gone: score(t, LISTING_GONE),
-    rejection: score(t, REJECTION),
+    listing_gone: scoreWhere(t, LISTING_GONE, unconditional),
+    rejection: scoreWhere(t, REJECTION, unconditional),
     documents_request: docScore,
     application_form: score(t, APPLICATION_FORM),
     info_request: score(t, INFO_REQUEST),
@@ -350,6 +385,8 @@ export function rulesClassify(input: ClassifyInput, summaryLang: Lang): Classify
     const choice = SLOT_CHOICE.some((re) => re.test(t)) || slots.length > 1;
     scores[choice ? 'viewing_slots' : 'viewing_invite'] = viewing + (slots.length ? 2 : 0);
   }
+  // Closing an application needs a clear decision, never a lone "helaas".
+  if ((scores.rejection ?? 0) < 3) scores.rejection = 0;
   // A viewing without any time and a document request together: the documents come first.
   if (viewing > 0 && slots.length === 0 && docScore > 0) scores.documents_request = Math.max(docScore, viewing + 1);
   // Alerts and newsletters are weak unless nothing personal is going on.

@@ -23,6 +23,12 @@ function first(t: string, patterns: RegExp[]): RegExpExecArray | undefined {
 }
 const any = (t: string, patterns: RegExp[]) => patterns.some((re) => re.test(t));
 
+const NO_ANSWER = String.raw`(?:nee|neen|niet|geen|no|not allowed|not permitted|niet toegestaan|niet mogelijk|not possible)\b`;
+const YES_ANSWER = String.raw`(?:ja|yes|toegestaan|allowed|mogelijk|possible|bespreekbaar|in overleg|negotiable|welkom|welcome)\b`;
+/** "Huisdieren toegestaan: nee", "Pets allowed: no", "Roken: nee": a field name, an optional "allowed", then the answer. */
+const answered = (subject: string, yes: boolean) =>
+  new RegExp(String.raw`\b${subject}(?:\s+(?:toegestaan|allowed|permitted|mogelijk|possible|welkom|welcome))?\s*[:=]\s*${yes ? YES_ANSWER : NO_ANSWER}`);
+
 /** Negative phrases are checked first, so "geen inschrijving mogelijk" never reads as allowed. */
 function flag(t: string, neg: RegExp[], pos: RegExp[]): boolean | undefined {
   if (any(t, neg)) return false;
@@ -31,6 +37,7 @@ function flag(t: string, neg: RegExp[], pos: RegExp[]): boolean | undefined {
 }
 
 const REGISTRATION_NEG = [
+  answered(String.raw`(?:inschrijven|inschrijving|registration|register)`, false),
   new RegExp(String.raw`${INSCHR}[^.\n]{0,30}?(?:niet|geen)\s+(?:mogelijk|toegestaan|toegelaten|toestaan|allowed)`),
   new RegExp(String.raw`(?:geen|niet)\s+(?:mogelijk\s+(?:om\s+)?)?(?:te\s+)?${INSCHR}`),
   new RegExp(String.raw`zonder\s+${INSCHR}`),
@@ -39,12 +46,14 @@ const REGISTRATION_NEG = [
   /without\s+(?:a\s+)?registration/,
 ];
 const REGISTRATION_POS = [
+  answered(String.raw`(?:inschrijven|inschrijving|registration|register)`, true),
   new RegExp(String.raw`${INSCHR}[^.\n]{0,25}?(?:is\s+)?(?:mogelijk|toegestaan|allowed)`),
   /registration[^.\n]{0,25}?(?:is\s+)?(?:possible|allowed|permitted)/,
   /(?:you can|possible to|allowed to)\s+register/,
 ];
 
 const STUDENTS_NEG = [
+  answered(String.raw`(?:studenten|students?)`, false),
   /geen\s+student(?:en)?\b/,
   /(?:niet|not)\s+(?:geschikt\s+|suitable\s+)?(?:voor\s+|for\s+)student(?:en|s)?\b/,
   /studenten\s+(?:zijn\s+)?niet\s+(?:toegestaan|welkom|gewenst)/,
@@ -55,6 +64,7 @@ const STUDENTS_NEG = [
   /professionals\s+only/,
 ];
 const STUDENTS_POS = [
+  answered(String.raw`(?:studenten|students?)`, true),
   /studenten\s+(?:zijn\s+)?(?:welkom|toegestaan)/,
   /(?:only|alleen)\s+(?:for\s+|voor\s+)?(?:students|studenten)/,
   /(?:geschikt|ook)\s+voor\s+studenten/,
@@ -64,6 +74,7 @@ const STUDENTS_POS = [
 ];
 
 const SHARING_NEG = [
+  answered(String.raw`(?:woningdelers|delers|woningdelen|sharers|sharing|house\s*sharing)`, false),
   /(?:geen|niet\s+(?:geschikt\s+)?voor)\s+(?:woning)?delers/,
   /(?:woning)?delers\s+(?:zijn\s+)?niet\s+(?:toegestaan|welkom|mogelijk)/,
   /woningdelen\s+(?:is\s+)?niet\s+(?:toegestaan|mogelijk)/,
@@ -72,6 +83,7 @@ const SHARING_NEG = [
   /sharing\s+(?:is\s+)?not\s+(?:allowed|possible)/,
 ];
 const SHARING_POS = [
+  answered(String.raw`(?:woningdelers|delers|woningdelen|sharers|sharing|house\s*sharing)`, true),
   /(?:woning)?delers\s+(?:zijn\s+)?(?:welkom|toegestaan)/,
   /geschikt\s+voor\s+(?:2\s+|twee\s+)?(?:woning)?delers/,
   /sharers\s+(?:are\s+)?(?:welcome|allowed)/,
@@ -81,14 +93,14 @@ const SHARING_POS = [
 
 const PETS_NEG = [
   /geen\s+(?:huisdieren|honden|katten)/,
-  /(?:huisdieren|pets)\s*:\s*(?:nee|niet|geen|no|not allowed|niet toegestaan)\b/,
+  answered(String.raw`(?:huisdieren|huisdier|pets?)`, false),
   /huisdieren\s+(?:zijn\s+)?niet\s+(?:toegestaan|toegelaten|welkom|mogelijk)/,
   /\bno\s+pets\b/,
   /pets\s+(?:are\s+)?not\s+(?:allowed|permitted|accepted)/,
   /huisdiervrij/,
 ];
 const PETS_POS = [
-  /(?:huisdieren|pets)\s*:\s*(?:ja|yes|toegestaan|allowed|bespreekbaar|in overleg|negotiable)\b/,
+  answered(String.raw`(?:huisdieren|huisdier|pets?)`, true),
   /huisdier(?:en)?\s+(?:zijn\s+|is\s+)?(?:toegestaan|welkom|bespreekbaar|in\s+overleg|mogelijk)/,
   /pets?\s+(?:are\s+|is\s+)?(?:allowed|welcome|negotiable|permitted|on\s+request)/,
   /pet[- ]friendly/,
@@ -96,15 +108,16 @@ const PETS_POS = [
 
 const SMOKING_NEG = [
   /niet[- ]roken/, /rookvrij/, /niet[- ]?rokers?/, /geen\s+rokers/,
-  /(?:roken|smoking)\s*:\s*(?:nee|niet|no|not allowed|niet toegestaan)\b/,
+  answered(String.raw`(?:roken|smoking|rokers|smokers)`, false),
   /niet\s+geschikt\s+voor\s+rokers|not\s+suitable\s+for\s+smokers/,
   /roken\s+(?:is\s+)?niet\s+(?:toegestaan|toegelaten)/,
   /\bno\s+smok(?:ing|ers)/, /non[- ]?smok(?:ing|ers?)/,
   /smoking\s+(?:is\s+)?not\s+(?:allowed|permitted)/, /smoke[- ]free/,
 ];
-const SMOKING_POS = [/(?:roken|smoking)\s*:\s*(?:ja|yes|toegestaan|allowed)\b/, /roken\s+(?:is\s+)?(?:toegestaan|mag)/, /rokers\s+(?:zijn\s+)?welkom/, /smoking\s+(?:is\s+)?allowed/, /smokers\s+welcome/];
+const SMOKING_POS = [answered(String.raw`(?:roken|smoking|rokers|smokers)`, true), /roken\s+(?:is\s+)?(?:toegestaan|mag)/, /rokers\s+(?:zijn\s+)?welkom/, /smoking\s+(?:is\s+)?allowed/, /smokers\s+welcome/];
 
 const GUARANTOR_NEG = [
+  answered(String.raw`(?:garantsteller|guarantor)`, false),
   /geen\s+garantsteller/,
   /garantsteller(?:s)?\s+(?:is\s+|zijn\s+)?niet\s+(?:mogelijk|toegestaan|geaccepteerd)/,
   /\bno\s+guarantors?/,
@@ -254,7 +267,7 @@ function listingNotes(t: string): string[] {
   if (/\bloting\b|wordt verloot|lottery|by lot\b/.test(t)) notes.push('lottery');
   if (/wie het eerst komt|first come,? first serve/.test(t)) notes.push('first_come_first_served');
   if (/diplomatenclausule|diplomat(?:ic)? clause/.test(t)) notes.push('diplomat_clause');
-  if (/(?<!geen\s)(?<!no\s)(?:bemiddelingskosten|makelaarskosten|agency fee|mediation fee)/.test(t)) notes.push('mediation_fee');
+  if (/(?<!geen\s)(?<!no\s)(?:bemiddelingskosten|makelaarskosten|agency fee|mediation fee)(?!\s*[:=]?\s*(?:geen|nee|none|no|n\.?v\.?t|0\b|eur\s*0\b|€\s*0\b))/.test(t)) notes.push('mediation_fee');
   if (/hospiteeravond|hospiteren/.test(t)) notes.push('hospiteren');
   if (/leegstandswet|leegstandsvergunning/.test(t)) notes.push('vacancy_act');
   if (/sleutelgeld|key money/.test(t)) notes.push('key_money');
@@ -274,7 +287,10 @@ export function scamSignalsFromText(text: string, listing?: Pick<Listing, 'addre
   if (/(?:currently|momenteel|at the moment|ik woon|i live|i am|i'm|ik ben|ik zit|werk(?:zaam)?)[^.\n]{0,30}(?:abroad|buitenland|out of the country|overseas)/.test(t) || ABROAD.test(t)) out.push('landlord_abroad');
   if (/(?:keys?|sleutels?)[^.\n]{0,40}(?:\bpost\b|per post|by mail|courier|koerier|opsturen|toesturen|verzenden|\bsend\b|\bmail\b)/.test(t) || /(?:post|send|mail|stuur|sturen)[^.\n]{0,20}(?:the\s+|de\s+)?(?:keys|sleutels?)/.test(t)) out.push('keys_by_post');
   if (/(?:only|alleen|uitsluitend|enkel)[^.\n]{0,20}whats ?app|whats ?app[^.\n]{0,20}(?:only|alleen)/.test(t)) out.push('whatsapp_only');
-  if (/(?:contact|mail|e-?mail|mailen|app|bel|call|text|reach)[^.\n]{0,30}(?:directly|direct|rechtstreeks|prive|private|personal)|[a-z0-9._-]+@(?:gmail|hotmail|outlook|yahoo|live|icloud)\.[a-z]+/.test(t)) out.push('off_platform_contact');
+  if (
+    /\b(?:contact|contacteer|mail|e-?mail|mailen|app|appen|bel|bellen|call|text|reach|stuur|send)\b(?:\s+(?:me|mij|us|ons))?[^.\n]{0,30}\b(?:directly|rechtstreeks|prive|private|personal|persoonlijk|buiten (?:het|dit) platform|outside (?:the|this) (?:platform|site|website))\b/.test(t) ||
+    /[a-z0-9._-]+@(?:gmail|hotmail|outlook|yahoo|live|icloud|protonmail|proton|gmx|aol)\.[a-z]+/.test(t)
+  ) out.push('off_platform_contact');
   if (/western union|moneygram|bitcoin|crypto|gift ?card/.test(t) && !out.includes('payment_before_viewing')) out.push('payment_before_viewing');
   if (INJECTION.test(t)) out.push('prompt_injection');
   if (listing && !listing.address.street && !listing.address.postcode) out.push('no_address');

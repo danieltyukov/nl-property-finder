@@ -32,7 +32,8 @@ Also return:
 - summary: one plain sentence for the person saying what the message asks, in the summary language.`;
 
 export function classifyRequest(input: ClassifyInput, summaryLang: Lang): string {
-  const parts = [nowLine(new Date(input.now)), `Summary language: ${languageName(summaryLang)}.`];
+  const at = new Date(input.now);
+  const parts = [nowLine(Number.isNaN(at.getTime()) ? new Date() : at), `Summary language: ${languageName(summaryLang)}.`];
   if (input.property) parts.push(`The tool matched this message to the following home.\n${dataBlock('listing', describeProperty(input.property))}`);
   if (input.lastOutbound) parts.push(`The person's last message in this conversation, for context:\n<our_last_message>\n${neutraliseTags(input.lastOutbound.body.trim())}\n</our_last_message>`);
   parts.push(dataBlock('message', describeMessage(input.message)));

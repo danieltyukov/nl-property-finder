@@ -18,14 +18,18 @@ export function parseAmount(s: string): number {
   return Number(x.replace(',', '.'));
 }
 
-/** True when a negation ("geen", "zonder", "no", "without") comes shortly before the match at `index`. */
-function negated(t: string, index: number): boolean {
-  return /\b(?:geen|zonder|niet|no|without|not)\b[^.;\n]{0,25}$/.test(t.slice(Math.max(0, index - 40), index));
+/**
+ * True when a negation comes shortly before the match ("geen bemiddelingskosten",
+ * "without agency fee") or right after it ("bemiddelingskosten: geen", "agency fee: none").
+ */
+function negated(t: string, index: number, end: number): boolean {
+  if (/\b(?:geen|zonder|niet|no|without|not)\b[^.;\n]{0,25}$/.test(t.slice(Math.max(0, index - 40), index))) return true;
+  return /^\s*[:=]?\s*(?:geen|nee|none|no|nil|n\.?v\.?t\.?|niet van toepassing|not applicable|n\/a|0\b|eur\s*0\b|\u20ac\s*0\b)/.test(t.slice(end, end + 30));
 }
 
 function firstUnnegated(t: string, re: RegExp): RegExpMatchArray | undefined {
   const global = new RegExp(re.source, re.flags.includes('g') ? re.flags : `${re.flags}g`);
-  for (const m of t.matchAll(global)) if (!negated(t, m.index ?? 0)) return m;
+  for (const m of t.matchAll(global)) if (!negated(t, m.index ?? 0, (m.index ?? 0) + m[0].length)) return m;
   return undefined;
 }
 
@@ -52,7 +56,9 @@ export function reviewContractRules(input: ContractReviewRequest): ContractRevie
 
   /* deposit: at most twice the base rent (Wet goed verhuurderschap, 1 July 2023) */
   const DEPOSIT = String.raw`(?:waarborgsom|borgsom|borg|security deposit|deposit)`;
-  const months = new RegExp(String.raw`${DEPOSIT}[^.;\n]{0,60}?${COUNT}\s*(?:x\s*)?(?:maanden|maand|months?|maal|keer|x)\b`).exec(t);
+  // "binnen 3 maanden terugbetaald" is a refund period, not the size of the deposit.
+  const monthsMatch = new RegExp(String.raw`${DEPOSIT}([^.;\n]{0,60}?)${COUNT}\s*(?:x\s*)?(?:maanden|maand|months?|maal|keer|x)\b`).exec(t);
+  const months = monthsMatch && !/\b(?:binnen|within|na|after|uiterlijk|terug\w*|refund\w*|return\w*)\s*$/.test(monthsMatch[1] ?? '') ? [monthsMatch[0], monthsMatch[2]] : undefined;
   const amount = new RegExp(String.raw`${DEPOSIT}[^.;\n]{0,40}?(?:€|eur|euro)\s*(\d{1,3}(?:[.,]\d{3})+(?:,\d{1,2})?|\d+(?:[.,]\d{1,2})?)`).exec(t);
   if (months && count(months[1]) > 2) {
     const n = count(months[1]);

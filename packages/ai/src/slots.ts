@@ -54,13 +54,16 @@ const WEEKDAY_FULL_RE = alt(Object.keys(WEEKDAY_FULL));
 const WEEKDAY_ABBR_RE = alt(Object.keys(WEEKDAY_ABBR));
 const NUMBER_WORD_RE = alt(Object.keys(NUMBER_WORDS));
 
-const DEADLINE_BEFORE = /(?:\bvoor|\bvóór|\buiterlijk|\bbefore|\bno later than|\bdeadline|\breageer|\breageren)[\s:]*(?:op\s+|on\s+)?$/;
+// Plain "voor" is left out: "uitnodigen voor donderdag" is a viewing, not a deadline.
+const DEADLINE_BEFORE =
+  /(?:vóór|\buiterlijk|\bbefore|\bno later than|\bdeadline|\b(?:reageer|reageren|reactie|antwoord|antwoorden|laat(?:\s+(?:het|u|je))?\s+weten|sturen|opsturen|toesturen|aanleveren|respond|reply|let (?:us|me) know)\s+(?:graag\s+|dan\s+)?(?:voor|vóór|by|before))[\s:]*(?:op\s+|on\s+)?$/;
 
 export function parseSimpleSlots(text: string, now: Date): ProposedSlot[] {
+  if (Number.isNaN(now.getTime())) return [];
   const lower = text.toLowerCase();
   const src = lower.length === text.length ? text : lower;
   const dates = findDates(lower);
-  const times = findTimes(lower);
+  const times = findTimes(lower, src);
 
   const today = amsterdam(now);
   const todayUtc = Date.UTC(today.y, today.m - 1, today.d);
@@ -68,8 +71,10 @@ export function parseSimpleSlots(text: string, now: Date): ProposedSlot[] {
   const used = new Set<DateTok>();
 
   for (const t of times) {
-    const before = [...dates].reverse().find((a) => a.end <= t.start && t.start - a.end <= 60 && !lower.slice(a.end, t.start).includes('\n\n'));
-    const after = before ? undefined : dates.find((a) => a.start >= t.end && a.start - t.end <= 30);
+    // A day and a time belong together only within one sentence.
+    const sameSentence = (from: number, to: number) => !/[.!?](?:\s|$)|\n\s*\n/.test(lower.slice(from, to));
+    const before = [...dates].reverse().find((a) => a.end <= t.start && t.start - a.end <= 60 && sameSentence(a.end, t.start));
+    const after = before ? undefined : dates.find((a) => a.start >= t.end && a.start - t.end <= 30 && sameSentence(t.end, a.start));
     const anchor = before ?? after;
     if (anchor?.deadline) continue;           // "reageer voor vrijdag 12:00" is a deadline, not a viewing
     if (anchor) used.add(anchor);
@@ -215,19 +220,22 @@ function findDates(s: string): DateTok[] {
 
 /* ---------- times ---------- */
 
+const MORNING_BEFORE = /(?:ochtend|'s\s*morgens|’s\s*morgens|in the morning|\bmorning)[^.\n]{0,15}$/;
+const EVENING_BEFORE = /(?:avond|middag|evening|afternoon|tonight)[^.\n]{0,15}$/;
 const EVENING_AFTER = /^[\s,]*(?:uur\s*)?(?:'s\s*avonds|’s\s*avonds|'s\s*middags|’s\s*middags|in the (?:evening|afternoon)|p\.?m\.?\b)/;
 const MORNING_AFTER = /^[\s,]*(?:uur\s*)?(?:'s\s*ochtends|’s\s*ochtends|'s\s*morgens|’s\s*morgens|in the morning|a\.?m\.?\b)/;
 const NOT_A_TIME_BEFORE = /(?:€|\beur|\beuro|\bbinnen|\bwithin|\bover|\bna|\bafter|\bnr\.?|\bnummer|\bnumber|\bhuisnummer)\s*$/;
 
-function findTimes(s: string): TimeTok[] {
+function findTimes(s: string, original: string): TimeTok[] {
   const toks: TimeTok[] = [];
   const add = (start: number, end: number, h: number, mi: number, eh?: number, emi?: number, meridiem?: 'am' | 'pm', clock24 = false) => {
     if (toks.some((o) => start < o.end && o.start < end)) return;
     if (NOT_A_TIME_BEFORE.test(s.slice(Math.max(0, start - 12), start))) return;
     if (h > 23 || mi > 59 || (eh !== undefined && (eh > 23 || (emi ?? 0) > 59))) return;
     const after = s.slice(end, end + 25);
-    const pm = meridiem === 'pm' || (!meridiem && EVENING_AFTER.test(after));
-    const am = meridiem === 'am' || (!meridiem && MORNING_AFTER.test(after));
+    const before = s.slice(Math.max(0, start - 30), start);
+    const pm = meridiem === 'pm' || (!meridiem && (EVENING_AFTER.test(after) || EVENING_BEFORE.test(before)));
+    const am = meridiem === 'am' || (!meridiem && !pm && (MORNING_AFTER.test(after) || MORNING_BEFORE.test(before)));
     // Without am, pm or a part of the day, 1 to 7 o'clock means the evening: nobody books a viewing at 6 in the morning.
     // A leading zero ("02:30") is a 24-hour clock and stays as written.
     const adjust = (x: number) => (pm && x < 12 ? x + 12 : am ? (x === 12 ? 0 : x) : !clock24 && x >= 1 && x <= 7 ? x + 12 : x);
@@ -271,9 +279,11 @@ function findTimes(s: string): TimeTok[] {
   for (const m of s.matchAll(new RegExp(String.raw`\b(${NUMBER_WORD_RE})\s+uur\b`, 'g'))) {
     add(m.index, m.index + m[0].length, NUMBER_WORDS[m[1] ?? ''] ?? 0, 0);
   }
-  // "om 6", "at 6"
+  // "om 6", "at 6", but not "at 12 Kerkstraat" (a house number before a street name)
   for (const m of s.matchAll(/\b(?:om|at)\s+(\d{1,2})\b(?![:.,]\d)(?!\s*(?:jaar|maanden|maand|months?|years?|m2|m²|euro|eur|personen|people|kamers|rooms|%|x\b|keer|times))/g)) {
-    add(m.index, m.index + m[0].length, num(m[1]), 0);
+    const end = m.index + m[0].length;
+    if (/^\s*[a-z]?\s+[A-Z]/.test(original.slice(end, end + 4)) || /^[a-z]?\s+[a-z]+(?:straat|weg|laan|gracht|kade|plein|singel|dijk|street|road|avenue|lane)\b/.test(s.slice(end, end + 30))) continue;
+    add(m.index, end, num(m[1]), 0);
   }
 
   return toks.sort((a, b) => a.start - b.start);

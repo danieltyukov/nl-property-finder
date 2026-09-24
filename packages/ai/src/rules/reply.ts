@@ -7,7 +7,7 @@ import { streetLine } from './compose.js';
 
 type Topic = [RegExp, (p: Profile, lang: Lang) => string];
 
-const SENSITIVE_QUESTION = /\b(?:bsn|burgerservice|iban|bank|rekening(?:nummer)?|paspoort|passport|id-?nummer|id number|creditcard|credit card|wachtwoord|password)\b/;
+const SENSITIVE_QUESTION = /\b(?:bsn|burgerservice\w*|sofi\w*|iban|bank\w*|\w*rekening\w*|paspoort\w*|passport|id-?nummer|id number|identiteit\w*|legitimatie\w*|creditcard|credit card|wachtwoord|password|pincode)\b/;
 
 const TOPICS: Topic[] = [
   [/\b(?:werk|werkt|beroep|baan|functie|studie|studeer|studeert|opleiding|occupation|job|work|profession|study|studying|student|employer|werkgever)\b|doet u|do you do/,

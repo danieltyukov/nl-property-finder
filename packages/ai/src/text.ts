@@ -34,8 +34,9 @@ export function isValidBsn(digits: string): boolean {
 }
 
 const IBAN = /\b[A-Z]{2}\d{2}(?:[ ]?[A-Z0-9]{4}){2,7}(?:[ ]?[A-Z0-9]{1,3})?\b/gi;
-const LABELLED_BSN = /\b(?:bsn|burgerservicenummer|sofi(?:nummer)?|citizen service number)\b[\s:#.-]*(?:is\s+|nummer\s+|number\s+)?\d[\d .]{7,12}\d/gi;
-const NINE_DIGITS = /(?<![\d.,])\d{3}[ .]?\d{3}[ .]?\d{3}(?![\d,]|\.\d)/g;
+const LABELLED_BSN = /\b(?:bsn|burgerservicenummer|sofi(?:nummer)?|citizen service number)\b[\s:#.-]*(?:is\s+|nummer\s+|number\s+)?\d[\d .-]{7,12}\d/gi;
+// Nine digits with optional single separators, which covers 123456782, 123 456 782, 123.456.782 and 1234.56.782.
+const NINE_DIGITS = /(?<![\d.,-])\d(?:[ .-]?\d){8}(?![\d,]|[.-]\d)/g;
 const EMAIL = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
 
 export const REMOVED = '[removed]';
@@ -54,7 +55,7 @@ export function scrubSensitive(text: string, opts: ScrubOptions = {}): string {
   return text
     .replace(IBAN, (m) => (looksLikeIban(m) ? REMOVED : m))
     .replace(LABELLED_BSN, REMOVED)
-    .replace(NINE_DIGITS, (m) => (isValidBsn(m.replace(/[ .]/g, '')) ? REMOVED : m))
+    .replace(NINE_DIGITS, (m) => (isValidBsn(m.replace(/[ .-]/g, '')) ? REMOVED : m))
     .replace(EMAIL, (m) => (allowed.has(m.toLowerCase()) ? m : REMOVED));
 }
 
@@ -77,26 +78,27 @@ export function scrubDeep<T>(value: T, opts: ScrubOptions = {}): T {
 const MONEY = String.raw`(?:borg|waarborgsom|deposit|aanbetaling|huur|rent|fee|kosten|reserveringskosten|bedrag|geld|money|payment|betaling|euro|eur|reservering|reservation)`;
 const PAYMENT_PROMISE = new RegExp(
   [
-    // Dutch: "ik betaal", "wij storten", "ik zal het overmaken", "ik maak de borg over"
-    String.raw`\b(?:ik|wij|we)\b[^.!?\n]{0,40}\b(?:betaal|betalen|stort|storten|overmaken|over\s+te\s+maken|voldoe|voldoen)\b`,
+    // Dutch: "ik betaal", "wij storten", "ik zal het overmaken", "ik kan de borg vooruitbetalen", "ik maak de borg over"
+    // ("voldoen" is left out: "ik voldoe aan de inkomenseis" is not a payment)
+    String.raw`\b(?:ik|wij|we)\b[^.!?\n]{0,40}(?:betaal|betalen|stort|storten|overmaken|over\s+te\s+maken)\b`,
     String.raw`\b(?:ik|wij|we)\b[^.!?\n]{0,10}\b(?:maak|maken)\b[^.!?\n]{0,30}\b${MONEY}\b[^.!?\n]{0,20}\bover\b`,
     // English: "I will pay", "I'll transfer", "we can wire"
-    String.raw`\b(?:i|we)\b(?:'ll|\s+will|\s+can|\s+shall|\s+am\s+happy\s+to|\s+would)?[^.!?\n]{0,20}\b(?:pay|transfer|wire|send\s+(?:the\s+)?(?:money|deposit|payment))\b`,
+    String.raw`\b(?:i|we)\b(?:'ll|\s+will|\s+can|\s+shall|\s+am\s+happy\s+to|\s+would)?[^.!?\n]{0,20}\b(?:pay|prepay|transfer|wire|make\s+(?:the\s+|a\s+)?payment|send\b[^.!?\n]{0,15}\b${MONEY})\b`,
   ].join('|'),
   'i',
 );
-const MONEY_WORD = new RegExp(String.raw`\b${MONEY}\b|€`, 'i');
-
 /**
- * Drops sentences in which the person would promise a payment. Payments are
- * always a human decision, whatever a model or template produced.
+ * Drops sentences in which the person would promise a payment ("I will
+ * transfer it today", "ik maak de borg over"). Payments are always a human
+ * decision, whatever a model or template produced. It errs on the side of
+ * removing a sentence such as "ik kan de huur betalen".
  */
 export function dropPaymentPromises(text: string): string {
   return text
     .split('\n')
     .map((line) => {
       const sentences = line.match(/[^.!?]+[.!?]*\s*/g) ?? [line];
-      return sentences.filter((s) => !(PAYMENT_PROMISE.test(s) && MONEY_WORD.test(s))).join('').trimEnd();
+      return sentences.filter((s) => !PAYMENT_PROMISE.test(s)).join('').trimEnd();
     })
     .join('\n')
     .trim();
@@ -104,7 +106,7 @@ export function dropPaymentPromises(text: string): string {
 
 /* ---------- prompt data blocks ---------- */
 
-const DATA_TAGS = /<(\/?)\s*(listing|message|contract|profile|search|template|our_last_message)\b/gi;
+const DATA_TAGS = /<\s*(\/?)\s*(listing|message|contract|profile|search|template|our_last_message)\b/gi;
 
 /** Escapes tags inside untrusted text so it cannot close or open one of our data blocks. */
 export function neutraliseTags(text: string): string {
