@@ -1,0 +1,27 @@
+{
+  "ci": {
+    "collect": {
+      "startServerCommand": "npx vite preview --port 4180 --strictPort",
+      "startServerReadyPattern": "Local",
+      "url": ["http://localhost:4180/nl-property-finder/"],
+      "numberOfRuns": 3,
+      "settings": {
+        "preset": "desktop",
+        "onlyCategories": ["performance", "accessibility", "best-practices", "seo"]
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["error", { "minScore": 0.95 }],
+        "categories:accessibility": ["error", { "minScore": 0.95 }],
+        "largest-contentful-paint": ["error", { "maxNumericValue": 1500 }],
+        "cumulative-layout-shift": ["error", { "maxNumericValue": 0.02 }],
+        "total-blocking-time": ["warn", { "maxNumericValue": 150 }]
+      }
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": ".lighthouseci"
+    }
+  }
+}
