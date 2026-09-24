@@ -1,0 +1,14 @@
+{
+  "recordedAt": "2026-09-24",
+  "note": "Responses recorded with one gentle live request each for Oude Delft 12 and 12A in Delft. EP-Online needs a free API key that was not available, so its label response is synthetic (built from the PandEnergielabelV5 schema in https://public.ep-online.nl/swagger/v5/swagger.json) and only its 401 body is recorded.",
+  "responses": {
+    "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Oude%20Delft%2012A%20Delft&fq=type:adres&rows=1": "pdok/oude-delft-12a-delft.json",
+    "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Oude%20Delft%2012%20Delft&fq=type:adres&rows=1": "pdok/oude-delft-12-delft.json",
+    "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Oude%20Delft%2012%202611BC%20Delft&fq=type:adres&rows=1": "pdok/oude-delft-12-2611bc-delft.json",
+    "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Nergensstraat%20999%20Delft&fq=type:adres&rows=1": "pdok/nergensstraat-999-delft.json",
+    "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items?identificatie=0503010000003325&f=json": "bag/verblijfsobject-0503010000003325.json",
+    "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items/dac5ca1c-de71-5177-b52c-05abcadb4bbd?f=json": "bag/pand-dac5ca1c-de71-5177-b52c-05abcadb4bbd.json",
+    "https://api.kadaster.nl/lvwoz/wozwaardeloket-api/v1/wozwaarde/nummeraanduiding/0503200000040028": "woz/nummeraanduiding-0503200000040028.json",
+    "https://public.ep-online.nl/api/v5/PandEnergielabel/AdresseerbaarObject/0503010000003325": "ep-online/adresseerbaarobject-0503010000003325.synthetic.json"
+  }
+}

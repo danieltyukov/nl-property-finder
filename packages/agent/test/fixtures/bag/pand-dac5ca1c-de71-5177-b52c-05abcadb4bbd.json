@@ -1,0 +1,103 @@
+{
+  "type": "Feature",
+  "properties": {
+    "aantal_verblijfsobjecten": 1,
+    "bouwjaar": 1884,
+    "documentdatum": "2025-09-04",
+    "documentnummer": "6270925",
+    "gebruiksdoel": "woonfunctie",
+    "geconstateerd": "N",
+    "identificatie": "0503100000013952",
+    "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/pand/0503100000013952",
+    "status": "Pand in gebruik",
+    "verblijfsobject.href": [
+      "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/d0890a76-e0d7-5424-9683-5c7f6d6f7e36"
+    ]
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          4.359053229939126,
+          52.00813782703133
+        ],
+        [
+          4.359048517204017,
+          52.00814452743626
+        ],
+        [
+          4.35906743201469,
+          52.008149231992164
+        ],
+        [
+          4.359051953817495,
+          52.008171236109284
+        ],
+        [
+          4.359084158057009,
+          52.008181414055265
+        ],
+        [
+          4.35906773411619,
+          52.00820146833999
+        ],
+        [
+          4.359019232489574,
+          52.00818614127827
+        ],
+        [
+          4.359018223596993,
+          52.008187579655846
+        ],
+        [
+          4.3588652684333375,
+          52.008135573703434
+        ],
+        [
+          4.358863255761988,
+          52.00813505274767
+        ],
+        [
+          4.358896983527962,
+          52.00808580135693
+        ],
+        [
+          4.358898996197498,
+          52.008086322312145
+        ],
+        [
+          4.359053229939126,
+          52.00813782703133
+        ]
+      ]
+    ]
+  },
+  "id": "dac5ca1c-de71-5177-b52c-05abcadb4bbd",
+  "links": [
+    {
+      "rel": "self",
+      "title": "This document as GeoJSON",
+      "type": "application/geo+json",
+      "href": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items/dac5ca1c-de71-5177-b52c-05abcadb4bbd?f=json"
+    },
+    {
+      "rel": "alternate",
+      "title": "This document as JSON-FG",
+      "type": "application/vnd.ogc.fg+json",
+      "href": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items/dac5ca1c-de71-5177-b52c-05abcadb4bbd?f=jsonfg"
+    },
+    {
+      "rel": "alternate",
+      "title": "This document as HTML",
+      "type": "text/html",
+      "href": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items/dac5ca1c-de71-5177-b52c-05abcadb4bbd?f=html"
+    },
+    {
+      "rel": "collection",
+      "title": "The collection to which this feature belongs",
+      "type": "application/json",
+      "href": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand?f=json"
+    }
+  ]
+}

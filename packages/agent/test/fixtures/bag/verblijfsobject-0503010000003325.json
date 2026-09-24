@@ -1,0 +1,68 @@
+{
+  "type": "FeatureCollection",
+  "timeStamp": "2026-09-24T09:23:51Z",
+  "links": [
+    {
+      "rel": "self",
+      "title": "This document as GeoJSON",
+      "type": "application/geo+json",
+      "href": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items?f=json&identificatie=0503010000003325"
+    },
+    {
+      "rel": "alternate",
+      "title": "This document as JSON-FG",
+      "type": "application/vnd.ogc.fg+json",
+      "href": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items?f=jsonfg&identificatie=0503010000003325"
+    },
+    {
+      "rel": "alternate",
+      "title": "This document as HTML",
+      "type": "text/html",
+      "href": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items?f=html&identificatie=0503010000003325"
+    }
+  ],
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "bronhouder_identificatie": "0503",
+        "bronhouder_naam": "Delft",
+        "documentdatum": "2019-10-08",
+        "documentnummer": "4066491",
+        "gebruiksdoel": "woonfunctie",
+        "geconstateerd": "N",
+        "hoofdadres_identificatie": "0503200000040028",
+        "hoofdadres_status": "Naamgeving uitgegeven",
+        "huisletter": "A",
+        "huisnummer": 12,
+        "identificatie": "0503010000003325",
+        "openbare_ruimte_identificatie": "0503300000003883",
+        "openbare_ruimte_naam": "Oude Delft",
+        "openbare_ruimte_naam_kort": null,
+        "openbare_ruimte_status": "Naamgeving uitgegeven",
+        "oppervlakte": 294,
+        "pand.href": [
+          "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items/dac5ca1c-de71-5177-b52c-05abcadb4bbd"
+        ],
+        "postcode": "2611CC",
+        "provincie_afkorting": "ZH",
+        "provincie_naam": "Zuid-Holland",
+        "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/verblijfsobject/0503010000003325",
+        "status": "Verblijfsobject in gebruik",
+        "toevoeging": null,
+        "woonplaats_identificatie": "2138",
+        "woonplaats_naam": "Delft",
+        "woonplaats_status": "Woonplaats aangewezen"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.358907154366484,
+          52.00812308572518
+        ]
+      },
+      "id": "d0890a76-e0d7-5424-9683-5c7f6d6f7e36"
+    }
+  ],
+  "numberReturned": 1
+}

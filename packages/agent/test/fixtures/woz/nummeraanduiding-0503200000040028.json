@@ -1,0 +1,81 @@
+{
+  "wozObject": {
+    "wozobjectnummer": 50300024071,
+    "woonplaatsnaam": "Delft",
+    "openbareruimtenaam": "Oude Delft",
+    "straatnaam": "Oude Delft",
+    "postcode": "2611CC",
+    "huisnummer": 12,
+    "huisletter": "A",
+    "huisnummertoevoeging": null,
+    "locatieomschrijving": null,
+    "gemeentecode": 503,
+    "grondoppervlakte": 151,
+    "adresseerbaarobjectid": 503010000003325,
+    "nummeraanduidingid": 503200000040028,
+    "verbondenAdresseerbareObjecten": [
+      503010000003325
+    ],
+    "ontleendeAdresseerbareObjecten": [
+      503010000003325
+    ]
+  },
+  "wozWaarden": [
+    {
+      "peildatum": "2025-01-01",
+      "vastgesteldeWaarde": 1256000
+    },
+    {
+      "peildatum": "2024-01-01",
+      "vastgesteldeWaarde": 1185000
+    },
+    {
+      "peildatum": "2023-01-01",
+      "vastgesteldeWaarde": 1110000
+    },
+    {
+      "peildatum": "2022-01-01",
+      "vastgesteldeWaarde": 1119000
+    },
+    {
+      "peildatum": "2021-01-01",
+      "vastgesteldeWaarde": 1105000
+    },
+    {
+      "peildatum": "2020-01-01",
+      "vastgesteldeWaarde": 1002000
+    },
+    {
+      "peildatum": "2019-01-01",
+      "vastgesteldeWaarde": 955000
+    },
+    {
+      "peildatum": "2018-01-01",
+      "vastgesteldeWaarde": 931000
+    },
+    {
+      "peildatum": "2017-01-01",
+      "vastgesteldeWaarde": 923000
+    },
+    {
+      "peildatum": "2016-01-01",
+      "vastgesteldeWaarde": 668000
+    },
+    {
+      "peildatum": "2015-01-01",
+      "vastgesteldeWaarde": 665000
+    },
+    {
+      "peildatum": "2014-01-01",
+      "vastgesteldeWaarde": 661000
+    }
+  ],
+  "panden": [],
+  "kadastraleObjecten": [
+    {
+      "kadastraleGemeenteCode": "DEL00",
+      "kadastraleSectie": "E",
+      "kadastraalPerceelNummer": "2145"
+    }
+  ]
+}
