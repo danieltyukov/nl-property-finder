@@ -54,7 +54,7 @@ describe('OGonline agency adapter', () => {
   test('capabilities: no login, terms unknown, form or email per agency', () => {
     const form = createOgonlineAdapter(agency('verra'));
     expect(form.id).toBe('ogonline:verra');
-    expect(form.capabilities).toEqual({ search: 'json', detail: false, contact: 'form', login: 'none', terms: 'unknown' });
+    expect(form.capabilities).toEqual({ search: 'json', detail: true, contact: 'form', login: 'none', terms: 'unknown' });
     expect(typeof form.contact).toBe('function');
     expect(form.checkSession).toBeUndefined();
     const email = createOgonlineAdapter(agency('atrium'));
@@ -143,6 +143,18 @@ describe('OGonline agency adapter', () => {
     const ctx = fixtureContext({ routes: { [OGONLINE_LIST_PATH]: 'ogonline-verra/listings.json' }, now: NOW });
     await adapter.search(adapter.buildSearches(ctx.searches, ctx.source)[0]!, ctx);
     expect(ctx.requests).toEqual([expect.objectContaining({ method: 'GET', url: 'https://www.verra.nl/nl/realtime-listings/consumer' })]);
+  });
+
+  test('detail reads the description from the listing page and fills a missing agent email', async () => {
+    const adapter = createOgonlineAdapter(agency('verra'));
+    const [first] = await searchFixture(adapter, 'ogonline-verra/listings.json');
+    const ctx = fixtureContext({ routes: { '6996d72c12904169fbc0939f': 'ogonline-verra/detail.html' }, now: NOW });
+    const full = await adapter.detail!(first!, ctx);
+    expect(full.description).toBe(
+      'Gemeubileerd appartement op de tweede verdieping, per direct beschikbaar.\n\nHuurprijs exclusief gas, water en licht.\nGeen huisdieren toegestaan.',
+    );
+    expect(full.agent).toEqual({ name: 'Verra Makelaars', url: 'https://www.verra.nl', email: 'verhuurrotterdam@verra.nl' });
+    expect(ctx.requests[0]?.url).toBe(first?.url);
   });
 
   test('isAvailable reads the list again: gone or rented is false', async () => {

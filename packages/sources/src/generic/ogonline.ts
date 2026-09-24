@@ -1,10 +1,11 @@
+import { load } from 'cheerio';
 import type { Locator, Page } from 'playwright-core';
 import type { ContactResult, Listing, OutboundMessage, Profile, PropertyType, RawListing, SourceAdapter } from '@nlpf/core';
 import { SourceHttpError } from '../runtime/errors.js';
 import { normalisePostcode, splitAddress } from '../util/address.js';
 import { detectType, parseDutchDate } from '../util/parse.js';
 import { UNAVAILABLE_STATUS } from './presets.js';
-import { filterParams, placePasses, portalFilters, readFilters } from './zig.js';
+import { filterParams, htmlToText, placePasses, portalFilters, readFilters } from './zig.js';
 
 /*
  * The generic adapter for estate agents whose website is built by OGonline.
@@ -104,6 +105,9 @@ export function ogonlineBasis(price: string | undefined): 'excl' | 'incl' | 'unk
 }
 
 const NOT_A_HOME = /parkeer|garage|berging|bouwgrond|bedrijf|kantoor|winkel|opslag|ligplaats/i;
+
+/** Where OGonline listing pages keep the description, in the order the templates use them. */
+const DESCRIPTION = ['.object-description', '#tab-omschrijving', '#omschrijving', '#description'];
 
 function ogonlineType(item: OgonlineItem): PropertyType | undefined {
   const label = typeof item.type === 'string' ? item.type : '';
@@ -217,7 +221,7 @@ export function createOgonlineAdapter(def: OgonlineAgencyDef, options: OgonlineA
     homepage: home,
     regions: def.regions,
     defaultIntervalSec: def.intervalSec ?? 300,
-    capabilities: { search: 'json', detail: false, contact: def.contact, login: 'none', terms: 'unknown' },
+    capabilities: { search: 'json', detail: true, contact: def.contact, login: 'none', terms: 'unknown' },
 
     buildSearches(searches) {
       return [{ key: 'list', label: `${def.name}: rentals`, url: listUrl, params: filterParams(portalFilters(searches)) }];
@@ -239,6 +243,27 @@ export function createOgonlineAdapter(def: OgonlineAgencyDef, options: OgonlineA
         out.push(listing);
       }
       ctx.log.debug('ogonline listings read', { total: items.length, kept: out.length });
+      return out;
+    },
+
+    async detail(listing, ctx) {
+      const res = await ctx.fetch(listing.url);
+      const $ = load(res.text);
+      const out: RawListing = { ...listing, address: { ...listing.address } };
+      for (const selector of DESCRIPTION) {
+        const block = $(selector).first();
+        if (!block.length) continue;
+        block.find('h1, h2, h3, script, style, form').remove();
+        const text = htmlToText(block.html());
+        if (text) {
+          out.description = text;
+          break;
+        }
+      }
+      if (!out.agent?.email) {
+        const mail = $('a[href^="mailto:"]').first().attr('href')?.slice('mailto:'.length).split('?')[0];
+        if (mail && /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(mail)) out.agent = { ...out.agent, email: decodeURIComponent(mail) };
+      }
       return out;
     },
 
