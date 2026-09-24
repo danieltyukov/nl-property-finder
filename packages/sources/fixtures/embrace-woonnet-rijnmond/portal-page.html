@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="nl">
+<head><meta charset="utf-8"><title>Proefstraat 1 - Voorbeeld Portaal</title></head>
+<body>
+<!--
+  Stands in for an Embrace portal page. Like the real single-page app, it
+  talks to the GraphQL gateway on load and sends the user's bearer token when
+  a session exists (here: the "kc" cookie), and an empty authorization header
+  otherwise.
+-->
+<h1>Proefstraat 1</h1>
+<script>
+  var auth = document.cookie.indexOf('kc=1') >= 0 ? 'Bearer test-token' : '';
+  fetch('/graphql', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', authorization: auth },
+    body: JSON.stringify({ operationName: 'widgetPublicationDetailMainInfo', query: 'query widgetPublicationDetailMainInfo { __typename }', variables: {} }),
+  });
+</script>
+</body>
+</html>
