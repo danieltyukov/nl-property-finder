@@ -9,6 +9,12 @@ updates:
     groups:
       npm:
         patterns: ['*']
+    # The project supports Node 22.12 and newer. These majors need a newer Node.
+    ignore:
+      - dependency-name: '@types/node'
+        versions: ['>=23']
+      - dependency-name: 'jsdom'
+        versions: ['>=27']
   - package-ecosystem: github-actions
     directory: /
     schedule:
