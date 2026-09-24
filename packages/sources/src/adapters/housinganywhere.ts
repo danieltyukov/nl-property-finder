@@ -16,7 +16,18 @@
  * not seen live; `contact` handles each of those outcomes and hands anything
  * unexpected to a person.
  */
-import type { ContactResult, Furnishing, InboundMessage, Listing, NamedSearch, PropertyType, RawListing, SearchRequest, SourceAdapter, SourceContext } from '@nlpf/core';
+import type {
+  ContactResult,
+  Furnishing,
+  InboundMessage,
+  Listing,
+  NamedSearch,
+  PropertyType,
+  RawListing,
+  SearchRequest,
+  SourceAdapter,
+  SourceContext,
+} from '@nlpf/core';
 import { NeedsLoginError, SourceHttpError } from '../runtime/errors.js';
 import { normalisePostcode } from '../util/address.js';
 import { detectFurnishing, parseBedrooms, parseDutchDate, parsePrice, parseSize } from '../util/parse.js';
@@ -47,11 +58,40 @@ const INDEX = 'production_listings_most_recent';
 
 /** Hit fields the adapter reads; asking only for these keeps each poll small. */
 const ATTRIBUTES = [
-  'objectID', 'internalID', 'unitTypeInternalID', 'path', 'unitTypePath', 'city', 'street', 'neighborhood', 'countryCode', '_geoloc',
-  'propertyType', 'priceEUR', 'priceType', 'utilities', 'estimatedBillsEUR', 'facility_total_size', 'facility_bedroom_size', 'facility_bedroom_count',
-  'apartmentBedroomCount', 'facility_bedroom_furnished', 'facility_registration_possible', 'facility_tenant_status',
-  'minimumStayMonths', 'dateFrom', 'dateTo', 'creationDate', 'creationDateTS', 'photos', 'description', 'advertiserFirstName',
-  'advertiserId', 'landlordType', 'favoritesCount', 'isSearchable',
+  'objectID',
+  'internalID',
+  'unitTypeInternalID',
+  'path',
+  'unitTypePath',
+  'city',
+  'street',
+  'neighborhood',
+  'countryCode',
+  '_geoloc',
+  'propertyType',
+  'priceEUR',
+  'priceType',
+  'utilities',
+  'estimatedBillsEUR',
+  'facility_total_size',
+  'facility_bedroom_size',
+  'facility_bedroom_count',
+  'apartmentBedroomCount',
+  'facility_bedroom_furnished',
+  'facility_registration_possible',
+  'facility_tenant_status',
+  'minimumStayMonths',
+  'dateFrom',
+  'dateTo',
+  'creationDate',
+  'creationDateTS',
+  'photos',
+  'description',
+  'advertiserFirstName',
+  'advertiserId',
+  'landlordType',
+  'favoritesCount',
+  'isSearchable',
 ];
 
 const TYPES: Record<string, { type: PropertyType; label: string }> = {
@@ -87,7 +127,8 @@ export function unitTypeId(path: string): string | undefined {
   return /\/(ut\d{4,})(?:\/|$)/.exec(path)?.[1];
 }
 
-const DETAIL_PATH = /^\/(?:[a-z]{2}\/)?(room|private-room|shared-room|studio|apartment|house)\/(ut\d{4,})\/[a-z]{2}\/([^/]+)(?:\/([^/?#]+))?\/?$/i;
+const DETAIL_PATH =
+  /^\/(?:[a-z]{2}\/)?(room|private-room|shared-room|studio|apartment|house)\/(ut\d{4,})\/[a-z]{2}\/([^/]+)(?:\/([^/?#]+))?\/?$/i;
 
 export interface HousingAnywhereOptions {
   /** Site root, for tests against a local server. Default https://housinganywhere.com. */
@@ -103,17 +144,38 @@ const ALERT_DOMAINS = ['housinganywhere.com'];
 export function createHousingAnywhereAdapter(options: HousingAnywhereOptions = {}): SourceAdapter {
   const base = (options.baseUrl ?? 'https://housinganywhere.com').replace(/\/+$/, '');
   const algolia =
-    options.algoliaUrl ?? `https://${ALGOLIA_APP.toLowerCase()}-dsn.algolia.net/1/indexes/*/queries?x-algolia-api-key=${ALGOLIA_KEY}&x-algolia-application-id=${ALGOLIA_APP}`;
+    options.algoliaUrl ??
+    `https://${ALGOLIA_APP.toLowerCase()}-dsn.algolia.net/1/indexes/*/queries?x-algolia-api-key=${ALGOLIA_KEY}&x-algolia-application-id=${ALGOLIA_APP}`;
   const confirmTimeoutMs = options.confirmTimeoutMs ?? 20_000;
   const loginUrl = `${base}/oauth/signin`;
   const listingUrl = (path: string) => `${base}${encodeURI(decodeURI(path))}`;
 
-  async function query(ctx: SourceContext, filters: string, hitsPerPage: number, attributes = ATTRIBUTES): Promise<{ hits: Record<string, unknown>[]; nbHits: number }> {
+  async function query(
+    ctx: SourceContext,
+    filters: string,
+    hitsPerPage: number,
+    attributes = ATTRIBUTES,
+  ): Promise<{ hits: Record<string, unknown>[]; nbHits: number }> {
     const res = await ctx.fetch(algolia, {
       method: 'POST',
-      headers: { 'content-type': 'application/json', accept: 'application/json', origin: base, referer: `${base}/` },
+      headers: {
+        'content-type': 'application/json',
+        accept: 'application/json',
+        origin: base,
+        referer: `${base}/`,
+      },
       body: JSON.stringify({
-        requests: [{ indexName: INDEX, query: '', hitsPerPage, page: 0, filters, attributesToRetrieve: attributes, attributesToHighlight: [] }],
+        requests: [
+          {
+            indexName: INDEX,
+            query: '',
+            hitsPerPage,
+            page: 0,
+            filters,
+            attributesToRetrieve: attributes,
+            attributesToHighlight: [],
+          },
+        ],
       }),
     });
     const result = res.json<{ results?: { hits?: unknown[]; nbHits?: number }[] }>().results?.[0];
@@ -132,7 +194,8 @@ export function createHousingAnywhereAdapter(options: HousingAnywhereOptions = {
     const basis = utilities === 'I' ? 'incl' : utilities === 'E' ? 'excl' : 'unknown';
     const bills = basis === 'excl' ? positive(h.estimatedBillsEUR) : undefined;
     const furnished = str(h.facility_bedroom_furnished);
-    const furnishing: Furnishing | undefined = furnished === 'yes' ? 'furnished' : furnished === 'no' ? 'unfurnished' : undefined;
+    const furnishing: Furnishing | undefined =
+      furnished === 'yes' ? 'furnished' : furnished === 'no' ? 'unfurnished' : undefined;
     const geo = isObj(h._geoloc) ? h._geoloc : {};
     const photos = Array.isArray(h.photos) ? h.photos.filter((p): p is string => typeof p === 'string') : [];
     const created = num(h.creationDateTS);
@@ -149,7 +212,9 @@ export function createHousingAnywhereAdapter(options: HousingAnywhereOptions = {
       priceBasis: price === undefined ? undefined : basis,
       serviceCostsEur: bills,
       sizeM2: size,
-      bedrooms: isRoom ? undefined : (positive(h.facility_bedroom_count) ?? positive(h.apartmentBedroomCount)),
+      bedrooms: isRoom
+        ? undefined
+        : (positive(h.facility_bedroom_count) ?? positive(h.apartmentBedroomCount)),
       type: t?.type ?? 'other',
       furnishing,
       address: compact({
@@ -204,20 +269,32 @@ export function createHousingAnywhereAdapter(options: HousingAnywhereOptions = {
         const cities = searchMunicipalities(search).map(housingAnywhereCity);
         const kinds = propertyTypes(search.types);
         const parts = ['isSearchable:true', 'exclusivityPartnerIDs:0'];
-        parts.push(cities.length ? `(${cities.map((c) => `city:${quote(c)}`).join(' OR ')})` : 'country:Netherlands');
+        parts.push(
+          cities.length ? `(${cities.map((c) => `city:${quote(c)}`).join(' OR ')})` : 'country:Netherlands',
+        );
         if (search.priceMaxEur !== undefined) parts.push(`priceEUR <= ${search.priceMaxEur}`);
         if (search.priceMinEur !== undefined) parts.push(`priceEUR >= ${search.priceMinEur}`);
         if (kinds.length) parts.push(`(${kinds.map((k) => `propertyType:${k}`).join(' OR ')})`);
         const filters = parts.join(' AND ');
         const key = `${cities.join(',') || 'nl'}?${filterKey({ max: search.priceMaxEur, min: search.priceMinEur, types: kinds.join(',') })}`;
-        if (!out.has(key)) out.set(key, { key, label: `HousingAnywhere ${cities.join(', ') || 'Netherlands'}`, url: algolia, params: { index: INDEX, filters, hitsPerPage: 40 } });
+        if (!out.has(key))
+          out.set(key, {
+            key,
+            label: `HousingAnywhere ${cities.join(', ') || 'Netherlands'}`,
+            url: algolia,
+            params: { index: INDEX, filters, hitsPerPage: 40 },
+          });
       }
       return [...out.values()];
     },
 
     async search(req, ctx) {
       const p = req.params ?? {};
-      const { hits } = await query(ctx, String(p.filters ?? 'isSearchable:true AND country:Netherlands'), Number(p.hitsPerPage ?? 40));
+      const { hits } = await query(
+        ctx,
+        String(p.filters ?? 'isSearchable:true AND country:Netherlands'),
+        Number(p.hitsPerPage ?? 40),
+      );
       const out: RawListing[] = [];
       const seen = new Set<string>();
       for (const h of hits) {
@@ -247,7 +324,9 @@ export function createHousingAnywhereAdapter(options: HousingAnywhereOptions = {
       const number = str(e.housenumber);
       if (number) out.address.houseNumber = number;
       const costs = isObj(e.costs) && isObj(e.costs.costs) ? e.costs.costs : {};
-      const deposit = isObj(costs['security-deposit']) ? positive(costs['security-deposit'].value) : undefined;
+      const deposit = isObj(costs['security-deposit'])
+        ? positive(costs['security-deposit'].value)
+        : undefined;
       if (deposit) out.depositEur = deposit / 100;
       const perMonth = isObj(e.costs) ? positive(e.costs.requiredPerMonth) : undefined;
       if (perMonth && out.priceBasis === 'excl') out.serviceCostsEur = perMonth / 100;
@@ -267,7 +346,9 @@ export function createHousingAnywhereAdapter(options: HousingAnywhereOptions = {
       const digits = /^ut(\d+)$/.exec(listing.externalId)?.[1];
       if (!digits) return true;
       try {
-        const { nbHits } = await query(ctx, `unitTypeInternalID:${digits} AND isSearchable:true`, 1, ['objectID']);
+        const { nbHits } = await query(ctx, `unitTypeInternalID:${digits} AND isSearchable:true`, 1, [
+          'objectID',
+        ]);
         return nbHits > 0;
       } catch (e) {
         if (e instanceof SourceHttpError && (e.status === 404 || e.status === 410)) return false;
@@ -289,7 +370,9 @@ export function createHousingAnywhereAdapter(options: HousingAnywhereOptions = {
 
     parseAlertEmail(mail: InboundMessage): RawListing[] {
       if (mail.channel !== 'email' || !senderIs(mail, ALERT_DOMAINS)) return [];
-      const cards = alertCards(mail, (u) => (/(^|\.)housinganywhere\.com$/i.test(u.hostname) ? DETAIL_PATH.exec(u.pathname)?.[2] : undefined));
+      const cards = alertCards(mail, (u) =>
+        /(^|\.)housinganywhere\.com$/i.test(u.hostname) ? DETAIL_PATH.exec(u.pathname)?.[2] : undefined,
+      );
       return cards.map((card) => {
         const m = DETAIL_PATH.exec(card.url.pathname);
         const kind = m?.[1]?.toLowerCase() ?? '';
@@ -301,7 +384,15 @@ export function createHousingAnywhereAdapter(options: HousingAnywhereOptions = {
         const availableLine = card.lines.find((l) => /available|beschikbaar/i.test(l));
         const street = /\bin\s+(.+)$/i.exec(card.title)?.[1];
         const type: PropertyType =
-          kind === 'studio' ? 'studio' : kind === 'apartment' ? 'apartment' : kind === 'house' ? 'house' : /room/.test(kind) ? 'room' : 'other';
+          kind === 'studio'
+            ? 'studio'
+            : kind === 'apartment'
+              ? 'apartment'
+              : kind === 'house'
+                ? 'house'
+                : /room/.test(kind)
+                  ? 'room'
+                  : 'other';
         return compact<RawListing>({
           sourceId: 'housinganywhere',
           externalId: card.id,
@@ -327,7 +418,9 @@ export function createHousingAnywhereAdapter(options: HousingAnywhereOptions = {
   async function isAuthenticated(page: import('playwright-core').Page): Promise<boolean> {
     return page
       .evaluate(() => {
-        const state = (window as unknown as { __PRELOADED_STATE__?: { authLogic?: { isAuthenticated?: boolean } } }).__PRELOADED_STATE__;
+        const state = (
+          window as unknown as { __PRELOADED_STATE__?: { authLogic?: { isAuthenticated?: boolean } } }
+        ).__PRELOADED_STATE__;
         return state?.authLogic?.isAuthenticated === true;
       })
       .catch(() => false);
@@ -339,14 +432,24 @@ export function createHousingAnywhereAdapter(options: HousingAnywhereOptions = {
    * offer (`needs: 'paid'`), and at anything asking for choices we cannot
    * make for the user, such as move-in dates (`needs: 'human'`).
    */
-  async function sendMessage(listing: Listing, body: string, dryRun: boolean, ctx: SourceContext): Promise<ContactResult> {
+  async function sendMessage(
+    listing: Listing,
+    body: string,
+    dryRun: boolean,
+    ctx: SourceContext,
+  ): Promise<ContactResult> {
     const url = listing.contactUrl ?? listing.url;
     const session = await ctx.browser();
     const { page } = session;
     try {
       await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30_000 });
-      if (/(^|\.)id\.housinganywhere\.com$/i.test(new URL(page.url()).hostname) || !(await isAuthenticated(page))) {
-        throw new NeedsLoginError('HousingAnywhere asks for a login before messaging a landlord', { loginUrl });
+      if (
+        /(^|\.)id\.housinganywhere\.com$/i.test(new URL(page.url()).hostname) ||
+        !(await isAuthenticated(page))
+      ) {
+        throw new NeedsLoginError('HousingAnywhere asks for a login before messaging a landlord', {
+          loginUrl,
+        });
       }
       const trigger = await firstVisible(page, [
         '[data-test-locator^="ListingActionButtonsContact"]',
@@ -354,37 +457,92 @@ export function createHousingAnywhereAdapter(options: HousingAnywhereOptions = {
         'button:has-text("Send a message")',
         'button:has-text("Apply to rent")',
       ]);
-      if (!trigger) return { ok: false, channel: 'message', needs: 'human', error: `no contact button on ${url}` };
+      if (!trigger)
+        return { ok: false, channel: 'message', needs: 'human', error: `no contact button on ${url}` };
       await page.locator(trigger).first().click({ timeout: 10_000 });
 
-      const PAYWALL = /subscri(be|ption)|unlock messaging|get (a |the )?plan|upgrade to message|pricing\/tenants/i;
-      const box = await page
-        .locator('textarea')
-        .first()
-        .waitFor({ state: 'visible', timeout: 10_000 })
-        .then(() => true)
-        .catch(() => false);
-      const text = await pageText(page);
-      if (!box) {
-        if (PAYWALL.test(text) || PAYWALL.test(page.url()) || (await page.locator('a[href*="/pricing/tenants"]').count()) > 0) {
-          return { ok: false, channel: 'message', needs: 'paid', error: 'a HousingAnywhere subscription is needed to message landlords in the Netherlands' };
+      // Wait for what the button opened: a message box, a subscription offer, or something else.
+      const PAYWALL =
+        /subscri(be|ption)|unlock messaging|get (a |the )?plan|upgrade to message|pricing\/tenants/i;
+      const opened = await (async (): Promise<'message' | 'paid' | 'captcha' | 'other'> => {
+        const deadline = Date.now() + 10_000;
+        let seen: 'other' | undefined;
+        while (Date.now() < deadline) {
+          if (
+            await page
+              .locator('textarea')
+              .first()
+              .isVisible()
+              .catch(() => false)
+          )
+            return 'message';
+          if (
+            PAYWALL.test(page.url()) ||
+            (await page.locator('a[href*="/pricing/tenants"]').count()) > 0 ||
+            PAYWALL.test(await pageText(page))
+          )
+            return 'paid';
+          if (await showsCaptcha(page)) return 'captcha';
+          if (
+            await page
+              .locator('[role="dialog"], dialog[open]')
+              .first()
+              .isVisible()
+              .catch(() => false)
+          ) {
+            // A dialog without a message box: give it a moment to finish rendering, then stop.
+            if (seen) return 'other';
+            seen = 'other';
+          }
+          await page.waitForTimeout(250).catch(() => undefined);
         }
-        if (await showsCaptcha(page)) return { ok: false, channel: 'message', needs: 'captcha', error: `HousingAnywhere shows a captcha on ${url}` };
-        return { ok: false, channel: 'message', needs: 'human', error: `HousingAnywhere asked for more than a message on ${url} (for example move-in dates)` };
+        return 'other';
+      })();
+      if (opened === 'paid') {
+        return {
+          ok: false,
+          channel: 'message',
+          needs: 'paid',
+          error: 'a HousingAnywhere subscription is needed to message landlords in the Netherlands',
+        };
+      }
+      if (opened === 'captcha')
+        return {
+          ok: false,
+          channel: 'message',
+          needs: 'captcha',
+          error: `HousingAnywhere shows a captcha on ${url}`,
+        };
+      if (opened === 'other') {
+        return {
+          ok: false,
+          channel: 'message',
+          needs: 'human',
+          error: `HousingAnywhere asked for more than a message on ${url} (for example move-in dates)`,
+        };
       }
       try {
         await page.locator('textarea').first().fill(body, { timeout: 10_000 });
       } catch (e) {
-        return { ok: false, channel: 'message', error: `could not fill the message on ${url}: ${firstLine(e)}` };
+        return {
+          ok: false,
+          channel: 'message',
+          error: `could not fill the message on ${url}: ${firstLine(e)}`,
+        };
       }
-      if (dryRun) return { ok: true, channel: 'message', evidence: 'dry run: the message was filled and not sent' };
+      if (dryRun)
+        return { ok: true, channel: 'message', evidence: 'dry run: the message was filled and not sent' };
       try {
-        await page.getByRole('button', { name: /^(send|send message|send request|verstuur)/i }).first().click({ timeout: 10_000 });
+        await page
+          .getByRole('button', { name: /^(send|send message|send request|verstuur)/i })
+          .first()
+          .click({ timeout: 10_000 });
       } catch (e) {
         return { ok: false, channel: 'message', error: `could not press send on ${url}: ${firstLine(e)}` };
       }
       const confirmation = await waitForConfirmation(page, {
-        success: /message (has been |was )?sent|your message is on its way|we('ve| have) sent your message|bericht (is )?verstuurd/i,
+        success:
+          /message (has been |was )?sent|your message is on its way|we('ve| have) sent your message|bericht (is )?verstuurd/i,
         successUrl: /\/(my\/)?(talk|conversations?|inbox)\b/i,
         timeoutMs: confirmTimeoutMs,
       });
