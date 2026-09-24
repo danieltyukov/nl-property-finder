@@ -1,0 +1,54 @@
+X-Comment: Synthetic fixture for tests, modelled on the Funda detail URL pattern and card text in docs/research/platforms.md. Not a real Funda email.
+From: Funda <zoekopdracht@mail.funda.nl>
+To: agent@nlpf.test
+Subject: 3 nieuwe huurwoningen voor je zoekopdracht Delft en Rotterdam
+Date: Wed, 23 Sep 2026 08:15:40 +0200
+Message-ID: <0100019a1b2c3d4e-funda-alert@email.funda.nl>
+Precedence: bulk
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+<head><meta name="viewport" content="width=device-width"></head>
+<body>
+<!-- Synthetic fixture for tests, modelled on the Funda detail URL pattern in docs/research/platforms.md. Not a real Funda email. -->
+<div style="max-width:600px;margin:0 auto">
+<div><img src="https://assets.fstatic.nl/email/funda-logo.png" alt="funda"></div>
+<p>Hoi Sam, er staan 3 nieuwe woningen online die passen bij je zoekopdracht.</p>
+<table role="presentation" width="100%">
+<tr>
+<td width="200"><a href="https://click.mail.funda.nl/?qs=9f8e7d&amp;u=https%3A%2F%2Fwww.funda.nl%2Fdetail%2Fhuur%2Fdelft%2Fappartement-oude-delft-12-a%2F43123456%2F%3Futm_source%3Dzoekopdracht%26utm_medium%3Demail"><img src="https://cloud.funda.nl/valentina_media/212/345/678_720x480.jpg" alt=""></a></td>
+<td>
+<a href="https://click.mail.funda.nl/?qs=9f8e7e&amp;u=https%3A%2F%2Fwww.funda.nl%2Fdetail%2Fhuur%2Fdelft%2Fappartement-oude-delft-12-a%2F43123456%2F%3Futm_source%3Dzoekopdracht%26utm_medium%3Demail" style="font-weight:bold">Oude Delft 12 A</a><br>
+2611 BC Delft<br>
+<strong>&euro; 1.495 /maand</strong><br>
+52 m&sup2; &nbsp; 2 kamers &nbsp; Energielabel C<br>
+<span style="color:#999">Hoogland Makelaardij</span>
+</td>
+</tr>
+<tr>
+<td width="200"><a href="https://www.funda.nl/detail/huur/delft/huis-westvest-95/43127890/?utm_source=zoekopdracht&amp;utm_medium=email"><img src="https://cloud.funda.nl/valentina_media/212/345/999_720x480.jpg" alt=""></a></td>
+<td>
+<a href="https://www.funda.nl/detail/huur/delft/huis-westvest-95/43127890/?utm_source=zoekopdracht&amp;utm_medium=email" style="font-weight:bold">Westvest 95</a><br>
+2611 AZ Delft<br>
+<strong>&euro; 1.850 /maand</strong><br>
+85 m&sup2; &nbsp; 4 kamers &nbsp; 3 slaapkamers<br>
+<span style="color:#999">Van Dijk Wonen</span>
+</td>
+</tr>
+<tr>
+<td width="200"><a href="https://www.funda.nl/huur/rotterdam/appartement-43129999-mathenesserlaan-120-b/?utm_source=zoekopdracht"><img src="https://cloud.funda.nl/valentina_media/212/346/001_720x480.jpg" alt=""></a></td>
+<td>
+<a href="https://www.funda.nl/huur/rotterdam/appartement-43129999-mathenesserlaan-120-b/?utm_source=zoekopdracht" style="font-weight:bold">Mathenesserlaan 120 B</a><br>
+3021 HK Rotterdam<br>
+<strong>&euro; 1.250 /maand</strong><br>
+60 m&sup2; &nbsp; 3 kamers<br>
+</td>
+</tr>
+</table>
+<p><a href="https://www.funda.nl/zoeken/huur?selected_area=%5B%22delft%22%5D&amp;utm_source=zoekopdracht">Bekijk alle woningen</a></p>
+<p style="font-size:11px">Je ontvangt deze e-mail omdat je een zoekopdracht hebt bewaard. <a href="https://www.funda.nl/mijn/zoekopdrachten/">Beheer je zoekopdrachten</a> of <a href="https://www.funda.nl/mijn/zoekopdrachten/afmelden/?id=5551">meld je af</a>.</p>
+</div>
+</body>
+</html>

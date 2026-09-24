@@ -1,0 +1,36 @@
+X-Comment: Synthetic fixture for tests, modelled on the Marktplaats listing fields in docs/research/platforms.md. Not a real Marktplaats email.
+From: Marktplaats <noreply@marktplaats.nl>
+To: agent@nlpf.test
+Subject: Nieuwe advertenties voor je zoekopdracht 'kamer delft'
+Date: Wed, 23 Sep 2026 20:10:00 +0200
+Message-ID: <saved-search-55120984@marktplaats.nl>
+Precedence: bulk
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html><body>
+<!-- Synthetic fixture for tests, modelled on the Marktplaats listing fields in docs/research/platforms.md. Not a real Marktplaats email. -->
+<table width="600" role="presentation">
+<tr><td>Er zijn 3 nieuwe advertenties voor je zoekopdracht <b>kamer delft</b> in Huizen en Kamers.</td></tr>
+<tr><td>
+<a href="https://www.marktplaats.nl/v/huizen-en-kamers/kamers-te-huur/m2198765432-ruime-kamer-in-delft-centrum?correlationId=aa11&amp;utm_source=saved_search"><img src="https://images.marktplaats.com/api/v1/listing-mp-p/images/aa/aa11-1.jpg" alt=""></a>
+<table role="presentation"><tr><td><a href="https://www.marktplaats.nl/v/huizen-en-kamers/kamers-te-huur/m2198765432-ruime-kamer-in-delft-centrum?correlationId=aa11&amp;utm_source=saved_search">Ruime kamer in Delft centrum</a></td></tr>
+<tr><td><b>&euro; 675,00</b></td></tr>
+<tr><td>Delft &middot; Vandaag</td></tr></table>
+</td></tr>
+<tr><td>
+<a href="https://www.marktplaats.nl/v/huizen-en-kamers/kamers-te-huur/m2198700011-studio-te-huur-rotterdam-noord?correlationId=bb22&amp;utm_source=saved_search"><img src="https://images.marktplaats.com/api/v1/listing-mp-p/images/bb/bb22-1.jpg" alt=""></a>
+<table role="presentation"><tr><td><a href="https://www.marktplaats.nl/v/huizen-en-kamers/kamers-te-huur/m2198700011-studio-te-huur-rotterdam-noord?correlationId=bb22&amp;utm_source=saved_search">Studio te huur Rotterdam Noord, 25 m2</a></td></tr>
+<tr><td><b>&euro; 950,00</b></td></tr>
+<tr><td>Rotterdam &middot; Vandaag</td></tr></table>
+</td></tr>
+<tr><td>
+<a href="https://www.marktplaats.nl/v/huizen-en-kamers/huizen-te-huur/m2198711122-appartement-2-kamers-den-haag?correlationId=cc33&amp;utm_source=saved_search"><img src="https://images.marktplaats.com/api/v1/listing-mp-p/images/cc/cc33-1.jpg" alt=""></a>
+<table role="presentation"><tr><td><a href="https://www.marktplaats.nl/v/huizen-en-kamers/huizen-te-huur/m2198711122-appartement-2-kamers-den-haag?correlationId=cc33&amp;utm_source=saved_search">Appartement 2 kamers</a></td></tr>
+<tr><td><b>Prijs op aanvraag</b></td></tr>
+<tr><td>Den Haag &middot; Gisteren</td></tr></table>
+</td></tr>
+<tr><td><a href="https://www.marktplaats.nl/q/kamer+delft/?utm_source=saved_search">Bekijk alle resultaten</a> &middot; <a href="https://www.marktplaats.nl/my-account/saved-searches/">Zoekopdrachten beheren</a></td></tr>
+</table>
+</body></html>

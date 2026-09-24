@@ -1,0 +1,18 @@
+X-Comment: Synthetic fixture for tests, a landlord writing from a personal address without thread headers. Not a real message.
+From: Joop van Dijk <j.vandijk1962@gmail.example>
+To: agent@nlpf.test
+Subject: Nieuwe kamer Van der Heimstraat, ben je nog op zoek?
+Date: Wed, 23 Sep 2026 19:21:33 +0200
+Message-ID: <CAJvD1962personal@mail.gmail.example>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Hoi Sam,
+
+Ik zag je reactie op Kamernet voor de kamer aan de Van der Heimstraat 12
+(https://kamernet.nl/huren/kamer-delft/van-der-heimstraat/kamer-2407683).
+De huur is € 625 per maand. Kun je donderdag om 18:30 komen kijken?
+
+Groet,
+Joop

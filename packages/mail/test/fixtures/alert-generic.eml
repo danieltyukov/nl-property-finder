@@ -1,0 +1,24 @@
+X-Comment: Synthetic fixture for tests, a plain text "woningmail" as sent by smaller sites. Not a real 123Wonen email.
+From: 123Wonen Woningmail <woningmail@123wonen.nl>
+To: agent@nlpf.test
+Subject: Woningmail: 2 nieuwe huurwoningen in Delft
+Date: Thu, 24 Sep 2026 06:00:00 +0200
+Message-ID: <woningmail-20260924-77@123wonen.nl>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Beste Sam,
+
+Er zijn 2 nieuwe woningen die passen bij je zoekprofiel.
+
+Appartement Hugo de Grootstraat 18, Delft
+€ 1.325 per maand, 55 m², 2 kamers
+https://www.123wonen.nl/huur/delft/appartement/hugo-de-grootstraat-18-4891
+
+Studio Brabantse Turfmarkt 40 A, Delft
+€ 895 per maand incl. servicekosten, 27 m²
+https://www.123wonen.nl/huur/delft/studio/brabantse-turfmarkt-40-a-4907
+
+Je zoekprofiel aanpassen: https://www.123wonen.nl/mijn-123wonen/zoekprofiel
+Afmelden: https://www.123wonen.nl/woningmail/afmelden?id=77
