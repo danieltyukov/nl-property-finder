@@ -441,11 +441,13 @@ export async function sendOgonlineForm(
     if ((await gender.count()) > 0) {
       const salutation = salutationOf(p);
       const required = await gender.evaluate((el) => (el as HTMLSelectElement).required);
+      const wanted = salutation === 'male' ? MALE : FEMALE;
+      // Sites use "male"/"female", "MAN"/"VROUW" or only the label ("Dhr.", "Mw.").
       const chosen =
         salutation !== undefined &&
-        (await chooseOption(gender, (options) =>
-          options.find((o) => o.value && (salutation === 'male' ? MALE : FEMALE).test(o.value.trim()) )?.value ??
-          options.find((o) => o.value && (salutation === 'male' ? MALE : FEMALE).test(o.text.replace(/\*$/, '').trim()))?.value,
+        (await chooseOption(
+          gender,
+          (options) => options.find((o) => o.value && (wanted.test(o.value.trim()) || wanted.test(o.text.replace(/\*$/, '').trim())))?.value,
         ));
       if (!chosen && required) {
         return fail('the form asks for a salutation; set profile.facts.salutation to "dhr" or "mw" to let the agent fill it', 'human');
