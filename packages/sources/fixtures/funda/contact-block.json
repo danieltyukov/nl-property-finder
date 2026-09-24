@@ -1,0 +1,21 @@
+{
+ "id": "8154483",
+ "listingId": 8154483,
+ "tinyId": "44509846",
+ "listingStatus": "Available",
+ "listingType": "Object",
+ "contactBlockDetails": [
+  {
+   "id": 70043,
+   "internalId": "b1c309ad-8852-4df9-b30a-c07b34b9fdc5",
+   "logoUrl": "",
+   "bannerUrl": null,
+   "associationCode": "VGM",
+   "displayName": "MVGM Wonen",
+   "phoneNumber": null,
+   "isContactingEnabled": false,
+   "personalContactBlockInfo": null
+  }
+ ],
+ "isViewingPlannerEnabled": false
+}
