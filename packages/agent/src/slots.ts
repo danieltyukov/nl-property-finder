@@ -569,7 +569,10 @@ export function parseSlots(text: string, now: Date): ProposedSlot[] {
         const eh = resolveHour(tok.eh, tok, part, globalPm);
         let endHour = eh.h;
         if (endHour * 60 + (tok.em ?? 0) <= sh.h * 60 + tok.m && endHour < 12) endHour += 12;
-        endSure = eh.sure || sh.sure;
+        // An end hour that was guessed is still sure when its morning reading
+        // would not come after the start: "9:00-3:00" can only end at 15:00.
+        const amReadingBeforeStart = tok.eh * 60 + (tok.em ?? 0) <= sh.h * 60 + tok.m;
+        endSure = eh.sure || (sh.sure && amReadingBeforeStart);
         end = instant(y, m, d, endHour, tok.em ?? 0);
       }
       const a = Math.min(day.start, tok.start);

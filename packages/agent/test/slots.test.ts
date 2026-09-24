@@ -154,6 +154,17 @@ describe('Dutch', () => {
     expect(parseSlots('Om 10 uur ben ik er.', now)).toEqual([]);
   });
 
+  test('a range end is certain only when it cannot be read two ways', () => {
+    // 3:00 after a 9:00 start can only be 15:00.
+    expect(parseSlots('vrijdag 9:00-3:00', now)).toMatchObject([
+      { start: '2026-09-25T07:00:00.000Z', end: '2026-09-25T13:00:00.000Z', certain: true },
+    ]);
+    // 11 after a 10:00 start is 11:00; a 13-hour viewing is not a reading anyone means.
+    expect(parseSlots('vrijdag van 10:00 tot 11 uur', now)).toMatchObject([
+      { start: '2026-09-25T08:00:00.000Z', end: '2026-09-25T09:00:00.000Z', certain: true },
+    ]);
+  });
+
   test('a day range is never certain', () => {
     const slots = parseSlots('ma t/m vr tussen 17:00 en 19:00', now);
     expect(slots.length).toBeGreaterThan(0);
