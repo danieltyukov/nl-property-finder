@@ -17,6 +17,13 @@ const MAX_BODY = 3500; // ntfy turns longer bodies into attachments
 /** Button labels travel inside a comma and semicolon separated header, so those characters and quotes go. */
 const label = (s: string): string => s.replace(/[,;'"\r\n]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 40) || 'Open';
 
+/**
+ * Ids that are safe inside the single-quoted `body='...'` of an Actions header. Task ids from
+ * `newId` and the daemon's action names always match; anything else gets no button rather than
+ * a chance to end the quoted value and add parameters of its own.
+ */
+const SAFE_ID = /^[A-Za-z0-9_.:-]{1,100}$/;
+
 /** The topic the phone's buttons post to and the daemon listens on. */
 export const actionsTopic = (cfg: NtfyConfig): string => `${cfg.topic}-actions`;
 
@@ -29,10 +36,11 @@ export function ntfyActions(cfg: NtfyConfig, n: Notification, secret?: string): 
   const parts: string[] = [];
   const tel = n.call ? phoneForTel(n.call) : '';
   if (tel) parts.push(`view, Call, tel:${tel}`);
-  if (secret && cfg.actions !== false && n.taskId) {
+  if (secret && cfg.actions !== false && n.taskId && SAFE_ID.test(n.taskId)) {
     const target = `${trimSlash(cfg.server)}/${encodeURIComponent(actionsTopic(cfg))}`;
     for (const a of n.actions ?? []) {
       if (parts.length >= MAX_BUTTONS) break;
+      if (!SAFE_ID.test(a.id)) continue;
       const body = JSON.stringify({ taskId: n.taskId, action: a.id, sig: signAction(secret, n.taskId, a.id) });
       parts.push(`http, ${label(a.label)}, ${target}, method=POST, body='${body}', clear=true`);
     }

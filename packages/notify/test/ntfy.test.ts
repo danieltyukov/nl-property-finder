@@ -78,6 +78,16 @@ test('labels cannot break the Actions header', async () => {
   expect(stub.requests[0]!.headers.actions).toMatch(/^http, Yes send now, /);
 });
 
+test('a task or action id that could break out of the quoted body gets no button', async () => {
+  stub = await startStub();
+  const ntfy = createNtfyNotifier({ server: stub.url, topic: 't1', actions: true }, { secret: SECRET });
+  await ntfy.send(note({ taskId: "t_1', clear=false, x='", actions: [{ id: 'approve', label: 'Approve' }] }));
+  await ntfy.send(note({ taskId: 't_1', actions: [{ id: "approve'; view, Evil, https://evil.test", label: 'Approve' }, { id: 'dismiss', label: 'Dismiss' }] }));
+  expect(stub.requests[0]!.headers.actions).toBeUndefined();
+  expect(stub.requests[1]!.headers.actions).toMatch(/^http, Dismiss, /);
+  expect(stub.requests[1]!.headers.actions).not.toContain('evil');
+});
+
 test('non-ASCII header values are sent RFC 2047 encoded and the body as UTF-8', async () => {
   stub = await startStub();
   const ntfy = createNtfyNotifier({ server: stub.url, topic: 't1', actions: true });
