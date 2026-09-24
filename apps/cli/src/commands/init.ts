@@ -372,7 +372,7 @@ export async function runInit(opts: {
   }
 
   /** A secret from the environment (with consent) or typed with hidden input. Queued, written after the review. */
-  async function secret(name: string, question: string, label: string): Promise<boolean> {
+  async function secret(name: string, question: string, label: string, whenEmpty?: string): Promise<boolean> {
     const saved = Boolean(secrets[name]);
     const fromEnv = env[name];
     if (flags.secretsFromEnv && fromEnv) {
@@ -384,11 +384,8 @@ export async function runInit(opts: {
       pending.push([name, fromEnv]);
       return true;
     }
-    const typed = (
-      await p.secret(
-        saved ? `${question} (input hidden, Enter keeps the saved one)` : `${question} (input hidden)`,
-      )
-    ).trim();
+    const hint = saved ? ', Enter keeps the saved one' : whenEmpty ? `, ${whenEmpty}` : '';
+    const typed = (await p.secret(`${question} (input hidden${hint})`)).trim();
     if (typed) {
       pending.push([name, typed]);
       return true;
@@ -604,7 +601,7 @@ export async function runInit(opts: {
     p.say(
       '\nAI. With an Anthropic API key the agent reads listings and writes messages with Claude. Without one it uses templates and rules, which also work.',
     );
-  const hasKey = await secret(cfg.ai.keyEnv, 'Anthropic API key (leave empty to use rules)', 'API key');
+  const hasKey = await secret(cfg.ai.keyEnv, 'Anthropic API key', 'API key', 'leave empty to use rules');
   const ai = flags.ai === undefined ? undefined : oneOfOrThrow('ai', flags.ai, ['claude', 'rules'] as const);
   cfg.ai.provider = ai ?? (hasKey ? 'claude' : cfg.ai.provider === 'demo' ? 'demo' : 'rules');
 
