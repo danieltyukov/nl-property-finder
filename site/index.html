@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>nl-property-finder: a local rental agent for the Netherlands</title>
+    <meta
+      name="description"
+      content="A local agent that watches Dutch rental sites, writes to landlords for you, sorts the replies and leaves you only the decisions. Free, MIT licensed, runs on your own computer."
+    />
+    <link rel="canonical" href="https://danieltyukov.github.io/nl-property-finder/" />
+    <meta name="theme-color" content="#F5F2EA" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0C1515" media="(prefers-color-scheme: dark)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="nl-property-finder" />
+    <meta property="og:description" content="A local agent for renting in the Netherlands. It watches the sites, writes to landlords and leaves you only the decisions." />
+    <meta property="og:url" content="https://danieltyukov.github.io/nl-property-finder/" />
+    <meta property="og:image" content="https://danieltyukov.github.io/nl-property-finder/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="A row of dark metal canal houses at night with lit windows, and the words Renting in the Netherlands." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script>
+      // Blocking, and in the head, because everything it sets changes the first
+      // paint: the stored theme, the Motion setting, and a guess at whether the
+      // 3D stage will run (when it will, the section stills are hidden and so
+      // never fetched). It also preloads the one hero poster the stylesheet will
+      // pick for this theme and screen, so a stored dark theme does not fetch
+      // the light poster first.
+      (function (d, w) {
+        var h = d.documentElement, c = h.classList, s = {}, q = w.location.search;
+        c.add('js');
+        try {
+          s.t = w.localStorage.getItem('nlpf-theme');
+          s.m = w.localStorage.getItem('nlpf-motion');
+        } catch (e) {
+          // Private mode or storage disabled. The page is correct without it.
+        }
+        var qt = /[?&]theme=(light|dark)/.exec(q);
+        if (qt) s.t = qt[1];
+        if (s.t === 'light' || s.t === 'dark') h.dataset.theme = s.t;
+        var mm = function (x) { return w.matchMedia(x).matches; };
+        var off = s.m ? s.m === 'off' : mm('(prefers-reduced-motion: reduce)');
+        if (off) c.add('motion-off');
+        if (/[?&]stills=/.test(q)) return c.add('stills-mode');
+        var n = w.navigator, dark = s.t ? s.t === 'dark' : mm('(prefers-color-scheme: dark)');
+        if (!off && !(mm('(pointer: coarse)') && w.innerWidth < 900) && !(n.connection && n.connection.saveData) && (n.deviceMemory || 8) >= 4) c.add('stage-likely');
+        var portrait = w.innerWidth / w.innerHeight < 0.8, big = w.devicePixelRatio > 1 || w.innerWidth > 1600;
+        var f = (portrait ? 'k0p-' : 'k0-') + (dark ? 'dark' : 'light') + (portrait ? '-780' : big ? '-2160' : '-1440');
+        var l = d.createElement('link');
+        l.rel = 'preload';
+        l.as = 'image';
+        l.type = 'image/avif';
+        l.href = '%BASE_URL%stills/' + f + '.avif';
+        l.setAttribute('fetchpriority', 'high');
+        d.head.appendChild(l);
+      })(document, window);
+    </script>
+    <link rel="preload" href="../packages/design/fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="../packages/design/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/src/styles/style.css" />
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <!--
+      The 3D layer. Fixed behind the page and empty until the stage module
+      loads; section backgrounds paint below it and section text above it.
+      Everything in it is decoration: the same facts are in the text.
+    -->
+    <div class="stage-layer" aria-hidden="true"><canvas></canvas></div>
+
+    <header class="nav" id="nav">
+      <a class="brand" href="#top">
+        <svg class="mark" viewBox="0 0 16 16" width="22" height="22" aria-hidden="true" focusable="false">
+          <path fill="currentColor" fill-rule="evenodd" d="M2 15V7h2V4h2V1h4v3h2v3h2v8zM9 9h3v3H9z" />
+          <rect class="win" x="9" y="9" width="3" height="3" />
+        </svg>
+        <span>nl-property-finder</span>
+      </a>
+      <nav class="links" aria-label="Sections">
+        <a href="#how">How it works</a><span class="sep" aria-hidden="true">/</span><a href="#inbox">Inbox</a><span class="sep" aria-hidden="true">/</span><a href="#claude">Claude</a><span class="sep" aria-hidden="true">/</span><a href="#privacy">Privacy</a><span class="sep" aria-hidden="true">/</span><a href="#cost">Cost</a>
+      </nav>
+      <div class="tools">
+        <button type="button" class="toggle js-only" data-motion aria-pressed="true">Motion<span aria-hidden="true">: <span data-motion-state>on</span></span></button>
+        <button type="button" class="toggle js-only" id="theme" aria-pressed="false">
+          <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" focusable="false">
+            <circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.4" />
+            <path d="M8 2 A6 6 0 0 0 8 14 Z" fill="currentColor" />
+          </svg>
+          <span>Dark mode</span>
+        </button>
+        <a class="btn-cut" href="https://github.com/danieltyukov/nl-property-finder">GitHub</a>
+      </div>
+      <details class="menu">
+        <summary>Menu</summary>
+        <ul>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#inbox">Inbox</a></li>
+          <li><a href="#claude">Claude</a></li>
+          <li><a href="#privacy">Privacy</a></li>
+          <li><a href="#cost">Cost</a></li>
+          <li><a href="https://github.com/danieltyukov/nl-property-finder">GitHub</a></li>
+        </ul>
+      </details>
+    </header>
+
+    <p class="rail" aria-hidden="true"><span data-rail-num>01</span> / 10 <span data-rail-name>Start</span></p>
+
+    <!-- tabindex="-1" so the skip link moves keyboard focus along with the viewport. -->
+    <main id="main" tabindex="-1">
+      <!-- 1. Hero. Stage K0. -->
+      <section class="hero stage" id="top" data-key="0" data-name="Start" aria-labelledby="h1">
+        <div class="poster" aria-hidden="true"></div>
+        <figure class="scene anchors" aria-labelledby="hero-cap">
+          <span class="pin diamond" data-for="c-hero" data-window="32" data-anchor="k0.w32" aria-hidden="true"></span>
+          <span class="leader" data-for="c-hero" data-anchor="k0.w32" aria-hidden="true"></span>
+          <span class="pin tag" data-window="5" data-anchor="k0.t0" style="--ox: -150px; --oy: -30px" aria-hidden="true" data-scramble>3512XK_02</span>
+          <span class="pin tag far" data-window="20" data-anchor="k0.t1" style="--ox: -40px; --oy: -90px" aria-hidden="true" data-scramble>0142_found</span>
+          <span class="pin tag ink" data-window="50" data-anchor="k0.t2" style="--ox: 40px; --oy: -84px" aria-hidden="true" data-scramble>€1,180 / 42 m²</span>
+          <span class="pin tag ink far" data-window="56" data-anchor="k0.t3" style="--ox: 70px; --oy: 70px" aria-hidden="true" data-scramble>01_0110_1</span>
+          <a class="callout" id="c-hero" href="#feed" data-callout="card" data-window="32" data-anchor="k0.w32">
+            <span class="callout-title"><span class="sq" aria-hidden="true"></span><span class="sr-only">Found 21:04:12</span><span aria-hidden="true" data-scramble>Found 21:04:12</span></span>
+            <span class="callout-line">Oudegracht 112-B, Utrecht</span>
+            <span class="callout-line">€1,180 a month, 42 m², Funda</span>
+            <span class="callout-line muted">Form sent 32 s later</span>
+          </a>
+          <figcaption id="hero-cap" class="cap">A sample street: each lit window is a listing the agent found in this sample run. Addresses are made up.</figcaption>
+        </figure>
+        <div class="hero-copy">
+          <h1 id="h1">
+            <span class="chip"><span class="sr-only">Local agent for</span><span aria-hidden="true" data-scramble>Local agent for</span><i aria-hidden="true"></i><i aria-hidden="true"></i></span>
+            <span class="l1">renting in</span>
+            <span class="l2"><span class="rule" aria-hidden="true"></span><span>the <em>Netherlands</em></span></span>
+          </h1>
+        </div>
+        <div class="hero-side">
+          <!-- The reaction-time claim is a design target until the end-to-end run measures the median send time. It appears here and nowhere else. -->
+          <p class="lede">
+            It watches Dutch rental sites and <span data-claim="reaction">aims to write to the landlord within a minute</span> of a new listing that
+            matches your search. It reads the replies and answers the routine ones. Anything that needs a person comes to you. It is free and runs on
+            your own computer.
+          </p>
+          <p class="actions">
+            <a class="btn-cut magnetic" href="#install">Install</a>
+            <a class="btn-line" href="https://github.com/danieltyukov/nl-property-finder">Read the source</a>
+          </p>
+          <p class="fine">MIT licence. Node 22.12 or newer. No account, no server.</p>
+        </div>
+      </section>
+
+      <!-- 2. Live feed. Stage K1. -->
+      <section class="stage feed" id="feed" data-key="1" data-name="Live feed" aria-labelledby="feed-title">
+        <div class="still" aria-hidden="true">
+          <picture class="th-l"><source type="image/avif" srcset="/stills/k1-light-1440.avif" /><img src="/stills/k1-light-1440.webp" width="1440" height="900" alt="" loading="lazy" decoding="async" /></picture>
+          <picture class="th-d"><source type="image/avif" srcset="/stills/k1-dark-1440.avif" /><img src="/stills/k1-dark-1440.webp" width="1440" height="900" alt="" loading="lazy" decoding="async" /></picture>
+        </div>
+        <div class="anchors" aria-hidden="true"></div>
+        <div class="inner split">
+          <div class="copy">
+            <p class="chip"><span class="sr-only">Live feed</span><span aria-hidden="true" data-scramble>Live feed</span><i aria-hidden="true"></i><i aria-hidden="true"></i></p>
+            <h2 id="feed-title" class="h2"><span class="l1">What the agent</span> <span class="l2">did just now</span></h2>
+            <p class="body">
+              Each line is one action: a site checked, a listing matched or skipped, a message sent, a reply read. The dashboard shows the same feed as it
+              happens, and every message the agent wrote comes with its reason.
+            </p>
+          </div>
+          <div class="feed-card" data-edge>
+            <p class="feed-head"><span><span class="live" aria-hidden="true"></span>Agent, live</span><span>next check 0:42</span></p>
+            <ol class="feed-list" id="feed-list">
+              <li data-kind="found" data-window="32"><time>21:04:12</time><span class="pill found">Found</span><span class="txt">Funda. <button type="button" class="spot" data-callout="row" data-window="32" id="r1" aria-describedby="spot-help">Oudegracht 112-B, Utrecht</button>, €1,180</span></li>
+              <li data-kind="sent"><time>21:04:44</time><span class="pill contacted">Sent</span><span class="txt">Contact form on Funda, in Dutch, with your details</span></li>
+              <li data-kind="skipped"><time>21:05:30</time><span class="pill closed">Skipped</span><span class="txt">Kamernet. Biltstraat 30, 14 m², under your minimum</span></li>
+              <li data-kind="found" data-window="23"><time>21:07:02</time><span class="pill found">Found</span><span class="txt">Agency site. <button type="button" class="spot" data-callout="row" data-window="23" id="r2" aria-describedby="spot-help">Vismarkt 9, Utrecht</button>, €1,050</span></li>
+              <li data-kind="sent"><time>21:07:19</time><span class="pill contacted">Sent</span><span class="txt">Email to the agent, in Dutch</span></li>
+              <li data-kind="viewing"><time>21:11:40</time><span class="pill viewing">Viewing</span><span class="txt">Oudegracht 112-B: Thursday 18:30 booked, inside your free hours</span></li>
+              <li data-kind="found" data-window="43"><time>21:15:08</time><span class="pill found">Found</span><span class="txt">Pararius. <button type="button" class="spot" data-callout="row" data-window="43" id="r3" aria-describedby="spot-help">Twijnstraat 18, Utrecht</button>, €1,240</span></li>
+              <li data-kind="needs-you" data-window="23"><time>21:26:05</time><span class="pill needs-you">Needs you</span><span class="txt">Vismarkt 9: the agent asks for three payslips</span></li>
+            </ol>
+            <p class="feed-foot"><span>Sample run. Times and addresses are made up.</span><button type="button" class="text-btn js-only" data-replay>Replay</button></p>
+            <p class="sr-only" id="spot-help">Frames this listing's window in the 3D street when Motion is on.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. How it works. Stage K2. Tall when the stage runs, so the steps can follow the path. -->
+      <section class="stage how" id="how" data-key="2" data-name="How it works" aria-labelledby="how-title">
+        <div class="how-pin">
+          <div class="still" aria-hidden="true">
+            <picture class="th-l"><source type="image/avif" srcset="/stills/k2-light-1440.avif" /><img src="/stills/k2-light-1440.webp" width="1440" height="900" alt="" loading="lazy" decoding="async" /></picture>
+            <picture class="th-d"><source type="image/avif" srcset="/stills/k2-dark-1440.avif" /><img src="/stills/k2-dark-1440.webp" width="1440" height="900" alt="" loading="lazy" decoding="async" /></picture>
+          </div>
+          <div class="anchors" aria-hidden="true">
+            <span class="pin plabel" data-point="-3.6,0.02,1.7" data-anchor="k2.p1" data-reach="1">01 Watch</span>
+            <span class="pin plabel" data-point="0.47,0.02,0.55" data-anchor="k2.p2" data-reach="1">02 Match</span>
+            <span class="pin plabel" data-point="0.47,1.72,0.13" data-anchor="k2.p3" data-reach="1">03 Write</span>
+            <span class="pin plabel" data-point="2.2,0.02,1.5" data-anchor="k2.p4" data-reach="1">04 Sort</span>
+          </div>
+          <div class="inner">
+            <p class="chip"><span class="sr-only">How it works</span><span aria-hidden="true" data-scramble>How it works</span><i aria-hidden="true"></i><i aria-hidden="true"></i></p>
+            <h2 id="how-title" class="h2"><span class="l1">From listing</span> <span class="l2">to message</span></h2>
+            <ol class="steps" data-active="0">
+              <li>
+                <span class="num" aria-hidden="true">01</span>
+                <h3>Watch</h3>
+                <p>It checks the search pages of every site you enable, every 90 seconds for the fast ones, and notes anything it has not seen. The sites' own alert emails are a second way in.</p>
+                <code>poll 90 s ± 20%, alert emails</code>
+              </li>
+              <li>
+                <span class="num" aria-hidden="true">02</span>
+                <h3>Match</h3>
+                <p>Each listing is checked against your rent, size, area and move-in date. The same home on three sites counts once. Likely scams are never contacted.</p>
+                <code>rent ≤ €1,200, Utrecht, from 1 Nov</code>
+              </li>
+              <li>
+                <span class="num" aria-hidden="true">03</span>
+                <h3>Write</h3>
+                <p>A match gets a message in Dutch or English with your details, through the best free channel: a contact form, a platform message or an email to the agent.</p>
+                <code>form, message or email</code>
+              </li>
+              <li>
+                <span class="num" aria-hidden="true">04</span>
+                <h3>Sort</h3>
+                <p>Replies are read and sorted. Routine questions are answered from your profile, and viewings inside your free hours are booked. Money, contracts and ID go to you.</p>
+                <code>14 reply types, 1 inbox</code>
+              </li>
+            </ol>
+            <dl class="strip" aria-label="A sample day">
+              <div><dt>Checked</dt><dd data-count="214">214</dd></div>
+              <div><dt>Matched</dt><dd data-count="38">38</dd></div>
+              <div><dt>Sent</dt><dd data-count="31">31</dd></div>
+              <div><dt>Replies</dt><dd data-count="7">7</dd></div>
+              <div><dt>Viewings</dt><dd data-count="2">2</dd></div>
+            </dl>
+            <p class="note">A sample day.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Sources. Band: opaque, the stage pauses under it. -->
+      <section class="band sources" id="sources" data-key="3" data-name="Sources" aria-labelledby="src-title">
+        <div class="inner">
+          <h2 id="src-title" class="micro">Reads listings from</h2>
+          <div class="marquee">
+            <div class="marquee-track">
+              <ul class="src-list">
+                <li>Funda</li><li>Kamernet</li><li>Pararius</li><li>Huurwoningen</li><li>HousingAnywhere</li><li>Marktplaats</li><li>Vesteda</li><li>SSH</li><li>RoomMatch (DUWO)</li><li>Woonnet Haaglanden</li><li>Plaza</li><li>Huren in Holland Rijnland</li><li>Woonnet Rijnmond</li><li>Holland2Stay</li><li>MVGM</li><li>Stadswonen Rotterdam</li><li>WoningNet</li><li>Kamer.nl</li><li>Directwonen</li><li>Huurstunt</li><li>Rentola</li><li>Huurzone</li><li>Xior</li><li>123Wonen</li><li>Rotsvast</li><li>NederWoon</li><li>Interhouse</li><li>Van der Linden</li><li>OGonline agency sites</li><li>Your own agency YAML</li>
+              </ul>
+              <ul class="src-list" aria-hidden="true"></ul>
+            </div>
+          </div>
+          <p class="src-note">
+            Sites whose terms forbid automated messages are read only, until you opt in for that site after reading the risk. Sites that charge to reply are
+            read for discovery unless you have their plan. Not affiliated with any of them.
+          </p>
+        </div>
+      </section>
+
+      <!-- 5. Action inbox. Stage K4, the canvas blurred behind the panel. -->
+      <section class="stage inbox" id="inbox" data-key="4" data-name="Action inbox" aria-labelledby="inbox-title">
+        <div class="still blurred" aria-hidden="true">
+          <picture class="th-l"><source type="image/avif" srcset="/stills/k4-light-1440.avif" /><img src="/stills/k4-light-1440.webp" width="1440" height="900" alt="" loading="lazy" decoding="async" /></picture>
+          <picture class="th-d"><source type="image/avif" srcset="/stills/k4-dark-1440.avif" /><img src="/stills/k4-dark-1440.webp" width="1440" height="900" alt="" loading="lazy" decoding="async" /></picture>
+        </div>
+        <div class="inner split">
+          <div class="copy">
+            <p class="chip"><span class="sr-only">Action inbox</span><span aria-hidden="true" data-scramble>Action inbox</span><i aria-hidden="true"></i><i aria-hidden="true"></i></p>
+            <h2 id="inbox-title" class="h2"><span class="l1">Only what needs</span> <span class="l2">a person</span></h2>
+            <p class="body">
+              A landlord who proposes a time outside your free hours, asks for a payslip or sends a contract needs you. The agent answers or closes the rest,
+              and logs what it did.
+            </p>
+            <p class="body">Each item says why it is there and what one key does. Identity documents are never sent without your click.</p>
+          </div>
+          <div class="panel">
+            <figure class="shot">
+              <!-- Placeholder crops of the dashboard design until the end-to-end run writes the real screenshots to these paths. -->
+              <img class="th-l" src="/media/inbox-light.webp" width="1440" height="900" loading="lazy" decoding="async" alt="The dashboard in the light theme: the Action inbox with items that need a person, each with a drafted reply and buttons for its one-key actions, beside the live feed of what the agent did." />
+              <img class="th-d" src="/media/inbox-dark.webp" width="1440" height="900" loading="lazy" decoding="async" alt="The dashboard in the dark theme: the Action inbox with items that need a person, each with a drafted reply and buttons for its one-key actions, beside the live feed of what the agent did." />
+            </figure>
+            <div class="demo" role="group" aria-labelledby="demo-title" data-demo>
+              <p class="demo-head"><span id="demo-title">Try the keys</span><span class="demo-hint">Sample items. Nothing is sent.</span></p>
+              <ol class="demo-list">
+                <li class="item cur" data-window="23" aria-current="true">
+                  <p class="item-top"><span class="pill needs-you">Needs you</span><span class="due">answer within 2 h</span></p>
+                  <p class="item-title">The agent for Vismarkt 9 asks for your last three payslips</p>
+                  <p class="item-meta">Vismarkt 9, Utrecht, €1,050, agency site</p>
+                  <p class="draft">Draft: "Thank you. My last three payslips are attached. I can view the flat any evening this week."</p>
+                  <p class="item-state" hidden></p>
+                </li>
+                <li class="item" data-window="43">
+                  <p class="item-top"><span class="pill needs-you">Needs you</span><span class="due">new listing</span></p>
+                  <p class="item-title">Pararius is read only for you, so this message waits for you to send it</p>
+                  <p class="item-meta">Twijnstraat 18, Utrecht, €1,240, Pararius</p>
+                  <p class="draft">Draft: "Goedenavond, ik ben op zoek naar een appartement in Utrecht vanaf 1 november."</p>
+                  <p class="item-state" hidden></p>
+                </li>
+                <li class="item" data-window="32">
+                  <p class="item-top"><span class="pill needs-you">Needs you</span><span class="due">contract</span></p>
+                  <p class="item-title">A contract offer arrived. The deposit is three months of rent, above the legal limit of two</p>
+                  <p class="item-meta">Oudegracht 112-B, Utrecht, €1,180, Funda</p>
+                  <p class="draft">The agent never signs or pays. Read the flagged clauses before you answer.</p>
+                  <p class="item-state" hidden></p>
+                </li>
+              </ol>
+              <div class="keys js-only">
+                <button type="button" data-key-act="j"><kbd>J</kbd> Next</button>
+                <button type="button" data-key-act="k"><kbd>K</kbd> Previous</button>
+                <button type="button" data-key-act="a"><kbd>A</kbd> Approve</button>
+                <button type="button" data-key-act="e"><kbd>E</kbd> Edit draft</button>
+                <button type="button" data-key-act="x"><kbd>X</kbd> Dismiss</button>
+                <button type="button" class="text-btn" data-key-act="reset">Reset demo</button>
+              </div>
+              <p class="sr-only" aria-live="polite" data-demo-live></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Claude and MCP. Band, night in both themes, with a still of the street. -->
+      <section class="band night claude" id="claude" data-key="5" data-name="Claude" aria-labelledby="claude-title">
+        <div class="band-still anchors" aria-hidden="true">
+          <picture><source type="image/avif" srcset="/stills/k5-dark-1440.avif" /><img src="/stills/k5-dark-1440.webp" width="1440" height="900" alt="" loading="lazy" decoding="async" /></picture>
+          <span class="pin glow" data-window="23" data-anchor="k5.w23"></span>
+          <span class="pin glow" data-window="43" data-anchor="k5.w43"></span>
+        </div>
+        <div class="inner split">
+          <div class="copy">
+            <p class="chip"><span class="sr-only">Agent access</span><span aria-hidden="true" data-scramble>Agent access</span><i aria-hidden="true"></i><i aria-hidden="true"></i></p>
+            <h2 id="claude-title" class="h2"><span class="l1">Ask Claude</span> <span class="l2">what is waiting</span></h2>
+            <p class="body">
+              The agent runs an MCP server. Add it to Claude Code or Claude Desktop and Claude can read your inbox, search listings, draft replies and change a
+              search. Tools that contact a real person say so in their description, and withdrawing every application needs an explicit confirmation.
+            </p>
+            <p class="body">The same actions are a REST API on 127.0.0.1 and a CLI where every command takes <code>--json</code>.</p>
+            <details class="tools-list">
+              <summary>The 21 tools</summary>
+              <ul>
+                <li>status</li><li>search_listings</li><li>get_property</li><li>list_applications</li><li>list_tasks</li><li>resolve_task</li><li>list_conversations</li><li>get_conversation</li><li>draft_message</li><li>send_message</li><li>list_viewings</li><li>get_searches</li><li>update_search</li><li>get_profile</li><li>update_profile</li><li>pause</li><li>resume</li><li>source_health</li><li>test_source</li><li>stats</li><li>withdraw_all</li>
+              </ul>
+            </details>
+          </div>
+          <div class="term-wrap">
+            <figure class="term" aria-labelledby="term-cap">
+              <p class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>claude</span></p>
+              <div class="term-body" data-term>
+                <p class="t-line t-you"><span class="t-who">you</span><span>List what needs me today.</span></p>
+                <p class="t-line t-tool"><span class="t-who"></span><span class="tool-chip"><span class="sr-only">Tool call: list_tasks</span><span aria-hidden="true" data-scramble>list_tasks</span></span></p>
+                <p class="t-line t-ai"><span class="t-who">claude</span><span>Two things need you.</span></p>
+                <p class="t-line t-ai"><span class="t-who"></span><span>1. Vismarkt 9, Utrecht: the agent asks for your last three payslips. A reply is drafted and waits for your approval.</span></p>
+                <p class="t-line t-ai"><span class="t-who"></span><span>2. Twijnstraat 18, Utrecht: Pararius is read only for you, so the message is ready for you to send by hand.</span></p>
+                <p class="t-line t-cmd"><span class="t-who">$</span><span>nlpf status</span></p>
+                <div class="t-line t-art">
+                  <p class="sr-only">A text drawing of the street with two windows marked: the two tasks that need you.</p>
+<pre aria-hidden="true">   ▗▄▖            ▗▄▄▄▖        ▗▄▖
+  ▗███▖   ▗██▖    █████   ▄▄▄▄ ▗███▖
+  █▒█▒█  ▗████▖   █▒█▒█  ██▒▒█ █▒█▒█
+  █▒<b>█</b>▒█  █▒██▒█   █▒█▒█  █▒▒<b>█</b>█ █▒█▒█
+  █▒█▒█  █▒██▒█   █▒█▒█  █▒▒▒█ █▒█▒█</pre>
+                </div>
+                <p class="t-line t-out"><span class="t-who"></span><span>running, 14 sources ok, next check in 42 s, 2 tasks open</span></p>
+              </div>
+              <figcaption id="term-cap" class="cap">A sample session in Claude Code. The tool call is real; the data is made up.</figcaption>
+            </figure>
+            <div class="config">
+              <p class="config-head"><span>Claude Desktop config</span><button type="button" class="copy-btn js-only" data-copy="cfg">Copy</button></p>
+              <pre id="cfg"><code>{
+  "mcpServers": {
+    "nl-property-finder": { "command": "nlpf", "args": ["mcp"] }
+  }
+}</code></pre>
+              <p class="config-alt">Claude Code: <code>claude mcp add nl-property-finder -- nlpf mcp</code></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. Privacy. Stage K6: a dashed box around the street, requests leave only to the left. -->
+      <section class="stage privacy" id="privacy" data-key="6" data-name="Privacy" aria-labelledby="privacy-title">
+        <div class="still" aria-hidden="true">
+          <picture class="th-l"><source type="image/avif" srcset="/stills/k6-light-1440.avif" /><img src="/stills/k6-light-1440.webp" width="1440" height="900" alt="" loading="lazy" decoding="async" /></picture>
+          <picture class="th-d"><source type="image/avif" srcset="/stills/k6-dark-1440.avif" /><img src="/stills/k6-dark-1440.webp" width="1440" height="900" alt="" loading="lazy" decoding="async" /></picture>
+        </div>
+        <div class="anchors" aria-hidden="true">
+          <span class="pin plabel box-label" data-point="-3.45,3.15,1.3" data-anchor="k6.box" data-reach="1">Your computer</span>
+          <span class="pin plabel out" data-point="-5.4,0.5,1.4" data-anchor="k6.s1" data-reach="1">funda.nl</span>
+          <span class="pin plabel out" data-point="-5.6,1.5,0.3" data-anchor="k6.s2" data-reach="1">kamernet.nl</span>
+          <span class="pin plabel out" data-point="-5.3,2.5,0.9" data-anchor="k6.s3" data-reach="1">imap.gmail.com</span>
+          <span class="pin plabel out" data-point="-5.1,3.2,-0.5" data-anchor="k6.s4" data-reach="1">api.pdok.nl</span>
+          <span class="pin plabel none" data-point="4.3,0.01,1.3" data-anchor="k6.none" data-reach="1">No server</span>
+        </div>
+        <div class="inner">
+          <div class="copy">
+            <p class="chip"><span class="sr-only">Privacy</span><span aria-hidden="true" data-scramble>Privacy</span><i aria-hidden="true"></i><i aria-hidden="true"></i></p>
+            <h2 id="privacy-title" class="h2"><span class="l1">Your computer,</span> <span class="l2">your data</span></h2>
+          </div>
+          <dl class="bento">
+            <div>
+              <dt>Listings, messages and documents stay on your disk.</dt>
+              <dd>One SQLite file and a documents folder under <code>~/.local/share/nl-property-finder</code>. Delete the folder and they are gone.</dd>
+            </div>
+            <div>
+              <dt>Keys and passwords sit in one file only you can read.</dt>
+              <dd><code>secrets.env</code> is created with mode 0600, never written to a log and never returned by the API. Site logins are browser profiles on your disk.</dd>
+            </div>
+            <div>
+              <dt>There is no telemetry.</dt>
+              <dd>Nothing is sent to the author, and there is no server to send it to. By default the dashboard and the API listen on 127.0.0.1 only.</dd>
+            </div>
+            <div>
+              <dt>What does leave your computer.</dt>
+              <dd>Requests to the sites you enable, the messages it sends for you, mail through the mailbox you give it, address lookups at PDOK, push titles if you set up ntfy or Telegram, and listing text sent to Claude only if you turn that on.</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <!-- 8. Cost. Band. -->
+      <section class="band cost" id="cost" data-key="7" data-name="Cost" aria-labelledby="cost-title">
+        <div class="inner">
+          <p class="chip"><span class="sr-only">Cost</span><span aria-hidden="true" data-scramble>Cost</span><i aria-hidden="true"></i><i aria-hidden="true"></i></p>
+          <h2 id="cost-title" class="h2"><span class="l1">What it</span> <span class="l2">costs</span></h2>
+          <div class="table-wrap">
+            <table>
+              <caption class="sr-only">What each part costs</caption>
+              <thead>
+                <tr><th scope="col">Part</th><th scope="col">Cost</th><th scope="col">Notes</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">The agent</th><td>€0</td><td>MIT licence. It runs on your computer.</td></tr>
+                <tr><th scope="row">Listing sites</th><td>€0</td><td>Your own free accounts where a site needs a login. A paid plan is a setting for people who already have one.</td></tr>
+                <tr><th scope="row">Mail</th><td>€0</td><td>A separate free mailbox for the agent, read over IMAP and sent over SMTP with an app password.</td></tr>
+                <tr><th scope="row">Phone alerts</th><td>€0</td><td>ntfy or Telegram, with buttons to approve or dismiss a task.</td></tr>
+                <tr><th scope="row">AI</th><td>€0 without it</td><td>Optional. With your own Anthropic API key you pay Anthropic per call, for the model you choose, up to a monthly token budget you set. Without a key, rules and templates do the same jobs. Using the MCP server from a Claude plan you already have costs nothing extra.</td></tr>
+                <tr><th scope="row">Hosting</th><td>€0</td><td>Nothing is hosted. This page is on GitHub Pages.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. Contribute. Stage K8: a seventh house rises as the code comes into view. -->
+      <section class="stage contribute" id="contribute" data-key="8" data-name="Contribute" aria-labelledby="contrib-title">
+        <div class="still" aria-hidden="true">
+          <picture class="th-l"><source type="image/avif" srcset="/stills/k8-light-1440.avif" /><img src="/stills/k8-light-1440.webp" width="1440" height="900" alt="" loading="lazy" decoding="async" /></picture>
+          <picture class="th-d"><source type="image/avif" srcset="/stills/k8-dark-1440.avif" /><img src="/stills/k8-dark-1440.webp" width="1440" height="900" alt="" loading="lazy" decoding="async" /></picture>
+        </div>
+        <div class="inner">
+          <div class="copy">
+            <p class="chip"><span class="sr-only">Contribute</span><span aria-hidden="true" data-scramble>Contribute</span><i aria-hidden="true"></i><i aria-hidden="true"></i></p>
+            <h2 id="contrib-title" class="h2"><span class="l1">Add a rental site</span> <span class="l2">in one file</span></h2>
+            <p class="body">
+              A site is one adapter: a typed module with recorded fixtures, or for an ordinary estate agent, a YAML file with a URL and a few selectors. Copy
+              an existing one, record its fixtures and open a pull request. Tests never touch a live site.
+            </p>
+            <p class="links-row">
+              <a href="https://github.com/danieltyukov/nl-property-finder/blob/master/CONTRIBUTING.md">Contributing</a>
+              <a href="https://github.com/danieltyukov/nl-property-finder/blob/master/docs/ADAPTERS.md">Writing an adapter</a>
+              <a href="https://github.com/danieltyukov/nl-property-finder/labels/good%20first%20issue">Good first issues</a>
+            </p>
+          </div>
+          <figure class="code" data-build>
+            <figcaption>examples/agencies/example-makelaar.yaml</figcaption>
+            <pre><code><span>id: example-makelaar</span>
+<span>name: Example Makelaardij</span>
+<span>homepage: https://www.example-makelaar.nl</span>
+<span>regions: [delft, rijswijk]</span>
+<span>preset: realworks</span>
+<span>list:</span>
+<span>  url: https://www.example-makelaar.nl/aanbod/huur/</span>
+<span>  item: ".object"</span>
+<span>contact:</span>
+<span>  kind: form</span>
+<span>terms: unknown</span></code></pre>
+          </figure>
+        </div>
+      </section>
+    </main>
+
+    <!-- 10. Footer. Stage K9: the street at night, every window lit. -->
+    <footer class="foot stage night" id="install" data-key="9" data-name="Install" aria-labelledby="install-title">
+      <div class="still" aria-hidden="true">
+        <picture><source type="image/avif" srcset="/stills/k9-dark-1440.avif" /><img src="/stills/k9-dark-1440.webp" width="1440" height="900" alt="" loading="lazy" decoding="async" /></picture>
+      </div>
+      <div class="inner">
+        <div class="cta">
+          <h2 id="install-title" class="h2"><span class="l1">Run it on</span> <span class="l2">your computer</span></h2>
+          <div class="config install">
+            <p class="config-head"><span>Install</span><button type="button" class="copy-btn js-only" data-copy="inst">Copy</button></p>
+            <pre id="inst"><code>git clone https://github.com/danieltyukov/nl-property-finder
+cd nl-property-finder
+npm ci
+npm run nlpf -- init
+npm run nlpf -- on</code></pre>
+          </div>
+          <p class="body"><code>init</code> asks for your search and profile. <code>on</code> starts the agent as a background service that starts at login. To look around first with made-up listings and landlords, run <code>npm run demo</code>.</p>
+        </div>
+        <div class="foot-grid">
+          <p class="brandline">
+            <svg class="mark" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true" focusable="false">
+              <path fill="currentColor" fill-rule="evenodd" d="M2 15V7h2V4h2V1h4v3h2v3h2v8zM9 9h3v3H9z" />
+              <rect class="win" x="9" y="9" width="3" height="3" />
+            </svg>
+            nl-property-finder. MIT licence.
+          </p>
+          <nav aria-label="Project">
+            <ul class="foot-links">
+              <li><a href="https://github.com/danieltyukov/nl-property-finder">Source</a></li>
+              <li><a href="https://github.com/danieltyukov/nl-property-finder/blob/master/CHANGELOG.md">Changelog</a></li>
+              <li><a href="https://github.com/danieltyukov/nl-property-finder/blob/master/CONTRIBUTING.md">Contributing</a></li>
+              <li><a href="https://github.com/danieltyukov/nl-property-finder/issues">Issues</a></li>
+              <li><a href="https://github.com/danieltyukov/nl-property-finder/blob/master/docs/PRIVACY.md">Privacy</a></li>
+              <li><a href="https://github.com/danieltyukov/nl-property-finder/blob/master/LICENSE">Licence</a></li>
+            </ul>
+          </nav>
+          <p class="credits">
+            Set in Instrument Serif, Instrument Sans and JetBrains Mono, each under the SIL Open Font License 1.1. Motion by GSAP, under the
+            <a href="https://gsap.com/standard-license">GSAP Standard License</a>. 3D by three.js, under the MIT licence.
+          </p>
+          <p class="credits">This page makes no third-party requests and sets no cookie. Not affiliated with any listing site.</p>
+          <p class="foot-tools js-only"><button type="button" class="toggle" data-motion aria-pressed="true">Motion<span aria-hidden="true">: <span data-motion-state>on</span></span></button></p>
+        </div>
+      </div>
+      <p class="giant" aria-hidden="true"><span>nl-property-finder</span></p>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

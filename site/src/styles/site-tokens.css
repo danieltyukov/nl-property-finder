@@ -1,0 +1,128 @@
+/*
+ * Site-only tokens, on top of packages/design/tokens.css (which the dashboard
+ * shares). Nothing else in site/ writes a colour literal: style.css uses these
+ * and the base tokens, and the 3D stage reads the --scene-* values from the
+ * document at start-up, so the Street and the CSS share one palette.
+ */
+
+:root {
+  /* The Street. Light (dusk) and dark (night) values sit side by side because
+     the stage lerps between them during a theme change. */
+  --scene-metal-l: #34504C;
+  --scene-metal-d: #2E4845;
+  --scene-frame-l: #EDE6D6;                 /* the paper tint of real canal-house frames */
+  --scene-frame-d: #C9C2B2;
+  --scene-lit-l: #FF9A4D;
+  --scene-lit-d: #FFB066;
+  --scene-glow: #FF8A3D;
+  --scene-needs: #FF4F38;                   /* a lit window that needs you: redder than a found one */
+  --scene-grid-l: #FFFFFF;
+  --scene-grid-d: #9AB3B0;
+  --scene-sky-l: #A9C1D6;
+  --scene-sky-d: #5E8FB0;
+  --scene-env-box-l: #2B2A27;
+  --scene-env-box-d: #060B0B;
+  --scene-oranje: #FF7A33;
+  --scene-apricot: #FFB26B;
+  --scene-paper: #F5F2EA;
+  --scene-mote-l: #FFE1BF;
+  --scene-mote-d: #FFC38A;
+  --scene-glass: #0B1414;
+  --scene-highlight: #FFFFFF;
+  --scene-line-l: #13201F;
+  --scene-line-d: #ECF1EE;
+
+  /* Overlay marks over the scene (diamonds, leaders, labels). */
+  --mark: #13201F;
+  --mark-on: #FFFFFF;
+  --label-far: rgb(245 242 234 / 0.62);
+  --label-ink: rgb(19 32 31 / 0.5);
+
+  /* Phones: the nav and the row sit on paper at the top, the text stacks at
+     the bottom on ember (paper text on --ember is 6.52:1), so the bleed runs
+     from light to dark down the screen instead of left to right. */
+  --bleed-portrait:
+    radial-gradient(90% 24% at 64% 34%, rgb(255 154 77 / 0.5) 0%, rgb(255 154 77 / 0) 72%),
+    linear-gradient(180deg, rgb(255 217 168 / 0) 4%, rgb(255 217 168 / 0.55) 18%, rgb(224 88 47 / 0.9) 36%, var(--ember) 48%, var(--ember-deep) 90%);
+  --bleed-base: var(--ember-deep);
+  --bleed-portrait-ground: var(--bg);
+
+  /* Film grain as a black-alpha noise tile. Normal blending darkens exactly as
+     a multiply of grey noise would, without needing an isolated group, so it
+     works over the canvas, the posters and the CSS bleed alike. */
+  --grain-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.4 0 0 0 1.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --grain-alpha: 0.2;
+
+  /* Night bands (Claude and the footer) are dark in both themes. */
+  --night-bg: #0C1515;
+  --night-sunk: #091010;
+  --night-surface: #142221;
+  --night-text: #ECF1EE;
+  --night-muted: #9AA8A4;
+  --night-line: rgb(236 241 238 / 0.12);
+  --night-line-strong: rgb(236 241 238 / 0.2);
+  --night-accent: #FFA56B;
+  --night-bleed:
+    radial-gradient(55% 70% at 4% 96%, rgb(154 52 23 / 0.95) 0%, rgb(154 52 23 / 0) 72%),
+    radial-gradient(45% 60% at 26% 88%, rgb(255 122 51 / 0.55) 0%, rgb(255 122 51 / 0) 70%),
+    radial-gradient(40% 50% at 44% 96%, rgb(255 178 107 / 0.22) 0%, rgb(255 178 107 / 0) 70%),
+    radial-gradient(70% 70% at 96% 0%, rgb(58 96 122 / 0.6) 0%, rgb(58 96 122 / 0) 70%);
+
+  --nav-h: 72px;
+  --ease-lens: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Dark: declared twice, as in tokens.css. Keep the two blocks identical. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+  --mark: #ECF1EE;
+  --mark-on: #0C1515;
+  --label-far: rgb(236 241 238 / 0.5);
+  --label-ink: rgb(236 241 238 / 0.45);
+  --bleed-portrait:
+    radial-gradient(120% 55% at 0% 100%, rgb(154 52 23 / 0.95) 0%, rgb(154 52 23 / 0) 75%),
+    radial-gradient(90% 45% at 40% 96%, rgb(255 122 51 / 0.45) 0%, rgb(255 122 51 / 0) 72%),
+    radial-gradient(110% 60% at 100% 0%, rgb(58 96 122 / 0.6) 0%, rgb(58 96 122 / 0) 72%);
+  --bleed-base: #0C1515;
+  --grain-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1.4 0 0 0 -0.45'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --grain-alpha: 0.14;
+  }
+}
+
+:root[data-theme='dark'] {
+  --mark: #ECF1EE;
+  --mark-on: #0C1515;
+  --label-far: rgb(236 241 238 / 0.5);
+  --label-ink: rgb(236 241 238 / 0.45);
+  --bleed-portrait:
+    radial-gradient(120% 55% at 0% 100%, rgb(154 52 23 / 0.95) 0%, rgb(154 52 23 / 0) 75%),
+    radial-gradient(90% 45% at 40% 96%, rgb(255 122 51 / 0.45) 0%, rgb(255 122 51 / 0) 72%),
+    radial-gradient(110% 60% at 100% 0%, rgb(58 96 122 / 0.6) 0%, rgb(58 96 122 / 0) 72%);
+  --bleed-base: #0C1515;
+  --grain-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1.4 0 0 0 -0.45'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --grain-alpha: 0.14;
+}
+
+/* Night bands re-declare the dark tokens locally, in both themes. */
+.night {
+  color-scheme: dark;
+  --bg: var(--night-bg);
+  --bg-sunk: var(--night-sunk);
+  --surface: var(--night-surface);
+  --surface-glass: rgb(20 34 33 / 0.72);
+  --text: var(--night-text);
+  --muted: var(--night-muted);
+  --line: var(--night-line);
+  --line-strong: var(--night-line-strong);
+  --accent-text: var(--night-accent);
+  --focus: var(--night-accent);
+  --on-accent: #0C1515;
+  --st-found: #86B8EC;
+  --st-contacted: #62C9B8;
+  --st-needs-you: #FFAA70;
+  --st-live: #62C9B8;
+  --mark: #ECF1EE;
+  --mark-on: #0C1515;
+  --hover: rgb(236 241 238 / 0.05);
+  --dot: rgb(236 241 238 / 0.12);
+}

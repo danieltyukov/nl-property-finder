@@ -1,0 +1,3 @@
+# Review screenshots and local Lighthouse reports are not committed.
+screenshots/
+.lighthouseci/
