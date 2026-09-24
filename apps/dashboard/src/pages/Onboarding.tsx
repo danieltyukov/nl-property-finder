@@ -16,8 +16,8 @@ import { Mark } from '../components/Mark';
 import { Button, Chip, Field, Loading, Tag, Toggle } from '../components/ui';
 import { eur, ymd } from '../lib/format';
 import { OCCUPATION, PROPERTY_TYPE } from '../lib/labels';
-import { suggestTopic } from './Settings';
-import { termsRisk } from './Sources';
+import { suggestTopic } from '../lib/access';
+import { termsRisk } from '../lib/sources';
 
 const STEPS = ['Profile', 'Search', 'Mail', 'Notifications', 'Sources', 'Review'] as const;
 type Step = (typeof STEPS)[number];

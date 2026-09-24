@@ -643,6 +643,17 @@ textarea.input {
   padding: 6px;
 }
 
+.file-input::file-selector-button {
+  margin-right: 10px;
+  padding: 4px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-xs);
+  background: var(--bg-sunk);
+  color: var(--text);
+  font: 600 var(--fs-ui-sm) / 1.2 var(--font-sans);
+  cursor: pointer;
+}
+
 .input-row {
   display: flex;
   gap: 6px;

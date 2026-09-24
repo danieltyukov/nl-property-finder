@@ -5,7 +5,7 @@
  * first name, and stays until the person finishes it, even though its first
  * step already writes a name. A reload in the middle resumes it.
  */
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Link, Route, Router, Switch, useLocation, type BaseLocationHook } from 'wouter';
 import { ApiContext, type Api } from './api/client';
@@ -17,20 +17,46 @@ import { FoundPlaceDialog } from './components/FoundPlace';
 import { Mark } from './components/Mark';
 import { Sidebar, TopBar } from './components/Shell';
 import { UiProvider, useUi } from './components/state';
-import { EmptyState } from './components/ui';
-import { ActivityPage } from './pages/Activity';
-import { ApplicationsPage } from './pages/Applications';
-import { AutomationPage } from './pages/Automation';
-import { ConversationsPage } from './pages/Conversations';
+import { EmptyState, Loading } from './components/ui';
 import { InboxPage } from './pages/Inbox';
-import { OnboardingPage } from './pages/Onboarding';
-import { OverviewPage } from './pages/Overview';
-import { ProfilePage } from './pages/Profile';
-import { PropertiesPage } from './pages/Properties';
-import { SearchPage } from './pages/Search';
-import { SettingsPage } from './pages/Settings';
-import { SourcesPage } from './pages/Sources';
-import { ViewingsPage } from './pages/Viewings';
+
+/*
+ * Home loads with the shell; every other page is its own chunk, fetched in
+ * the background once the inbox is on screen so navigation stays instant.
+ */
+const pages = {
+  overview: () => import('./pages/Overview').then((m) => ({ default: m.OverviewPage })),
+  properties: () => import('./pages/Properties').then((m) => ({ default: m.PropertiesPage })),
+  applications: () => import('./pages/Applications').then((m) => ({ default: m.ApplicationsPage })),
+  conversations: () => import('./pages/Conversations').then((m) => ({ default: m.ConversationsPage })),
+  viewings: () => import('./pages/Viewings').then((m) => ({ default: m.ViewingsPage })),
+  sources: () => import('./pages/Sources').then((m) => ({ default: m.SourcesPage })),
+  search: () => import('./pages/Search').then((m) => ({ default: m.SearchPage })),
+  profile: () => import('./pages/Profile').then((m) => ({ default: m.ProfilePage })),
+  automation: () => import('./pages/Automation').then((m) => ({ default: m.AutomationPage })),
+  settings: () => import('./pages/Settings').then((m) => ({ default: m.SettingsPage })),
+  activity: () => import('./pages/Activity').then((m) => ({ default: m.ActivityPage })),
+  onboarding: () => import('./pages/Onboarding').then((m) => ({ default: m.OnboardingPage })),
+};
+const OverviewPage = lazy(pages.overview);
+const PropertiesPage = lazy(pages.properties);
+const ApplicationsPage = lazy(pages.applications);
+const ConversationsPage = lazy(pages.conversations);
+const ViewingsPage = lazy(pages.viewings);
+const SourcesPage = lazy(pages.sources);
+const SearchPage = lazy(pages.search);
+const ProfilePage = lazy(pages.profile);
+const AutomationPage = lazy(pages.automation);
+const SettingsPage = lazy(pages.settings);
+const ActivityPage = lazy(pages.activity);
+const OnboardingPage = lazy(pages.onboarding);
+
+function usePrefetchPages() {
+  useEffect(() => {
+    const timer = setTimeout(() => Object.values(pages).forEach((load) => void load().catch(() => undefined)), 1200);
+    return () => clearTimeout(timer);
+  }, []);
+}
 
 export const ONBOARDING_KEY = 'nlpf-onboarding';
 
@@ -120,6 +146,7 @@ export function App() {
   const [onboarding, setOnboarding] = useState(readFlag);
   useAnnounceNewTasks();
   useGlobalShortcuts();
+  usePrefetchPages();
 
   useEffect(() => {
     if (config.data && !config.data.profile.firstName && !onboarding) {
@@ -147,13 +174,15 @@ export function App() {
   }
   if (onboarding || location === '/welcome') {
     return (
-      <OnboardingPage
-        onFinish={() => {
-          writeFlag(false);
-          setOnboarding(false);
-          navigate('/');
-        }}
-      />
+      <Suspense fallback={<Loading label="Loading the setup" />}>
+        <OnboardingPage
+          onFinish={() => {
+            writeFlag(false);
+            setOnboarding(false);
+            navigate('/');
+          }}
+        />
+      </Suspense>
     );
   }
 
@@ -192,9 +221,9 @@ function Shell({ openTasks, children }: { openTasks: number; children: ReactNode
       <Sidebar openTasks={openTasks} />
       <div className="main-col">
         <TopBar />
-        {/* tabindex="-1" so the skip link moves keyboard focus, not only the viewport. */}
+        {/* tabindex="-1" so the skip link moves keyboard focus as well as the viewport. */}
         <main id="main" tabIndex={-1}>
-          {children}
+          <Suspense fallback={<Loading label="Loading the page" />}>{children}</Suspense>
         </main>
       </div>
       <CommandPalette />

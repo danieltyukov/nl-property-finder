@@ -13,7 +13,7 @@ import { useFeedback } from './Feedback';
 import { Icon, type IconName } from './Icon';
 import { copyText, useUi } from './state';
 import { Kbd } from './ui';
-import { mcpSnippet } from '../pages/Settings';
+import { mcpSnippet } from '../lib/access';
 
 interface Command {
   id: string;
