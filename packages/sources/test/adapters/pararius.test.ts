@@ -22,7 +22,7 @@ const threeCities = {
   ],
 };
 
-const DELFT = 'https://www.pararius.nl/huurwoningen/delft/0-1400/sinds-1';
+const DELFT = 'https://www.pararius.nl/huurwoningen/delft/0-1400/sinds-3';
 const now = new Date('2026-09-24T10:00:00Z');
 
 function ctxWith(routes: Parameters<typeof fakeBrowser>[0], config: Record<string, unknown> = threeCities) {
@@ -64,8 +64,8 @@ describe('pararius buildSearches', () => {
     const reqs = pararius.buildSearches(ctx.searches, ctx.source);
     expect(reqs.map((r) => r.url)).toEqual([
       DELFT,
-      'https://www.pararius.nl/huurwoningen/rotterdam/0-1400/sinds-1',
-      'https://www.pararius.nl/huurwoningen/den-haag/0-1400/sinds-1',
+      'https://www.pararius.nl/huurwoningen/rotterdam/0-1400/sinds-3',
+      'https://www.pararius.nl/huurwoningen/den-haag/0-1400/sinds-3',
     ]);
     expect(new Set(reqs.map((r) => r.key)).size).toBe(3);
   });
@@ -80,14 +80,14 @@ describe('pararius buildSearches', () => {
     });
     const reqs = pararius.buildSearches(ctx.searches, ctx.source);
     expect(reqs.map((r) => r.url)).toEqual([
-      'https://www.pararius.nl/huurwoningen/delft/studio/400-1500/sinds-1',
+      'https://www.pararius.nl/huurwoningen/delft/studio/400-1500/sinds-3',
       'https://www.pararius.nl/huurwoningen/leiden/sinds-3',
     ]);
   });
 
   test('a search without named towns reads the whole country', () => {
     const { ctx } = ctxWith({}, { searches: [{ id: 'nl', name: 'NL', regions: [{ name: 'Randstad', postcodes: ['2611-2629'] }] }] });
-    expect(pararius.buildSearches(ctx.searches, ctx.source).map((r) => r.url)).toEqual(['https://www.pararius.nl/huurwoningen/nederland/sinds-1']);
+    expect(pararius.buildSearches(ctx.searches, ctx.source).map((r) => r.url)).toEqual(['https://www.pararius.nl/huurwoningen/nederland/sinds-3']);
   });
 });
 

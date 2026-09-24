@@ -250,7 +250,7 @@ function priceSegment(min: number | undefined, max: number | undefined): string 
 }
 
 /**
- * `/huurwoningen/{city}[/{type}][/{min}-{max}]/sinds-1`: the order of the
+ * `/huurwoningen/{city}[/{type}][/{min}-{max}]/sinds-3`: the order of the
  * segments was checked on 2026-09-24 (the page's own filter state echoed
  * `price: {min: 0, max: 1500}, since: "1"` for `/rotterdam/0-1500/sinds-1`).
  */
@@ -260,7 +260,9 @@ export function parariusSearchUrl(base: string, area: Area): string {
   if (type) parts.push(type);
   const price = priceSegment(area.minPrice, area.maxPrice);
   if (price) parts.push(price);
-  parts.push('sinds-1');
+  // Three days, not one: a first check then sees homes still on offer from the weekend,
+  // and every later check is still small (at most two pages).
+  parts.push('sinds-3');
   return parts.join('/');
 }
 
@@ -506,7 +508,7 @@ export function createParariusAdapter(options: ParariusOptions = {}): SourceAdap
     },
 
     async search(req, ctx) {
-      const first = req.url ?? `${base}/huurwoningen/nederland/sinds-1`;
+      const first = req.url ?? `${base}/huurwoningen/nederland/sinds-3`;
       return withBrowserPage(ctx, async (page) => {
         const out: RawListing[] = [];
         let url: string | undefined = first;

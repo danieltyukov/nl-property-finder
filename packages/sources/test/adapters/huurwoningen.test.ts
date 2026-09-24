@@ -19,7 +19,7 @@ const threeCities = {
     },
   ],
 };
-const DELFT = 'https://www.huurwoningen.nl/in/delft/?price=0-1400&since=1';
+const DELFT = 'https://www.huurwoningen.nl/in/delft/?price=0-1400&since=3';
 const now = new Date('2026-09-24T10:00:00Z');
 
 function ctxWith(routes: Parameters<typeof fakeBrowser>[0], config: Record<string, unknown> = threeCities) {
@@ -45,8 +45,8 @@ describe('huurwoningen', () => {
     const { ctx } = ctxWith({});
     expect(huurwoningen.buildSearches(ctx.searches, ctx.source).map((r) => r.url)).toEqual([
       DELFT,
-      'https://www.huurwoningen.nl/in/rotterdam/?price=0-1400&since=1',
-      'https://www.huurwoningen.nl/in/den-haag/?price=0-1400&since=1',
+      'https://www.huurwoningen.nl/in/rotterdam/?price=0-1400&since=3',
+      'https://www.huurwoningen.nl/in/den-haag/?price=0-1400&since=3',
     ]);
   });
 

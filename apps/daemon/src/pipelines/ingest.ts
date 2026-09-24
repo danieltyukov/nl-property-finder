@@ -59,7 +59,7 @@ export async function ingestRaw(rt: Runtime, raw: RawListing, via: Listing['via'
       priceEur: listing.priceEur,
       city: listing.address.city,
     });
-    queueEvaluate(rt, property.id);
+    queueEvaluate(rt, property.id, false, listing.publishedAt);
   } else if (result.changed && listing.propertyId) {
     rt.bus.emit('listing.changed', `${listing.title} changed`, { listingId: listing.id, propertyId: listing.propertyId });
     const app = rt.store.applications.byProperty(listing.propertyId);
@@ -68,9 +68,14 @@ export async function ingestRaw(rt: Runtime, raw: RawListing, via: Listing['via'
   return { listing, isNew: result.isNew, changed: result.changed };
 }
 
-export function queueEvaluate(rt: Runtime, propertyId: string, again = false): void {
+export function queueEvaluate(rt: Runtime, propertyId: string, again = false, publishedAt?: string): void {
   const key = again ? `evaluate:${propertyId}:${rt.now().getTime()}` : `evaluate:${propertyId}`;
-  rt.store.jobs.enqueue('evaluate', key, { propertyId }, rt.now().toISOString());
+  // Fresh listings first. A home published hours ago (the backlog a first start
+  // reads, or an alert about an old listing) waits a minute so anything that
+  // appeared just now is evaluated and contacted ahead of it.
+  const old = publishedAt && rt.now().getTime() - Date.parse(publishedAt) > 6 * 3_600_000;
+  const runAt = new Date(rt.now().getTime() + (old ? 60_000 : 0)).toISOString();
+  rt.store.jobs.enqueue('evaluate', key, { propertyId }, runAt);
 }
 
 /** One scheduled check of one source: every search it has, then health and backoff. */
@@ -89,14 +94,28 @@ export async function handlePoll(rt: Runtime, job: Job): Promise<void> {
   try {
     // An unconfigured source still gets a full config with defaults (searchUrls, options).
     const requests = adapter.buildSearches(searchesForAdapters(cfg.searches), SourceConfigSchema.parse(cfg.sources[sourceId] ?? {}));
+    let missing = 0;
     for (const req of requests) {
-      const raws = await adapter.search(req, ctx);
+      let raws: RawListing[];
+      try {
+        raws = await adapter.search(req, ctx);
+      } catch (e) {
+        // One town page that does not exist on this site (Directwonen has no
+        // Rijswijk page) must not stop the other towns from being read.
+        if (e instanceof SourceHttpError && e.status === 404 && requests.length > 1) {
+          missing += 1;
+          rt.log.debug('search page not found', { sourceId, search: req.label });
+          continue;
+        }
+        throw e;
+      }
       count += raws.length;
       for (const raw of raws) {
         const r = await ingestRaw(rt, raw, 'poll');
         if (r.isNew) fresh += 1;
       }
     }
+    if (missing === requests.length) throw new SourceHttpError('none of the search pages exist', { status: 404 });
     const recovering = state.consecutiveFailures > 0 || !!state.lastError;
     health.record(state, { ok: true, count, latencyMs: Date.now() - started });
     // A check that works again ends any backoff left over from a block.

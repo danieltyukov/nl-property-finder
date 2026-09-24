@@ -33,7 +33,7 @@ export interface HuurwoningenOptions {
 export function huurwoningenSearchUrl(base: string, area: Area): string {
   const u = new URL(`${base}/in/${area.slug}/`);
   if (area.maxPrice !== undefined) u.searchParams.set('price', `${Math.floor(area.minPrice ?? 0)}-${Math.ceil(area.maxPrice)}`);
-  u.searchParams.set('since', '1');
+  u.searchParams.set('since', '3'); // three days: a first check sees what is still on offer
   return u.toString();
 }
 
@@ -85,7 +85,7 @@ export function createHuurwoningenAdapter(options: HuurwoningenOptions = {}): So
     async search(req, ctx) {
       return withBrowserPage(ctx, async (page) => {
         const out: RawListing[] = [];
-        let url: string | undefined = req.url ?? `${base}/in/nederland/?since=1`;
+        let url: string | undefined = req.url ?? `${base}/in/nederland/?since=3`;
         for (let n = 0; n < maxPages && url; n++) {
           if (n > 0) await sleep(pageGapMs, ctx.signal);
           const loaded = await loadPage(page, url, { ready: SEARCH_READY, waitMs, signal: ctx.signal });

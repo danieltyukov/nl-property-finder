@@ -305,7 +305,7 @@ export async function startDaemon(opts: StartDaemonOptions): Promise<DaemonHandl
 
   const inbound = (m: InboundMessage) => handleInbound(rt, m, { parseAlert: (msg) => parseAlertEmail(msg) });
   const runner = createRunner({
-    store, log: log.child({ scope: 'runner' }), now, concurrency: 4,
+    store, log: log.child({ scope: 'runner' }), now, concurrency: 6, pollConcurrency: 3,
     handlers: {
       poll: (job) => handlePoll(rt, job),
       evaluate: (job) => handleEvaluate(rt, job),
