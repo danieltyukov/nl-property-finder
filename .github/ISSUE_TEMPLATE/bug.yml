@@ -1,0 +1,54 @@
+name: Bug report
+description: Something behaves differently from how it is documented.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        If this is a security problem, do not open an issue. Use the Security
+        tab and "Report a vulnerability" instead, as described in SECURITY.md.
+
+        Never paste the contents of `secrets.env`, your API token, a mail app
+        password, or a landlord's personal details. `nlpf doctor --json` prints
+        a report with secrets already removed.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The output of `nlpf --version`, or the commit SHA if you run from source.
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      multiple: true
+      options:
+        - Linux
+        - macOS
+        - Windows
+        - Demo mode (nlpf demo)
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Start the agent with nlpf on
+        2. A new Funda listing in Delft appears
+        3. The Action inbox shows ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected, and what happened instead
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: nlpf doctor output
+      description: Run `nlpf doctor --json` and paste the result. It contains no secrets.
+      render: json

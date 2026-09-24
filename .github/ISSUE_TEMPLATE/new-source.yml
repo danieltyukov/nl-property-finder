@@ -1,0 +1,37 @@
+name: Request a source
+description: A rental platform or an estate agent the agent should watch.
+labels: [source]
+body:
+  - type: input
+    id: url
+    attributes:
+      label: Search page URL
+      description: A search results page for rentals on the site.
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of site is it?
+      options:
+        - A rental platform with many landlords
+        - One estate agent's own website
+        - A social or student housing portal
+        - Something else
+    validations:
+      required: true
+  - type: input
+    id: region
+    attributes:
+      label: Cities or regions it covers
+  - type: textarea
+    id: contact
+    attributes:
+      label: How do tenants react to a listing there?
+      description: A contact form, a message after logging in, an email address, a paid plan, a lottery.
+  - type: markdown
+    attributes:
+      value: |
+        An estate agent's own site usually needs only a YAML file in
+        `examples/agencies/`. `docs/ADAPTERS.md` shows how, and a pull request
+        is welcome.

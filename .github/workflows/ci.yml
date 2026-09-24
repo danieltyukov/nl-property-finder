@@ -1,0 +1,79 @@
+name: CI
+
+# Standard GitHub-hosted runners throughout. Actions minutes are free and
+# unmetered on a public repository with standard runners.
+
+# Pushes to master, every pull request, and the Actions tab. Not every branch:
+# a branch with a pull request open would otherwise run twice.
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A second push to the same branch cancels the first. The last commit is the
+# one whose result anybody acts on.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint, types, unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      # Unit tests never touch the network: adapters read recorded fixtures,
+      # the AI layer is mocked, and the mail parsers read .eml files.
+      - run: npx vitest run --project unit --project dashboard
+
+  integration:
+    name: Integration (sandbox, daemon, GreenMail)
+    runs-on: ubuntu-latest
+    needs: check
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # The mail tests start a GreenMail container themselves with Docker,
+      # which the hosted runner provides, and remove it when they finish.
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:integration
+
+  e2e:
+    name: End to end
+    runs-on: ubuntu-latest
+    needs: check
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      # The walkthrough starts a demo daemon against the sandbox (the fake
+      # Netherlands) on loopback, so it needs no account and no network.
+      - run: npm run test:e2e
+      - if: failure()
+        uses: actions/upload-artifact@v6
+        with:
+          name: playwright-report
+          path: |
+            e2e/playwright-report
+            e2e/test-results
+          retention-days: 7

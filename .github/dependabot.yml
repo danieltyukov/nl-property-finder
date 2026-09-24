@@ -1,0 +1,15 @@
+version: 2
+updates:
+  # One grouped pull request a week for npm, so updates arrive together and CI
+  # runs once for them. Security updates still arrive as soon as they exist.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      npm:
+        patterns: ['*']
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

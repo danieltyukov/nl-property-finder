@@ -1,0 +1,64 @@
+name: Pages
+
+# Pages builds from "GitHub Actions" (set once in the repository settings).
+
+on:
+  push:
+    branches: [master]
+    # Everything the page is built from, including the shared design tokens,
+    # fonts and logo in packages/design, and the lockfile that pins Vite.
+    paths:
+      - 'site/**'
+      - 'packages/design/**'
+      - 'docs/img/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+# Read only at the workflow level. The deploy credentials go to the deploy job
+# alone, because the build job runs `npm ci` and so executes install scripts
+# from the whole dependency tree.
+permissions:
+  contents: read
+
+# One deploy at a time, and a queued one is not cancelled: cancelling a running
+# deploy can leave the site half-published.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/configure-pages@v6
+      - run: npm ci
+      - run: npm run build -w @nlpf/site
+      # The copy and size-budget tests run against the build that ships.
+      - run: npx vitest run site
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v5

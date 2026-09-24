@@ -1,0 +1,24 @@
+name: A source stopped working
+description: A source shows as degraded, returns nothing, or cannot send messages.
+labels: [source, bug]
+body:
+  - type: input
+    id: source
+    attributes:
+      label: Source id
+      description: As shown on the Sources page, for example `pararius` or `agency:example-makelaar`.
+    validations:
+      required: true
+  - type: textarea
+    id: test
+    attributes:
+      label: nlpf sources test output
+      description: Run `nlpf sources test <id> --json` and paste the result.
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+      description: When it stopped, whether the site looks different in a browser, whether you are logged in.

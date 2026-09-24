@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: How it works
+    url: https://github.com/danieltyukov/nl-property-finder/blob/master/docs/ARCHITECTURE.md
+    about: The daemon, the pipeline, the store and how sources plug in.
+  - name: Adding a source yourself
+    url: https://github.com/danieltyukov/nl-property-finder/blob/master/docs/ADAPTERS.md
+    about: One file and a fixture for a platform, or one YAML file for an estate agent.
+  - name: Security report
+    url: https://github.com/danieltyukov/nl-property-finder/security/advisories/new
+    about: Report a vulnerability privately. Do not open a public issue for one.
