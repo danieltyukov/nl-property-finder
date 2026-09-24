@@ -1,0 +1,37 @@
+# A student at TU Delft looking for a room or studio in Delft, Rotterdam or
+# The Hague, moving in from the start of the next semester.
+profile:
+  firstName: Sam
+  lastName: de Vries
+  email: sam.housing@example.com
+  occupation: student
+  organisation: TU Delft
+  guarantor: { relation: parent, incomeMonthlyGrossEur: 5200, country: NL }
+  moveInFrom: "2027-02-01"
+  languages: [en, nl]
+  messageLanguage: auto
+  about: >-
+    I am a second-year MSc student in Electrical Engineering at TU Delft. I am
+    quiet, tidy and I do not smoke. My parents act as guarantors.
+searches:
+  - id: rooms
+    name: Rooms and studios
+    types: [room, studio]
+    priceMaxEur: 850
+    regions:
+      - { name: Delft, municipalities: [delft] }
+      - { name: Rotterdam centre, postcodes: ["3011-3016"] }
+      - { name: Den Haag, municipalities: ["den haag"] }
+    requireRegistration: true
+    commute:
+      - { name: TU Delft EEMCS, lat: 51.9990, lon: 4.3736, mode: bike, maxMinutes: 30 }
+automation:
+  mode: auto
+  dailyCap: 40
+  availability:
+    - { days: [mon, tue, wed, thu, fri], start: "12:00", end: "20:00" }
+    - { days: [sat], start: "10:00", end: "16:00" }
+ai:
+  provider: rules
+notify:
+  ntfy: { topic: nlpf-change-me-to-something-random }

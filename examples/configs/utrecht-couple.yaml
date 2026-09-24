@@ -1,0 +1,29 @@
+# A couple looking for a house or larger apartment in Utrecht, with combined
+# income and a cat.
+profile:
+  firstName: Lotte
+  lastName: Bakker
+  email: lotte.woning@example.com
+  occupation: employed
+  incomeMonthlyGrossEur: 3600
+  coApplicants:
+    - { name: Joris Visser, relation: partner, occupation: employed, incomeMonthlyGrossEur: 3900 }
+  household: { adults: 2, children: 0, pets: true }
+  moveInFrom: "2026-12-01"
+  languages: [nl, en]
+  messageLanguage: nl
+  about: >-
+    Wij zijn een rustig stel van eind twintig met vaste contracten. We hebben
+    een binnenkat.
+searches:
+  - id: utrecht
+    name: Utrecht with room for two
+    types: [apartment, house]
+    priceMaxEur: 2100
+    sizeMinM2: 60
+    roomsMin: 3
+    regions:
+      - { name: Utrecht, municipalities: [utrecht] }
+    dealBreakers: [antikraak, "geen huisdieren"]
+registrations:
+  - { portal: WoningNet Utrecht, since: "2021-03-15", renewBy: "2027-03-15" }

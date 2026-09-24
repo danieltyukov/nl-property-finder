@@ -1,0 +1,31 @@
+# A professional starting a job in Amsterdam, looking for a one-bedroom
+# apartment in the middle-rent segment.
+profile:
+  firstName: Noor
+  lastName: Jansen
+  email: noor.home@example.com
+  occupation: starting_job
+  organisation: A software company in Amsterdam
+  incomeMonthlyGrossEur: 5400
+  moveInFrom: "2026-11-01"
+  languages: [en, nl]
+  about: >-
+    I start as a data engineer in Amsterdam in November on a permanent
+    contract. I live alone, have no pets and do not smoke.
+searches:
+  - id: amsterdam
+    name: Amsterdam one-bedroom
+    types: [apartment]
+    priceMaxEur: 1900
+    sizeMinM2: 40
+    bedroomsMin: 1
+    furnishing: [upholstered, unfurnished]
+    regions:
+      - { name: Amsterdam, municipalities: [amsterdam] }
+      - { name: Amstelveen, municipalities: [amstelveen] }
+    skipAboveLegalMaxPct: 25
+automation:
+  mode: threshold
+  scoreThreshold: 65
+ai:
+  provider: claude
