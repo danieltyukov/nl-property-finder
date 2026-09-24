@@ -1,3 +1,4 @@
+import { readToken } from '../client.js';
 import {
   closeSync,
   existsSync,
@@ -252,10 +253,14 @@ export function registerLifecycle(program: Command, deps: CliDeps): void {
     .option('--json', 'print JSON')
     .action((o: { json?: boolean }) =>
       run(deps, o.json, async () => {
-        const client = deps.client(deps.paths());
+        const paths = deps.paths();
+        const client = deps.client(paths);
         await client.status();
         const url = `${client.baseUrl}/`;
-        await deps.openUrl(url);
+        // The token rides along once; the daemon swaps it for a session cookie
+        // and redirects, so it does not stay in the address bar or history.
+        const token = process.env.NLPF_TOKEN ?? readToken(paths);
+        await deps.openUrl(token ? `${url}?t=${encodeURIComponent(token)}` : url);
         return { data: { url }, text: `Opened ${url}` };
       }),
     );

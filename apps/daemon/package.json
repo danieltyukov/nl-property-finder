@@ -21,5 +21,6 @@
   },
   "scripts": {
     "dev": "tsx watch ../cli/src/main.ts daemon"
-  }
+  },
+  "exports": "./src/index.ts"
 }

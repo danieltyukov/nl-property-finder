@@ -64,7 +64,7 @@ export function registerDaemon(program: Command, deps: CliDeps): void {
           ...(listenPort ? { port: listenPort } : {}),
           ...(sandboxPort ? { sandboxPort } : {}),
         });
-        const url = handle.url.replace(/\/?$/, '/');
+        const url = `${handle.url.replace(/\/?$/, '/')}?t=${encodeURIComponent(handle.token)}`;
         if (o.open) {
           await deps
             .openUrl(url)

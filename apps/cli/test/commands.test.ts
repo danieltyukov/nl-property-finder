@@ -484,7 +484,7 @@ describe('daemon and demo', () => {
     const arg = (startDaemon.mock.calls[0] as unknown as [{ paths: Paths; demo: boolean }])[0];
     expect(arg.demo).toBe(true);
     expect(arg.paths.configDir.startsWith(tmpdir())).toBe(true);
-    expect(h.deps.openUrl).toHaveBeenCalledWith('http://127.0.0.1:7600/');
+    expect(h.deps.openUrl).toHaveBeenCalledWith('http://127.0.0.1:7600/?t=t');
   });
 });
 
