@@ -152,7 +152,7 @@ export function createBrowserPool(opts: BrowserPoolOptions): BrowserPool {
       xvfb = undefined;
       xvfbHandle = undefined;
     }
-    xvfb ??= startXvfb({ log }).then(
+    xvfb ??= startXvfb({ log, executable: findExecutable('Xvfb', baseEnv) }).then(
       (h) => (xvfbHandle = h),
       (e: unknown) => {
         xvfb = undefined;

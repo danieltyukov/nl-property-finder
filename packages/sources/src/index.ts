@@ -10,3 +10,4 @@ export * from './util/address.js';
 export * from './runtime/connect.js';
 export * from './generic/agency.js';
 export * from './generic/presets.js';
+export * from './generic/agency-def.js';

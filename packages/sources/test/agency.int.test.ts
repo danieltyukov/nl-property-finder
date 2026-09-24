@@ -47,7 +47,7 @@ describe.skipIf(!resolveChromium())('agency contact form in a real browser', () 
   function setup() {
     // The template, pointed at the local server instead of the example domain.
     const def = parseAgencyYaml(TEMPLATE.replaceAll('https://www.example-makelaar.nl', server.url));
-    const adapter = createAgencyAdapter(def);
+    const adapter = createAgencyAdapter(def, { confirmTimeoutMs: 3_000 });
     const ctx = createSourceContext({
       fetch: createPoliteFetch({ minGapMs: 0, log: memoryLogger() }),
       pool,
@@ -110,5 +110,5 @@ describe.skipIf(!resolveChromium())('agency contact form in a real browser', () 
     const { adapter, ctx, listing, message } = setup();
     const result = await adapter.contact!(listing, message(false), ctx);
     expect(result).toMatchObject({ ok: false, channel: 'form', needs: 'human' });
-  }, 40_000);
+  });
 });
