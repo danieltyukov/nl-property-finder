@@ -5,7 +5,15 @@ import { createDemoProvider, createRulesProvider, reviewContractRules } from '@n
 import { parseSlots } from '@nlpf/agent';
 import catalogueFile from '../data/listings.json' with { type: 'json' };
 import repliesFile from '../data/replies.json' with { type: 'json' };
-import { CATALOGUE, REPLIES, REPLY_KINDS, composeReply, contractPdf, pdfText, type ReplyKind } from '../src/index.js';
+import {
+  CATALOGUE,
+  REPLIES,
+  REPLY_KINDS,
+  composeReply,
+  contractPdf,
+  pdfText,
+  type ReplyKind,
+} from '../src/index.js';
 import { createRng } from '../src/rng.js';
 import { World } from '../src/world.js';
 
@@ -88,7 +96,8 @@ describe('landlord reply texts', () => {
   });
 
   test('every text names the listing street and number', () => {
-    for (const t of allTexts(NOW)) expect(t.text, `${t.kind}/${t.lang}#${t.variant}`).toContain('Tulpgracht 12-A');
+    for (const t of allTexts(NOW))
+      expect(t.text, `${t.kind}/${t.lang}#${t.variant}`).toContain('Tulpgracht 12-A');
   });
 
   test('viewing times parse as certain slots inside the default availability, whatever the weekday', () => {
@@ -96,7 +105,9 @@ describe('landlord reply texts', () => {
       const now = new Date(NOW.getTime() + day * 86_400_000);
       for (const t of allTexts(now).filter((x) => x.kind === 'viewing_slots')) {
         const slots = parseSlots(t.text, now);
-        expect(slots.length, `${now.toISOString()} ${t.lang}#${t.variant}: ${t.text}`).toBeGreaterThanOrEqual(2);
+        expect(slots.length, `${now.toISOString()} ${t.lang}#${t.variant}: ${t.text}`).toBeGreaterThanOrEqual(
+          2,
+        );
         for (const s of slots) {
           expect(s.certain).toBe(true);
           const p = amsterdam(new Date(s.start));
@@ -112,8 +123,12 @@ describe('landlord reply texts', () => {
 
   test('the viewing text reads like a Dutch landlord wrote it', () => {
     const nl = allTexts(NOW).filter((t) => t.kind === 'viewing_slots' && t.lang === 'nl');
-    expect(nl.map((t) => t.text).join('\n')).toMatch(/(maandag|dinsdag|woensdag|donderdag|vrijdag) \d{1,2} (september|oktober) om \d{2}:\d{2}/);
-    expect(nl.map((t) => t.text).join('\n')).toMatch(/zaterdag (\d{1,2} (september|oktober) )?tussen \d{2}:\d{2} en \d{2}:\d{2}/);
+    expect(nl.map((t) => t.text).join('\n')).toMatch(
+      /(maandag|dinsdag|woensdag|donderdag|vrijdag) \d{1,2} (september|oktober) om \d{2}:\d{2}/,
+    );
+    expect(nl.map((t) => t.text).join('\n')).toMatch(
+      /zaterdag (\d{1,2} (september|oktober) )?tussen \d{2}:\d{2} en \d{2}:\d{2}/,
+    );
   });
 
   test('the contract flags the three month deposit with the rules check', () => {
@@ -128,11 +143,17 @@ describe('landlord reply texts', () => {
 
 describe('the data files', () => {
   const strings = (v: unknown): string[] =>
-    typeof v === 'string' ? [v] : Array.isArray(v) ? v.flatMap(strings) : v && typeof v === 'object' ? Object.values(v).flatMap(strings) : [];
+    typeof v === 'string'
+      ? [v]
+      : Array.isArray(v)
+        ? v.flatMap(strings)
+        : v && typeof v === 'object'
+          ? Object.values(v).flatMap(strings)
+          : [];
 
   test('no em dashes, en dashes or emojis anywhere', () => {
     for (const s of [...strings(catalogueFile), ...strings(repliesFile)]) {
-      expect(s).not.toMatch(/[–—]/);
+      expect(s).not.toMatch(/[\u2013\u2014]/);
       expect(s).not.toMatch(/\p{Extended_Pictographic}/u);
     }
   });

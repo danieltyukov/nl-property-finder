@@ -24,7 +24,10 @@ const postJson = (path: string, body: unknown, headers: Record<string, string> =
 describe('Huisje search API', () => {
   test('filters on the server by city, price, size and type', async () => {
     const res = await get('/huisje/api/search?city=rotterdam&priceMax=1200&sizeMin=40');
-    const data = (await res.json()) as { items: { id: string; address: { city: string }; price: { amount: number }; size: number }[]; total: number };
+    const data = (await res.json()) as {
+      items: { id: string; address: { city: string }; price: { amount: number }; size: number }[];
+      total: number;
+    };
     expect(data.items.length).toBeGreaterThan(0);
     expect(data.total).toBe(data.items.length);
     for (const i of data.items) {
@@ -32,14 +35,22 @@ describe('Huisje search API', () => {
       expect(i.price.amount).toBeLessThanOrEqual(1200);
       expect(i.size).toBeGreaterThanOrEqual(40);
     }
-    const studios = (await (await get('/huisje/api/search?type=studio')).json()) as { items: { type: string }[] };
+    const studios = (await (await get('/huisje/api/search?type=studio')).json()) as {
+      items: { type: string }[];
+    };
     expect(studios.items.length).toBeGreaterThan(0);
     expect(studios.items.every((i) => i.type === 'studio')).toBe(true);
   });
 
   test('pages through results newest first', async () => {
-    const one = (await (await get('/huisje/api/search?pageSize=5&page=1')).json()) as { items: { id: string; publishedAt: string }[]; pages: number; total: number };
-    const two = (await (await get('/huisje/api/search?pageSize=5&page=2')).json()) as { items: { id: string }[] };
+    const one = (await (await get('/huisje/api/search?pageSize=5&page=1')).json()) as {
+      items: { id: string; publishedAt: string }[];
+      pages: number;
+      total: number;
+    };
+    const two = (await (await get('/huisje/api/search?pageSize=5&page=2')).json()) as {
+      items: { id: string }[];
+    };
     expect(one.items).toHaveLength(5);
     expect(one.pages).toBe(Math.ceil(one.total / 5));
     expect(two.items.map((i) => i.id)).not.toContain(one.items[0]!.id);
@@ -71,11 +82,19 @@ describe('Huisje pages and login', () => {
   test('a person can use the contact form and gets a thank-you page', async () => {
     const res = await fetch(`${box.url}/huisje/listing/hj-1003/contact`, {
       method: 'POST',
-      body: new URLSearchParams({ name: 'Sam de Vries', email: 'sam@nlpf.test', message: 'Is de kamer nog vrij?' }),
+      body: new URLSearchParams({
+        name: 'Sam de Vries',
+        email: 'sam@nlpf.test',
+        message: 'Is de kamer nog vrij?',
+      }),
     });
     expect(res.status).toBe(200);
     expect(await res.text()).toContain('Bedankt');
-    expect(box.control.submissions()[0]).toMatchObject({ listingId: 'hj-1003', channel: 'form', message: 'Is de kamer nog vrij?' });
+    expect(box.control.submissions()[0]).toMatchObject({
+      listingId: 'hj-1003',
+      channel: 'form',
+      message: 'Is de kamer nog vrij?',
+    });
   });
 
   test('login sets a session cookie that /api/me accepts', async () => {
@@ -91,15 +110,26 @@ describe('Huisje pages and login', () => {
 
   test('with the login wall up, contact needs a session', async () => {
     box.control.setLoginRequired(true);
-    const guest = await postJson('/huisje/listing/hj-1001/contact', { name: 'Sam', email: 'sam@nlpf.test', message: 'Hallo' });
+    const guest = await postJson('/huisje/listing/hj-1001/contact', {
+      name: 'Sam',
+      email: 'sam@nlpf.test',
+      message: 'Hallo',
+    });
     expect(guest.status).toBe(401);
-    expect(await guest.json()).toMatchObject({ error: 'login_required', loginUrl: `${box.url}/huisje/login` });
+    expect(await guest.json()).toMatchObject({
+      error: 'login_required',
+      loginUrl: `${box.url}/huisje/login`,
+    });
     const page = await get('/huisje/listing/hj-1001');
     expect(await page.text()).toContain('Log in om te reageren');
 
     const login = await postJson('/huisje/api/login', { email: 'sam@nlpf.test', password: 'x' });
     const cookie = login.headers.getSetCookie()[0]!.split(';')[0]!;
-    const res = await postJson('/huisje/listing/hj-1001/contact', { name: 'Sam', email: 'sam@nlpf.test', message: 'Hallo' }, { cookie });
+    const res = await postJson(
+      '/huisje/listing/hj-1001/contact',
+      { name: 'Sam', email: 'sam@nlpf.test', message: 'Hallo' },
+      { cookie },
+    );
     expect(res.status).toBe(200);
     const body = (await res.json()) as { ok: boolean; submissionId: string; threadId: string };
     expect(body.ok).toBe(true);

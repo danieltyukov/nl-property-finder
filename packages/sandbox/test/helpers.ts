@@ -44,7 +44,8 @@ export async function sandbox(opts: Partial<SandboxOptions> = {}): Promise<TestS
     send: async (mail: AgentEmail) => {
       for (const fn of listeners) await fn(mail);
     },
-    waitForMail: (count: number, timeoutMs = 3000) => waitFor(() => (inbox.length >= count ? inbox : undefined), timeoutMs),
+    waitForMail: (count: number, timeoutMs = 3000) =>
+      waitFor(() => (inbox.length >= count ? inbox : undefined), timeoutMs),
   });
 }
 

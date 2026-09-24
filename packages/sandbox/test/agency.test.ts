@@ -18,7 +18,8 @@ afterEach(() => {
   box.control.reset();
 });
 
-const adapter = () => createAgencyAdapter(parseAgencyYaml(grachtAgencyYaml(box.url)), { confirmTimeoutMs: 3000 });
+const adapter = () =>
+  createAgencyAdapter(parseAgencyYaml(grachtAgencyYaml(box.url)), { confirmTimeoutMs: 3000 });
 
 async function searchGracht(): Promise<RawListing[]> {
   const a = adapter();
@@ -29,7 +30,10 @@ async function searchGracht(): Promise<RawListing[]> {
 
 describe('De Gracht through the generic agency adapter', () => {
   test('the YAML is the template with the sandbox URLs', () => {
-    const template = readFileSync(fileURLToPath(new URL('../../../examples/agencies/_template.yaml', import.meta.url)), 'utf8');
+    const template = readFileSync(
+      fileURLToPath(new URL('../../../examples/agencies/_template.yaml', import.meta.url)),
+      'utf8',
+    );
     const def = parseAgencyYaml(grachtAgencyYaml(`${box.url}/`));
     const tpl = parseAgencyYaml(template);
     expect(def.id).toBe('de-gracht');
@@ -64,7 +68,9 @@ describe('De Gracht through the generic agency adapter', () => {
       contact: 'form',
       agent: { name: 'Makelaardij De Gracht', email: GRACHT_EMAIL },
     });
-    expect(tulp!.url).toMatch(new RegExp(`^${box.url}/gracht/aanbod/woningaanbod/delft/huur/appartement-2001-tulpgracht-12-a/$`));
+    expect(tulp!.url).toMatch(
+      new RegExp(`^${box.url}/gracht/aanbod/woningaanbod/delft/huur/appartement-2001-tulpgracht-12-a/$`),
+    );
     expect(tulp!.contactUrl).toBe(`${tulp!.url}#contact`);
     const types = new Map(listings.map((l) => [l.externalId, l.type]));
     expect([...types.values()]).toEqual(expect.arrayContaining(['apartment', 'house']));
@@ -75,7 +81,12 @@ describe('De Gracht through the generic agency adapter', () => {
     const gracht = (await searchGracht()).find((l) => l.title === 'Tulpgracht 12 a')!;
     expect(huisje.addressText).toBe('Tulpgracht 12-A');
     expect(gracht.title).not.toBe(huisje.addressText);
-    expect(gracht.address).toMatchObject({ street: huisje.street, houseNumber: huisje.houseNumber, addition: huisje.addition, postcode: huisje.postcode });
+    expect(gracht.address).toMatchObject({
+      street: huisje.street,
+      houseNumber: huisje.houseNumber,
+      addition: huisje.addition,
+      postcode: huisje.postcode,
+    });
   });
 
   test('detail reads the description, the photos and the availability date', async () => {
@@ -101,7 +112,13 @@ describe('De Gracht through the generic agency adapter', () => {
   test('the contact form records a submission and thanks the sender', async () => {
     const res = await fetch(`${box.url}/gracht/contact`, {
       method: 'POST',
-      body: new URLSearchParams({ object: 'dg-2002', naam: 'Sam de Vries', email: 'sam@nlpf.test', telefoon: '0600000000', bericht: 'Graag kom ik kijken.' }),
+      body: new URLSearchParams({
+        object: 'dg-2002',
+        naam: 'Sam de Vries',
+        email: 'sam@nlpf.test',
+        telefoon: '0600000000',
+        bericht: 'Graag kom ik kijken.',
+      }),
     });
     expect(res.status).toBe(200);
     expect(await res.text()).toMatch(/Bedankt voor uw reactie op Lakenweversgracht 31/);
@@ -137,14 +154,22 @@ describe('De Gracht through the generic agency adapter', () => {
   test('the booking page offers the times from the viewing email and books one', async () => {
     await fetch(`${box.url}/gracht/contact`, {
       method: 'POST',
-      body: new URLSearchParams({ object: 'dg-2011', naam: 'Sam de Vries', email: 'sam@nlpf.test', bericht: 'Graag een bezichtiging.' }),
+      body: new URLSearchParams({
+        object: 'dg-2011',
+        naam: 'Sam de Vries',
+        email: 'sam@nlpf.test',
+        bericht: 'Graag een bezichtiging.',
+      }),
     });
     const sub = box.control.submissions()[0]!;
     const reply = await box.control.landlordReply(sub.id, 'viewing_slots');
     expect(reply.text).toContain(`/gracht/bezichtiging/${sub.id}`);
     const page = await (await fetch(`${box.url}/gracht/bezichtiging/${sub.id}`)).text();
     expect(page).toContain(reply.slots![0]!.text);
-    const booked = await fetch(`${box.url}/gracht/bezichtiging/${sub.id}`, { method: 'POST', body: new URLSearchParams({ slot: '1' }) });
+    const booked = await fetch(`${box.url}/gracht/bezichtiging/${sub.id}`, {
+      method: 'POST',
+      body: new URLSearchParams({ slot: '1' }),
+    });
     expect(await booked.text()).toContain('Bezichtiging gepland');
     expect(box.control.submission(sub.id)!.booking?.slot).toEqual(reply.slots![1]);
   });

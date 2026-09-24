@@ -73,11 +73,23 @@ describe('landlord replies by email', () => {
     const [info] = await box.waitForMail(1);
     expect(info!.text).toContain('?');
     expect(info!.text).not.toMatch(/bezichtiging/i);
-    await box.send({ to: GRACHT_EMAIL, subject: info!.subject!, text: 'Ik ben promovendus.', messageId: '<a1@nlpf.test>', inReplyTo: info!.id });
+    await box.send({
+      to: GRACHT_EMAIL,
+      subject: info!.subject!,
+      text: 'Ik ben promovendus.',
+      messageId: '<a1@nlpf.test>',
+      inReplyTo: info!.id,
+    });
     const [, slots] = await box.waitForMail(2);
     expect(slots!.text).toMatch(/bezichtiging/i);
     expect(slots!.inReplyTo).toBe('<a1@nlpf.test>');
-    await box.send({ to: GRACHT_EMAIL, subject: slots!.subject!, text: 'Graag bevestig ik de bezichtiging.', messageId: '<a2@nlpf.test>', inReplyTo: slots!.id });
+    await box.send({
+      to: GRACHT_EMAIL,
+      subject: slots!.subject!,
+      text: 'Graag bevestig ik de bezichtiging.',
+      messageId: '<a2@nlpf.test>',
+      inReplyTo: slots!.id,
+    });
     await new Promise((r) => setTimeout(r, 300));
     expect(box.inbox).toHaveLength(2); // the script is done
     expect(box.control.state().pendingReplies).toBe(0);
@@ -107,7 +119,9 @@ describe('landlord replies by email', () => {
     const { PDFDocument } = await import('pdf-lib');
     const doc = await PDFDocument.load(bytes);
     expect(doc.getPageCount()).toBe(1);
-    const served = await fetch(`${box.url}/_control/attachments/${box.control.submission(sub.id)!.messages.at(-1)!.attachments[0]!.id}`);
+    const served = await fetch(
+      `${box.url}/_control/attachments/${box.control.submission(sub.id)!.messages.at(-1)!.attachments[0]!.id}`,
+    );
     expect(served.headers.get('content-type')).toBe('application/pdf');
   });
 
@@ -138,7 +152,10 @@ describe('what the agent sends back', () => {
       attachments: [{ filename: 'loonstrook-augustus.pdf', path: file }],
     });
     const [email] = box.control.emails();
-    expect(email).toMatchObject({ submissionId: sub.id, attachments: [{ filename: 'loonstrook-augustus.pdf' }] });
+    expect(email).toMatchObject({
+      submissionId: sub.id,
+      attachments: [{ filename: 'loonstrook-augustus.pdf' }],
+    });
     const last = box.control.submission(sub.id)!.messages.at(-1)!;
     expect(last.attachments[0]!.filename).toBe('loonstrook-augustus.pdf');
     expect(readFileSync(last.attachments[0]!.path, 'utf8')).toBe('%PDF-1.4 loonstrook');
@@ -172,7 +189,12 @@ describe('what the agent sends back', () => {
       messageId: '<first@nlpf.test>',
     });
     const [sub] = box.control.submissions();
-    expect(sub).toMatchObject({ listingId: 'dg-2002', channel: 'email', name: 'Sam de Vries', email: 'sam@nlpf.test' });
+    expect(sub).toMatchObject({
+      listingId: 'dg-2002',
+      channel: 'email',
+      name: 'Sam de Vries',
+      email: 'sam@nlpf.test',
+    });
     const [reply] = await box.waitForMail(1);
     expect(reply!.inReplyTo).toBe('<first@nlpf.test>');
     expect(reply!.subject).toBe('Re: Reactie op Lakenweversgracht 31');
@@ -182,7 +204,12 @@ describe('what the agent sends back', () => {
   test('an email about a home that is gone gets "already rented"', async () => {
     const box = await start({ autoReply: true, speed: 1000 });
     box.control.removeListing('dg-2012', 'rented');
-    await box.send({ to: GRACHT_EMAIL, subject: 'Zoutkeetsingel 9', text: 'Is Zoutkeetsingel 9 nog beschikbaar?', messageId: '<q@nlpf.test>' });
+    await box.send({
+      to: GRACHT_EMAIL,
+      subject: 'Zoutkeetsingel 9',
+      text: 'Is Zoutkeetsingel 9 nog beschikbaar?',
+      messageId: '<q@nlpf.test>',
+    });
     const [reply] = await box.waitForMail(1);
     expect(reply!.text).toContain('al verhuurd');
   });
@@ -198,16 +225,27 @@ describe('what the agent sends back', () => {
 describe('viewingConfirmation', () => {
   const slots = [
     { start: '2026-10-01T16:30:00.000Z', text: 'donderdag 1 oktober om 18:30' },
-    { start: '2026-10-03T08:00:00.000Z', end: '2026-10-03T10:00:00.000Z', text: 'zaterdag 3 oktober tussen 10:00 en 12:00' },
+    {
+      start: '2026-10-03T08:00:00.000Z',
+      end: '2026-10-03T10:00:00.000Z',
+      text: 'zaterdag 3 oktober tussen 10:00 en 12:00',
+    },
   ];
   test('finds the slot by day and time, including a time inside a window', () => {
     expect(viewingConfirmation('Graag op donderdag 1 oktober om 18:30.', slots)).toEqual({ slot: slots[0] });
     expect(viewingConfirmation('Ik kom zaterdag 3 oktober om 10:30.', slots)).toEqual({ slot: slots[1] });
-    expect(viewingConfirmation('I am happy to confirm the viewing on Thursday 1 October at 18:30.', slots)).toEqual({ slot: slots[0] });
+    expect(
+      viewingConfirmation('I am happy to confirm the viewing on Thursday 1 October at 18:30.', slots),
+    ).toEqual({ slot: slots[0] });
   });
   test('a plain confirmation counts, a refusal does not', () => {
     expect(viewingConfirmation('Graag bevestig ik de bezichtiging.', slots)).toEqual({});
-    expect(viewingConfirmation('Helaas kan ik op de voorgestelde tijden niet. Is een ander moment mogelijk?', slots)).toBeUndefined();
+    expect(
+      viewingConfirmation(
+        'Helaas kan ik op de voorgestelde tijden niet. Is een ander moment mogelijk?',
+        slots,
+      ),
+    ).toBeUndefined();
     expect(viewingConfirmation('Wat is het energielabel?', slots)).toBeUndefined();
   });
 });
@@ -223,7 +261,11 @@ describe('determinism', () => {
       for (const kind of ['viewing_slots', 'info_request', 'rejection'] as const) {
         texts.push((await box.control.landlordReply(sub.id, kind)).text.replaceAll(box.url, '<sandbox>'));
       }
-      return { added: added.map(({ publishedAt: _p, ...rest }) => rest), texts, ids: box.inbox.map((m) => m.id) };
+      return {
+        added: added.map(({ publishedAt: _p, ...rest }) => rest),
+        texts,
+        ids: box.inbox.map((m) => m.id),
+      };
     };
     const a = await run(11);
     const b = await run(11);

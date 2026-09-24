@@ -35,9 +35,23 @@ describe('huisjeAdapter', () => {
   test('describes a platform that allows automated contact', () => {
     const a = adapter();
     expect(a.id).toBe('huisje');
-    expect(a.capabilities).toEqual({ search: 'json', detail: true, contact: 'form', login: 'optional', terms: 'allows' });
+    expect(a.capabilities).toEqual({
+      search: 'json',
+      detail: true,
+      contact: 'form',
+      login: 'optional',
+      terms: 'allows',
+    });
     expect(a.loginUrl).toBe(`${box.url}/huisje/login`);
-    for (const fn of ['search', 'detail', 'contact', 'inbox', 'reply', 'checkSession', 'isAvailable'] as const) {
+    for (const fn of [
+      'search',
+      'detail',
+      'contact',
+      'inbox',
+      'reply',
+      'checkSession',
+      'isAvailable',
+    ] as const) {
       expect(typeof a[fn]).toBe('function');
     }
   });
@@ -87,15 +101,29 @@ describe('huisjeAdapter', () => {
   test('contacting a listing records a submission; a dry run records nothing', async () => {
     const [raw] = (await searchAll()).filter((l) => l.externalId === 'hj-1001');
     const listing = asListing(raw!);
-    const dry = await adapter().contact!(listing, message('Goedemiddag, ik kom graag kijken.', true), context('huisje'));
+    const dry = await adapter().contact!(
+      listing,
+      message('Goedemiddag, ik kom graag kijken.', true),
+      context('huisje'),
+    );
     expect(dry).toMatchObject({ ok: true, channel: 'form' });
     expect(box.control.submissions()).toHaveLength(0);
 
-    const result = await adapter().contact!(listing, message('Goedemiddag, ik kom graag kijken.'), context('huisje'));
+    const result = await adapter().contact!(
+      listing,
+      message('Goedemiddag, ik kom graag kijken.'),
+      context('huisje'),
+    );
     expect(result.ok).toBe(true);
     const [sub] = box.control.submissions();
     expect(result.externalId).toBe(sub!.threadId);
-    expect(sub).toMatchObject({ source: 'huisje', listingId: 'hj-1001', name: 'Sam de Vries', email: 'sam@nlpf.test', replyChannel: 'platform' });
+    expect(sub).toMatchObject({
+      source: 'huisje',
+      listingId: 'hj-1001',
+      name: 'Sam de Vries',
+      email: 'sam@nlpf.test',
+      replyChannel: 'platform',
+    });
     expect(sub!.messages[0]).toMatchObject({ from: 'agent', text: 'Goedemiddag, ik kom graag kijken.' });
   });
 
@@ -119,9 +147,9 @@ describe('huisjeAdapter', () => {
   test('setLoginRequired makes contact throw NeedsLoginError; credentials in the config get past it', async () => {
     const listing = asListing((await searchAll()).find((l) => l.externalId === 'hj-1001')!);
     box.control.setLoginRequired(true);
-    const err = await adapter()
-      .contact!(listing, message('Hallo'), context('huisje'))
-      .catch((e: unknown) => e);
+    const err = await adapter().contact!(listing, message('Hallo'), context('huisje')).catch(
+      (e: unknown) => e,
+    );
     expect(err).toBeInstanceOf(NeedsLoginError);
     expect((err as NeedsLoginError).loginUrl).toBe(`${box.url}/huisje/login`);
     expect(await adapter().checkSession!(context('huisje'))).toBe('none');
@@ -153,13 +181,22 @@ describe('huisjeAdapter', () => {
   test('inbox returns landlord replies in the thread and reply answers in it', async () => {
     const listing = asListing((await searchAll()).find((l) => l.externalId === 'hj-1002')!);
     const since = new Date(Date.now() - 1000);
-    const contact = await adapter().contact!(listing, message('Hello, I would like to see the studio.'), context('huisje'));
+    const contact = await adapter().contact!(
+      listing,
+      message('Hello, I would like to see the studio.'),
+      context('huisje'),
+    );
     const [sub] = box.control.submissions();
     await box.control.landlordReply(sub!.id, 'viewing_slots');
 
     const inbox = await adapter().inbox!(context('huisje'), since);
     expect(inbox).toHaveLength(1);
-    expect(inbox[0]).toMatchObject({ channel: 'platform', sourceId: 'huisje', threadId: contact.externalId, from: { name: 'Marieke de Boer' } });
+    expect(inbox[0]).toMatchObject({
+      channel: 'platform',
+      sourceId: 'huisje',
+      threadId: contact.externalId,
+      from: { name: 'Marieke de Boer' },
+    });
     expect(inbox[0]!.id).toMatch(/^huisje:m-\d+$/);
     expect(inbox[0]!.text).toMatch(/viewing/i);
     expect(box.inbox).toHaveLength(0);
@@ -167,10 +204,18 @@ describe('huisjeAdapter', () => {
     const later = await adapter().inbox!(context('huisje'), new Date(Date.now() + 60_000));
     expect(later).toHaveLength(0);
 
-    const r = await adapter().reply!(contact.externalId!, message('Thursday suits me, see you then.'), context('huisje'));
+    const r = await adapter().reply!(
+      contact.externalId!,
+      message('Thursday suits me, see you then.'),
+      context('huisje'),
+    );
     expect(r).toMatchObject({ ok: true, channel: 'message' });
     const after = box.control.submission(sub!.id)!;
-    expect(after.messages.at(-1)).toMatchObject({ from: 'agent', channel: 'platform', text: 'Thursday suits me, see you then.' });
+    expect(after.messages.at(-1)).toMatchObject({
+      from: 'agent',
+      channel: 'platform',
+      text: 'Thursday suits me, see you then.',
+    });
     expect(after.agentTurns).toBe(2);
     expect(after.viewingConfirmed).toBeDefined();
   });
@@ -191,7 +236,9 @@ describe('huisjeAdapter', () => {
   test('inbox and reply need a login when the platform asks for one', async () => {
     box.control.setLoginRequired(true);
     await expect(adapter().inbox!(context('huisje'), new Date(0))).rejects.toBeInstanceOf(NeedsLoginError);
-    await expect(adapter().reply!('th-1', message('Hallo'), context('huisje'))).rejects.toBeInstanceOf(NeedsLoginError);
+    await expect(adapter().reply!('th-1', message('Hallo'), context('huisje'))).rejects.toBeInstanceOf(
+      NeedsLoginError,
+    );
   });
 
   test('reply uploads attachments to the thread', async () => {
@@ -201,7 +248,10 @@ describe('huisjeAdapter', () => {
     await import('node:fs').then((fs) => fs.writeFileSync(file, '%PDF-1.4 loonstrook'));
     await adapter().reply!(
       contact.externalId!,
-      { ...message('Hierbij mijn loonstrook.'), attachments: [{ filename: 'loonstrook.pdf', contentType: 'application/pdf', path: file }] },
+      {
+        ...message('Hierbij mijn loonstrook.'),
+        attachments: [{ filename: 'loonstrook.pdf', contentType: 'application/pdf', path: file }],
+      },
       context('huisje'),
     );
     const sub = box.control.submissions()[0]!;
