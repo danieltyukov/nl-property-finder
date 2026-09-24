@@ -160,8 +160,8 @@ test('the first-run wizard shows for an empty profile and finishes', async ({ pa
   await page.getByLabel('First name').fill('Sam');
   await page.getByLabel('Last name').fill('de Vries');
   await page.getByRole('button', { name: 'Continue' }).click();
-  await page.getByRole('checkbox', { name: 'Delft' }).check({ force: true });
-  await page.getByRole('checkbox', { name: 'Rotterdam' }).check({ force: true });
+  await page.getByRole('checkbox', { name: 'Delft' }).check();
+  await page.getByRole('checkbox', { name: 'Rotterdam' }).check();
   await page.getByLabel('Maximum rent (EUR)').fill('1400');
   await page.getByRole('button', { name: 'Continue' }).click();
   await page.getByRole('button', { name: 'Skip for now' }).click();

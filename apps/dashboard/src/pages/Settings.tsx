@@ -335,11 +335,11 @@ function ServiceSettings({ server, onChange }: { server: Config['server']; onCha
   );
 }
 
-function CodeBlock({ children, copy, what }: { children: ReactNode; copy: string; what: string }) {
+function CodeBlock({ children, copy, what, label }: { children: ReactNode; copy: string; what: string; label: string }) {
   return (
     <div className="code-wrap">
       <pre className="code-block">{children}</pre>
-      <CopyButton text={copy} what={what} />
+      <CopyButton text={copy} what={what} label={label} />
     </div>
   );
 }
@@ -353,11 +353,11 @@ function AgentAccess() {
     <Card label="Agent access">
       <p className="card-intro">Claude (or any MCP client) can read your inbox, draft replies and resolve tasks through the MCP server. Tools that contact real people say so, and withdrawing everything needs an explicit confirmation.</p>
       <h3 className="label sub">Claude Desktop</h3>
-      <CodeBlock copy={mcpSnippet()} what="MCP config">
+      <CodeBlock copy={mcpSnippet()} what="MCP config" label="Copy MCP config">
         {mcpSnippet()}
       </CodeBlock>
       <h3 className="label sub">Claude Code</h3>
-      <CodeBlock copy={CLAUDE_CODE_COMMAND} what="Command">
+      <CodeBlock copy={CLAUDE_CODE_COMMAND} what="Command" label="Copy command">
         {CLAUDE_CODE_COMMAND}
       </CodeBlock>
       <h3 className="label sub">API token</h3>
@@ -370,7 +370,7 @@ function AgentAccess() {
       </div>
       <p className="field-hint">Every request needs it in the X-NLPF-Token header. It is also in the data folder as api-token.</p>
       <h3 className="label sub">REST</h3>
-      <CodeBlock copy={curl} what="Command">
+      <CodeBlock copy={curl} what="Command" label="Copy curl command">
         {curl}
       </CodeBlock>
       <p className="field-hint">

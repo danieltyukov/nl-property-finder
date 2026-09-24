@@ -47,7 +47,12 @@ export function Dialog({
   useEffect(() => {
     if (!open) return;
     const node = ref.current;
-    const first = (initialFocus ? node?.querySelector<HTMLElement>(initialFocus) : null) ?? node?.querySelector<HTMLElement>(FOCUSABLE);
+    // The first field, else the first footer button (the safe choice comes first there), else Close.
+    const first =
+      (initialFocus ? node?.querySelector<HTMLElement>(initialFocus) : null) ??
+      node?.querySelector('.dialog-body')?.querySelector<HTMLElement>(FOCUSABLE) ??
+      node?.querySelector('.dialog-foot')?.querySelector<HTMLElement>(FOCUSABLE) ??
+      node?.querySelector<HTMLElement>(FOCUSABLE);
     (first ?? node)?.focus();
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
