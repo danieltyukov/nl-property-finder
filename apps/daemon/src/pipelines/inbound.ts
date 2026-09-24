@@ -9,6 +9,7 @@ import {
   matchInbound,
   messageLanguage,
   parseSlots,
+  profileLanguage,
   replyBudgetLeft,
   VIEWING_MINUTES,
   watermarkDocument,
@@ -276,7 +277,8 @@ export async function handleInbound(rt: Runtime, msg: InboundMessage, deps: Inbo
       let review: unknown;
       if ((action.task === 'offer_or_contract') && (msg.attachments.length || /contract|overeenkomst/i.test(msg.text))) {
         const pdf = msg.attachments.find((a) => /pdf$/i.test(a.contentType ?? a.filename) && a.path)?.path;
-        review = await rt.ai().reviewContract({ text: msg.text, property, priceEur: property?.priceEur, language, pdfPath: pdf }).catch(() => undefined);
+        // The review is for the user, so it is written in the user's language, not the landlord's.
+        review = await rt.ai().reviewContract({ text: msg.text, property, priceEur: property?.priceEur, language: profileLanguage(cfg.profile), pdfPath: pdf }).catch(() => undefined);
       }
       const titles: Record<string, string> = {
         offer_or_contract: `Offer: ${title}`,

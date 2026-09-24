@@ -109,6 +109,26 @@ export async function handleContact(rt: Runtime, job: Job): Promise<void> {
   const plan = planContact(primary, listings, registry, cfg);
 
   if (plan.plan !== 'send') {
+    // First come, first served booking (Holland2Stay): no message can win it, a person
+    // clicking now can. Open the booking page on the user's screen and push an urgent task.
+    const booking = listings.find((l) => l.contact === 'booking' && typeof l.extra?.bookingUrl === 'string');
+    if (booking) {
+      const url = String(booking.extra!.bookingUrl);
+      if (rt.openOnScreen) await rt.openOnScreen(url).catch(() => undefined);
+      rt.store.applications.update(app.id, { status: 'manual', note: 'Booking needs a person' }, nowIso);
+      openTask(rt, {
+        kind: 'react_manually',
+        title: `Book it now: ${property.title}`,
+        reason: `${rt.adapter(booking.sourceId)?.name ?? 'This site'} books homes first come, first served, and its check needs a person. The booking page is open on your screen.`,
+        priority: 1,
+        propertyId,
+        applicationId: app.id,
+        sourceId: booking.sourceId,
+        dueAt: new Date(now.getTime() + 15 * 60_000).toISOString(),
+        payload: { url },
+      }, `book:${propertyId}`);
+      return;
+    }
     const via = primary;
     const channel = via.contact === 'email' ? 'email' : via.contact === 'message' ? 'message' : 'form';
     const draft = await draftFirstMessage(rt, via, channel, propertyId);

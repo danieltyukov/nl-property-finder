@@ -17,6 +17,8 @@ inbox. It starts when your computer starts and stops with one command.
 
 Project site: <https://danieltyukov.github.io/nl-property-finder/>
 
+<img src="docs/img/walkthrough.webp" width="720" alt="A walkthrough of the dashboard in demo mode: onboarding, the Action inbox with a booked viewing, a document request waiting for approval, a warning about a deposit asked before any viewing, a blocked source recovering, an offer with its contract review, the applications board, and I found a place.">
+
 ## What it is
 
 One background process on your machine, the daemon, and three ways to talk to
@@ -86,11 +88,14 @@ platform, knowing that the risk is your account on that platform.
 | [Expat & Property Management](https://www.expatpropertymanagement.nl) | Yes | Yes | Contact form |
 | [Expat & Real Estate](https://www.expat-realestate.nl) | Yes | Yes | Contact form |
 | [Funda](https://www.funda.nl) | Yes | Opt-in | Contact form |
+| [Holland2Stay](https://www.holland2stay.com) | Yes | Opt-in | Online booking |
 | [HousingAnywhere](https://housinganywhere.com) | Yes | With housinganywhere-plus | Platform message |
 | [Huren in Holland Rijnland](https://www.hureninhollandrijnland.nl) | Yes | After you connect | Contact form |
 | [Huurstunt](https://www.huurstunt.nl) | Yes | Watch only | None |
+| [Huurwoningen](https://www.huurwoningen.nl) | Yes | With huurwoningen-premium | Contact form |
 | [Huurzone](https://www.huurzone.nl) | Yes | Watch only | None |
 | [Interhouse](https://interhouse.nl) | Yes | Yes | Contact form |
+| [Kamer.nl](https://www.kamer.nl) | Yes | With kamernl-premium | Platform message |
 | [Kamernet](https://kamernet.nl) | Yes | With kamernet-premium | Platform message |
 | [Keij & Stefels](https://www.keij-stefels.nl) | Yes | Yes | Contact form |
 | [Lankhuijzen Makelaars](https://www.lankhuijzen.nl) | Yes | Yes | Contact form |
@@ -99,6 +104,7 @@ platform, knowing that the risk is your account on that platform.
 | [MVGM (ikwilhuren.nu)](https://ikwilhuren.nu) | Yes | Watch only | None |
 | [NederWoon](https://www.nederwoon.nl) | Yes | Watch only | None |
 | [Nelisse Makelaarsgroep](https://www.nelisse.nl) | Yes | Yes | Contact form |
+| [Pararius](https://www.pararius.nl) | Yes | Opt-in | Contact form |
 | [Perfect Rent](https://www.perfectrent.nl) | Yes | Yes | Contact form |
 | [Plaza Resident Services](https://plaza.newnewnew.space) | Yes | After you connect | Contact form |
 | [Rentola](https://rentola.nl) | Yes | Watch only | None |
@@ -117,6 +123,7 @@ platform, knowing that the risk is your account on that platform.
 | [Woonnet Haaglanden](https://www.woonnet-haaglanden.nl) | Yes | After you connect | Contact form |
 | [Woonnet Rijnmond](https://www.woonnetrijnmond.nl) | Yes | After you connect | Contact form |
 | [WVO Makelaarsgroep](https://www.wvo.nl) | Yes | Yes | Contact form |
+| [Xior](https://www.xiorstudenthousing.eu) | Yes | After you connect | Online booking |
 <!-- sources:end -->
 
 `docs/SOURCES.md` has every source's capabilities and the reason for its

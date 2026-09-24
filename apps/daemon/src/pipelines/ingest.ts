@@ -97,7 +97,10 @@ export async function handlePoll(rt: Runtime, job: Job): Promise<void> {
         if (r.isNew) fresh += 1;
       }
     }
+    const recovering = state.consecutiveFailures > 0 || !!state.lastError;
     health.record(state, { ok: true, count, latencyMs: Date.now() - started });
+    // A check that works again ends any backoff left over from a block.
+    if (recovering) rt.scheduler.pollNow(sourceId);
     if (fresh > 0) rt.bus.emit('source.polled', `${adapter.name}: ${fresh} new of ${count}`, { sourceId, count, fresh, ms: Date.now() - started });
   } catch (err) {
     const latencyMs = Date.now() - started;

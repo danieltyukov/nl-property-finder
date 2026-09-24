@@ -33,6 +33,8 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run typecheck
+      # docs/SOURCES.md and the README table are generated from the adapters.
+      - run: npm run docs:sources -- --check
       # Unit tests never touch the network: adapters read recorded fixtures,
       # the AI layer is mocked, and the mail parsers read .eml files.
       - run: npx vitest run --project unit --project dashboard

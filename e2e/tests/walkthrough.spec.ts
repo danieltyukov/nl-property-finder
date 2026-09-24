@@ -204,7 +204,12 @@ test('10. approve mode asks first, and one click sends', async ({ demo }) => {
   const cfg = await demo.api<{ automation: Record<string, unknown> }>('/config');
   await demo.api('/config', { method: 'PATCH', body: { section: 'automation', value: { ...cfg.automation, mode: 'approve' } } });
   const home = await addListing(demo, {});
-  const task = await taskOf(demo, 'approve_outreach', 40_000);
+  const task = await taskOf(demo, 'approve_outreach', 40_000).catch(async (e) => {
+    const events = await demo.api<{ items: { at: string; type: string; summary: string }[] }>('/activity?limit=25');
+    const sources = await demo.api<{ items: unknown[] }>('/sources');
+    console.log(JSON.stringify({ home, events: events.items.map((x) => `${x.at.slice(11, 19)} ${x.type} ${x.summary}`), sources: sources.items, tasks: (await tasks(demo)).map((x) => `${x.kind}:${x.state}`) }, null, 1));
+    throw e;
+  });
   expect((await submissions(demo)).filter((s) => s.listingId === home.id)).toHaveLength(0);
   await pressInboxAction(demo, task, 'Approve and send');
   await submissionFor(demo, home.id, 30_000);

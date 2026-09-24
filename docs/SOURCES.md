@@ -2,7 +2,7 @@
 
 Generated from the adapters by `npm run docs:sources`. Do not edit by hand.
 
-44 built-in sources. Estate agents are added with one YAML
+49 built-in sources. Estate agents are added with one YAML
 file each (see `docs/ADAPTERS.md`), and every platform's alert emails are
 read from your dedicated mailbox as a second way in.
 
@@ -25,11 +25,14 @@ per platform with `nlpf sources enable-contact <id>` or in the dashboard.
 | [Expat & Property Management](https://www.expatpropertymanagement.nl) | Yes | Yes | Contact form |
 | [Expat & Real Estate](https://www.expat-realestate.nl) | Yes | Yes | Contact form |
 | [Funda](https://www.funda.nl) | Yes | Opt-in | Contact form |
+| [Holland2Stay](https://www.holland2stay.com) | Yes | Opt-in | Online booking |
 | [HousingAnywhere](https://housinganywhere.com) | Yes | With housinganywhere-plus | Platform message |
 | [Huren in Holland Rijnland](https://www.hureninhollandrijnland.nl) | Yes | After you connect | Contact form |
 | [Huurstunt](https://www.huurstunt.nl) | Yes | Watch only | None |
+| [Huurwoningen](https://www.huurwoningen.nl) | Yes | With huurwoningen-premium | Contact form |
 | [Huurzone](https://www.huurzone.nl) | Yes | Watch only | None |
 | [Interhouse](https://interhouse.nl) | Yes | Yes | Contact form |
+| [Kamer.nl](https://www.kamer.nl) | Yes | With kamernl-premium | Platform message |
 | [Kamernet](https://kamernet.nl) | Yes | With kamernet-premium | Platform message |
 | [Keij & Stefels](https://www.keij-stefels.nl) | Yes | Yes | Contact form |
 | [Lankhuijzen Makelaars](https://www.lankhuijzen.nl) | Yes | Yes | Contact form |
@@ -38,6 +41,7 @@ per platform with `nlpf sources enable-contact <id>` or in the dashboard.
 | [MVGM (ikwilhuren.nu)](https://ikwilhuren.nu) | Yes | Watch only | None |
 | [NederWoon](https://www.nederwoon.nl) | Yes | Watch only | None |
 | [Nelisse Makelaarsgroep](https://www.nelisse.nl) | Yes | Yes | Contact form |
+| [Pararius](https://www.pararius.nl) | Yes | Opt-in | Contact form |
 | [Perfect Rent](https://www.perfectrent.nl) | Yes | Yes | Contact form |
 | [Plaza Resident Services](https://plaza.newnewnew.space) | Yes | After you connect | Contact form |
 | [Rentola](https://rentola.nl) | Yes | Watch only | None |
@@ -56,6 +60,7 @@ per platform with `nlpf sources enable-contact <id>` or in the dashboard.
 | [Woonnet Haaglanden](https://www.woonnet-haaglanden.nl) | Yes | After you connect | Contact form |
 | [Woonnet Rijnmond](https://www.woonnetrijnmond.nl) | Yes | After you connect | Contact form |
 | [WVO Makelaarsgroep](https://www.wvo.nl) | Yes | Yes | Contact form |
+| [Xior](https://www.xiorstudenthousing.eu) | Yes | After you connect | Online booking |
 
 ## 123Wonen
 
@@ -252,6 +257,21 @@ Id `funda`. https://www.funda.nl
 | Terms on automation | forbids |
 | Default | Opt-in: its terms forbid automated access, so contact waits for your opt-in |
 
+## Holland2Stay
+
+Id `holland2stay`. https://www.holland2stay.com
+
+| | |
+| --- | --- |
+| Regions | The whole country |
+| Reads listings from | a real browser |
+| Checked every | about 120 seconds |
+| Contact | Online booking |
+| Login | required |
+| Paid plan to react | no |
+| Terms on automation | forbids |
+| Default | Opt-in: its terms forbid automated access, so contact waits for your opt-in; it needs one login with nlpf connect; it is read in a real browser on a private display; homes are booked first come, first served |
+
 ## HousingAnywhere
 
 Id `housinganywhere`. https://housinganywhere.com
@@ -297,6 +317,21 @@ Id `huurstunt`. https://www.huurstunt.nl
 | Terms on automation | unknown |
 | Default | Watch only: reacting needs a paid plan (huurstunt-premium); without it the agent looks for a free copy of the same home; it needs one login with nlpf connect |
 
+## Huurwoningen
+
+Id `huurwoningen`. https://www.huurwoningen.nl
+
+| | |
+| --- | --- |
+| Regions | The whole country |
+| Reads listings from | a real browser |
+| Checked every | about 300 seconds |
+| Contact | Contact form |
+| Login | required |
+| Paid plan to react | huurwoningen-premium |
+| Terms on automation | forbids |
+| Default | With huurwoningen-premium: its terms forbid automated access, so contact waits for your opt-in; reacting needs a paid plan (huurwoningen-premium); without it the agent looks for a free copy of the same home; it needs one login with nlpf connect; it is read in a real browser on a private display |
+
 ## Huurzone
 
 Id `huurzone`. https://www.huurzone.nl
@@ -326,6 +361,21 @@ Id `interhouse`. https://interhouse.nl
 | Paid plan to react | no |
 | Terms on automation | unknown |
 | Default | Yes: nothing special |
+
+## Kamer.nl
+
+Id `kamernl`. https://www.kamer.nl
+
+| | |
+| --- | --- |
+| Regions | The whole country |
+| Reads listings from | a real browser |
+| Checked every | about 900 seconds |
+| Contact | Platform message |
+| Login | required |
+| Paid plan to react | kamernl-premium |
+| Terms on automation | unknown |
+| Default | With kamernl-premium: reacting needs a paid plan (kamernl-premium); without it the agent looks for a free copy of the same home; it needs one login with nlpf connect; it is read in a real browser on a private display |
 
 ## Kamernet
 
@@ -446,6 +496,21 @@ Id `ogonline:nelisse`. https://www.nelisse.nl
 | Paid plan to react | no |
 | Terms on automation | unknown |
 | Default | Yes: nothing special |
+
+## Pararius
+
+Id `pararius`. https://www.pararius.nl
+
+| | |
+| --- | --- |
+| Regions | The whole country |
+| Reads listings from | a real browser |
+| Checked every | about 180 seconds |
+| Contact | Contact form |
+| Login | required |
+| Paid plan to react | no |
+| Terms on automation | forbids |
+| Default | Opt-in: its terms forbid automated access, so contact waits for your opt-in; it needs one login with nlpf connect; it is read in a real browser on a private display |
 
 ## Perfect Rent
 
@@ -716,3 +781,18 @@ Id `ogonline:wvo`. https://www.wvo.nl
 | Paid plan to react | no |
 | Terms on automation | unknown |
 | Default | Yes: nothing special |
+
+## Xior
+
+Id `xior`. https://www.xiorstudenthousing.eu
+
+| | |
+| --- | --- |
+| Regions | Amsterdam, Breda, Delft, Eindhoven, Enschede, Groningen, Leeuwarden, Maastricht, Den haag, 's-gravenhage, Utrecht, Venlo, Wageningen |
+| Reads listings from | a real browser |
+| Checked every | about 1800 seconds |
+| Contact | Online booking |
+| Login | required |
+| Paid plan to react | no |
+| Terms on automation | unknown |
+| Default | After you connect: it needs one login with nlpf connect; it is read in a real browser on a private display; homes are booked first come, first served |

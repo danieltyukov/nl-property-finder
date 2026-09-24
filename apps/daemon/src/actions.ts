@@ -19,6 +19,21 @@ export interface ActionDeps {
 
 const SAFE_NAME = /^[\w.\- ]{1,120}$/;
 
+const squash = (s: string) => s.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, ' ').trim();
+
+/**
+ * Whether the address someone typed ("Kuipersgracht 12", "kuipersgracht 12a, Delft")
+ * is this property. Street and house number must both appear; the title alone
+ * ("Appartement Kuipersgracht") is not enough, because two homes share a street.
+ */
+export function isSameHome(typed: string, property: import('@nlpf/core').Property): boolean {
+  const t = ` ${squash(typed)} `;
+  const street = property.address.street ? squash(property.address.street) : '';
+  const number = property.address.houseNumber ? squash(property.address.houseNumber) : '';
+  if (street && number) return t.includes(` ${street} `) && new RegExp(`\\b${number}(\\s|[a-z]|$)`).test(t.slice(t.indexOf(street)));
+  return squash(property.title) === squash(typed);
+}
+
 export function createActions(d: ActionDeps): DaemonActions {
   const { rt } = d;
   const now = () => rt.now().toISOString();
@@ -252,7 +267,7 @@ export function createActions(d: ActionDeps): DaemonActions {
       let skipped = 0;
       for (const app of open) {
         const property = rt.store.properties.get(app.propertyId);
-        if (body.foundAddress && property && property.title.toLowerCase().includes(body.foundAddress.toLowerCase())) {
+        if (body.foundAddress && property && isSameHome(body.foundAddress, property)) {
           skipped++;
           continue;
         }
