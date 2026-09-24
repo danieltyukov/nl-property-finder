@@ -1,0 +1,83 @@
+{
+  "note": "Landlord replies for the sandbox. Placeholders: {name} (the applicant's first name), {address}, {city}, {slot1}, {slot2}, {slot3}, {slot3short}, {price}, {deposit}, {available}, {iban}, {signature} and {bookingLine}. The demo AI provider classifies these texts by fixed phrases (packages/ai/src/demo.ts), checked in this order: payment_request, offer, listing_gone, documents_request, viewing_slots, rejection, info_request. Every text keeps a phrase of its own kind and none of an earlier kind; test/replies.test.ts checks this.",
+  "fallbackName": { "nl": "heer, mevrouw", "en": "applicant" },
+  "bookingLine": {
+    "nl": "\n\nLiever zelf een moment kiezen? Dat kan ook via {bookingUrl}",
+    "en": "\n\nYou can also pick a time yourself at {bookingUrl}"
+  },
+  "subjects": {
+    "viewing_slots": { "nl": "Bezichtiging {address}", "en": "Viewing {address}" },
+    "info_request": { "nl": "Uw reactie op {address}", "en": "Your message about {address}" },
+    "documents_request": { "nl": "Documenten voor {address}", "en": "Documents for {address}" },
+    "rejection": { "nl": "Uw reactie op {address}", "en": "Your application for {address}" },
+    "payment_request": { "nl": "Reservering {address}", "en": "Reservation {address}" },
+    "offer": { "nl": "Concept huurovereenkomst {address}", "en": "Draft tenancy agreement {address}" },
+    "listing_gone": { "nl": "Uw reactie op {address}", "en": "Your message about {address}" }
+  },
+  "texts": {
+    "viewing_slots": {
+      "nl": [
+        "Beste {name},\n\nDank voor uw reactie op {address} in {city}. U bent van harte welkom voor een bezichtiging. Ik kan op {slot1}, op {slot2} of op {slot3}. Laat u mij weten welk moment u het beste uitkomt?{bookingLine}\n\nMet vriendelijke groet,\n{signature}",
+        "Beste {name},\n\nLeuk dat u interesse heeft in {address}. Zullen we een bezichtiging plannen? Schikt {slot1}? Anders kan het ook {slot2}, of {slot3short}.{bookingLine}\n\nMet vriendelijke groet,\n{signature}",
+        "Hallo {name},\n\nBedankt voor uw bericht over de woning aan {address}. Er zijn nog plekken voor de bezichtiging: {slot1} of {slot2}. Op {slot3} is er ook een kijkmoment.{bookingLine}\n\nGroet,\n{signature}"
+      ],
+      "en": [
+        "Dear {name},\n\nThank you for your message about {address} in {city}. You are welcome to come to a viewing. I can do {slot1}, {slot2} or {slot3}. Please let me know which time suits you best.{bookingLine}\n\nKind regards,\n{signature}",
+        "Hi {name},\n\nThanks for your interest in {address}. Shall we plan a viewing? Is {slot1} convenient? Otherwise {slot2}, or {slot3short}.{bookingLine}\n\nBest regards,\n{signature}"
+      ]
+    },
+    "info_request": {
+      "nl": [
+        "Beste {name},\n\nDank voor uw reactie op {address}. Voordat ik verder ga, wil ik graag iets meer over u weten. Wat is uw beroep?\n\nMet vriendelijke groet,\n{signature}",
+        "Beste {name},\n\nFijn dat u interesse heeft in {address}. Vanaf wanneer zou u erin willen?\n\nMet vriendelijke groet,\n{signature}",
+        "Hallo {name},\n\nDank voor uw bericht over {address}. Met hoeveel personen zou u er gaan wonen, en wat is uw beroep?\n\nGroet,\n{signature}"
+      ],
+      "en": [
+        "Dear {name},\n\nThank you for your message about {address}. Before we go further I would like to know a little more about you. What do you do for a living?\n\nKind regards,\n{signature}",
+        "Hi {name},\n\nThanks for your interest in {address}. From what date would you like to move in?\n\nBest regards,\n{signature}"
+      ]
+    },
+    "documents_request": {
+      "nl": [
+        "Beste {name},\n\nDank voor uw reactie op {address}. Om uw aanvraag te beoordelen ontvang ik graag uw loonstroken van de laatste drie maanden en een werkgeversverklaring. Bent u student, stuur dan de loonstroken van uw garantsteller mee.\n\nMet vriendelijke groet,\n{signature}",
+        "Beste {name},\n\nBedankt voor uw interesse in {address}. Wilt u mij uw drie laatste loonstroken en een kopie van uw arbeidscontract sturen? Dan neem ik uw reactie mee in de selectie.\n\nMet vriendelijke groet,\n{signature}"
+      ],
+      "en": [
+        "Dear {name},\n\nThank you for your application for {address}. Could you send me your payslips for the last three months and an employer's statement? For students, the payslips of a guarantor are fine.\n\nKind regards,\n{signature}"
+      ]
+    },
+    "rejection": {
+      "nl": [
+        "Beste {name},\n\nDank voor uw reactie op {address}. Wij hebben helaas gekozen voor een andere kandidaat. Wij wensen u veel succes met het vinden van een woning.\n\nMet vriendelijke groet,\n{signature}",
+        "Beste {name},\n\nHelaas komt u niet in aanmerking voor {address}. De verhuurder heeft voor een andere huurder gekozen. Succes met uw zoektocht.\n\nMet vriendelijke groet,\n{signature}"
+      ],
+      "en": [
+        "Dear {name},\n\nThank you for your interest in {address}. Unfortunately we have chosen another candidate. We wish you the best of luck with your search.\n\nKind regards,\n{signature}"
+      ]
+    },
+    "payment_request": {
+      "nl": [
+        "Beste {name},\n\nDank voor uw reactie op {address}. Er is veel belangstelling, daarom werk ik met een reservering: maak de borg vooraf over, {deposit} op rekening {iban}. Zodra het bedrag binnen is, plan ik de bezichtiging.\n\nMet vriendelijke groet,\n{signature}"
+      ],
+      "en": [
+        "Dear {name},\n\nThank you for your message about {address}. Because there is a lot of interest, I ask every candidate to pay the deposit before the viewing: {deposit} to account {iban}. Once it has arrived I will plan the viewing with you.\n\nKind regards,\n{signature}"
+      ]
+    },
+    "offer": {
+      "nl": [
+        "Beste {name},\n\nGoed nieuws over {address}. Wij willen u de woning graag aanbieden per {available}. In de bijlage vindt u de concept huurovereenkomst. De kale huur is {price} per maand en bij ondertekening vragen wij een waarborgsom van 3 maanden kale huur. Wilt u het contract doorlezen en laten weten of u akkoord gaat?\n\nMet vriendelijke groet,\n{signature}"
+      ],
+      "en": [
+        "Dear {name},\n\nGood news about {address}: we would like to offer you the home from {available}. The draft tenancy agreement is attached, in Dutch. The base rent is {price} per month, and on signing we ask for a deposit of 3 months' base rent (waarborgsom van 3 maanden kale huur). Could you read the contract and let us know whether you agree?\n\nKind regards,\n{signature}"
+      ]
+    },
+    "listing_gone": {
+      "nl": [
+        "Beste {name},\n\nDank voor uw reactie op {address}. De woning is inmiddels al verhuurd. Wij bewaren uw gegevens graag voor een volgende woning.\n\nMet vriendelijke groet,\n{signature}"
+      ],
+      "en": [
+        "Dear {name},\n\nThank you for your message about {address}. The home is no longer available: it is already rented. We are happy to keep your details for a next home.\n\nKind regards,\n{signature}"
+      ]
+    }
+  }
+}
