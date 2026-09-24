@@ -9,14 +9,16 @@ export interface SchedulerDeps {
   random?: () => number;
   /** Seconds until the next check, given the adapter's base interval. Adaptive polling plugs in here. */
   intervalFor?: (adapter: SourceAdapter, baseSec: number, at: Date) => number;
+  /** Overrides the minimum intervals, for demo mode against the local sandbox. */
+  floors?: Partial<Record<keyof typeof FLOOR_SEC, number>>;
 }
 
 /** Minimum seconds between checks by transport, so nobody accidentally hammers a site. */
 export const FLOOR_SEC = { json: 45, html: 60, browser: 120, 'email-alert': 300 } as const;
 
-export function baseInterval(adapter: SourceAdapter, cfg: Config): number {
+export function baseInterval(adapter: SourceAdapter, cfg: Config, floors: Partial<Record<keyof typeof FLOOR_SEC, number>> = {}): number {
   const configured = cfg.sources[adapter.id]?.intervalSec;
-  const floor = FLOOR_SEC[adapter.capabilities.search];
+  const floor = floors[adapter.capabilities.search] ?? FLOOR_SEC[adapter.capabilities.search];
   return Math.max(floor, configured ?? adapter.defaultIntervalSec);
 }
 
@@ -41,11 +43,12 @@ export function initialState(adapter: SourceAdapter, cfg: Config): SourceState {
  */
 export function createScheduler(deps: SchedulerDeps) {
   const random = deps.random ?? Math.random;
+  const floorOf = (a: SourceAdapter) => deps.floors?.[a.capabilities.search] ?? FLOOR_SEC[a.capabilities.search];
   const interval = (a: SourceAdapter, at: Date) => {
-    const base = baseInterval(a, deps.config());
+    const base = baseInterval(a, deps.config(), deps.floors);
     const sec = deps.intervalFor ? deps.intervalFor(a, base, at) : base;
     const jittered = sec * (0.8 + random() * 0.4);
-    return Math.max(FLOOR_SEC[a.capabilities.search], jittered);
+    return Math.max(floorOf(a), jittered);
   };
 
   return {

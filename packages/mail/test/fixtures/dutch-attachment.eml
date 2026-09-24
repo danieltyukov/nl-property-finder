@@ -1,0 +1,58 @@
+X-Comment: Synthetic fixture for tests. Not a real message.
+From: =?UTF-8?Q?Makelaardij_Hoogland_=26_Zn=2E?= <verhuur@hoogland-makelaardij.nl>
+To: agent@nlpf.test
+Subject: =?UTF-8?Q?Huurovereenkomst_Oude_Delft_12A=2C_borg_=E2=82=AC_2.990?=
+Date: Fri, 25 Sep 2026 16:40:12 +0200
+Message-ID: <hoogland.contract.5521@hoogland-makelaardij.nl>
+In-Reply-To: <out-0007@nlpf.test>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="mixed-boundary-1"
+
+--mixed-boundary-1
+Content-Type: multipart/related; boundary="related-boundary-1"
+
+--related-boundary-1
+Content-Type: multipart/alternative; boundary="alt-boundary-1"
+
+--alt-boundary-1
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Beste Sam,
+
+Hierbij ontvang je de huurovereenkomst voor Oude Delft 12A. De borg bedraag=
+t =E2=82=AC 2.990. Wil je het contract v=C3=B3=C3=B3r maandag ondertekend t=
+erugsturen?
+
+Met vriendelijke groet,
+Makelaardij Hoogland
+
+--alt-boundary-1
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html><body><!-- Synthetic fixture for tests. Not a real message. --><p>Bes=
+te Sam,</p><p>Hierbij ontvang je de huurovereenkomst voor Oude Delft 12A.</=
+p><p><img src=3D"cid:logo-hoogland" alt=3D"Hoogland"></p></body></html>
+
+--alt-boundary-1--
+
+--related-boundary-1
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-ID: <logo-hoogland>
+Content-Disposition: inline; filename="logo.png"
+
+ZmFrZXBuZw==
+
+--related-boundary-1--
+
+--mixed-boundary-1
+Content-Type: application/pdf; name="Huurovereenkomst Oude Delft 12A.pdf"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="Huurovereenkomst Oude Delft 12A.pdf"
+
+JVBERi0xLjQKMSAwIG9iaiA8PCAvVHlwZSAvQ2F0YWxvZyA+PiBlbmRvYmoKdHJhaWxlciA8PCAv
+Um9vdCAxIDAgUiA+PgolJUVPRgo=
+
+--mixed-boundary-1--

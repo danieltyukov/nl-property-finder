@@ -9,7 +9,7 @@
 // `nlpf daemon` and `nlpf demo`, so every other command starts fast and still
 // works when one of those dependencies is broken.
 import { build } from 'esbuild';
-import { chmodSync, existsSync, readFileSync, rmSync } from 'node:fs';
+import { chmodSync, cpSync, existsSync, readFileSync, rmSync } from 'node:fs';
 import { dirname, isAbsolute, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -63,4 +63,11 @@ await build({
 });
 
 chmodSync(join(outdir, 'nlpf.mjs'), 0o755);
+
+// The daemon serves the dashboard from dist/dashboard when it runs from this
+// bundle, so an installed nlpf needs no source tree beside it.
+const dashboard = join(root, 'apps', 'dashboard', 'dist');
+if (existsSync(join(dashboard, 'index.html'))) cpSync(dashboard, join(outdir, 'dashboard'), { recursive: true });
+else console.warn('apps/dashboard/dist is missing; build the dashboard first so the bundle can serve it.');
+
 console.log(`Built ${join(outdir, 'nlpf.mjs')}`);

@@ -1,0 +1,21 @@
+X-Comment: Synthetic fixture for tests. Not a real message.
+From: "Lettings Team" <lettings@canalhomes.example>
+To: agent@nlpf.test
+Subject: Your viewing request for Westvest 95
+Date: Thu, 24 Sep 2026 11:02:45 +0000
+Message-ID: <20260924110245.77ab@canalhomes.example>
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+<head><title>Viewing</title><style>p { color: #333; }</style></head>
+<body>
+<!-- Synthetic fixture for tests. Not a real message. -->
+<p>Dear Sam,</p>
+<p>Thank you for your interest in <a href="https://canalhomes.example/rent/westvest-95">Westvest 95</a>.</p>
+<p>We can show you the apartment on <b>Thursday 1 October at 17:15</b>. Rent is &euro;&nbsp;1.850 per month.</p>
+<p>Kind regards,<br>Canal Homes</p>
+</body>
+</html>
