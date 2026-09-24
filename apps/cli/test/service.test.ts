@@ -150,6 +150,14 @@ describe('renderDesktopEntry', () => {
     expect(entry).toContain('Exec=/usr/bin/node "/opt/My Apps/nlpf.mjs" open\n');
     expect(entry).toContain('Terminal=false\n');
   });
+
+  test('the packaged launcher is the same entry with nlpf on the PATH', () => {
+    const packaged = readFileSync(
+      join(__dirname, '..', '..', '..', 'packaging', 'nl-property-finder.desktop'),
+      'utf8',
+    );
+    expect(packaged).toBe(renderDesktopEntry({ exec: ['nlpf', 'open'] }));
+  });
 });
 
 describe('systemd manager', () => {
@@ -305,6 +313,12 @@ describe('resolveCliEntry', () => {
   test('the bundle runs itself', () => {
     const bundle = '/opt/nlpf/apps/cli/dist/nlpf.mjs';
     expect(resolveCliEntry(pathToFileURL(bundle).href, () => false)).toBe(bundle);
+  });
+
+  test('code in a bundle chunk still points the service at the entry file', () => {
+    const chunk = '/opt/nlpf/apps/cli/dist/chunks/chunk-ABC123.mjs';
+    const bundle = '/opt/nlpf/apps/cli/dist/nlpf.mjs';
+    expect(resolveCliEntry(pathToFileURL(chunk).href, (p) => p === bundle)).toBe(bundle);
   });
 
   test('from source it points the service at the built bundle', () => {

@@ -78,7 +78,7 @@ export function renderDesktopEntry(opts: { exec: string[] }): string {
     `Exec=${opts.exec.map(desktopEscapeArg).join(' ')}`,
     'Icon=nl-property-finder',
     'Terminal=false',
-    'Categories=Network;Utility;',
+    'Categories=Utility;',
     'Keywords=rental;housing;huur;woning;kamer;',
     'StartupNotify=false',
     '',

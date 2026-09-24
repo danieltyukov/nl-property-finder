@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=NL Property Finder
+GenericName=Rental home finder
+Comment=Open the NL Property Finder dashboard
+Exec=nlpf open
+Icon=nl-property-finder
+Terminal=false
+Categories=Utility;
+Keywords=rental;housing;huur;woning;kamer;
+StartupNotify=false

@@ -1,6 +1,6 @@
 import { execFile } from 'node:child_process';
 import { existsSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
+import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { Paths } from '@nlpf/core';
 import {
@@ -58,7 +58,12 @@ export function resolveCliEntry(
   exists: (p: string) => boolean = existsSync,
 ): string {
   const here = fileURLToPath(moduleUrl);
-  if (/\.(mjs|cjs|js)$/.test(here)) return here;
+  if (/\.(mjs|cjs|js)$/.test(here)) {
+    if (basename(here) === 'nlpf.mjs') return here;
+    // This code sits in a shared chunk of the bundle (dist/chunks/); the entry is next to it or one folder up.
+    const entry = [join(dirname(here), 'nlpf.mjs'), join(dirname(here), '..', 'nlpf.mjs')].find(exists);
+    return entry ? resolve(entry) : here;
+  }
   const dist = resolve(dirname(here), '..', '..', 'dist', 'nlpf.mjs');
   if (exists(dist)) return dist;
   throw new ServiceError(
