@@ -1,0 +1,14 @@
+{
+ "sAngularServiceData": "[]",
+ "form": {
+  "id": "Portal_Form_SubmitOnly",
+  "elements": {
+   "__id__": [],
+   "__hash__": {
+    "type": "hash",
+    "initialData": "0123456789abcdef0123456789abcdef"
+   },
+   "submit": []
+  }
+ }
+}

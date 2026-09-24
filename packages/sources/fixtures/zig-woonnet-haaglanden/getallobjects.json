@@ -1,0 +1,1052 @@
+{
+ "sAngularServiceData": "[]",
+ "result": [
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": null,
+   "specifiekeVoorzieningen": [],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "08"
+   },
+   "postalcode": "2628 TR",
+   "street": "Jan Willem Frisostraat",
+   "houseNumber": "52",
+   "houseNumberAddition": "",
+   "regio": {
+    "name": null,
+    "id": null
+   },
+   "municipality": {
+    "name": "Delft",
+    "id": "2"
+   },
+   "city": {
+    "name": "Delft",
+    "id": "16"
+   },
+   "quarter": {
+    "name": "Wippolder",
+    "id": "58"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "2",
+    "localizedName": "Eengezinswoning"
+   },
+   "availableFrom": "",
+   "netRent": 932.93,
+   "totalRent": 935.78,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "3",
+    "id": "3"
+   },
+   "energyLabel": {
+    "icon": "icon_label_c",
+    "id": "3"
+   },
+   "floor": {
+    "id": "100",
+    "localizedName": "begane grond"
+   },
+   "balcony": false,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": null
+   },
+   "constructionYear": 1920,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_aanbodcooptatie",
+     "code": "inschrijfduur",
+     "toonOpWebsite": true,
+     "id": "1"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": true,
+    "aantalReactiesTonen": 1
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-20 20:00:00",
+   "closingDate": "2026-09-24 20:00:00",
+   "latitude": "52.0083",
+   "longitude": "4.37583",
+   "pictures": [
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/266497-6a9035cf5bf73.jpg",
+     "type": "jpg"
+    },
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/266497-6a9035d18f0f8.jpg",
+     "type": "jpg"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 65,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "br_doelgroep_regulier",
+     "code": "regulier",
+     "id": "1"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": null,
+    "localizedNaam": null
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": false,
+   "urlKey": "266497-janwillemfrisostraat-52-delft",
+   "availableFromDate": "2026-10-09",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "266497",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": true,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": null,
+   "specifiekeVoorzieningen": [
+    {
+     "id": "45"
+    },
+    {
+     "id": "47"
+    },
+    {
+     "id": "49"
+    }
+   ],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "07"
+   },
+   "postalcode": "2625 EC",
+   "street": "Pijperring",
+   "houseNumber": "13",
+   "houseNumberAddition": "",
+   "regio": {
+    "name": null,
+    "id": null
+   },
+   "municipality": {
+    "name": "Delft",
+    "id": "2"
+   },
+   "city": {
+    "name": "Delft",
+    "id": "16"
+   },
+   "quarter": {
+    "name": "Buitenhof",
+    "id": "55"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "1",
+    "localizedName": "Flat met lift"
+   },
+   "availableFrom": "",
+   "netRent": 925.35,
+   "totalRent": 977.83,
+   "flexibelHurenActief": true,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "3",
+    "id": "3"
+   },
+   "energyLabel": {
+    "icon": "icon_label_c",
+    "id": "3"
+   },
+   "floor": {
+    "id": "1",
+    "localizedName": "1e etage"
+   },
+   "balcony": true,
+   "balconySite": {
+    "localizedName": "Zuidwest"
+   },
+   "kitchen": {
+    "id": "2"
+   },
+   "constructionYear": 1970,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_aanbodcooptatie",
+     "code": "inschrijfduur",
+     "toonOpWebsite": true,
+     "id": "1"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": true,
+    "aantalReactiesTonen": 1
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-21 20:00:00",
+   "closingDate": "2026-09-24 20:00:00",
+   "latitude": "51.9913",
+   "longitude": "4.34539",
+   "pictures": [
+    {
+     "label": "PANORAMA",
+     "uri": "/portal/uploads/dwelling/pictures/266783-6aa10d91925bb.jpg",
+     "type": "jpg"
+    },
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/266783-6aa11138e1481.jpg",
+     "type": "jpg"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 68,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "icon_doelgroep_senioren",
+     "code": "55_plus",
+     "id": "4"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": true,
+   "woningsoort": {
+    "id": null,
+    "localizedNaam": null
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": false,
+   "urlKey": "266783-pijperring-13-delft",
+   "availableFromDate": "2026-09-22",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "266783",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": true,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": null,
+   "specifiekeVoorzieningen": [
+    {
+     "id": "47"
+    },
+    {
+     "id": "32"
+    },
+    {
+     "id": "49"
+    }
+   ],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "03"
+   },
+   "postalcode": "2565 EX",
+   "street": "Goudenregenstraat",
+   "houseNumber": "18",
+   "houseNumberAddition": "",
+   "regio": {
+    "name": null,
+    "id": null
+   },
+   "municipality": {
+    "name": "Den Haag",
+    "id": "1"
+   },
+   "city": {
+    "name": "Den Haag",
+    "id": "1"
+   },
+   "quarter": {
+    "name": "Valkenboskwartier",
+    "id": "20"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "4",
+    "localizedName": "Benedenwoning"
+   },
+   "availableFrom": "",
+   "netRent": 713.02,
+   "totalRent": 718.67,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "3",
+    "id": "3"
+   },
+   "energyLabel": {
+    "icon": "icon_label_b",
+    "id": "2"
+   },
+   "floor": {
+    "id": "100",
+    "localizedName": "begane grond"
+   },
+   "balcony": false,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": "2"
+   },
+   "constructionYear": 1918,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_loting",
+     "code": "random",
+     "toonOpWebsite": true,
+     "id": "2"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": true,
+    "aantalReactiesTonen": 1
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-23 20:00:00",
+   "closingDate": "2026-09-24 20:00:00",
+   "latitude": "52.0734",
+   "longitude": "4.26686",
+   "pictures": [
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/267161-3.jpg",
+     "type": "jpg"
+    },
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/267161-4.jpg",
+     "type": "jpg"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 50,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "br_doelgroep_regulier",
+     "code": "regulier",
+     "id": "1"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": true,
+   "woningsoort": {
+    "id": null,
+    "localizedNaam": null
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": false,
+   "urlKey": "267161-goudenregenstraat-18-denhaag",
+   "availableFromDate": "2026-09-01",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "267161",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": null,
+   "specifiekeVoorzieningen": [
+    {
+     "id": "44"
+    },
+    {
+     "id": "46"
+    },
+    {
+     "id": "1"
+    },
+    {
+     "id": "25"
+    },
+    {
+     "id": "45"
+    },
+    {
+     "id": "49"
+    }
+   ],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "07"
+   },
+   "postalcode": "2725 CX",
+   "street": "Fregatwerf",
+   "houseNumber": "437",
+   "houseNumberAddition": "",
+   "regio": {
+    "name": null,
+    "id": null
+   },
+   "municipality": {
+    "name": "Zoetermeer",
+    "id": "3"
+   },
+   "city": {
+    "name": "Zoetermeer",
+    "id": "17"
+   },
+   "quarter": {
+    "name": "Buytenwegh/De Leyens",
+    "id": "68"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "1",
+    "localizedName": "Flat met lift"
+   },
+   "availableFrom": "",
+   "netRent": 886.28,
+   "totalRent": 1152.44,
+   "flexibelHurenActief": true,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "1",
+    "id": "1"
+   },
+   "energyLabel": {
+    "icon": "icon_label_c",
+    "id": "3"
+   },
+   "floor": {
+    "id": "4",
+    "localizedName": "4e etage"
+   },
+   "balcony": true,
+   "balconySite": {
+    "localizedName": "Zuidwest"
+   },
+   "kitchen": {
+    "id": "1"
+   },
+   "constructionYear": 1981,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_aanbodcooptatie",
+     "code": "inschrijfduur",
+     "toonOpWebsite": true,
+     "id": "1"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": true,
+    "aantalReactiesTonen": 1
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-21 20:00:00",
+   "closingDate": "2026-09-24 20:00:00",
+   "latitude": "52.073",
+   "longitude": "4.50122",
+   "pictures": [
+    {
+     "label": "PANORAMA",
+     "uri": "/portal/uploads/dwelling/pictures/267041-6aabd5178f3dd.jpg",
+     "type": "jpg"
+    },
+    {
+     "label": "VOORZIJDE",
+     "uri": "/portal/uploads/dwelling/pictures/267041-6aabd51902134.jpg",
+     "type": "jpg"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 55,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "icon_doelgroep_senioren",
+     "code": "55_plus",
+     "id": "4"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": null,
+    "localizedNaam": null
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": false,
+   "urlKey": "267041-fregatwerf-437-zoetermeer",
+   "availableFromDate": "2026-10-07",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "267041",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": true,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": null,
+   "specifiekeVoorzieningen": [
+    {
+     "id": "49"
+    }
+   ],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "07"
+   },
+   "postalcode": "2264 JD",
+   "street": "Kapelland",
+   "houseNumber": "215",
+   "houseNumberAddition": "",
+   "regio": {
+    "name": null,
+    "id": null
+   },
+   "municipality": {
+    "name": "Leidschendam-Voorburg",
+    "id": "5"
+   },
+   "city": {
+    "name": "Leidschendam",
+    "id": "20"
+   },
+   "quarter": {
+    "name": "'t Lien",
+    "id": "125"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "3",
+    "localizedName": "Flat zonder lift"
+   },
+   "availableFrom": "",
+   "netRent": 713.02,
+   "totalRent": 740.95,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "1",
+    "id": "1"
+   },
+   "energyLabel": {
+    "icon": "icon_label_b",
+    "id": "2"
+   },
+   "floor": {
+    "id": "1",
+    "localizedName": "1e etage"
+   },
+   "balcony": true,
+   "balconySite": {
+    "localizedName": "Zuidwest"
+   },
+   "kitchen": {
+    "id": "1"
+   },
+   "constructionYear": 1985,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_aanbodcooptatie",
+     "code": "inschrijfduur",
+     "toonOpWebsite": true,
+     "id": "1"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": true,
+    "aantalReactiesTonen": 1
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-22 20:00:00",
+   "closingDate": "2026-09-27 20:00:00",
+   "latitude": "52.0938",
+   "longitude": "4.40314",
+   "pictures": [
+    {
+     "label": "PANORAMA",
+     "uri": "/portal/uploads/dwelling/pictures/267138-6ab3aba642abc.jpg",
+     "type": "jpg"
+    },
+    {
+     "label": "VOORZIJDE",
+     "uri": "/portal/uploads/dwelling/pictures/267138-6ab3aba7aab6e.jpg",
+     "type": "jpg"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 49,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "br_doelgroep_regulier",
+     "code": "regulier",
+     "id": "1"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": null,
+    "localizedNaam": null
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": false,
+   "urlKey": "267138-kapelland-215-leidschendam",
+   "availableFromDate": "2026-10-23",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "267138",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": true,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": null,
+   "specifiekeVoorzieningen": [
+    {
+     "id": "45"
+    },
+    {
+     "id": "49"
+    }
+   ],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "07"
+   },
+   "postalcode": "2600 AA",
+   "street": "Proefstraat",
+   "houseNumber": "1",
+   "houseNumberAddition": "",
+   "regio": {
+    "name": null,
+    "id": null
+   },
+   "municipality": {
+    "name": "Delft",
+    "id": "2"
+   },
+   "city": {
+    "name": "Delft",
+    "id": "16"
+   },
+   "quarter": {
+    "name": "Buitenhof",
+    "id": "55"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "1",
+    "localizedName": "Flat met lift"
+   },
+   "availableFrom": "per direct",
+   "netRent": 672.89,
+   "totalRent": 867.57,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "2",
+    "id": "2"
+   },
+   "energyLabel": {
+    "icon": "icon_label_d",
+    "id": "4"
+   },
+   "floor": {
+    "id": "8",
+    "localizedName": "8e etage"
+   },
+   "balcony": true,
+   "balconySite": {
+    "localizedName": "Zuid"
+   },
+   "kitchen": {
+    "id": "2"
+   },
+   "constructionYear": 1972,
+   "model": {
+    "modelCategorie": {
+     "icon": "icon_motivatie",
+     "code": "woningruil",
+     "toonOpWebsite": true,
+     "id": "5"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": false,
+    "aantalReactiesTonen": 0
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2025-04-01 20:00:00",
+   "closingDate": "2026-10-01 20:00:00",
+   "latitude": "52.0000",
+   "longitude": "4.3500",
+   "pictures": [],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 53,
+   "actionLabel": {
+    "localizedLabel": "Woningruil"
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": true,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "icon_doelgroep_senioren",
+     "code": "55_plus",
+     "id": "4"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": true,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": null,
+    "localizedNaam": null
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": false,
+   "urlKey": "251735-proefstraat-1-delft",
+   "availableFromDate": "",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "251735",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": true,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": null,
+   "specifiekeVoorzieningen": [
+    {
+     "id": "49"
+    }
+   ],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "07"
+   },
+   "postalcode": "2600 AA",
+   "street": "Proefstraat",
+   "houseNumber": "2",
+   "houseNumberAddition": "",
+   "regio": {
+    "name": null,
+    "id": null
+   },
+   "municipality": {
+    "name": "Delft",
+    "id": "2"
+   },
+   "city": {
+    "name": "Delft",
+    "id": "16"
+   },
+   "quarter": {
+    "name": "Wippolder",
+    "id": "58"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "2",
+    "localizedName": "Eengezinswoning"
+   },
+   "availableFrom": "",
+   "netRent": 731.93,
+   "totalRent": 752.64,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "4",
+    "id": "4"
+   },
+   "energyLabel": {
+    "icon": "icon_label_a",
+    "id": "1"
+   },
+   "floor": {
+    "id": "100",
+    "localizedName": "begane grond"
+   },
+   "balcony": false,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": "1"
+   },
+   "constructionYear": 2013,
+   "model": {
+    "modelCategorie": {
+     "icon": "icon_motivatie",
+     "code": "woningruil",
+     "toonOpWebsite": true,
+     "id": "5"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": false,
+    "aantalReactiesTonen": 0
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2025-10-08 20:00:00",
+   "closingDate": "2026-10-08 20:00:00",
+   "latitude": "52.0000",
+   "longitude": "4.3500",
+   "pictures": [],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 97,
+   "actionLabel": {
+    "localizedLabel": "Woningruil"
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": true,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "br_doelgroep_regulier",
+     "code": "regulier",
+     "id": "1"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": true,
+   "vatInclusive": true,
+   "woningsoort": {
+    "id": null,
+    "localizedNaam": null
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": false,
+   "urlKey": "257013-proefstraat-2-delft",
+   "availableFromDate": "2025-10-08",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "257013",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  }
+ ]
+}

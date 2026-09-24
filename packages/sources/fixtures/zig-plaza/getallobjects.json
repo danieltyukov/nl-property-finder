@@ -1,0 +1,1016 @@
+{
+ "sAngularServiceData": "[]",
+ "result": [
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": null,
+   "specifiekeVoorzieningen": [],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "00"
+   },
+   "postalcode": "2628 SK",
+   "street": "Jan de Oudeweg",
+   "houseNumber": "496",
+   "houseNumberAddition": "",
+   "regio": {
+    "name": "Nederland - Zuid-Holland",
+    "id": "12"
+   },
+   "municipality": {
+    "name": "Delft",
+    "id": "15741"
+   },
+   "city": {
+    "name": "Delft",
+    "id": "3488"
+   },
+   "quarter": {
+    "name": "Delft",
+    "id": "741"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "37",
+    "localizedName": "Appartement"
+   },
+   "availableFrom": "",
+   "netRent": 877,
+   "totalRent": 1173.95,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "0",
+    "id": "7"
+   },
+   "energyLabel": {
+    "icon": null,
+    "id": null
+   },
+   "floor": {
+    "id": "24",
+    "localizedName": "10e verdieping"
+   },
+   "balcony": false,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": null
+   },
+   "constructionYear": 2021,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_dth",
+     "code": "reactiedatum",
+     "toonOpWebsite": true,
+     "id": "3"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": false,
+    "aantalReactiesTonen": 0
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-22 14:48:00",
+   "closingDate": "2027-09-22 19:00:00",
+   "latitude": "52.0059",
+   "longitude": "4.38293",
+   "pictures": [
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/9537-6ab2790e718dc.png",
+     "type": "png"
+    },
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/9537-6ab279111150e.png",
+     "type": "png"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 27,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "br_doelgroep_student",
+     "code": "student",
+     "id": "3"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": "1",
+    "localizedNaam": "Zelfstandig"
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": true,
+   "urlKey": "9537-jandeoudeweg-496-delft",
+   "availableFromDate": "2026-10-24",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "9537",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": null,
+   "specifiekeVoorzieningen": [],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "00"
+   },
+   "postalcode": "2288 GG",
+   "street": "Volmerlaan",
+   "houseNumber": "20",
+   "houseNumberAddition": "- 1.9",
+   "regio": {
+    "name": "Nederland - Zuid-Holland",
+    "id": "12"
+   },
+   "municipality": {
+    "name": "Rijswijk",
+    "id": "17124"
+   },
+   "city": {
+    "name": "Rijswijk",
+    "id": "4871"
+   },
+   "quarter": {
+    "name": "Rijswijk",
+    "id": "2124"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "25",
+    "localizedName": "Kamer"
+   },
+   "availableFrom": "",
+   "netRent": 616,
+   "totalRent": 791,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "0",
+    "id": "7"
+   },
+   "energyLabel": {
+    "icon": null,
+    "id": null
+   },
+   "floor": {
+    "id": "1",
+    "localizedName": "Begane grond"
+   },
+   "balcony": false,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": null
+   },
+   "constructionYear": 1979,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_dth",
+     "code": "reactiedatum",
+     "toonOpWebsite": true,
+     "id": "3"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": false,
+    "aantalReactiesTonen": 0
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-17 14:34:00",
+   "closingDate": "2027-09-17 19:00:00",
+   "latitude": "52.0359",
+   "longitude": "4.33155",
+   "pictures": [
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/17246-6aabde3ed74e0.jpg",
+     "type": "jpg"
+    },
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/17246-6aabde400b0ad.jpg",
+     "type": "jpg"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 15,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "br_doelgroep_student",
+     "code": "student",
+     "id": "3"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": "2",
+    "localizedNaam": "Onzelfstandig"
+   },
+   "aantalMedebewoners": 14,
+   "isExternModelType": false,
+   "isZelfstandig": false,
+   "urlKey": "17246-volmerlaan-20--19-rijswijk",
+   "availableFromDate": "2026-10-03",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "17246",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": null,
+   "specifiekeVoorzieningen": [],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "00"
+   },
+   "postalcode": "2288 GG",
+   "street": "Polakweg",
+   "houseNumber": "13",
+   "houseNumberAddition": "B - 4.7",
+   "regio": {
+    "name": "Nederland - Zuid-Holland",
+    "id": "12"
+   },
+   "municipality": {
+    "name": "Rijswijk",
+    "id": "17124"
+   },
+   "city": {
+    "name": "Rijswijk",
+    "id": "4871"
+   },
+   "quarter": {
+    "name": "Rijswijk",
+    "id": "2124"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "25",
+    "localizedName": "Kamer"
+   },
+   "availableFrom": "",
+   "netRent": 590,
+   "totalRent": 765,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "0",
+    "id": "7"
+   },
+   "energyLabel": {
+    "icon": null,
+    "id": null
+   },
+   "floor": {
+    "id": "3",
+    "localizedName": "2e verdieping"
+   },
+   "balcony": false,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": null
+   },
+   "constructionYear": 1979,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_dth",
+     "code": "reactiedatum",
+     "toonOpWebsite": true,
+     "id": "3"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": false,
+    "aantalReactiesTonen": 0
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-17 14:36:00",
+   "closingDate": "2027-09-17 19:00:00",
+   "latitude": "52.0352",
+   "longitude": "4.33214",
+   "pictures": [
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/17247-1.jpg",
+     "type": "jpg"
+    },
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/17247-3.jpg",
+     "type": "jpg"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 16,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "br_doelgroep_student",
+     "code": "student",
+     "id": "3"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": "2",
+    "localizedNaam": "Onzelfstandig"
+   },
+   "aantalMedebewoners": 15,
+   "isExternModelType": false,
+   "isZelfstandig": false,
+   "urlKey": "17247-polakweg-13-b-47-rijswijk",
+   "availableFromDate": "2026-10-15",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "17247",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": null,
+   "specifiekeVoorzieningen": [],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "00"
+   },
+   "postalcode": "1105 BM",
+   "street": "Pietersbergweg",
+   "houseNumber": "659",
+   "houseNumberAddition": "",
+   "regio": {
+    "name": "Nederland - Noord-Holland",
+    "id": "8"
+   },
+   "municipality": {
+    "name": "Amsterdam",
+    "id": "15427"
+   },
+   "city": {
+    "name": "Amsterdam",
+    "id": "3174"
+   },
+   "quarter": {
+    "name": "Amsterdam",
+    "id": "427"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "40",
+    "localizedName": "Studio"
+   },
+   "availableFrom": "",
+   "netRent": 932,
+   "totalRent": 1154.25,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "0",
+    "id": "7"
+   },
+   "energyLabel": {
+    "icon": null,
+    "id": null
+   },
+   "floor": {
+    "id": "26",
+    "localizedName": "12e verdieping"
+   },
+   "balcony": false,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": null
+   },
+   "constructionYear": 2022,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_dth",
+     "code": "reactiedatum",
+     "toonOpWebsite": true,
+     "id": "3"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": false,
+    "aantalReactiesTonen": 0
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-22 14:58:00",
+   "closingDate": "2027-09-22 19:00:00",
+   "latitude": "52.2982",
+   "longitude": "4.95297",
+   "pictures": [
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/17279-6ab27b79381e1.JPG",
+     "type": "jpg"
+    },
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/17279-6ab27b7b7cc41.png",
+     "type": "png"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 23,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "br_doelgroep_regulier",
+     "code": "regulier",
+     "id": "8"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": "1",
+    "localizedNaam": "Zelfstandig"
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": true,
+   "urlKey": "17279-pietersbergweg-659-amsterdam",
+   "availableFromDate": "2026-09-27",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "17279",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": null,
+   "specifiekeVoorzieningen": [],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "00"
+   },
+   "postalcode": "3584 SR",
+   "street": "Limapad",
+   "houseNumber": "16",
+   "houseNumberAddition": "",
+   "regio": {
+    "name": "Nederland - Utrecht",
+    "id": "10"
+   },
+   "municipality": {
+    "name": "Utrecht",
+    "id": "17466"
+   },
+   "city": {
+    "name": "Utrecht",
+    "id": "5213"
+   },
+   "quarter": {
+    "name": "Utrecht",
+    "id": "2466"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "40",
+    "localizedName": "Studio"
+   },
+   "availableFrom": "",
+   "netRent": 653,
+   "totalRent": 867.75,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "0",
+    "id": "7"
+   },
+   "energyLabel": {
+    "icon": null,
+    "id": null
+   },
+   "floor": {
+    "id": "1",
+    "localizedName": "Begane grond"
+   },
+   "balcony": false,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": null
+   },
+   "constructionYear": 2020,
+   "model": {
+    "modelCategorie": {
+     "icon": null,
+     "code": null,
+     "toonOpWebsite": false,
+     "id": null
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": true,
+    "einddatumTonen": false,
+    "aantalReactiesTonen": 0
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-05-28 10:00:00",
+   "closingDate": "2027-07-01 22:00:00",
+   "latitude": "52.0814",
+   "longitude": "5.17756",
+   "pictures": [
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/15676-6a103c38da573.png",
+     "type": "png"
+    },
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/15676-6a0f7b2d93e9d.jpg",
+     "type": "jpg"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 16,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "br_doelgroep_student",
+     "code": "student",
+     "id": "3"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": true,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": "1",
+    "localizedNaam": "Zelfstandig"
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": true,
+   "urlKey": "15676-limapad-16-utrecht",
+   "availableFromDate": "2026-08-10",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "15676",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": true,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": null,
+   "specifiekeVoorzieningen": [],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "00"
+   },
+   "postalcode": "2628 SJ",
+   "street": "Jan de Oudeweg",
+   "houseNumber": "50",
+   "houseNumberAddition": "PPL 13",
+   "regio": {
+    "name": "Nederland - Zuid-Holland",
+    "id": "12"
+   },
+   "municipality": {
+    "name": "Delft",
+    "id": "15741"
+   },
+   "city": {
+    "name": "Delft",
+    "id": "3488"
+   },
+   "quarter": {
+    "name": "Delft",
+    "id": "741"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "voorVoertuig",
+    "huurprijsDuurActief": false,
+    "id": "32",
+    "localizedName": "Parkeergelegenheid"
+   },
+   "availableFrom": "",
+   "netRent": 50,
+   "totalRent": 50,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "0",
+    "id": "7"
+   },
+   "energyLabel": {
+    "icon": null,
+    "id": null
+   },
+   "floor": null,
+   "balcony": false,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": null
+   },
+   "constructionYear": 2021,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_dth",
+     "code": "reactiedatum",
+     "toonOpWebsite": true,
+     "id": "3"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": false,
+    "aantalReactiesTonen": 0
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-08 14:11:00",
+   "closingDate": "2027-09-08 19:00:00",
+   "latitude": "52.006",
+   "longitude": "4.38233",
+   "pictures": [
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/17191-6a9ffb55f3ffe.JPG",
+     "type": "jpg"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 0,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "br_doelgroep_regulier",
+     "code": "regulier",
+     "id": "8"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": null,
+    "localizedNaam": null
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": false,
+   "urlKey": "17191-jandeoudeweg-50-ppl13-delft",
+   "availableFromDate": "2026-08-09",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "17191",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": null,
+   "specifiekeVoorzieningen": [],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "00"
+   },
+   "postalcode": "44799",
+   "street": "Universitätsstraße",
+   "houseNumber": "114",
+   "houseNumberAddition": "B09.16",
+   "regio": {
+    "name": "Duitsland - Noordrijn-Westfalen",
+    "id": "48"
+   },
+   "municipality": {
+    "name": "Bochum",
+    "id": "17861"
+   },
+   "city": {
+    "name": "Bochum",
+    "id": "5609"
+   },
+   "quarter": {
+    "name": "Bochum",
+    "id": "2861"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "40",
+    "localizedName": "Studio"
+   },
+   "availableFrom": "",
+   "netRent": 450,
+   "totalRent": 609.95,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "0",
+    "id": "7"
+   },
+   "energyLabel": {
+    "icon": null,
+    "id": null
+   },
+   "floor": {
+    "id": "23",
+    "localizedName": "9e verdieping"
+   },
+   "balcony": false,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": null
+   },
+   "constructionYear": 2023,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_dth",
+     "code": "reactiedatum",
+     "toonOpWebsite": true,
+     "id": "3"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": false,
+    "aantalReactiesTonen": 0
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-05-05 14:03:00",
+   "closingDate": "2027-05-05 19:00:00",
+   "latitude": "",
+   "longitude": "",
+   "pictures": [
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/15191-69f9dc845f4ae.png",
+     "type": "png"
+    },
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/15191-69f9db7e5ecd1.jpg",
+     "type": "jpg"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 18,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "br_doelgroep_regulier",
+     "code": "regulier",
+     "id": "8"
+    },
+    {
+     "icon": "br_doelgroep_student",
+     "code": "student",
+     "id": "3"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": "1",
+    "localizedNaam": "Zelfstandig"
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": true,
+   "urlKey": "15191-universittsstrae-114-b0916-bochum",
+   "availableFromDate": "2026-05-11",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "268"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "15191",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  }
+ ]
+}

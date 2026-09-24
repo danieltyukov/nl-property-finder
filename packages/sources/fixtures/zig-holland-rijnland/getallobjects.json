@@ -1,0 +1,722 @@
+{
+ "sAngularServiceData": "[]",
+ "result": [
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "Appartement met 2 slaapkamers",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": true,
+   "specifiekeVoorzieningen": [
+    {
+     "id": "1000007"
+    },
+    {
+     "id": "1000010"
+    }
+   ],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "10600458"
+   },
+   "postalcode": "2316 KE",
+   "street": "Spoorlaan",
+   "houseNumber": "78",
+   "houseNumberAddition": "",
+   "regio": {
+    "name": "Holland Rijnland regio",
+    "id": "1"
+   },
+   "municipality": {
+    "name": "Leiden",
+    "id": "1000546"
+   },
+   "city": {
+    "name": "Leiden",
+    "id": "2"
+   },
+   "quarter": {
+    "name": "Leiden-Noord",
+    "id": "21"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "1000113",
+    "localizedName": "Appartement zonder lift"
+   },
+   "availableFrom": "",
+   "netRent": 828.65,
+   "totalRent": 861.25,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "2",
+    "id": "2"
+   },
+   "energyLabel": {
+    "icon": "icon_label_c",
+    "id": "21"
+   },
+   "floor": {
+    "id": "19",
+    "localizedName": "2e verdieping"
+   },
+   "balcony": true,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": "1000025"
+   },
+   "constructionYear": 1980,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_aanbodcooptatie",
+     "code": "inschrijfduur",
+     "toonOpWebsite": true,
+     "id": "1"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": true,
+    "aantalReactiesTonen": 2
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-17 14:45:00",
+   "closingDate": "2026-09-25 08:00:00",
+   "latitude": "52.165",
+   "longitude": "4.50623",
+   "pictures": [
+    {
+     "label": "voorkant",
+     "uri": "/portal/uploads/dwelling/pictures/187818-6aabdefc5c281.jpg",
+     "type": "jpg"
+    },
+    {
+     "label": "entree",
+     "uri": "/portal/uploads/dwelling/pictures/187818-6aabdd7070aca.jpg",
+     "type": "jpg"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 64,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "br_doelgroep_regulier",
+     "code": "regulier",
+     "id": "2"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": null,
+    "localizedNaam": null
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": false,
+   "urlKey": "187818-spoorlaan-78-leiden",
+   "availableFromDate": "2026-09-28",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "187818",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "4-kamerappartement met 2 balkons!",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": null,
+   "specifiekeVoorzieningen": [
+    {
+     "id": "1000072"
+    },
+    {
+     "id": "1000008"
+    },
+    {
+     "id": "1000010"
+    }
+   ],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "10600449"
+   },
+   "postalcode": "2321 RJ",
+   "street": "Vijf Meilaan",
+   "houseNumber": "69",
+   "houseNumberAddition": "",
+   "regio": {
+    "name": "Holland Rijnland regio",
+    "id": "1"
+   },
+   "municipality": {
+    "name": "Leiden",
+    "id": "1000546"
+   },
+   "city": {
+    "name": "Leiden",
+    "id": "2"
+   },
+   "quarter": {
+    "name": "Bos- en Gasthuisdistrict",
+    "id": "2"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "1000113",
+    "localizedName": "Appartement zonder lift"
+   },
+   "availableFrom": "medio oktober 2026",
+   "netRent": 764.14,
+   "totalRent": 774.49,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "3",
+    "id": "3"
+   },
+   "energyLabel": {
+    "icon": "icon_label_a",
+    "id": "16"
+   },
+   "floor": {
+    "id": "20",
+    "localizedName": "3e verdieping"
+   },
+   "balcony": true,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": "1000036"
+   },
+   "constructionYear": 1957,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_aanbodcooptatie",
+     "code": "inschrijfduur",
+     "toonOpWebsite": true,
+     "id": "1"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": true,
+    "aantalReactiesTonen": 2
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-18 17:00:00",
+   "closingDate": "2026-09-26 17:00:00",
+   "latitude": "52.148",
+   "longitude": "4.47869",
+   "pictures": [
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/187806-6aace040aca4f.jpg",
+     "type": "jpg"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 67,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "br_doelgroep_regulier",
+     "code": "regulier",
+     "id": "2"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": null,
+    "localizedNaam": null
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": false,
+   "urlKey": "187806-vijfmeilaan-69-leiden",
+   "availableFromDate": "",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "187806",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": true,
+   "specifiekeVoorzieningen": [],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "10600457"
+   },
+   "postalcode": "2361 XV",
+   "street": "Ganzenwei",
+   "houseNumber": "240",
+   "houseNumberAddition": "",
+   "regio": {
+    "name": "Holland Rijnland regio",
+    "id": "1"
+   },
+   "municipality": {
+    "name": "Teylingen",
+    "id": "1001525"
+   },
+   "city": {
+    "name": "Warmond",
+    "id": "31"
+   },
+   "quarter": {
+    "name": "Warmond",
+    "id": "42"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "1000015",
+    "localizedName": "Benedenwoning"
+   },
+   "availableFrom": "Medio november 2026",
+   "netRent": 500.75,
+   "totalRent": 515.75,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "0",
+    "id": "99"
+   },
+   "energyLabel": {
+    "icon": "icon_label_c",
+    "id": "21"
+   },
+   "floor": {
+    "id": "21",
+    "localizedName": "Begane grond"
+   },
+   "balcony": false,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": "1000025"
+   },
+   "constructionYear": 1982,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_loting",
+     "code": "random",
+     "toonOpWebsite": true,
+     "id": "2"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": true,
+    "aantalReactiesTonen": 2
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-21 17:06:00",
+   "closingDate": "2026-09-27 23:00:00",
+   "latitude": "52.196",
+   "longitude": "4.4958",
+   "pictures": [
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/187840-6ab11dc08d80b.png",
+     "type": "png"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 24,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "icon_doelgroep_jongeren",
+     "code": "jongeren",
+     "id": "8"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": null,
+    "localizedNaam": null
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": false,
+   "urlKey": "187840-ganzenwei-240-warmond",
+   "availableFromDate": "",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "187840",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": null,
+   "specifiekeVoorzieningen": [],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": false,
+   "corporation": {
+    "code": "10600457"
+   },
+   "postalcode": "2172 TL",
+   "street": "Hyacintenstraat",
+   "houseNumber": "1",
+   "houseNumberAddition": "C-GAR",
+   "regio": {
+    "name": "Holland Rijnland regio",
+    "id": "1"
+   },
+   "municipality": {
+    "name": "Teylingen",
+    "id": "1001525"
+   },
+   "city": {
+    "name": "Sassenheim",
+    "id": "16"
+   },
+   "quarter": {
+    "name": "Sassenheim",
+    "id": "23"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "voorVoertuig",
+    "huurprijsDuurActief": false,
+    "id": "11",
+    "localizedName": "Garage"
+   },
+   "availableFrom": "",
+   "netRent": 142.5,
+   "totalRent": 142.5,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": null,
+    "id": null
+   },
+   "energyLabel": {
+    "icon": null,
+    "id": null
+   },
+   "floor": null,
+   "balcony": false,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": null
+   },
+   "constructionYear": 1960,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_dth",
+     "code": "parkeren",
+     "toonOpWebsite": false,
+     "id": "6"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": true,
+    "aantalReactiesTonen": 2
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-17 09:39:00",
+   "closingDate": "2026-09-25 08:00:00",
+   "latitude": "52.2204",
+   "longitude": "4.51939",
+   "pictures": [],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 0,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "br_doelgroep_regulier",
+     "code": "regulier",
+     "id": "2"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": null,
+    "localizedNaam": null
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": false,
+   "urlKey": "187805-hyacintenstraat-1-c-gar-sassenheim",
+   "availableFromDate": "2026-10-07",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "187805",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": null,
+   "specifiekeVoorzieningen": [
+    {
+     "id": "1000109"
+    }
+   ],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "10600456"
+   },
+   "postalcode": "2225 PE",
+   "street": "Meeuwenlaan",
+   "houseNumber": "33",
+   "houseNumberAddition": "",
+   "regio": {
+    "name": "Holland Rijnland regio",
+    "id": "1"
+   },
+   "municipality": {
+    "name": "Katwijk",
+    "id": "1000537"
+   },
+   "city": {
+    "name": "Katwijk",
+    "id": "17"
+   },
+   "quarter": {
+    "name": "Katwijk aan Zee",
+    "id": "38"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "1000115",
+    "localizedName": "Maisonnette zonder lift"
+   },
+   "availableFrom": "",
+   "netRent": 713.02,
+   "totalRent": 744.98,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "3",
+    "id": "3"
+   },
+   "energyLabel": {
+    "icon": "icon_label_c",
+    "id": "21"
+   },
+   "floor": {
+    "id": "24",
+    "localizedName": "1e verdieping"
+   },
+   "balcony": true,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": "1000036"
+   },
+   "constructionYear": 1960,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_aanbodcooptatie",
+     "code": "inschrijfduur",
+     "toonOpWebsite": true,
+     "id": "1"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": true,
+    "aantalReactiesTonen": 2
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-21 17:30:00",
+   "closingDate": "2026-09-28 17:30:00",
+   "latitude": "52.1998",
+   "longitude": "4.40637",
+   "pictures": [
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/187843-6ab149919c38b.png",
+     "type": "png"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 0,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "br_doelgroep_regulier",
+     "code": "regulier",
+     "id": "2"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": null,
+    "localizedNaam": null
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": false,
+   "urlKey": "187843-meeuwenlaan-33-katwijk",
+   "availableFromDate": "2026-10-01",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "187843",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  }
+ ]
+}
