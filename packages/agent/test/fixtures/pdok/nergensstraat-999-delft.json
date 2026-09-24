@@ -19,9 +19,7 @@
         "weergavenaam": "Mekelweg 999, 2629JB Delft",
         "straatnaam_verkort": "Mekelwg",
         "id": "adr-b69949443dd6c49ad455e04e14b7070b",
-        "gekoppeld_perceel": [
-          "DEL00-L-1486"
-        ],
+        "gekoppeld_perceel": ["DEL00-L-1486"],
         "gemeentenaam": "Delft",
         "buurtcode": "BU05032901",
         "wijknaam": "Wijk 29 Ruiven",

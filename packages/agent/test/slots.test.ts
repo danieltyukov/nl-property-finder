@@ -13,12 +13,19 @@ describe('the plan cases (Review Focus 5)', () => {
   });
 
   test('"morgen 14u" is 2026-09-24T12:00Z', () => {
-    expect(parseSlots('morgen 14u', now)).toEqual([{ start: '2026-09-24T12:00:00.000Z', text: 'morgen 14u', certain: true }]);
+    expect(parseSlots('morgen 14u', now)).toEqual([
+      { start: '2026-09-24T12:00:00.000Z', text: 'morgen 14u', certain: true },
+    ]);
   });
 
   test('"za 10:00-10:15" gives start and end', () => {
     expect(parseSlots('za 10:00-10:15', now)).toEqual([
-      { start: '2026-09-26T08:00:00.000Z', end: '2026-09-26T08:15:00.000Z', text: 'za 10:00-10:15', certain: true },
+      {
+        start: '2026-09-26T08:00:00.000Z',
+        end: '2026-09-26T08:15:00.000Z',
+        text: 'za 10:00-10:15',
+        certain: true,
+      },
     ]);
   });
 
@@ -43,11 +50,15 @@ describe('the plan cases (Review Focus 5)', () => {
 
 describe('Dutch', () => {
   test('"half zeven" in the evening is 18:30 and certain', () => {
-    expect(parseSlots("Schikt vrijdag om half zeven 's avonds?", now)).toMatchObject([{ start: '2026-09-25T16:30:00.000Z', certain: true }]);
+    expect(parseSlots("Schikt vrijdag om half zeven 's avonds?", now)).toMatchObject([
+      { start: '2026-09-25T16:30:00.000Z', certain: true },
+    ]);
   });
 
   test('"half zeven" alone is read as 18:30 but not certain', () => {
-    expect(parseSlots('Kunt u vrijdag om half zeven?', now)).toMatchObject([{ start: '2026-09-25T16:30:00.000Z', certain: false }]);
+    expect(parseSlots('Kunt u vrijdag om half zeven?', now)).toMatchObject([
+      { start: '2026-09-25T16:30:00.000Z', certain: false },
+    ]);
   });
 
   test('"half zeven" next to other afternoon times is certain', () => {
@@ -64,7 +75,9 @@ describe('Dutch', () => {
   });
 
   test('overmorgen, dotted times and "uur"', () => {
-    expect(parseSlots('overmorgen om 11.00 uur', now)).toMatchObject([{ start: '2026-09-25T09:00:00.000Z', certain: true }]);
+    expect(parseSlots('overmorgen om 11.00 uur', now)).toMatchObject([
+      { start: '2026-09-25T09:00:00.000Z', certain: true },
+    ]);
   });
 
   test('18u30', () => {
@@ -85,15 +98,24 @@ describe('Dutch', () => {
 
   test('several times on several days', () => {
     const text = 'Mogelijke tijden:\n- donderdag 18:00 of 18:30\n- vrijdag 19:00';
-    expect(starts(text)).toEqual(['2026-09-24T16:00:00.000Z', '2026-09-24T16:30:00.000Z', '2026-09-25T17:00:00.000Z']);
+    expect(starts(text)).toEqual([
+      '2026-09-24T16:00:00.000Z',
+      '2026-09-24T16:30:00.000Z',
+      '2026-09-25T17:00:00.000Z',
+    ]);
   });
 
   test('times listed on the lines after the day', () => {
-    expect(starts('Bezichtiging op zaterdag 26 september:\n10:00\n10:30')).toEqual(['2026-09-26T08:00:00.000Z', '2026-09-26T08:30:00.000Z']);
+    expect(starts('Bezichtiging op zaterdag 26 september:\n10:00\n10:30')).toEqual([
+      '2026-09-26T08:00:00.000Z',
+      '2026-09-26T08:30:00.000Z',
+    ]);
   });
 
   test('vanavond om 8 uur is 20:00', () => {
-    expect(parseSlots('Kunt u vanavond om 8 uur?', now)).toMatchObject([{ start: '2026-09-23T18:00:00.000Z', certain: true }]);
+    expect(parseSlots('Kunt u vanavond om 8 uur?', now)).toMatchObject([
+      { start: '2026-09-23T18:00:00.000Z', certain: true },
+    ]);
   });
 
   test('volgende week donderdag', () => {
@@ -106,17 +128,24 @@ describe('Dutch', () => {
   });
 
   test('a whole landlord email', () => {
-    const mail = 'Beste Sam,\n\nJe bent welkom voor een bezichtiging op donderdag 1 oktober om 18:30. Laat je weten of dit uitkomt?\n\nMet vriendelijke groet,\nJan';
-    expect(parseSlots(mail, now)).toEqual([{ start: '2026-10-01T16:30:00.000Z', text: 'donderdag 1 oktober om 18:30', certain: true }]);
+    const mail =
+      'Beste Sam,\n\nJe bent welkom voor een bezichtiging op donderdag 1 oktober om 18:30. Laat je weten of dit uitkomt?\n\nMet vriendelijke groet,\nJan';
+    expect(parseSlots(mail, now)).toEqual([
+      { start: '2026-10-01T16:30:00.000Z', text: 'donderdag 1 oktober om 18:30', certain: true },
+    ]);
   });
 
   test('"6:30" without a leading zero is read as the evening but not certain', () => {
-    expect(parseSlots('vrijdag 6:30', now)).toMatchObject([{ start: '2026-09-25T16:30:00.000Z', certain: false }]);
+    expect(parseSlots('vrijdag 6:30', now)).toMatchObject([
+      { start: '2026-09-25T16:30:00.000Z', certain: false },
+    ]);
   });
 
   test('no false days or times', () => {
     expect(parseSlots('Goedemorgen, de woning is beschikbaar per 1 november.', now)).toEqual([]);
-    expect(parseSlots('Huur € 12.50 per m2, bel 06-12345678. Zo snel mogelijk reageren graag.', now)).toEqual([]);
+    expect(parseSlots('Huur € 12.50 per m2, bel 06-12345678. Zo snel mogelijk reageren graag.', now)).toEqual(
+      [],
+    );
     expect(parseSlots('De bezichtiging duurt 1 uur.', now)).toEqual([]);
     expect(parseSlots('Om 10 uur ben ik er.', now)).toEqual([]);
   });
@@ -152,18 +181,24 @@ describe('English', () => {
 
   test('month first, ordinal suffixes and ranges', () => {
     expect(starts('September 26th at 10:00')).toEqual(['2026-09-26T08:00:00.000Z']);
-    expect(parseSlots('Sat 10:00-10:15', now)).toMatchObject([{ start: '2026-09-26T08:00:00.000Z', end: '2026-09-26T08:15:00.000Z' }]);
+    expect(parseSlots('Sat 10:00-10:15', now)).toMatchObject([
+      { start: '2026-09-26T08:00:00.000Z', end: '2026-09-26T08:15:00.000Z' },
+    ]);
     expect(parseSlots('Friday between 5 and 7 pm', now)).toMatchObject([
       { start: '2026-09-25T15:00:00.000Z', end: '2026-09-25T17:00:00.000Z', certain: true },
     ]);
   });
 
   test('half past six in the evening', () => {
-    expect(parseSlots('Friday at half past six in the evening', now)).toMatchObject([{ start: '2026-09-25T16:30:00.000Z', certain: true }]);
+    expect(parseSlots('Friday at half past six in the evening', now)).toMatchObject([
+      { start: '2026-09-25T16:30:00.000Z', certain: true },
+    ]);
   });
 
   test('"Can you do Monday at 7?" reads 19:00 without being sure', () => {
-    expect(parseSlots('Can you do Monday at 7?', now)).toMatchObject([{ start: '2026-09-28T17:00:00.000Z', certain: false }]);
+    expect(parseSlots('Can you do Monday at 7?', now)).toMatchObject([
+      { start: '2026-09-28T17:00:00.000Z', certain: false },
+    ]);
   });
 
   test('a message without dates has no slots', () => {

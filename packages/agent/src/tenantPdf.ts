@@ -19,24 +19,124 @@ const MONO = 'Courier';
 
 const T = {
   en: {
-    title: 'Tenant profile', occupation: 'Occupation', organisation: 'University or employer', household: 'Household', moveIn: 'Move-in from',
-    stay: 'Planned stay', guarantor: 'Guarantor', lifestyle: 'Lifestyle', languages: 'Languages', contact: 'Contact', about: 'About me',
-    months: (n: number) => `${n} months`, adults: (n: number) => (n === 1 ? '1 adult' : `${n} adults`), children: (n: number) => (n === 1 ? '1 child' : `${n} children`),
-    pets: 'pets', noPets: 'no pets', smoker: 'smoker', nonSmoker: 'non-smoker', yes: 'Yes', none: 'None', with: 'with',
+    title: 'Tenant profile',
+    occupation: 'Occupation',
+    organisation: 'University or employer',
+    household: 'Household',
+    moveIn: 'Move-in from',
+    stay: 'Planned stay',
+    guarantor: 'Guarantor',
+    lifestyle: 'Lifestyle',
+    languages: 'Languages',
+    contact: 'Contact',
+    about: 'About me',
+    months: (n: number) => `${n} months`,
+    adults: (n: number) => (n === 1 ? '1 adult' : `${n} adults`),
+    children: (n: number) => (n === 1 ? '1 child' : `${n} children`),
+    pets: 'pets',
+    noPets: 'no pets',
+    smoker: 'smoker',
+    nonSmoker: 'non-smoker',
+    yes: 'Yes',
+    none: 'None',
+    with: 'with',
     footer: 'Income and identity documents are available after a viewing.',
-    occupations: { student: 'Student', phd: 'PhD candidate', employed: 'Employed', self_employed: 'Self-employed', starting_job: 'Starting a new job', other: 'Other' },
-    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    langNames: { en: 'English', nl: 'Dutch', de: 'German', fr: 'French', es: 'Spanish', it: 'Italian', pt: 'Portuguese', zh: 'Chinese', tr: 'Turkish', pl: 'Polish', ru: 'Russian', ar: 'Arabic' } as Record<string, string>,
+    occupations: {
+      student: 'Student',
+      phd: 'PhD candidate',
+      employed: 'Employed',
+      self_employed: 'Self-employed',
+      starting_job: 'Starting a new job',
+      other: 'Other',
+    },
+    monthNames: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ],
+    langNames: {
+      en: 'English',
+      nl: 'Dutch',
+      de: 'German',
+      fr: 'French',
+      es: 'Spanish',
+      it: 'Italian',
+      pt: 'Portuguese',
+      zh: 'Chinese',
+      tr: 'Turkish',
+      pl: 'Polish',
+      ru: 'Russian',
+      ar: 'Arabic',
+    } as Record<string, string>,
   },
   nl: {
-    title: 'Huurdersprofiel', occupation: 'Beroep', organisation: 'Universiteit of werkgever', household: 'Huishouden', moveIn: 'Verhuizen vanaf',
-    stay: 'Geplande huurperiode', guarantor: 'Garantsteller', lifestyle: 'Leefstijl', languages: 'Talen', contact: 'Contact', about: 'Over mij',
-    months: (n: number) => `${n} maanden`, adults: (n: number) => (n === 1 ? '1 volwassene' : `${n} volwassenen`), children: (n: number) => (n === 1 ? '1 kind' : `${n} kinderen`),
-    pets: 'huisdieren', noPets: 'geen huisdieren', smoker: 'roker', nonSmoker: 'niet-roker', yes: 'Ja', none: 'Geen', with: 'met',
+    title: 'Huurdersprofiel',
+    occupation: 'Beroep',
+    organisation: 'Universiteit of werkgever',
+    household: 'Huishouden',
+    moveIn: 'Verhuizen vanaf',
+    stay: 'Geplande huurperiode',
+    guarantor: 'Garantsteller',
+    lifestyle: 'Leefstijl',
+    languages: 'Talen',
+    contact: 'Contact',
+    about: 'Over mij',
+    months: (n: number) => `${n} maanden`,
+    adults: (n: number) => (n === 1 ? '1 volwassene' : `${n} volwassenen`),
+    children: (n: number) => (n === 1 ? '1 kind' : `${n} kinderen`),
+    pets: 'huisdieren',
+    noPets: 'geen huisdieren',
+    smoker: 'roker',
+    nonSmoker: 'niet-roker',
+    yes: 'Ja',
+    none: 'Geen',
+    with: 'met',
     footer: 'Inkomens- en identiteitsdocumenten zijn beschikbaar na een bezichtiging.',
-    occupations: { student: 'Student', phd: 'Promovendus (PhD)', employed: 'In loondienst', self_employed: 'Zelfstandig ondernemer', starting_job: 'Begint binnenkort aan een nieuwe baan', other: 'Anders' },
-    monthNames: ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
-    langNames: { en: 'Engels', nl: 'Nederlands', de: 'Duits', fr: 'Frans', es: 'Spaans', it: 'Italiaans', pt: 'Portugees', zh: 'Chinees', tr: 'Turks', pl: 'Pools', ru: 'Russisch', ar: 'Arabisch' } as Record<string, string>,
+    occupations: {
+      student: 'Student',
+      phd: 'Promovendus (PhD)',
+      employed: 'In loondienst',
+      self_employed: 'Zelfstandig ondernemer',
+      starting_job: 'Begint binnenkort aan een nieuwe baan',
+      other: 'Anders',
+    },
+    monthNames: [
+      'januari',
+      'februari',
+      'maart',
+      'april',
+      'mei',
+      'juni',
+      'juli',
+      'augustus',
+      'september',
+      'oktober',
+      'november',
+      'december',
+    ],
+    langNames: {
+      en: 'Engels',
+      nl: 'Nederlands',
+      de: 'Duits',
+      fr: 'Frans',
+      es: 'Spaans',
+      it: 'Italiaans',
+      pt: 'Portugees',
+      zh: 'Chinees',
+      tr: 'Turks',
+      pl: 'Pools',
+      ru: 'Russisch',
+      ar: 'Arabisch',
+    } as Record<string, string>,
   },
 };
 
@@ -55,10 +155,18 @@ export function profileLanguage(profile: Profile): Lang {
  * `profile.facts.photo` names a file that exists. Long introductions are
  * cut off with an ellipsis so the profile never runs onto a second page.
  */
-export async function renderTenantProfilePdf(profile: Profile, out: string, opts: { language?: Lang } = {}): Promise<void> {
+export async function renderTenantProfilePdf(
+  profile: Profile,
+  out: string,
+  opts: { language?: Lang } = {},
+): Promise<void> {
   const t = T[opts.language ?? profileLanguage(profile)];
   const name = `${profile.firstName} ${profile.lastName}`.trim() || t.title;
-  const doc = new PDFDocument({ size: 'A4', margin: 56, info: { Title: `${t.title}: ${name}`, Author: name } });
+  const doc = new PDFDocument({
+    size: 'A4',
+    margin: 56,
+    info: { Title: `${t.title}: ${name}`, Author: name },
+  });
   const stream = createWriteStream(out);
   doc.pipe(stream);
 
@@ -77,10 +185,18 @@ export async function renderTenantProfilePdf(profile: Profile, out: string, opts
     }
   }
 
-  doc.font(MONO).fontSize(9).fillColor('black', 0.55).text(t.title.toUpperCase(), left, 56, { characterSpacing: 1.2, width: textWidth });
+  doc
+    .font(MONO)
+    .fontSize(9)
+    .fillColor('black', 0.55)
+    .text(t.title.toUpperCase(), left, 56, { characterSpacing: 1.2, width: textWidth });
   doc.font(DISPLAY).fontSize(30).fillColor('black', 1).text(name, left, 72, { width: textWidth });
   const occupation = t.occupations[profile.occupation];
-  doc.font(BODY).fontSize(12).fillColor('black', 0.75).text([occupation, profile.organisation].filter(Boolean).join(', '), { width: textWidth });
+  doc
+    .font(BODY)
+    .fontSize(12)
+    .fillColor('black', 0.75)
+    .text([occupation, profile.organisation].filter(Boolean).join(', '), { width: textWidth });
 
   const household = [t.adults(profile.household.adults)];
   if (profile.household.children) household.push(t.children(profile.household.children));
@@ -91,8 +207,16 @@ export async function renderTenantProfilePdf(profile: Profile, out: string, opts
     [t.household, `${household.join(', ')}${co.length ? `, ${t.with} ${co.join(', ')}` : ''}`],
     [t.moveIn, profile.moveInFrom ? formatDate(profile.moveInFrom, t.monthNames) : undefined],
     [t.stay, profile.stayMonths ? t.months(profile.stayMonths) : undefined],
-    [t.guarantor, profile.guarantor ? `${t.yes} (${profile.guarantor.relation}${profile.guarantor.country ? `, ${profile.guarantor.country}` : ''})` : undefined],
-    [t.lifestyle, `${profile.smoker ? t.smoker : t.nonSmoker}, ${profile.household.pets ? t.pets : t.noPets}`],
+    [
+      t.guarantor,
+      profile.guarantor
+        ? `${t.yes} (${profile.guarantor.relation}${profile.guarantor.country ? `, ${profile.guarantor.country}` : ''})`
+        : undefined,
+    ],
+    [
+      t.lifestyle,
+      `${profile.smoker ? t.smoker : t.nonSmoker}, ${profile.household.pets ? t.pets : t.noPets}`,
+    ],
     [t.languages, profile.languages.map((l) => t.langNames[l.toLowerCase()] ?? l.toUpperCase()).join(', ')],
     [t.contact, [profile.email, profile.phone].filter(Boolean).join(', ')],
   ];
@@ -100,22 +224,42 @@ export async function renderTenantProfilePdf(profile: Profile, out: string, opts
   let y = Math.max(doc.y + 24, photo && textWidth < width ? 56 + 150 : 0);
   for (const [label, value] of rows) {
     if (!value) continue;
-    doc.font(MONO).fontSize(8.5).fillColor('black', 0.55).text(label.toUpperCase(), left, y, { width: 150, characterSpacing: 0.8 });
-    doc.font(BODY).fontSize(11).fillColor('black', 1).text(value, left + 160, y - 1, { width: width - 160 });
+    doc
+      .font(MONO)
+      .fontSize(8.5)
+      .fillColor('black', 0.55)
+      .text(label.toUpperCase(), left, y, { width: 150, characterSpacing: 0.8 });
+    doc
+      .font(BODY)
+      .fontSize(11)
+      .fillColor('black', 1)
+      .text(value, left + 160, y - 1, { width: width - 160 });
     y = Math.max(doc.y, y + 14) + 8;
   }
 
   if (profile.about.trim()) {
     y += 10;
-    doc.font(MONO).fontSize(8.5).fillColor('black', 0.55).text(t.about.toUpperCase(), left, y, { characterSpacing: 0.8 });
+    doc
+      .font(MONO)
+      .fontSize(8.5)
+      .fillColor('black', 0.55)
+      .text(t.about.toUpperCase(), left, y, { characterSpacing: 0.8 });
     y = doc.y + 6;
     const room = bottom - 40 - y;
     if (room > 20) {
-      doc.font(BODY).fontSize(11).fillColor('black', 1).text(profile.about.trim(), left, y, { width, height: room, ellipsis: true, lineGap: 2 });
+      doc
+        .font(BODY)
+        .fontSize(11)
+        .fillColor('black', 1)
+        .text(profile.about.trim(), left, y, { width, height: room, ellipsis: true, lineGap: 2 });
     }
   }
 
-  doc.font(BODY_BOLD).fontSize(9).fillColor('black', 0.55).text(t.footer, left, bottom - 14, { width, lineBreak: false });
+  doc
+    .font(BODY_BOLD)
+    .fontSize(9)
+    .fillColor('black', 0.55)
+    .text(t.footer, left, bottom - 14, { width, lineBreak: false });
   doc.end();
   await once(stream, 'finish');
 }

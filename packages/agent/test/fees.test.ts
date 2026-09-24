@@ -28,7 +28,9 @@ describe('deposit_above_2x', () => {
     ['3 months deposit', undefined],
     ['Huur € 1.000 per maand, borg € 3.000.', 1000],
     ['Security deposit: EUR 2,500', 1000],
-  ] as [string, number | undefined][])('fires on "%s"', (text, price) => expect(feeFlags(text, price)).toContain('deposit_above_2x'));
+  ] as [string, number | undefined][])('fires on "%s"', (text, price) =>
+    expect(feeFlags(text, price)).toContain('deposit_above_2x'),
+  );
 
   test.each([
     ['Waarborgsom: 2 maanden kale huur.', undefined],
@@ -37,7 +39,9 @@ describe('deposit_above_2x', () => {
     ['Borg € 3.000', undefined],
     ['Een borgstelling van drie maanden is mogelijk via een borgsteller.', undefined],
     ['Geen borg nodig.', 1000],
-  ] as [string, number | undefined][])('stays quiet on "%s"', (text, price) => expect(feeFlags(text, price)).not.toContain('deposit_above_2x'));
+  ] as [string, number | undefined][])('stays quiet on "%s"', (text, price) =>
+    expect(feeFlags(text, price)).not.toContain('deposit_above_2x'),
+  );
 });
 
 describe('key_money', () => {
@@ -48,16 +52,25 @@ describe('key_money', () => {
     'A takeover fee applies.',
   ])('fires on "%s"', (text) => expect(feeFlags(text)).toContain('key_money'));
 
-  test.each(['Geen sleutelgeld.', 'Vloer en gordijnen ter overname.', 'No key money.'])('stays quiet on "%s"', (text) =>
-    expect(feeFlags(text)).not.toContain('key_money'));
+  test.each(['Geen sleutelgeld.', 'Vloer en gordijnen ter overname.', 'No key money.'])(
+    'stays quiet on "%s"',
+    (text) => expect(feeFlags(text)).not.toContain('key_money'),
+  );
 });
 
 test('all three together, each once', () => {
-  expect(feeFlags('Bemiddelingskosten € 300. Borg 3 maanden. Sleutelgeld € 500. Bemiddelingskosten zijn eenmalig.')).toEqual([
-    'mediation_fee', 'deposit_above_2x', 'key_money',
-  ]);
+  expect(
+    feeFlags(
+      'Bemiddelingskosten € 300. Borg 3 maanden. Sleutelgeld € 500. Bemiddelingskosten zijn eenmalig.',
+    ),
+  ).toEqual(['mediation_fee', 'deposit_above_2x', 'key_money']);
 });
 
 test('an ordinary listing has no flags', () => {
-  expect(feeFlags('Huurprijs € 1.250 per maand exclusief servicekosten. Waarborgsom 1 maand huur. Geen bemiddelingskosten.', 1250)).toEqual([]);
+  expect(
+    feeFlags(
+      'Huurprijs € 1.250 per maand exclusief servicekosten. Waarborgsom 1 maand huur. Geen bemiddelingskosten.',
+      1250,
+    ),
+  ).toEqual([]);
 });

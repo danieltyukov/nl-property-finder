@@ -3,7 +3,12 @@ import { commuteMinutes } from './commute.js';
 import { squash } from './text.js';
 
 /** Points added or taken per preference, on top of the extract's 0-100 score. */
-export const PREFERENCE_POINTS = { mustHaveFound: 4, mustHaveMissing: -8, commuteWithin: 5, commuteOver: -15 };
+export const PREFERENCE_POINTS = {
+  mustHaveFound: 4,
+  mustHaveMissing: -8,
+  commuteWithin: 5,
+  commuteOver: -15,
+};
 
 const modeLabel = (mode: string) => (mode === 'walk' ? 'foot' : mode);
 

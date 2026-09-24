@@ -1,6 +1,9 @@
 export type CommuteMode = 'bike' | 'walk' | 'transit' | 'car';
 
-interface Point { lat: number; lon: number }
+interface Point {
+  lat: number;
+  lon: number;
+}
 
 /** Detour over the straight line, average speed, fixed overhead (waiting, walking to the stop). */
 const MODES: Record<CommuteMode, { detour: number; kmh: number; fixedMin: number }> = {

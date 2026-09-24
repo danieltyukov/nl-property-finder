@@ -1,7 +1,9 @@
 import type { Channel, Config, Listing, SourceAdapter, SourceConfig } from '@nlpf/core';
 
 /** The part of the sources registry the router needs (Task 4's registry satisfies it). */
-export interface AdapterRegistry { get(id: string): SourceAdapter | undefined }
+export interface AdapterRegistry {
+  get(id: string): SourceAdapter | undefined;
+}
 
 export type ContactPlan =
   | { plan: 'send'; channel: Channel; via: Listing }
@@ -12,7 +14,10 @@ export type ContactPlan =
  * The user's explicit per-source choice wins. Otherwise a platform whose
  * terms forbid automated access is watch-only and every other one is auto.
  */
-export function effectiveContactMode(adapter: SourceAdapter, source: SourceConfig | undefined): 'auto' | 'watch_only' {
+export function effectiveContactMode(
+  adapter: SourceAdapter,
+  source: SourceConfig | undefined,
+): 'auto' | 'watch_only' {
   if (source?.contact) return source.contact;
   return adapter.capabilities.terms === 'forbids' ? 'watch_only' : 'auto';
 }
@@ -50,7 +55,10 @@ function paywall(l: Listing, adapter: SourceAdapter, source: SourceConfig | unde
 /** "kamernet-premium" on Kamernet reads "Kamernet Premium". */
 function planLabel(adapter: SourceAdapter, plan: string): string {
   const rest = plan.startsWith(`${adapter.id}-`) ? plan.slice(adapter.id.length + 1) : plan;
-  const words = rest.split(/[-_\s]+/).filter(Boolean).map((w) => w.charAt(0).toUpperCase() + w.slice(1));
+  const words = rest
+    .split(/[-_\s]+/)
+    .filter(Boolean)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1));
   return `${adapter.name} ${words.join(' ')}`.trim();
 }
 
@@ -69,9 +77,16 @@ function rank(method: string, adapter: SourceAdapter): number {
  * nothing is left, the plan says why: `watch` when a watch-only source is the
  * only way in, otherwise `manual` with a reason for the React manually task.
  */
-export function planContact(listing: Listing, all: Listing[], registry: AdapterRegistry, config: Config): ContactPlan {
+export function planContact(
+  listing: Listing,
+  all: Listing[],
+  registry: AdapterRegistry,
+  config: Config,
+): ContactPlan {
   const seen = new Set<string>();
-  const cluster = [listing, ...all].filter((l) => l.state !== 'gone' && !seen.has(l.id) && (seen.add(l.id), true));
+  const cluster = [listing, ...all].filter(
+    (l) => l.state !== 'gone' && !seen.has(l.id) && (seen.add(l.id), true),
+  );
 
   let best: { rank: number; channel: Channel; via: Listing } | undefined;
   const blocked: Blocked[] = [];
@@ -89,7 +104,8 @@ export function planContact(listing: Listing, all: Listing[], registry: AdapterR
       continue;
     }
     const address = method === 'email' ? agentEmail(l) : undefined;
-    const reachable = method === 'form' || method === 'message' ? typeof adapter.contact === 'function' : !!address;
+    const reachable =
+      method === 'form' || method === 'message' ? typeof adapter.contact === 'function' : !!address;
     if (!reachable) {
       blocked.push({ why: 'none' });
       continue;
@@ -107,7 +123,12 @@ export function planContact(listing: Listing, all: Listing[], registry: AdapterR
     if (!best || r < best.rank) {
       const channel: Channel = address
         ? { kind: 'email', sourceId: l.sourceId, listingId: l.id, address }
-        : { kind: method as 'form' | 'message', sourceId: l.sourceId, listingId: l.id, url: l.contactUrl ?? l.url };
+        : {
+            kind: method as 'form' | 'message',
+            sourceId: l.sourceId,
+            listingId: l.id,
+            url: l.contactUrl ?? l.url,
+          };
       best = { rank: r, channel, via: l };
     }
   }
@@ -119,7 +140,11 @@ export function planContact(listing: Listing, all: Listing[], registry: AdapterR
     const address = agentEmail(l);
     const source = config.sources[l.sourceId];
     if (address && source?.enabled !== false && source?.contact !== 'watch_only') {
-      return { plan: 'send', channel: { kind: 'email', sourceId: l.sourceId, listingId: l.id, address }, via: l };
+      return {
+        plan: 'send',
+        channel: { kind: 'email', sourceId: l.sourceId, listingId: l.id, address },
+        via: l,
+      };
     }
   }
 
@@ -133,14 +158,21 @@ export function planContact(listing: Listing, all: Listing[], registry: AdapterR
     };
   }
   const paid = blocked.find((b): b is Extract<Blocked, { why: 'paid' }> => b.why === 'paid');
-  if (paid) return { plan: 'manual', reason: `${planLabel(paid.adapter, paid.plan)} needed and no free copy of this home was found` };
-  const booking = blocked.find((b): b is Extract<Blocked, { why: 'booking' | 'lottery' }> => b.why === 'booking' || b.why === 'lottery');
+  if (paid)
+    return {
+      plan: 'manual',
+      reason: `${planLabel(paid.adapter, paid.plan)} needed and no free copy of this home was found`,
+    };
+  const booking = blocked.find(
+    (b): b is Extract<Blocked, { why: 'booking' | 'lottery' }> => b.why === 'booking' || b.why === 'lottery',
+  );
   if (booking) {
     return {
       plan: 'manual',
-      reason: booking.why === 'booking'
-        ? `${booking.adapter.name} needs a booking made by you`
-        : `${booking.adapter.name} allocates by lottery or waiting time; react on the portal yourself`,
+      reason:
+        booking.why === 'booking'
+          ? `${booking.adapter.name} needs a booking made by you`
+          : `${booking.adapter.name} allocates by lottery or waiting time; react on the portal yourself`,
     };
   }
   return { plan: 'manual', reason: 'No way to contact this home automatically' };

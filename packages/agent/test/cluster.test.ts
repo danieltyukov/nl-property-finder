@@ -10,7 +10,13 @@ describe('clusterKey (Review Focus 1)', () => {
     const fb = { title: 'x' };
     const a: Address = { street: 'Oude Delft', houseNumber: '12-A', postcode: '2611 CC', city: 'Delft' };
     const b: Address = { street: 'Oude Delft', houseNumber: '12A', postcode: '2611CC', city: 'DELFT' };
-    const c: Address = { street: 'Oude Delft', houseNumber: '12', addition: ' a', postcode: '2611 cc', city: 'Delft' };
+    const c: Address = {
+      street: 'Oude Delft',
+      houseNumber: '12',
+      addition: ' a',
+      postcode: '2611 cc',
+      city: 'Delft',
+    };
     expect(clusterKey(a, fb)).toBe('pc:2611CC:12:a');
     expect(clusterKey(b, fb)).toBe('pc:2611CC:12:a');
     expect(clusterKey(c, fb)).toBe('pc:2611CC:12:a');
@@ -39,10 +45,12 @@ describe('clusterKey (Review Focus 1)', () => {
   });
 
   test('fingerprint when the house number is unknown', () => {
-    expect(clusterKey({ city: 'Delft' }, { title: 'Ruim appartement in centrum', priceEur: 1260, sizeM2: 42 })).toBe(
-      'fp:delft:ruim-appartement-centrum:1250:40',
+    expect(
+      clusterKey({ city: 'Delft' }, { title: 'Ruim appartement in centrum', priceEur: 1260, sizeM2: 42 }),
+    ).toBe('fp:delft:ruim-appartement-centrum:1250:40');
+    expect(clusterKey({ street: 'Oude Delft', city: 'Delft' }, { title: 'x', priceEur: 1299 })).toBe(
+      'fp:delft:oudedelft:1250:x',
     );
-    expect(clusterKey({ street: 'Oude Delft', city: 'Delft' }, { title: 'x', priceEur: 1299 })).toBe('fp:delft:oudedelft:1250:x');
   });
 
   test('house number splitting', () => {
@@ -57,8 +65,16 @@ describe('clusterKey (Review Focus 1)', () => {
 describe('assignProperty', () => {
   test('one home listed on three sites with different spellings becomes one property', () => {
     const store = openStore(':memory:');
-    const funda = listing({ sourceId: 'funda', address: { street: 'Oude Delft', houseNumber: '12-A', city: 'Delft' }, priceEur: 1250 });
-    const pararius = listing({ sourceId: 'pararius', address: { street: 'Oude Delft', houseNumber: '12A', city: 'Delft' }, priceEur: 1250 });
+    const funda = listing({
+      sourceId: 'funda',
+      address: { street: 'Oude Delft', houseNumber: '12-A', city: 'Delft' },
+      priceEur: 1250,
+    });
+    const pararius = listing({
+      sourceId: 'pararius',
+      address: { street: 'Oude Delft', houseNumber: '12A', city: 'Delft' },
+      priceEur: 1250,
+    });
     const kamernet = listing({
       sourceId: 'kamernet',
       address: { street: 'Oude Delft', houseNumber: '12', addition: 'a', postcode: '2611 BC', city: 'Delft' },
@@ -85,18 +101,49 @@ describe('assignProperty', () => {
     const store = openStore(':memory:');
     const known = assignProperty(
       store,
-      listing({ address: { street: 'Oude Delft', houseNumber: '12', addition: 'A', postcode: '2611 CC', city: 'Delft' }, priceEur: 1250, sizeM2: 40 }),
+      listing({
+        address: {
+          street: 'Oude Delft',
+          houseNumber: '12',
+          addition: 'A',
+          postcode: '2611 CC',
+          city: 'Delft',
+        },
+        priceEur: 1250,
+        sizeM2: 40,
+      }),
       NOW,
     );
-    const vague = listing({ sourceId: 'marktplaats', title: 'Mooi appartement aan de gracht', address: { postcode: '2611 CC', city: 'Delft' }, priceEur: 1290, sizeM2: undefined });
-    expect(assignProperty(store, vague, NOW)).toMatchObject({ created: false, property: { id: known.property.id } });
+    const vague = listing({
+      sourceId: 'marktplaats',
+      title: 'Mooi appartement aan de gracht',
+      address: { postcode: '2611 CC', city: 'Delft' },
+      priceEur: 1290,
+      sizeM2: undefined,
+    });
+    expect(assignProperty(store, vague, NOW)).toMatchObject({
+      created: false,
+      property: { id: known.property.id },
+    });
   });
 
   test('a different house number never joins, even at the same price and size', () => {
     const store = openStore(':memory:');
-    const a = assignProperty(store, listing({ address: { street: 'Oude Delft', houseNumber: '12', postcode: '2611 CC', city: 'Delft' } }), NOW);
-    const b = assignProperty(store, listing({ address: { street: 'Oude Delft', houseNumber: '14', postcode: '2611 CC', city: 'Delft' } }), NOW);
-    const c = assignProperty(store, listing({ address: { street: 'Oude Delft', houseNumber: '14', city: 'Delft' } }), NOW);
+    const a = assignProperty(
+      store,
+      listing({ address: { street: 'Oude Delft', houseNumber: '12', postcode: '2611 CC', city: 'Delft' } }),
+      NOW,
+    );
+    const b = assignProperty(
+      store,
+      listing({ address: { street: 'Oude Delft', houseNumber: '14', postcode: '2611 CC', city: 'Delft' } }),
+      NOW,
+    );
+    const c = assignProperty(
+      store,
+      listing({ address: { street: 'Oude Delft', houseNumber: '14', city: 'Delft' } }),
+      NOW,
+    );
     expect(b.created).toBe(true);
     expect(b.property.id).not.toBe(a.property.id);
     expect(c.property.id).toBe(b.property.id);
@@ -104,16 +151,35 @@ describe('assignProperty', () => {
 
   test('a different addition never joins', () => {
     const store = openStore(':memory:');
-    const a = assignProperty(store, listing({ address: { street: 'Oude Delft', houseNumber: '12A', postcode: '2611 CC', city: 'Delft' } }), NOW);
-    const b = assignProperty(store, listing({ address: { street: 'Oude Delft', houseNumber: '12B', postcode: '2611 CC', city: 'Delft' } }), NOW);
+    const a = assignProperty(
+      store,
+      listing({ address: { street: 'Oude Delft', houseNumber: '12A', postcode: '2611 CC', city: 'Delft' } }),
+      NOW,
+    );
+    const b = assignProperty(
+      store,
+      listing({ address: { street: 'Oude Delft', houseNumber: '12B', postcode: '2611 CC', city: 'Delft' } }),
+      NOW,
+    );
     expect(b.created).toBe(true);
     expect(b.property.id).not.toBe(a.property.id);
   });
 
   test('a price far off in the same postcode does not join', () => {
     const store = openStore(':memory:');
-    assignProperty(store, listing({ address: { street: 'Oude Delft', houseNumber: '12', postcode: '2611 CC', city: 'Delft' }, priceEur: 1250 }), NOW);
-    const other = assignProperty(store, listing({ title: 'Kamer', address: { postcode: '2611 CC', city: 'Delft' }, priceEur: 600 }), NOW);
+    assignProperty(
+      store,
+      listing({
+        address: { street: 'Oude Delft', houseNumber: '12', postcode: '2611 CC', city: 'Delft' },
+        priceEur: 1250,
+      }),
+      NOW,
+    );
+    const other = assignProperty(
+      store,
+      listing({ title: 'Kamer', address: { postcode: '2611 CC', city: 'Delft' }, priceEur: 600 }),
+      NOW,
+    );
     expect(other.created).toBe(true);
   });
 });

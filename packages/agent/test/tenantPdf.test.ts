@@ -9,9 +9,14 @@ import { pdfText, png, profile } from './helpers.js';
 const dir = mkdtempSync(join(tmpdir(), 'nlpf-profile-'));
 
 const sam = profile({
-  occupation: 'phd', organisation: 'TU Delft', moveInFrom: '2026-11-01', stayMonths: 24, languages: ['en', 'nl'],
+  occupation: 'phd',
+  organisation: 'TU Delft',
+  moveInFrom: '2026-11-01',
+  stayMonths: 24,
+  languages: ['en', 'nl'],
   about: 'I am a quiet PhD researcher in aerospace engineering. I cook, cycle and keep a tidy home.',
-  guarantor: { relation: 'parent', incomeMonthlyGrossEur: 6000 }, incomeMonthlyGrossEur: 3100,
+  guarantor: { relation: 'parent', incomeMonthlyGrossEur: 6000 },
+  incomeMonthlyGrossEur: 3100,
 });
 
 test('renders one A4 page with the person and the plan', async () => {
@@ -23,7 +28,8 @@ test('renders one A4 page with the person and the plan', async () => {
   const { width, height } = doc.getPage(0).getSize();
   expect([Math.round(width), Math.round(height)]).toEqual([595, 842]);
   const [page] = await pdfText(bytes);
-  for (const s of ['Sam de Vries', 'TU Delft', 'PhD', '1 November 2026', '24 months', 'quiet PhD researcher']) expect(page).toContain(s);
+  for (const s of ['Sam de Vries', 'TU Delft', 'PhD', '1 November 2026', '24 months', 'quiet PhD researcher'])
+    expect(page).toContain(s);
   // Income figures are private documents; the public profile does not print them.
   expect(page).not.toContain('3100');
   expect(page).not.toContain('6000');

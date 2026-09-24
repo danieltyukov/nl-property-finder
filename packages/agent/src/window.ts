@@ -1,6 +1,9 @@
 import { amsterdam, fromAmsterdam, isWithinWindow } from '@nlpf/core';
 
-export interface TimeWindow { start: string; end: string }
+export interface TimeWindow {
+  start: string;
+  end: string;
+}
 
 /** Amsterdam calendar date `days` after the local date of `at`. */
 export function localDatePlus(at: Date, days: number): { y: number; m: number; d: number } {

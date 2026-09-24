@@ -28,7 +28,8 @@ export function inPolygon(point: { lat: number; lon: number }, polygon: [number,
     const pi = pts[i]!;
     const pj = pts[j]!;
     const crosses = pi.lat > point.lat !== pj.lat > point.lat;
-    if (crosses && point.lon < ((pj.lon - pi.lon) * (point.lat - pi.lat)) / (pj.lat - pi.lat) + pi.lon) inside = !inside;
+    if (crosses && point.lon < ((pj.lon - pi.lon) * (point.lat - pi.lat)) / (pj.lat - pi.lat) + pi.lon)
+      inside = !inside;
   }
   return inside;
 }
@@ -38,7 +39,10 @@ export function inPolygon(point: { lat: number; lon: number }, polygon: [number,
  * geocoded municipality or the city), a PC4 range, or the drawn polygon. A
  * region with no criteria matches its name against the city.
  */
-export function inRegion(addr: Address, region: Pick<RegionConfig, 'name' | 'municipalities' | 'postcodes' | 'polygon'>): boolean {
+export function inRegion(
+  addr: Address,
+  region: Pick<RegionConfig, 'name' | 'municipalities' | 'postcodes' | 'polygon'>,
+): boolean {
   const places = [addr.municipality, addr.city].filter((x): x is string => !!x).map(normCity);
   const munis = region.municipalities.map(normCity);
   if (munis.length && places.some((p) => munis.includes(p))) return true;

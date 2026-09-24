@@ -21,10 +21,24 @@ const WOZ = 'https://api.kadaster.nl/lvwoz/wozwaardeloket-api/v1/wozwaarde/numme
 const EP_ONLINE = 'https://public.ep-online.nl/api/v5/PandEnergielabel/AdresseerbaarObject';
 const CACHE_DAYS = 180;
 
-interface BagFeatureCollection { features?: { properties?: { oppervlakte?: number; gebruiksdoel?: string | string[]; 'pand.href'?: string[] } }[] }
-interface BagPand { properties?: { bouwjaar?: number } }
-interface WozResponse { wozWaarden?: { peildatum?: string; vastgesteldeWaarde?: number }[] }
-interface EpLabel { Registratiedatum?: string; Geldig_tot?: string; IsVereenvoudigdLabel?: boolean; Energieklasse?: string; EnergieIndex?: number | null }
+interface BagFeatureCollection {
+  features?: {
+    properties?: { oppervlakte?: number; gebruiksdoel?: string | string[]; 'pand.href'?: string[] };
+  }[];
+}
+interface BagPand {
+  properties?: { bouwjaar?: number };
+}
+interface WozResponse {
+  wozWaarden?: { peildatum?: string; vastgesteldeWaarde?: number }[];
+}
+interface EpLabel {
+  Registratiedatum?: string;
+  Geldig_tot?: string;
+  IsVereenvoudigdLabel?: boolean;
+  Energieklasse?: string;
+  EnergieIndex?: number | null;
+}
 
 const isNotFound = (e: unknown) => {
   const status = (e as { status?: number })?.status;
@@ -39,7 +53,11 @@ const isNotFound = (e: unknown) => {
 function validLabel(labels: EpLabel[], now: Date): string | undefined {
   // From 2015 to 2020 only an energy index counts; a bare label letter from that period is the simplified label.
   const simplified = (l: EpLabel) =>
-    l.IsVereenvoudigdLabel === true || (l.Registratiedatum !== undefined && l.Registratiedatum >= '2015-01-01' && l.Registratiedatum < '2021-01-01' && l.EnergieIndex == null);
+    l.IsVereenvoudigdLabel === true ||
+    (l.Registratiedatum !== undefined &&
+      l.Registratiedatum >= '2015-01-01' &&
+      l.Registratiedatum < '2021-01-01' &&
+      l.EnergieIndex == null);
   return labels
     .filter((l) => !simplified(l) && (!l.Geldig_tot || Date.parse(l.Geldig_tot) > now.getTime()))
     .sort((a, b) => (b.Registratiedatum ?? '').localeCompare(a.Registratiedatum ?? ''))
@@ -76,7 +94,9 @@ export async function lookupPropertyFacts(
 
   if (hit.vboId) {
     try {
-      const vbo = (await deps.fetchJson(`${BAG}/verblijfsobject/items?identificatie=${hit.vboId}&f=json`)) as BagFeatureCollection;
+      const vbo = (await deps.fetchJson(
+        `${BAG}/verblijfsobject/items?identificatie=${hit.vboId}&f=json`,
+      )) as BagFeatureCollection;
       const props = vbo.features?.[0]?.properties;
       if (props) {
         if (typeof props.oppervlakte === 'number') facts.sizeM2 = props.oppervlakte;
@@ -84,7 +104,9 @@ export async function lookupPropertyFacts(
         if (use) facts.residential = use.includes('woonfunctie');
         const pandHref = props['pand.href']?.[0];
         if (pandHref) {
-          const pand = (await deps.fetchJson(`${pandHref}${pandHref.includes('?') ? '&' : '?'}f=json`)) as BagPand;
+          const pand = (await deps.fetchJson(
+            `${pandHref}${pandHref.includes('?') ? '&' : '?'}f=json`,
+          )) as BagPand;
           if (typeof pand.properties?.bouwjaar === 'number') facts.buildYear = pand.properties.bouwjaar;
         }
         facts.sources.push('bag');
@@ -112,7 +134,9 @@ export async function lookupPropertyFacts(
 
   if (deps.epOnlineKey && hit.vboId) {
     try {
-      const labels = (await deps.fetchJson(`${EP_ONLINE}/${hit.vboId}`, { headers: { Authorization: deps.epOnlineKey } })) as EpLabel[];
+      const labels = (await deps.fetchJson(`${EP_ONLINE}/${hit.vboId}`, {
+        headers: { Authorization: deps.epOnlineKey },
+      })) as EpLabel[];
       const label = Array.isArray(labels) ? validLabel(labels, now) : undefined;
       facts.labelChecked = true;
       if (label) {

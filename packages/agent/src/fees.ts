@@ -15,14 +15,18 @@ import { fold, parseEuro, parseSmallNumber, SMALL_NUMBER_PATTERN } from './text.
 
 export type FeeFlag = 'mediation_fee' | 'deposit_above_2x' | 'key_money';
 
-const MEDIATION = /bemiddelingskosten|bemiddelingsfee|bemiddelingsvergoeding|makelaarskosten|makelaarscourtage|\bcourtage\b|agency fees?|agent'?s? fees?|mediation (?:fees?|costs?)|brokerage fees?|administratiekosten|administration (?:fees?|costs?)|admin fees?|contractkosten|contract (?:fees?|costs)|dossierkosten/g;
+const MEDIATION =
+  /bemiddelingskosten|bemiddelingsfee|bemiddelingsvergoeding|makelaarskosten|makelaarscourtage|\bcourtage\b|agency fees?|agent'?s? fees?|mediation (?:fees?|costs?)|brokerage fees?|administratiekosten|administration (?:fees?|costs?)|admin fees?|contractkosten|contract (?:fees?|costs)|dossierkosten/g;
 const KEY_MONEY = /sleutelgeld|key money|key fees?|overnamekosten|overnamesom|take-?over (?:fees?|sum)/g;
 const DEPOSIT = /\b(?:waarborgsom|borgsom|borg|huurwaarborg|security deposit|deposit)\b/g;
 
 const NEGATED_BEFORE = /\b(geen|no|zonder|without|free of|niet|not|nul|zero)\b[\w\s,'-]{0,20}$/;
-const NEGATED_AFTER = /^[\s:=-]*(n\.?v\.?t\.?|nvt|geen|none|n\/a|nil|nihil|free|gratis|(€|eur|euro)?\s*0(?:[,.]0+|,-)?(?!\d))/;
+const NEGATED_AFTER =
+  /^[\s:=-]*(n\.?v\.?t\.?|nvt|geen|none|n\/a|nil|nihil|free|gratis|(€|eur|euro)?\s*0(?:[,.]0+|,-)?(?!\d))/;
 
-const MONTHS = new RegExp(`(${SMALL_NUMBER_PATTERN})\\s*(?:x\\b|keer\\b|times\\b|maanden|maandhuren|maand\\b|months?'?s?\\b|month's)`);
+const MONTHS = new RegExp(
+  `(${SMALL_NUMBER_PATTERN})\\s*(?:x\\b|keer\\b|times\\b|maanden|maandhuren|maand\\b|months?'?s?\\b|month's)`,
+);
 const EURO = /(?:€|eur|euro)\s*(\d[\d.,]*(?:,-)?)|(\d[\d.,]*)\s*(?:€|euro|eur)\b/;
 
 /** Clauses split on sentence ends, but not on the dot inside "1.250" or "n.v.t.". */

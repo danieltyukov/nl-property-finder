@@ -3,8 +3,14 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { crc32, deflateSync } from 'node:zlib';
 import {
-  ConfigSchema, NamedSearchSchema, ProfileSchema,
-  type Config, type Listing, type NamedSearch, type Profile, type SourceAdapter,
+  ConfigSchema,
+  NamedSearchSchema,
+  ProfileSchema,
+  type Config,
+  type Listing,
+  type NamedSearch,
+  type Profile,
+  type SourceAdapter,
 } from '@nlpf/core';
 
 export type FetchJson = (url: string, init?: { headers?: Record<string, string> }) => Promise<unknown>;
@@ -12,13 +18,17 @@ export type FetchJson = (url: string, init?: { headers?: Record<string, string> 
 const here = dirname(fileURLToPath(import.meta.url));
 export const fixturesDir = join(here, 'fixtures');
 
-interface FixtureIndex { responses: Record<string, string> }
+interface FixtureIndex {
+  responses: Record<string, string>;
+}
 
 /**
  * A fetchJson that answers only from recorded fixtures and records every
  * request. Unknown URLs throw, so a test can never reach the network.
  */
-export function fixtureFetch(overrides: Record<string, unknown> = {}): FetchJson & { calls: { url: string; headers?: Record<string, string> }[] } {
+export function fixtureFetch(
+  overrides: Record<string, unknown> = {},
+): FetchJson & { calls: { url: string; headers?: Record<string, string> }[] } {
   const index = JSON.parse(readFileSync(join(fixturesDir, 'index.json'), 'utf8')) as FixtureIndex;
   const calls: { url: string; headers?: Record<string, string> }[] = [];
   const fn = async (url: string, init?: { headers?: Record<string, string> }): Promise<unknown> => {
@@ -61,7 +71,10 @@ export function listing(over: Partial<Listing> = {}): Listing {
 }
 
 export function profile(over: Partial<Profile> = {}): Profile {
-  return { ...ProfileSchema.parse({ firstName: 'Sam', lastName: 'de Vries', email: 'sam@example.test' }), ...over };
+  return {
+    ...ProfileSchema.parse({ firstName: 'Sam', lastName: 'de Vries', email: 'sam@example.test' }),
+    ...over,
+  };
 }
 
 export function search(over: Partial<NamedSearch> = {}): NamedSearch {
@@ -96,11 +109,13 @@ export async function pdfText(bytes: Uint8Array): Promise<string[]> {
   const doc = await PDFDocument.load(bytes);
   return doc.getPages().map((page) => {
     const contents = page.node.Contents();
-    const streams = contents instanceof PDFArray ? contents.asArray().map((r) => doc.context.lookup(r)) : [contents];
+    const streams =
+      contents instanceof PDFArray ? contents.asArray().map((r) => doc.context.lookup(r)) : [contents];
     let ops = '';
     for (const s of streams) {
       if (s instanceof PDFRawStream) ops += Buffer.from(decodePDFRawStream(s).decode()).toString('latin1');
-      else if (s && 'getContents' in s) ops += Buffer.from((s as { getContents(): Uint8Array }).getContents()).toString('latin1');
+      else if (s && 'getContents' in s)
+        ops += Buffer.from((s as { getContents(): Uint8Array }).getContents()).toString('latin1');
     }
     const parts: string[] = [];
     for (const m of ops.matchAll(/<([0-9A-Fa-f\s]+)>|\(((?:\\.|[^\\)])*)\)/g)) {
@@ -129,7 +144,12 @@ export function png(width: number, height: number): Buffer {
   const row = Buffer.concat([Buffer.from([0]), Buffer.alloc(width * 3, 0xc8)]);
   const raw = Buffer.concat(Array.from({ length: height }, () => row));
   const signature = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
-  return Buffer.concat([signature, chunk('IHDR', ihdr), chunk('IDAT', deflateSync(raw)), chunk('IEND', Buffer.alloc(0))]);
+  return Buffer.concat([
+    signature,
+    chunk('IHDR', ihdr),
+    chunk('IDAT', deflateSync(raw)),
+    chunk('IEND', Buffer.alloc(0)),
+  ]);
 }
 
 export const registryOf = (adapters: SourceAdapter[]) => ({

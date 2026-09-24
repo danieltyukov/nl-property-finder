@@ -13,10 +13,40 @@ const CLOSED = new Set<Application['status']>(['rejected', 'withdrawn', 'gone', 
 
 /** Shared mail providers: two people on gmail.com are not the same agency. */
 const FREE_MAIL = new Set([
-  'gmail.com', 'googlemail.com', 'hotmail.com', 'hotmail.nl', 'outlook.com', 'outlook.nl', 'live.nl', 'live.com', 'msn.com',
-  'yahoo.com', 'yahoo.nl', 'icloud.com', 'me.com', 'mac.com', 'ziggo.nl', 'kpnmail.nl', 'kpnplanet.nl', 'planet.nl', 'home.nl',
-  'hetnet.nl', 'xs4all.nl', 'casema.nl', 'chello.nl', 'upcmail.nl', 'telfort.nl', 'tele2.nl', 'online.nl', 'protonmail.com',
-  'proton.me', 'gmx.com', 'gmx.net', 'gmx.de', 'aol.com', 'mail.com',
+  'gmail.com',
+  'googlemail.com',
+  'hotmail.com',
+  'hotmail.nl',
+  'outlook.com',
+  'outlook.nl',
+  'live.nl',
+  'live.com',
+  'msn.com',
+  'yahoo.com',
+  'yahoo.nl',
+  'icloud.com',
+  'me.com',
+  'mac.com',
+  'ziggo.nl',
+  'kpnmail.nl',
+  'kpnplanet.nl',
+  'planet.nl',
+  'home.nl',
+  'hetnet.nl',
+  'xs4all.nl',
+  'casema.nl',
+  'chello.nl',
+  'upcmail.nl',
+  'telfort.nl',
+  'tele2.nl',
+  'online.nl',
+  'protonmail.com',
+  'proton.me',
+  'gmx.com',
+  'gmx.net',
+  'gmx.de',
+  'aol.com',
+  'mail.com',
 ]);
 
 const domainOf = (address: string | undefined) => address?.toLowerCase().split('@')[1]?.trim();
@@ -29,7 +59,10 @@ function fromConversation(c: Conversation, confidence: InboundMatch['confidence'
 
 /** Prefer a conversation tied to an application, then the most recent one. */
 function pick(conversations: Conversation[]): Conversation | undefined {
-  return [...conversations].sort((a, b) => Number(!!b.applicationId) - Number(!!a.applicationId) || b.lastMessageAt.localeCompare(a.lastMessageAt))[0];
+  return [...conversations].sort(
+    (a, b) =>
+      Number(!!b.applicationId) - Number(!!a.applicationId) || b.lastMessageAt.localeCompare(a.lastMessageAt),
+  )[0];
 }
 
 const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -41,7 +74,9 @@ const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
  * addition (possibly empty) for each hit.
  */
 function addressMentions(text: string, street: string, number: string): string[] {
-  const tokens = fold(street).split(/[^a-z0-9]+/).filter(Boolean);
+  const tokens = fold(street)
+    .split(/[^a-z0-9]+/)
+    .filter(Boolean);
   if (!tokens.length) return [];
   const re = new RegExp(
     `(?<![a-z0-9])${tokens.map(escape).join("[\\s.'-]*")}\\s*0*${number}(?!\\d)(?:\\s*-\\s*(\\d{1,3}|[a-z]{1,4})(?![a-z\\d])|\\s*([a-z])(?![a-z\\d])|\\s+(bis|hs|huis|zw|rd|bg)(?![a-z]))?`,
@@ -65,7 +100,8 @@ function matchByAddress(msg: InboundMessage, store: Store): InboundMatch | undef
     if (mentions.some((a) => a === addition)) exact.push(app);
     else if (mentions.some((a) => !a || !addition)) partial.push(app);
   }
-  const app = exact.length === 1 ? exact[0] : exact.length === 0 && partial.length === 1 ? partial[0] : undefined;
+  const app =
+    exact.length === 1 ? exact[0] : exact.length === 0 && partial.length === 1 ? partial[0] : undefined;
   if (!app) return undefined;
   const conversation = pick(store.conversations.byApplication(app.id));
   const out: InboundMatch = { applicationId: app.id, confidence: 'address' };
@@ -101,7 +137,9 @@ export function matchInbound(msg: InboundMessage, store: Store): InboundMatch {
 
     const domain = domainOf(address);
     if (domain && !FREE_MAIL.has(domain)) {
-      const sameDomain = store.conversations.list({ limit: 500 }).filter((x) => domainOf(x.counterpart.email) === domain);
+      const sameDomain = store.conversations
+        .list({ limit: 500 })
+        .filter((x) => domainOf(x.counterpart.email) === domain);
       const byDomain = pick(sameDomain);
       if (byDomain) return fromConversation(byDomain, 'sender');
 

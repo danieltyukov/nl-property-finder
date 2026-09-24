@@ -9,7 +9,16 @@ import { fold, squash } from './text.js';
  * one side has no house number.
  */
 
-const ROMAN: Record<string, string> = { i: '1', ii: '2', iii: '3', iv: '4', v: '5', vi: '6', vii: '7', viii: '8' };
+const ROMAN: Record<string, string> = {
+  i: '1',
+  ii: '2',
+  iii: '3',
+  iv: '4',
+  v: '5',
+  vi: '6',
+  vii: '7',
+  viii: '8',
+};
 
 /** Canonical addition: lowercase, no dashes or spaces, common Dutch floor notations unified. */
 export function normAddition(raw: string | undefined): string {
@@ -23,7 +32,10 @@ export function normAddition(raw: string | undefined): string {
 }
 
 /** Splits "12-A", "12A", "12 a", "123-III" into a number and a canonical addition. */
-export function splitHouseNumber(houseNumber: string | undefined, addition?: string): { number: string | undefined; addition: string } {
+export function splitHouseNumber(
+  houseNumber: string | undefined,
+  addition?: string,
+): { number: string | undefined; addition: string } {
   const hn = fold(houseNumber ?? '').trim();
   const m = /^(\d+)\s*[-/]?\s*(.*)$/.exec(hn);
   if (!m) return { number: undefined, addition: normAddition(addition) };
@@ -32,20 +44,41 @@ export function splitHouseNumber(houseNumber: string | undefined, addition?: str
 }
 
 const STREET_ABBREVIATIONS: Record<string, string> = {
-  burg: 'burgemeester', v: 'van', st: 'sint', ln: 'laan', pl: 'plein', prof: 'professor', dr: 'doctor',
-  mr: 'meester', jhr: 'jonkheer', gen: 'generaal', pr: 'prins', kon: 'koning', w: 'west', o: 'oost', z: 'zuid', n: 'noord',
+  burg: 'burgemeester',
+  v: 'van',
+  st: 'sint',
+  ln: 'laan',
+  pl: 'plein',
+  prof: 'professor',
+  dr: 'doctor',
+  mr: 'meester',
+  jhr: 'jonkheer',
+  gen: 'generaal',
+  pr: 'prins',
+  kon: 'koning',
+  w: 'west',
+  o: 'oost',
+  z: 'zuid',
+  n: 'noord',
 };
 
 /** "Burg. Jamessingel" and "Burgemeester Jamessingel" both become "burgemeesterjamessingel". */
 export function normStreet(street: string): string {
-  const tokens = fold(street).replace(/\./g, ' ').split(/[^a-z0-9]+/).filter(Boolean);
+  const tokens = fold(street)
+    .replace(/\./g, ' ')
+    .split(/[^a-z0-9]+/)
+    .filter(Boolean);
   return tokens
     .map((t) => STREET_ABBREVIATIONS[t] ?? t)
     .map((t) => (t.endsWith('str') ? `${t}aat` : t))
     .join('');
 }
 
-const CITY_ALIASES: Record<string, string> = { sgravenhage: 'denhaag', thehague: 'denhaag', shertogenbosch: 'denbosch' };
+const CITY_ALIASES: Record<string, string> = {
+  sgravenhage: 'denhaag',
+  thehague: 'denhaag',
+  shertogenbosch: 'denbosch',
+};
 
 export function normCity(city: string): string {
   const c = squash(city);
@@ -65,7 +98,28 @@ export function formatPostcode(pc: string | undefined): string | undefined {
 }
 
 const TITLE_STOPWORDS = new Set([
-  'in', 'de', 'het', 'een', 'te', 'huur', 'for', 'rent', 'the', 'a', 'an', 'of', 'met', 'en', 'and', 'to', 'per', 'aan', 'op', 'with', 'at', 'on',
+  'in',
+  'de',
+  'het',
+  'een',
+  'te',
+  'huur',
+  'for',
+  'rent',
+  'the',
+  'a',
+  'an',
+  'of',
+  'met',
+  'en',
+  'and',
+  'to',
+  'per',
+  'aan',
+  'op',
+  'with',
+  'at',
+  'on',
 ]);
 
 function titleWords(title: string): string {
@@ -76,14 +130,18 @@ function titleWords(title: string): string {
     .join('-');
 }
 
-const band = (v: number | undefined, size: number): string => (v === undefined ? 'x' : String(Math.floor(v / size) * size));
+const band = (v: number | undefined, size: number): string =>
+  v === undefined ? 'x' : String(Math.floor(v / size) * size);
 
 /**
  * The cluster key of an address: `pc:` when postcode and number are known,
  * `addr:` when street and number are known, otherwise a fingerprint `fp:` of
  * city, street or title words, a 50 euro price band and a 5 m2 size band.
  */
-export function clusterKey(addr: Address, fallback: { title: string; priceEur?: number; sizeM2?: number }): string {
+export function clusterKey(
+  addr: Address,
+  fallback: { title: string; priceEur?: number; sizeM2?: number },
+): string {
   const { number, addition } = splitHouseNumber(addr.houseNumber, addr.addition);
   const pc = normPostcode(addr.postcode);
   if (pc && number) return `pc:${pc}:${number}:${addition}`;
@@ -124,13 +182,20 @@ export function addressRelation(a: Address, b: Address): Relation {
   return na.addition === nb.addition ? 'same' : 'partial';
 }
 
-const within = (a: number | undefined, b: number | undefined, test: (a: number, b: number) => boolean): boolean | undefined =>
-  a === undefined || b === undefined ? undefined : test(a, b);
-const priceClose = (a?: number, b?: number) => within(a, b, (x, y) => Math.abs(x - y) <= 0.05 * Math.max(x, y));
+const within = (
+  a: number | undefined,
+  b: number | undefined,
+  test: (a: number, b: number) => boolean,
+): boolean | undefined => (a === undefined || b === undefined ? undefined : test(a, b));
+const priceClose = (a?: number, b?: number) =>
+  within(a, b, (x, y) => Math.abs(x - y) <= 0.05 * Math.max(x, y));
 const sizeClose = (a?: number, b?: number) => within(a, b, (x, y) => Math.abs(x - y) <= 3);
 
 function fuzzyMatch(listing: Listing, p: Property, rel: Relation): boolean {
-  if (rel === 'partial') return priceClose(listing.priceEur, p.priceEur) !== false && sizeClose(listing.sizeM2, p.sizeM2) !== false;
+  if (rel === 'partial')
+    return (
+      priceClose(listing.priceEur, p.priceEur) !== false && sizeClose(listing.sizeM2, p.sizeM2) !== false
+    );
   if (rel !== 'unknown') return false;
   const pa = normPostcode(listing.address.postcode);
   if (!pa || pa !== normPostcode(p.address.postcode)) return false;
@@ -140,7 +205,9 @@ function fuzzyMatch(listing: Listing, p: Property, rel: Relation): boolean {
 
 /** Two different adverts on one platform are normally two homes, so fuzzy joins never merge them. */
 function hasOtherListingFromSource(store: Store, propertyId: string, listing: Listing): boolean {
-  return store.listings.list({ propertyId, sourceId: listing.sourceId, limit: 50 }).some((l) => l.id !== listing.id);
+  return store.listings
+    .list({ propertyId, sourceId: listing.sourceId, limit: 50 })
+    .some((l) => l.id !== listing.id);
 }
 
 /** Postcode as "2611 BC", house number digits only, addition split off ("A", "bis", "3"). */
@@ -152,7 +219,8 @@ export function canonicalAddress(addr: Address): Address {
   const { number, addition } = splitHouseNumber(addr.houseNumber, addr.addition);
   if (number) {
     out.houseNumber = number;
-    if (addition) out.addition = addition.length === 1 && /[a-z]/.test(addition) ? addition.toUpperCase() : addition;
+    if (addition)
+      out.addition = addition.length === 1 && /[a-z]/.test(addition) ? addition.toUpperCase() : addition;
     else delete out.addition;
   }
   return out;
@@ -164,7 +232,8 @@ function mergeAddress(into: Address, from: Address): Address {
   const sameNumber = !out.houseNumber || out.houseNumber === src.houseNumber;
   for (const [k, v] of Object.entries(src) as [keyof Address, Address[keyof Address]][]) {
     if (k === 'addition' && !sameNumber) continue;
-    if (v !== undefined && v !== '' && (out[k] === undefined || out[k] === '')) (out as Record<string, unknown>)[k] = v;
+    if (v !== undefined && v !== '' && (out[k] === undefined || out[k] === ''))
+      (out as Record<string, unknown>)[k] = v;
   }
   return out;
 }
@@ -189,7 +258,11 @@ function attach(store: Store, listing: Listing, property: Property, key: string,
  * side has no house number, the same postcode with a price within 5% and a
  * size within 3 m2. A different house number or addition never joins.
  */
-export function assignProperty(store: Store, listing: Listing, now: string): { property: Property; created: boolean } {
+export function assignProperty(
+  store: Store,
+  listing: Listing,
+  now: string,
+): { property: Property; created: boolean } {
   return store.tx(() => {
     const key = clusterKey(listing.address, listing);
     const exact = store.properties.byKey(key);
@@ -201,7 +274,14 @@ export function assignProperty(store: Store, listing: Listing, now: string): { p
     const a = listing.address;
     const pool = new Map<string, Property>();
     const add = (ps: Property[]) => ps.forEach((p) => pool.set(p.id, p));
-    add(store.properties.candidates({ postcode: formatPostcode(a.postcode), city: a.city, priceEur: listing.priceEur, sizeM2: listing.sizeM2 }));
+    add(
+      store.properties.candidates({
+        postcode: formatPostcode(a.postcode),
+        city: a.city,
+        priceEur: listing.priceEur,
+        sizeM2: listing.sizeM2,
+      }),
+    );
     if (a.street) add(store.properties.list({ q: a.street, limit: 200 }));
     if (a.city) add(store.properties.list({ q: a.city, limit: 200 }));
 
@@ -212,7 +292,10 @@ export function assignProperty(store: Store, listing: Listing, now: string): { p
       let score: number;
       if (rel === 'same') score = 3;
       else if (fuzzyMatch(listing, p, rel) && !hasOtherListingFromSource(store, p.id, listing)) {
-        const diff = listing.priceEur !== undefined && p.priceEur !== undefined ? Math.abs(listing.priceEur - p.priceEur) / p.priceEur : 0;
+        const diff =
+          listing.priceEur !== undefined && p.priceEur !== undefined
+            ? Math.abs(listing.priceEur - p.priceEur) / p.priceEur
+            : 0;
         score = (rel === 'partial' ? 2 : 1) - diff;
       } else continue;
       if (!best || score > best.score) best = { p, score };

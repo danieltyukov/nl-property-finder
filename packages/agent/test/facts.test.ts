@@ -10,7 +10,14 @@ const EP = 'https://public.ep-online.nl/api/v5/PandEnergielabel/AdresseerbaarObj
 test('reads floor area and build year from BAG and the WOZ value from the WOZ-waardeloket', async () => {
   const fetchJson = fixtureFetch();
   const facts = await lookupPropertyFacts(addr, { fetchJson, store: openStore(':memory:'), now });
-  expect(facts).toEqual({ sizeM2: 294, buildYear: 1884, wozEur: 1_256_000, wozPeildatum: '2025-01-01', residential: true, sources: ['bag', 'woz'] });
+  expect(facts).toEqual({
+    sizeM2: 294,
+    buildYear: 1884,
+    wozEur: 1_256_000,
+    wozPeildatum: '2025-01-01',
+    residential: true,
+    sources: ['bag', 'woz'],
+  });
   expect(fetchJson.calls.map((c) => c.url)).toEqual([
     'https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Oude%20Delft%2012A%20Delft&fq=type:adres&rows=1',
     'https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items?identificatie=0503010000003325&f=json',
@@ -21,14 +28,24 @@ test('reads floor area and build year from BAG and the WOZ value from the WOZ-wa
 
 test('with an EP-Online key, the newest valid label is used and simplified labels are skipped', async () => {
   const fetchJson = fixtureFetch();
-  const facts = await lookupPropertyFacts(addr, { fetchJson, store: openStore(':memory:'), epOnlineKey: 'test-key', now });
+  const facts = await lookupPropertyFacts(addr, {
+    fetchJson,
+    store: openStore(':memory:'),
+    epOnlineKey: 'test-key',
+    now,
+  });
   expect(facts).toMatchObject({ energyLabel: 'C', labelChecked: true, sources: ['bag', 'woz', 'ep-online'] });
   expect(fetchJson.calls.find((c) => c.url === EP)?.headers).toEqual({ Authorization: 'test-key' });
 });
 
 test('an address EP-Online does not know gets the build-year rule', async () => {
   const fetchJson = fixtureFetch({ [EP]: new Error('HTTP 404 Not Found') });
-  const facts = await lookupPropertyFacts(addr, { fetchJson, store: openStore(':memory:'), epOnlineKey: 'k', now });
+  const facts = await lookupPropertyFacts(addr, {
+    fetchJson,
+    store: openStore(':memory:'),
+    epOnlineKey: 'k',
+    now,
+  });
   expect(facts.energyLabel).toBeUndefined();
   expect(facts.labelChecked).toBe(true);
 });
@@ -37,7 +54,10 @@ test('results are cached per address', async () => {
   const store = openStore(':memory:');
   await lookupPropertyFacts(addr, { fetchJson: fixtureFetch(), store, now });
   const again = fixtureFetch();
-  const facts = await lookupPropertyFacts({ ...addr, houseNumber: '12', addition: 'a' }, { fetchJson: again, store, now });
+  const facts = await lookupPropertyFacts(
+    { ...addr, houseNumber: '12', addition: 'a' },
+    { fetchJson: again, store, now },
+  );
   expect(facts.wozEur).toBe(1_256_000);
   expect(again.calls).toHaveLength(0);
 });
@@ -45,7 +65,12 @@ test('results are cached per address', async () => {
 test('a failing service gives partial facts that are not cached', async () => {
   const store = openStore(':memory:');
   const unauthorized = Object.assign(new Error('HTTP 401 Unauthorized'), { status: 401 });
-  const facts = await lookupPropertyFacts(addr, { fetchJson: fixtureFetch({ [EP]: unauthorized }), store, epOnlineKey: 'wrong', now });
+  const facts = await lookupPropertyFacts(addr, {
+    fetchJson: fixtureFetch({ [EP]: unauthorized }),
+    store,
+    epOnlineKey: 'wrong',
+    now,
+  });
   expect(facts.sources).toEqual(['bag', 'woz']);
   expect(facts.labelChecked).toBeUndefined();
   const retry = fixtureFetch();
@@ -54,6 +79,9 @@ test('a failing service gives partial facts that are not cached', async () => {
 });
 
 test('an unknown address has no facts', async () => {
-  const facts = await lookupPropertyFacts({ street: 'Nergensstraat', houseNumber: '999', city: 'Delft' }, { fetchJson: fixtureFetch(), store: openStore(':memory:'), now });
+  const facts = await lookupPropertyFacts(
+    { street: 'Nergensstraat', houseNumber: '999', city: 'Delft' },
+    { fetchJson: fixtureFetch(), store: openStore(':memory:'), now },
+  );
   expect(facts).toEqual({ sources: [] });
 });

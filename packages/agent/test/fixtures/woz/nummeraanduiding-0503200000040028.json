@@ -13,12 +13,8 @@
     "grondoppervlakte": 151,
     "adresseerbaarobjectid": 503010000003325,
     "nummeraanduidingid": 503200000040028,
-    "verbondenAdresseerbareObjecten": [
-      503010000003325
-    ],
-    "ontleendeAdresseerbareObjecten": [
-      503010000003325
-    ]
+    "verbondenAdresseerbareObjecten": [503010000003325],
+    "ontleendeAdresseerbareObjecten": [503010000003325]
   },
   "wozWaarden": [
     {

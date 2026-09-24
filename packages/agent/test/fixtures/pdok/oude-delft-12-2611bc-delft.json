@@ -19,11 +19,7 @@
         "weergavenaam": "Oude Delft 41A, 2611BC Delft",
         "straatnaam_verkort": "Oude Delft",
         "id": "adr-f6b3f029009472922d0efc47c24ed569",
-        "gekoppeld_perceel": [
-          "DEL00-E-3273",
-          "DEL00-E-3255",
-          "DEL00-E-3275"
-        ],
+        "gekoppeld_perceel": ["DEL00-E-3273", "DEL00-E-3255", "DEL00-E-3275"],
         "gemeentenaam": "Delft",
         "buurtcode": "BU05031106",
         "wijknaam": "Wijk 11 Binnenstad",
@@ -42,9 +38,7 @@
         "provincieafkorting": "ZH",
         "centroide_rd": "POINT(84425.461 447013.053)",
         "straatnaam": "Oude Delft",
-        "gekoppeld_appartement": [
-          "DEL00-E-3298-A-5"
-        ],
+        "gekoppeld_appartement": ["DEL00-E-3298-A-5"],
         "score": 20.821438
       }
     ]

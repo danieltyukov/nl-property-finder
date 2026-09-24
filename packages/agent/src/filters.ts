@@ -2,7 +2,10 @@ import type { Listing, Profile, Property, Requirements, SearchConfig } from '@nl
 import { inRegion } from './regions.js';
 import { squash } from './text.js';
 
-export interface FilterResult { passed: boolean; failedRule?: string }
+export interface FilterResult {
+  passed: boolean;
+  failedRule?: string;
+}
 
 type Filterable = Listing | (Property & { description?: string });
 
@@ -27,11 +30,15 @@ export function evaluateFilters(listing: Filterable, search: SearchConfig, profi
 
   const price = effectivePrice(l, search.priceIncludesServiceCosts);
   if (price !== undefined) {
-    if (search.priceMaxEur !== undefined && price > search.priceMaxEur) return fail(`price ${price} > ${search.priceMaxEur}`);
-    if (search.priceMinEur !== undefined && price < search.priceMinEur) return fail(`price ${price} < ${search.priceMinEur}`);
+    if (search.priceMaxEur !== undefined && price > search.priceMaxEur)
+      return fail(`price ${price} > ${search.priceMaxEur}`);
+    if (search.priceMinEur !== undefined && price < search.priceMinEur)
+      return fail(`price ${price} < ${search.priceMinEur}`);
   }
-  if (search.sizeMinM2 !== undefined && l.sizeM2 !== undefined && l.sizeM2 < search.sizeMinM2) return fail(`size ${l.sizeM2} < ${search.sizeMinM2}`);
-  if (search.roomsMin !== undefined && l.rooms !== undefined && l.rooms < search.roomsMin) return fail(`rooms ${l.rooms} < ${search.roomsMin}`);
+  if (search.sizeMinM2 !== undefined && l.sizeM2 !== undefined && l.sizeM2 < search.sizeMinM2)
+    return fail(`size ${l.sizeM2} < ${search.sizeMinM2}`);
+  if (search.roomsMin !== undefined && l.rooms !== undefined && l.rooms < search.roomsMin)
+    return fail(`rooms ${l.rooms} < ${search.roomsMin}`);
   if (search.bedroomsMin !== undefined && l.bedrooms !== undefined && l.bedrooms < search.bedroomsMin) {
     return fail(`bedrooms ${l.bedrooms} < ${search.bedroomsMin}`);
   }
@@ -40,7 +47,8 @@ export function evaluateFilters(listing: Filterable, search: SearchConfig, profi
   if (!search.furnishing.includes(furnishing)) return fail(`furnishing ${furnishing}`);
 
   const latest = search.availableBy ?? profile.moveInLatest;
-  if (latest && l.availableFrom && l.availableFrom > latest) return fail(`available ${l.availableFrom} after ${latest}`);
+  if (latest && l.availableFrom && l.availableFrom > latest)
+    return fail(`available ${l.availableFrom} after ${latest}`);
 
   const text = squash(`${l.title} ${l.description ?? ''}`);
   for (const d of search.dealBreakers) {
@@ -50,13 +58,25 @@ export function evaluateFilters(listing: Filterable, search: SearchConfig, profi
   return { passed: true };
 }
 
-const PARTNER_RELATIONS = new Set(['partner', 'spouse', 'husband', 'wife', 'echtgenoot', 'echtgenote', 'vriend', 'vriendin', 'child', 'kind']);
+const PARTNER_RELATIONS = new Set([
+  'partner',
+  'spouse',
+  'husband',
+  'wife',
+  'echtgenoot',
+  'echtgenote',
+  'vriend',
+  'vriendin',
+  'child',
+  'kind',
+]);
 
 /** Gross monthly household income: the profile's plus every co-applicant's. Undefined when none is known. */
 export function householdIncome(profile: Profile): number | undefined {
-  const incomes = [profile.incomeMonthlyGrossEur, ...profile.coApplicants.map((c) => c.incomeMonthlyGrossEur)].filter(
-    (x): x is number => x !== undefined,
-  );
+  const incomes = [
+    profile.incomeMonthlyGrossEur,
+    ...profile.coApplicants.map((c) => c.incomeMonthlyGrossEur),
+  ].filter((x): x is number => x !== undefined);
   return incomes.length ? incomes.reduce((a, b) => a + b, 0) : undefined;
 }
 
@@ -71,17 +91,25 @@ export function evaluateRequirements(
   search: SearchConfig,
   ctx: { rentEur?: number; now?: Date } = {},
 ): FilterResult {
-  if (search.requireRegistration && req.registrationAllowed === false) return fail('registration not allowed');
+  if (search.requireRegistration && req.registrationAllowed === false)
+    return fail('registration not allowed');
   if (req.studentsAllowed === false && profile.occupation === 'student') return fail('no students');
 
-  const byMultiple = req.incomeMultiple !== undefined && ctx.rentEur !== undefined ? req.incomeMultiple * ctx.rentEur : undefined;
+  const byMultiple =
+    req.incomeMultiple !== undefined && ctx.rentEur !== undefined
+      ? req.incomeMultiple * ctx.rentEur
+      : undefined;
   const required = Math.max(byMultiple ?? 0, req.minIncomeEur ?? 0);
   if (required > 0) {
     const own = householdIncome(profile);
     const guarantor = req.guarantorAccepted === false ? undefined : profile.guarantor?.incomeMonthlyGrossEur;
-    const enough = (own !== undefined && own >= required) || (guarantor !== undefined && guarantor >= required);
+    const enough =
+      (own !== undefined && own >= required) || (guarantor !== undefined && guarantor >= required);
     if (!enough && own !== undefined) {
-      const why = byMultiple !== undefined && byMultiple >= (req.minIncomeEur ?? 0) ? ` (${req.incomeMultiple}x rent)` : '';
+      const why =
+        byMultiple !== undefined && byMultiple >= (req.minIncomeEur ?? 0)
+          ? ` (${req.incomeMultiple}x rent)`
+          : '';
       return fail(`income ${own} < ${Math.round(required)}${why}`);
     }
   }
@@ -95,15 +123,17 @@ export function evaluateRequirements(
 
   if (profile.birthYear !== undefined && (req.ageMin !== undefined || req.ageMax !== undefined)) {
     const year = (ctx.now ?? new Date()).getUTCFullYear();
-    const oldest = year - profile.birthYear;   // birthday already passed this year
-    const youngest = oldest - 1;               // birthday still to come
+    const oldest = year - profile.birthYear; // birthday already passed this year
+    const youngest = oldest - 1; // birthday still to come
     if (req.ageMax !== undefined && youngest > req.ageMax) return fail(`age above ${req.ageMax}`);
     if (req.ageMin !== undefined && oldest < req.ageMin) return fail(`age below ${req.ageMin}`);
   }
 
   if (profile.stayMonths !== undefined) {
-    if (req.minMonths !== undefined && profile.stayMonths < req.minMonths) return fail(`minimum stay ${req.minMonths} months`);
-    if (req.maxMonths !== undefined && profile.stayMonths > req.maxMonths) return fail(`maximum stay ${req.maxMonths} months`);
+    if (req.minMonths !== undefined && profile.stayMonths < req.minMonths)
+      return fail(`minimum stay ${req.minMonths} months`);
+    if (req.maxMonths !== undefined && profile.stayMonths > req.maxMonths)
+      return fail(`maximum stay ${req.maxMonths} months`);
   }
   return { passed: true };
 }

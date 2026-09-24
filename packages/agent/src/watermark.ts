@@ -1,7 +1,12 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { PDFDocument, StandardFonts, degrees, grayscale, type PDFFont, type PDFPage } from 'pdf-lib';
 
-export interface WatermarkInput { path: string; recipient: string; address?: string; date: string }
+export interface WatermarkInput {
+  path: string;
+  recipient: string;
+  address?: string;
+  date: string;
+}
 
 /** "Alleen voor huuraanvraag <address>, <recipient>, <date>" ("only for a rental application ..."). */
 export function stampLine(input: Omit<WatermarkInput, 'path'>): string {
@@ -10,7 +15,7 @@ export function stampLine(input: Omit<WatermarkInput, 'path'>): string {
 }
 
 const A4: [number, number] = [595.28, 841.89];
-const LETTERS: Record<string, string> = { 'Ł': 'L', 'ł': 'l', 'Đ': 'D', 'đ': 'd', 'ı': 'i', 'Ħ': 'H', 'ħ': 'h' };
+const LETTERS: Record<string, string> = { Ł: 'L', ł: 'l', Đ: 'D', đ: 'd', ı: 'i', Ħ: 'H', ħ: 'h' };
 
 /** Keeps what the standard Helvetica can encode (WinAnsi); folds or replaces the rest. */
 function encodable(text: string, font: PDFFont): string {

@@ -19,9 +19,7 @@
         "weergavenaam": "Oude Delft 12, 2611CC Delft",
         "straatnaam_verkort": "Oude Delft",
         "id": "adr-3c6a46eb8e2f731739fb02ceb7b39ca1",
-        "gekoppeld_perceel": [
-          "DEL00-E-3089"
-        ],
+        "gekoppeld_perceel": ["DEL00-E-3089"],
         "gemeentenaam": "Delft",
         "buurtcode": "BU05031104",
         "wijknaam": "Wijk 11 Binnenstad",

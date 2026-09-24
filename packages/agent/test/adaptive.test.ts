@@ -34,7 +34,13 @@ test('never below the floor, never beyond 0.5x to 3x', () => {
 });
 
 test('without data the base interval is kept', () => {
-  expect(adaptiveInterval(240, Array.from({ length: 168 }, () => 0), monday0900)).toBe(240);
+  expect(
+    adaptiveInterval(
+      240,
+      Array.from({ length: 168 }, () => 0),
+      monday0900,
+    ),
+  ).toBe(240);
   expect(adaptiveInterval(240, [1, 2, 3], monday0900)).toBe(240);
   expect(adaptiveInterval(30, [], monday0900)).toBe(60);
 });

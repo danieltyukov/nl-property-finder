@@ -1,8 +1,21 @@
-import type { AutomationConfig, ChannelKind, ComposeInput, ComposeOutput, Lang, Listing, Profile } from '@nlpf/core';
+import type {
+  AutomationConfig,
+  ChannelKind,
+  ComposeInput,
+  ComposeOutput,
+  Lang,
+  Listing,
+  Profile,
+} from '@nlpf/core';
 import { guessLanguage } from './text.js';
 
 /** Length limits per channel; platform forms and messages cut long texts. */
-export const CHANNEL_MAX_CHARS: Record<ChannelKind, number> = { form: 2000, message: 1500, email: 5000, booking: 1000 };
+export const CHANNEL_MAX_CHARS: Record<ChannelKind, number> = {
+  form: 2000,
+  message: 1500,
+  email: 5000,
+  booking: 1000,
+};
 
 /**
  * The language to write in: the person's explicit choice, otherwise the
@@ -16,9 +29,22 @@ export function messageLanguage(profile: Profile, listing: Listing): Lang {
 }
 
 /** The input for `AiProvider.compose`: template for the language, the channel's length limit, the variant id. */
-export function composeInput(listing: Listing, profile: Profile, automation: AutomationConfig, channel: ChannelKind, variant?: string): ComposeInput {
+export function composeInput(
+  listing: Listing,
+  profile: Profile,
+  automation: AutomationConfig,
+  channel: ChannelKind,
+  variant?: string,
+): ComposeInput {
   const language = messageLanguage(profile, listing);
-  const input: ComposeInput = { listing, profile, template: automation.templates.first[language], language, channel, maxChars: CHANNEL_MAX_CHARS[channel] };
+  const input: ComposeInput = {
+    listing,
+    profile,
+    template: automation.templates.first[language],
+    language,
+    channel,
+    maxChars: CHANNEL_MAX_CHARS[channel],
+  };
   if (variant) input.variant = variant;
   return input;
 }
@@ -55,10 +81,18 @@ function fit(text: string, max: number): string {
  * optional disclosure line (once, in the message language), and the
  * channel's length limit.
  */
-export function finaliseMessage(out: ComposeOutput, automation: AutomationConfig, language: Lang, maxChars?: number): ComposeOutput {
+export function finaliseMessage(
+  out: ComposeOutput,
+  automation: AutomationConfig,
+  language: Lang,
+  maxChars?: number,
+): ComposeOutput {
   let body = cleanCopy(out.body);
   const disclosure = automation.disclosure.enabled ? automation.disclosure[language].trim() : '';
-  const room = maxChars === undefined ? Infinity : maxChars - (disclosure && !body.includes(disclosure) ? disclosure.length + 2 : 0);
+  const room =
+    maxChars === undefined
+      ? Infinity
+      : maxChars - (disclosure && !body.includes(disclosure) ? disclosure.length + 2 : 0);
   if (Number.isFinite(room)) body = fit(body, Math.max(0, room));
   if (disclosure && !body.includes(disclosure)) body = `${body}\n\n${disclosure}`;
   const result: ComposeOutput = { ...out, body };
@@ -67,9 +101,13 @@ export function finaliseMessage(out: ComposeOutput, automation: AutomationConfig
 }
 
 const fill = (template: string, profile: Profile) =>
-  template.replace(/\{firstName\}/g, profile.firstName).replace(/\{lastName\}/g, profile.lastName).replace(/\{name\}/g, `${profile.firstName} ${profile.lastName}`.trim());
+  template
+    .replace(/\{firstName\}/g, profile.firstName)
+    .replace(/\{lastName\}/g, profile.lastName)
+    .replace(/\{name\}/g, `${profile.firstName} ${profile.lastName}`.trim());
 
-const signature = (profile: Profile) => profile.signature?.trim() || `${profile.firstName} ${profile.lastName}`.trim();
+const signature = (profile: Profile) =>
+  profile.signature?.trim() || `${profile.firstName} ${profile.lastName}`.trim();
 
 /** The "I found a place" message: the configured text, or a short built-in one. */
 export function withdrawalText(automation: AutomationConfig, profile: Profile, language: Lang): string {
@@ -82,7 +120,8 @@ export function withdrawalText(automation: AutomationConfig, profile: Profile, l
 
 function homeName(listing: Listing): string {
   const a = listing.address;
-  if (a.street && a.houseNumber) return `${a.street} ${a.houseNumber}${a.addition && /^[a-z]$/i.test(a.addition) ? a.addition.toUpperCase() : a.addition ? ` ${a.addition}` : ''}`;
+  if (a.street && a.houseNumber)
+    return `${a.street} ${a.houseNumber}${a.addition && /^[a-z]$/i.test(a.addition) ? a.addition.toUpperCase() : a.addition ? ` ${a.addition}` : ''}`;
   return listing.title;
 }
 

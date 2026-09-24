@@ -17,7 +17,12 @@ export function hourOfWeek(at: Date): number {
  * sources; the daemon passes 120 s for browser sources). Without data the
  * base interval is kept.
  */
-export function adaptiveInterval(baseSec: number, histogram: number[], at: Date, opts: { floorSec?: number } = {}): number {
+export function adaptiveInterval(
+  baseSec: number,
+  histogram: number[],
+  at: Date,
+  opts: { floorSec?: number } = {},
+): number {
   const floor = opts.floorSec ?? 60;
   if (histogram.length !== 168) return Math.max(floor, baseSec);
   const mean = histogram.reduce((a, b) => a + b, 0) / 168;

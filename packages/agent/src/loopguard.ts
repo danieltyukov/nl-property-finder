@@ -1,7 +1,9 @@
 import type { InboundMessage, Store } from '@nlpf/core';
 
-const AUTO_SUBJECT = /^\s*(auto(matic)?[\s-]?(reply|response|antwoord)|automatisch(e)? (antwoord|bericht)|autoreply|out of (the )?office|afwezig\b|niet aanwezig|abwesenheit|ooo\b|auto:|delivery status notification|undeliver(able|ed)|onbestelbaar|mail delivery (failed|subsystem)|returned mail)/i;
-const AUTO_SENDER = /^(mailer-daemon|postmaster|no-?reply|do-?not-?reply|donotreply|bounce[s]?)([+.-][^@]*)?@/i;
+const AUTO_SUBJECT =
+  /^\s*(auto(matic)?[\s-]?(reply|response|antwoord)|automatisch(e)? (antwoord|bericht)|autoreply|out of (the )?office|afwezig\b|niet aanwezig|abwesenheit|ooo\b|auto:|delivery status notification|undeliver(able|ed)|onbestelbaar|mail delivery (failed|subsystem)|returned mail)/i;
+const AUTO_SENDER =
+  /^(mailer-daemon|postmaster|no-?reply|do-?not-?reply|donotreply|bounce[s]?)([+.-][^@]*)?@/i;
 
 /**
  * True for messages that must never get an automatic answer: anything the

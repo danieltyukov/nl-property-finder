@@ -1,9 +1,9 @@
 import { expect, test } from 'vitest';
 import { commuteMinutes, distanceKm } from '../src/commute.js';
 
-const station = { lat: 52.0067, lon: 4.3556 };   // Delft station
-const ewi = { lat: 51.999, lon: 4.3735 };        // TU Delft, EEMCS building
-const rotterdam = { lat: 51.9244, lon: 4.469 };  // Rotterdam Centraal
+const station = { lat: 52.0067, lon: 4.3556 }; // Delft station
+const ewi = { lat: 51.999, lon: 4.3735 }; // TU Delft, EEMCS building
+const rotterdam = { lat: 51.9244, lon: 4.469 }; // Rotterdam Centraal
 
 test('straight-line distance', () => {
   expect(distanceKm(station, ewi)).toBeCloseTo(1.49, 1);

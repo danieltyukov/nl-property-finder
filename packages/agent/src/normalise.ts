@@ -2,11 +2,33 @@ import type { Furnishing, PropertyType, RawListing } from '@nlpf/core';
 import { canonicalAddress } from './cluster.js';
 import { fold, guessLanguage } from './text.js';
 
-const PARTICLES = new Set(['aan', 'den', 'de', 'der', 'van', 'op', 'in', 'bij', 'het', 'onder', 'over', 'en', 'te', 'ter', 'ten', 'a', 'd']);
+const PARTICLES = new Set([
+  'aan',
+  'den',
+  'de',
+  'der',
+  'van',
+  'op',
+  'in',
+  'bij',
+  'het',
+  'onder',
+  'over',
+  'en',
+  'te',
+  'ter',
+  'ten',
+  'a',
+  'd',
+]);
 
 /** "alphen aan den rijn" -> "Alphen aan den Rijn", "'S-GRAVENHAGE" -> "'s-Gravenhage". */
 export function titleCaseCity(city: string): string {
-  const parts = city.trim().replace(/\s+/g, ' ').toLowerCase().split(/([\s-])/);
+  const parts = city
+    .trim()
+    .replace(/\s+/g, ' ')
+    .toLowerCase()
+    .split(/([\s-])/);
   let first = true;
   return parts
     .map((p) => {
@@ -24,8 +46,14 @@ export function titleCaseCity(city: string): string {
 const TYPE_PATTERNS: [PropertyType, RegExp][] = [
   ['studio', /\bstudio'?s?\b/],
   ['room', /(?<!\d[\s-]?)\b(kamer|room|studentenkamer|onzelfstandige woonruimte)\b/],
-  ['apartment', /\b(appartement|apartment|flat|bovenwoning|benedenwoning|penthouse|maisonnette|portiekwoning|galerijflat|bovenhuis|benedenhuis)\b/],
-  ['house', /\b(eengezinswoning|tussenwoning|hoekwoning|rijtjeshuis|rijwoning|vrijstaande woning|twee-onder-een-kap|house|woonhuis|herenhuis|villa)\b/],
+  [
+    'apartment',
+    /\b(appartement|apartment|flat|bovenwoning|benedenwoning|penthouse|maisonnette|portiekwoning|galerijflat|bovenhuis|benedenhuis)\b/,
+  ],
+  [
+    'house',
+    /\b(eengezinswoning|tussenwoning|hoekwoning|rijtjeshuis|rijwoning|vrijstaande woning|twee-onder-een-kap|house|woonhuis|herenhuis|villa)\b/,
+  ],
 ];
 
 /** Earliest mention wins, so "Kamer in appartement" is a room and "Appartement met 2 kamers" is an apartment. */
@@ -69,7 +97,8 @@ export function normaliseListing(raw: RawListing): RawListing {
     city: raw.address.city ? titleCaseCity(raw.address.city) : undefined,
     municipality: raw.address.municipality ? titleCaseCity(raw.address.municipality) : undefined,
   });
-  for (const k of Object.keys(address) as (keyof typeof address)[]) if (address[k] === undefined) delete address[k];
+  for (const k of Object.keys(address) as (keyof typeof address)[])
+    if (address[k] === undefined) delete address[k];
   const out: RawListing = {
     ...raw,
     url: raw.url.trim(),

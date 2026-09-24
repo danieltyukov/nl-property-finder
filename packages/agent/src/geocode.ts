@@ -19,8 +19,8 @@ export interface PdokAddress {
   neighbourhood?: string;
   lat?: number;
   lon?: number;
-  vboId?: string;        // adresseerbaarobject_id, the BAG verblijfsobject
-  numId?: string;        // nummeraanduiding_id, used by the WOZ-waardeloket
+  vboId?: string; // adresseerbaarobject_id, the BAG verblijfsobject
+  numId?: string; // nummeraanduiding_id, used by the WOZ-waardeloket
 }
 
 const LOCATIESERVER = 'https://api.pdok.nl/bzk/locatieserver/search/v3_1/free';
@@ -42,13 +42,22 @@ export function pdokQueryUrl(addr: Address, opts: { withPostcode?: boolean } = {
 }
 
 interface PdokDoc {
-  straatnaam?: string; huisnummer?: number; huisletter?: string; huisnummertoevoeging?: string; postcode?: string;
-  woonplaatsnaam?: string; gemeentenaam?: string; buurtnaam?: string; centroide_ll?: string;
-  adresseerbaarobject_id?: string; nummeraanduiding_id?: string;
+  straatnaam?: string;
+  huisnummer?: number;
+  huisletter?: string;
+  huisnummertoevoeging?: string;
+  postcode?: string;
+  woonplaatsnaam?: string;
+  gemeentenaam?: string;
+  buurtnaam?: string;
+  centroide_ll?: string;
+  adresseerbaarobject_id?: string;
+  nummeraanduiding_id?: string;
 }
 
 function toPdokAddress(doc: PdokDoc): PdokAddress | undefined {
-  if (!doc.straatnaam || doc.huisnummer === undefined || !doc.postcode || !doc.woonplaatsnaam) return undefined;
+  if (!doc.straatnaam || doc.huisnummer === undefined || !doc.postcode || !doc.woonplaatsnaam)
+    return undefined;
   const point = /POINT\(\s*([-\d.]+)\s+([-\d.]+)\s*\)/.exec(doc.centroide_ll ?? '');
   const addition = [doc.huisletter, doc.huisnummertoevoeging].filter(Boolean).join('-') || undefined;
   return {
@@ -96,7 +105,10 @@ async function lookupUrl(url: string, store: Store, fetchJson: FetchJson): Promi
  * when the postcode led to a different house. Returns null for a confirmed
  * miss. Network errors propagate, so callers decide whether to retry later.
  */
-export async function pdokLookup(addr: Address, deps: { store: Store; fetchJson: FetchJson }): Promise<PdokAddress | null> {
+export async function pdokLookup(
+  addr: Address,
+  deps: { store: Store; fetchJson: FetchJson },
+): Promise<PdokAddress | null> {
   const first = pdokQueryUrl(addr);
   if (!first) return null;
   const hit = await lookupUrl(first, deps.store, deps.fetchJson);
@@ -136,7 +148,10 @@ export function applyPdok(addr: Address, hit: PdokAddress): Address {
  * `store.geocode`. A failed request leaves the address unchanged and is not
  * cached; a confirmed miss is cached so it is not asked again.
  */
-export function createGeocoder(store: Store, fetchJson: FetchJson): { geocode(addr: Address): Promise<Address> } {
+export function createGeocoder(
+  store: Store,
+  fetchJson: FetchJson,
+): { geocode(addr: Address): Promise<Address> } {
   return {
     async geocode(addr) {
       try {

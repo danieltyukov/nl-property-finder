@@ -26,7 +26,9 @@ beforeAll(async () => {
 
 test('the stamp line names address, recipient and date', () => {
   expect(stampLine(input)).toBe(STAMP);
-  expect(stampLine({ recipient: 'Jan', date: '2026-09-24' })).toBe('Alleen voor huuraanvraag, Jan, 2026-09-24');
+  expect(stampLine({ recipient: 'Jan', date: '2026-09-24' })).toBe(
+    'Alleen voor huuraanvraag, Jan, 2026-09-24',
+  );
 });
 
 test('a one-page PDF gets the stamp in its text layer', async () => {
@@ -60,11 +62,18 @@ test('a PNG is placed on an A4 page and stamped', async () => {
 
 test('characters outside the standard font are replaced, not fatal', async () => {
   const out = join(dir, 'unicode.pdf');
-  await watermarkDocument({ path: join(dir, 'payslip.pdf'), recipient: 'Łukasz 李', address: 'Café Straße 1', date: '2026-09-24' }, out);
-  expect((await pdfText(readFileSync(out)))[0]).toContain('Alleen voor huuraanvraag Café Straße 1, Lukasz ?, 2026-09-24');
+  await watermarkDocument(
+    { path: join(dir, 'payslip.pdf'), recipient: 'Łukasz 李', address: 'Café Straße 1', date: '2026-09-24' },
+    out,
+  );
+  expect((await pdfText(readFileSync(out)))[0]).toContain(
+    'Alleen voor huuraanvraag Café Straße 1, Lukasz ?, 2026-09-24',
+  );
 });
 
 test('other file types are refused', async () => {
   writeFileSync(join(dir, 'notes.txt'), 'hello');
-  await expect(watermarkDocument({ path: join(dir, 'notes.txt'), ...input }, join(dir, 'x.pdf'))).rejects.toThrow(/PDF, PNG or JPEG/);
+  await expect(
+    watermarkDocument({ path: join(dir, 'notes.txt'), ...input }, join(dir, 'x.pdf')),
+  ).rejects.toThrow(/PDF, PNG or JPEG/);
 });

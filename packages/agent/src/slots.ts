@@ -38,35 +38,107 @@ interface DayTok {
 }
 
 const NUM_WORDS: Record<string, number> = {
-  een: 1, 'één': 1, twee: 2, drie: 3, vier: 4, vijf: 5, zes: 6, zeven: 7, acht: 8, negen: 9, tien: 10, elf: 11, twaalf: 12,
-  one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12,
+  een: 1,
+  één: 1,
+  twee: 2,
+  drie: 3,
+  vier: 4,
+  vijf: 5,
+  zes: 6,
+  zeven: 7,
+  acht: 8,
+  negen: 9,
+  tien: 10,
+  elf: 11,
+  twaalf: 12,
+  one: 1,
+  two: 2,
+  three: 3,
+  four: 4,
+  five: 5,
+  six: 6,
+  seven: 7,
+  eight: 8,
+  nine: 9,
+  ten: 10,
+  eleven: 11,
+  twelve: 12,
 };
 const NL_NUM = '(een|één|twee|drie|vier|vijf|zes|zeven|acht|negen|tien|elf|twaalf)';
 const EN_NUM = '(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)';
 const AMPM = '(am|pm|a\\.m\\.|p\\.m\\.)';
 
 const WEEKDAYS: Record<string, number> = {
-  maandag: 0, dinsdag: 1, woensdag: 2, donderdag: 3, vrijdag: 4, zaterdag: 5, zondag: 6,
-  monday: 0, tuesday: 1, wednesday: 2, thursday: 3, friday: 4, saturday: 5, sunday: 6,
-  ma: 0, di: 1, wo: 2, do: 3, vr: 4, vrij: 4, za: 5, zat: 5, zo: 6, zon: 6,
-  mon: 0, tue: 1, tues: 1, wed: 2, thu: 3, thur: 3, thurs: 3, fri: 4, sat: 5, sun: 6,
+  maandag: 0,
+  dinsdag: 1,
+  woensdag: 2,
+  donderdag: 3,
+  vrijdag: 4,
+  zaterdag: 5,
+  zondag: 6,
+  monday: 0,
+  tuesday: 1,
+  wednesday: 2,
+  thursday: 3,
+  friday: 4,
+  saturday: 5,
+  sunday: 6,
+  ma: 0,
+  di: 1,
+  wo: 2,
+  do: 3,
+  vr: 4,
+  vrij: 4,
+  za: 5,
+  zat: 5,
+  zo: 6,
+  zon: 6,
+  mon: 0,
+  tue: 1,
+  tues: 1,
+  wed: 2,
+  thu: 3,
+  thur: 3,
+  thurs: 3,
+  fri: 4,
+  sat: 5,
+  sun: 6,
 };
-const FULL_DAYS = 'maandag|dinsdag|woensdag|donderdag|vrijdag|zaterdag|zondag|monday|tuesday|wednesday|thursday|friday|saturday|sunday';
+const FULL_DAYS =
+  'maandag|dinsdag|woensdag|donderdag|vrijdag|zaterdag|zondag|monday|tuesday|wednesday|thursday|friday|saturday|sunday';
 const ABBR_DAYS = 'ma|di|wo|do|vrij|vr|zat|za|zon|zo|mon|tues|tue|wed|thurs|thur|thu|fri|sat|sun';
 
-const MONTHS = 'januari|january|jan|februari|february|feb|maart|march|mrt|mar|april|apr|mei|may|juni|june|jun|juli|july|jul|augustus|august|aug|september|sept|sep|oktober|october|okt|oct|november|nov|december|dec';
+const MONTHS =
+  'januari|january|jan|februari|february|feb|maart|march|mrt|mar|april|apr|mei|may|juni|june|jun|juli|july|jul|augustus|august|aug|september|sept|sep|oktober|october|okt|oct|november|nov|december|dec';
 const monthNumber = (name: string): number => {
   const n = name.slice(0, 3);
   const map: Record<string, number> = {
-    jan: 1, feb: 2, maa: 3, mar: 3, mrt: 3, apr: 4, mei: 5, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, okt: 10, oct: 10, nov: 11, dec: 12,
+    jan: 1,
+    feb: 2,
+    maa: 3,
+    mar: 3,
+    mrt: 3,
+    apr: 4,
+    mei: 5,
+    may: 5,
+    jun: 6,
+    jul: 7,
+    aug: 8,
+    sep: 9,
+    okt: 10,
+    oct: 10,
+    nov: 11,
+    dec: 12,
   };
   return map[n] ?? 0;
 };
 
-const PM_CONTEXT = /('s|s'|s)[\s-]?avonds|\bavond|\bevening|\btonight|('s|s'|s)[\s-]?middags|\bmiddag|\bafternoon|\bpm\b/;
+const PM_CONTEXT =
+  /('s|s'|s)[\s-]?avonds|\bavond|\bevening|\btonight|('s|s'|s)[\s-]?middags|\bmiddag|\bafternoon|\bpm\b/;
 const AM_CONTEXT = /('s|s'|s)[\s-]?(ochtends|morgens)|\bochtend|\bmorning/;
 const TIME_KEYWORD = /\b(om|at|rond|around|vanaf|tot|until|by|tegen)\s*$/;
-const AVAILABILITY = /\b(per|vanaf|beschikbaar|available|from|m\.i\.v\.|ingangsdatum|starting|start|tot|until|t\/m)\s*$/;
+const AVAILABILITY =
+  /\b(per|vanaf|beschikbaar|available|from|m\.i\.v\.|ingangsdatum|starting|start|tot|until|t\/m)\s*$/;
 const RANGE_JOIN = /^\s*(t\/m|tot en met|-|–|to|through|until|tot)\s*$/;
 
 function ampmOf(s: string | undefined): Part | undefined {
@@ -97,14 +169,23 @@ function findTimes(t: string): TimeTok[] {
 
   // tussen 17 en 19 uur, between 5 and 7 pm, van 10:00 tot 12:00
   scan(
-    new RegExp(`\\b(tussen|between|van|from)\\s+(\\d{1,2})(?:[:.](\\d{2}))?\\s*(am|pm|a\\.m\\.|p\\.m\\.|uur|u)?\\s+(?:en|and|tot|to|until|-|–)\\s+(\\d{1,2})(?:[:.](\\d{2}))?(?!\\d)\\s*(am|pm|a\\.m\\.|p\\.m\\.|uur|u\\b|h\\b)?`, 'g'),
+    new RegExp(
+      `\\b(tussen|between|van|from)\\s+(\\d{1,2})(?:[:.](\\d{2}))?\\s*(am|pm|a\\.m\\.|p\\.m\\.|uur|u)?\\s+(?:en|and|tot|to|until|-|–)\\s+(\\d{1,2})(?:[:.](\\d{2}))?(?!\\d)\\s*(am|pm|a\\.m\\.|p\\.m\\.|uur|u\\b|h\\b)?`,
+      'g',
+    ),
     (m) => {
       const [, kw, h1, m1, suf1, h2, m2, suf2] = m;
       const bare = m1 === undefined && m2 === undefined;
       if (bare && !suf1 && !suf2 && kw !== 'tussen' && kw !== 'between') return null;
       const tok: TimeTok = {
-        ...base, h: Number(h1), m: Number(m1 ?? 0), eh: Number(h2), em: Number(m2 ?? 0),
-        ampm: ampmOf(suf2) ?? ampmOf(suf1), kind: bare ? 'bare' : 'clock', weak: false,
+        ...base,
+        h: Number(h1),
+        m: Number(m1 ?? 0),
+        eh: Number(h2),
+        em: Number(m2 ?? 0),
+        ampm: ampmOf(suf2) ?? ampmOf(suf1),
+        kind: bare ? 'bare' : 'clock',
+        weak: false,
       };
       return validHm(tok.h, tok.m) && validHm(tok.eh!, tok.em!) ? tok : null;
     },
@@ -114,14 +195,28 @@ function findTimes(t: string): TimeTok[] {
     /(?<![\d:.])(\d{1,2})[:.](\d{2})\s*(am|pm|a\.m\.|p\.m\.|uur|u)?\s*(?:-|–|—|tot|to|until|t\/m)\s*(\d{1,2})[:.](\d{2})(?!\d)\s*(am|pm|a\.m\.|p\.m\.|uur|u\b|h\b)?/g,
     (m) => {
       const tok: TimeTok = {
-      ...base, h: Number(m[1]), m: Number(m[2]), eh: Number(m[4]), em: Number(m[5]), ampm: ampmOf(m[6]) ?? ampmOf(m[3]), kind: 'clock', weak: false, padded: m[1]!.startsWith('0'),
-    };
+        ...base,
+        h: Number(m[1]),
+        m: Number(m[2]),
+        eh: Number(m[4]),
+        em: Number(m[5]),
+        ampm: ampmOf(m[6]) ?? ampmOf(m[3]),
+        kind: 'clock',
+        weak: false,
+        padded: m[1]!.startsWith('0'),
+      };
       return validHm(tok.h, tok.m) && validHm(tok.eh!, tok.em!) ? tok : null;
     },
   );
   // 17-19 uur
   scan(/(?<![\d:.\/-])(\d{1,2})\s*(?:-|–|tot)\s*(\d{1,2})\s*(?:uur|u|h)\b/g, (m) => ({
-    ...base, h: Number(m[1]), m: 0, eh: Number(m[2]), em: 0, kind: 'bare', weak: false,
+    ...base,
+    h: Number(m[1]),
+    m: 0,
+    eh: Number(m[2]),
+    em: 0,
+    kind: 'bare',
+    weak: false,
   }));
   // half zeven, kwart over zes, kwart voor zeven
   scan(new RegExp(`\\b(half|kwart over|kwart voor)\\s+${NL_NUM}\\b`, 'g'), (m) => {
@@ -139,28 +234,69 @@ function findTimes(t: string): TimeTok[] {
   });
   // six o'clock, six pm
   scan(new RegExp(`\\b${EN_NUM}\\s*(o['’]?clock|${AMPM})`, 'g'), (m) => ({
-    ...base, h: NUM_WORDS[m[1]!]!, m: 0, ampm: ampmOf(m[2]?.startsWith('o') ? undefined : m[2]), kind: 'word', weak: false,
+    ...base,
+    h: NUM_WORDS[m[1]!]!,
+    m: 0,
+    ampm: ampmOf(m[2]?.startsWith('o') ? undefined : m[2]),
+    kind: 'word',
+    weak: false,
   }));
   // zes uur
   scan(new RegExp(`\\b${NL_NUM}\\s+uur\\b`, 'g'), (m) => ({
-    ...base, h: NUM_WORDS[m[1]!]!, m: 0, kind: 'word', weak: !TIME_KEYWORD.test(t.slice(Math.max(0, m.index - 12), m.index)),
+    ...base,
+    h: NUM_WORDS[m[1]!]!,
+    m: 0,
+    kind: 'word',
+    weak: !TIME_KEYWORD.test(t.slice(Math.max(0, m.index - 12), m.index)),
   }));
-  scan(/\b(noon|midday|middaguur)\b/g, () => ({ ...base, h: 12, m: 0, ampm: 'pm', kind: 'clock', weak: false }));
+  scan(/\b(noon|midday|middaguur)\b/g, () => ({
+    ...base,
+    h: 12,
+    m: 0,
+    ampm: 'pm',
+    kind: 'clock',
+    weak: false,
+  }));
   // 18u30, 18h30
-  scan(/(?<![\d:.])(\d{1,2})[uh](\d{2})(?!\d)/g, (m) => (validHm(Number(m[1]), Number(m[2])) ? { ...base, h: Number(m[1]), m: Number(m[2]), kind: 'clock', weak: false } : null));
+  scan(/(?<![\d:.])(\d{1,2})[uh](\d{2})(?!\d)/g, (m) =>
+    validHm(Number(m[1]), Number(m[2]))
+      ? { ...base, h: Number(m[1]), m: Number(m[2]), kind: 'clock', weak: false }
+      : null,
+  );
   // 18:30, 18.30 uur, 6:30pm (not a price such as EUR 12.50, not part of a date such as 26.09.2026)
   scan(/(?<![\d:.\/€-])(\d{1,2})[:.](\d{2})(?!\d|[.\/-]\d)\s*(am|pm|a\.m\.|p\.m\.|uur|u\b|h\b)?/g, (m) => {
     if (/(€|eur|euro)\s*$/.test(t.slice(Math.max(0, m.index - 6), m.index))) return null;
-    const tok: TimeTok = { ...base, h: Number(m[1]), m: Number(m[2]), ampm: ampmOf(m[3]), kind: 'clock', weak: false, padded: m[1]!.startsWith('0') };
+    const tok: TimeTok = {
+      ...base,
+      h: Number(m[1]),
+      m: Number(m[2]),
+      ampm: ampmOf(m[3]),
+      kind: 'clock',
+      weak: false,
+      padded: m[1]!.startsWith('0'),
+    };
     return validHm(tok.h, tok.m) && tok.h <= 23 ? tok : null;
   });
   // 6pm
-  scan(new RegExp(`(?<![\\d:.])(\\d{1,2})\\s*${AMPM}(?![a-z])`, 'g'), (m) => ({ ...base, h: Number(m[1]), m: 0, ampm: ampmOf(m[2]), kind: 'bare', weak: false }));
+  scan(new RegExp(`(?<![\\d:.])(\\d{1,2})\\s*${AMPM}(?![a-z])`, 'g'), (m) => ({
+    ...base,
+    h: Number(m[1]),
+    m: 0,
+    ampm: ampmOf(m[2]),
+    kind: 'bare',
+    weak: false,
+  }));
   // 14u, 14 uur
   scan(/(?<![\d:.\/-])(\d{1,2})\s*(?:uur|u|h)\b/g, (m) => {
     const h = Number(m[1]);
     if (h > 23) return null;
-    return { ...base, h, m: 0, kind: 'bare', weak: !TIME_KEYWORD.test(t.slice(Math.max(0, m.index - 12), m.index)) };
+    return {
+      ...base,
+      h,
+      m: 0,
+      kind: 'bare',
+      weak: !TIME_KEYWORD.test(t.slice(Math.max(0, m.index - 12), m.index)),
+    };
   });
   // om 6, at 6
   scan(/\b(?:om|at|rond|around)\s+(\d{1,2})(?![\d:.]|\s*(?:uur|u\b|h\b|am|pm|a\.m|p\.m|-|–))/g, (m) => {
@@ -174,11 +310,17 @@ function findDays(t: string, masked: string): DayTok[] {
   const days: DayTok[] = [];
   const push = (d: DayTok) => days.push(d);
 
-  for (const m of masked.matchAll(/\b(the day after tomorrow|day after tomorrow|de dag na morgen|overmorgen|morgenavond|morgenmiddag|morgenochtend|morgen|tomorrow|vandaag|today|vanavond|tonight|vanmiddag|vanochtend|this evening|this afternoon|this morning)\b/g)) {
+  for (const m of masked.matchAll(
+    /\b(the day after tomorrow|day after tomorrow|de dag na morgen|overmorgen|morgenavond|morgenmiddag|morgenochtend|morgen|tomorrow|vandaag|today|vanavond|tonight|vanmiddag|vanochtend|this evening|this afternoon|this morning)\b/g,
+  )) {
     const w = m[1]!;
     if (w === 'morgen' && /goede\s*$/.test(t.slice(Math.max(0, m.index - 7), m.index))) continue;
     const rel = /after|na morgen|overmorgen/.test(w) ? 2 : /morgen|tomorrow/.test(w) ? 1 : 0;
-    const part: Part | undefined = /avond|evening|tonight|middag|afternoon/.test(w) ? 'pm' : /ochtend|morning/.test(w) ? 'am' : undefined;
+    const part: Part | undefined = /avond|evening|tonight|middag|afternoon/.test(w)
+      ? 'pm'
+      : /ochtend|morning/.test(w)
+        ? 'am'
+        : undefined;
     push({ start: m.index, end: m.index + w.length, rel, part });
   }
   for (const m of masked.matchAll(new RegExp(`\\b(${FULL_DAYS})(avond|middag|ochtend|morgen)?\\b`, 'g'))) {
@@ -190,24 +332,45 @@ function findDays(t: string, masked: string): DayTok[] {
   for (const m of masked.matchAll(new RegExp(`\\b(${ABBR_DAYS})\\b\\.?`, 'g'))) {
     const after = t.slice(m.index + m[0].length, m.index + m[0].length + 24);
     const before = t.slice(Math.max(0, m.index - 12), m.index);
-    const nextIsTime = /^\s*[,.]?\s*(?:(?:om|at|van|vanaf|from|tussen|between|rond|around)\s+)?\d/.test(after);
-    const nextIsDay = new RegExp(`^\\s*(t\\/m|tot en met|-|–|to|through|until|tot)\\s*(${FULL_DAYS}|${ABBR_DAYS})\\b`).test(after);
-    const prevIsRange = new RegExp(`(${FULL_DAYS}|${ABBR_DAYS})\\.?\\s*(t\\/m|tot en met|-|–|to|through|until|tot)\\s*$`).test(before);
-    if (nextIsTime || nextIsDay || prevIsRange) push({ start: m.index, end: m.index + m[1]!.length, weekday: WEEKDAYS[m[1]!] });
+    const nextIsTime = /^\s*[,.]?\s*(?:(?:om|at|van|vanaf|from|tussen|between|rond|around)\s+)?\d/.test(
+      after,
+    );
+    const nextIsDay = new RegExp(
+      `^\\s*(t\\/m|tot en met|-|–|to|through|until|tot)\\s*(${FULL_DAYS}|${ABBR_DAYS})\\b`,
+    ).test(after);
+    const prevIsRange = new RegExp(
+      `(${FULL_DAYS}|${ABBR_DAYS})\\.?\\s*(t\\/m|tot en met|-|–|to|through|until|tot)\\s*$`,
+    ).test(before);
+    if (nextIsTime || nextIsDay || prevIsRange)
+      push({ start: m.index, end: m.index + m[1]!.length, weekday: WEEKDAYS[m[1]!] });
   }
   const dateTok = (index: number, text: string, d: number, mo: number, y?: number) => {
     if (d < 1 || d > 31 || mo < 1 || mo > 12) return;
     const availability = AVAILABILITY.test(t.slice(Math.max(0, index - 25), index));
-    push({ start: index, end: index + text.replace(/[\s,.]+$/, '').length, date: { d, m: mo, y: y === undefined ? undefined : y < 100 ? 2000 + y : y }, availability });
+    push({
+      start: index,
+      end: index + text.replace(/[\s,.]+$/, '').length,
+      date: { d, m: mo, y: y === undefined ? undefined : y < 100 ? 2000 + y : y },
+      availability,
+    });
   };
-  for (const m of masked.matchAll(new RegExp(`\\b(\\d{1,2})(?:e|ste|de|st|nd|rd|th)?\\s*(?:of\\s+)?(${MONTHS})\\b\\.?(?:\\s*,?\\s*(\\d{4}))?`, 'g'))) {
+  for (const m of masked.matchAll(
+    new RegExp(
+      `\\b(\\d{1,2})(?:e|ste|de|st|nd|rd|th)?\\s*(?:of\\s+)?(${MONTHS})\\b\\.?(?:\\s*,?\\s*(\\d{4}))?`,
+      'g',
+    ),
+  )) {
     dateTok(m.index, m[0], Number(m[1]), monthNumber(m[2]!), m[3] ? Number(m[3]) : undefined);
   }
-  for (const m of masked.matchAll(new RegExp(`\\b(${MONTHS})\\b\\.?\\s*(\\d{1,2})(?:st|nd|rd|th|e|ste|de)?\\b(?:\\s*,?\\s*(\\d{4}))?`, 'g'))) {
+  for (const m of masked.matchAll(
+    new RegExp(`\\b(${MONTHS})\\b\\.?\\s*(\\d{1,2})(?:st|nd|rd|th|e|ste|de)?\\b(?:\\s*,?\\s*(\\d{4}))?`, 'g'),
+  )) {
     if (days.some((x) => x.date && m.index >= x.start && m.index < x.end)) continue;
     dateTok(m.index, m[0], Number(m[2]), monthNumber(m[1]!), m[3] ? Number(m[3]) : undefined);
   }
-  for (const m of masked.matchAll(/(?<![\d:.\/-])(\d{1,2})[-\/](\d{1,2})(?:[-\/](\d{4}|\d{2}))?(?![\d:\/-])/g)) {
+  for (const m of masked.matchAll(
+    /(?<![\d:.\/-])(\d{1,2})[-\/](\d{1,2})(?:[-\/](\d{4}|\d{2}))?(?![\d:\/-])/g,
+  )) {
     dateTok(m.index, m[0], Number(m[1]), Number(m[2]), m[3] ? Number(m[3]) : undefined);
   }
   for (const m of masked.matchAll(/(?<![\d:.\/-])(\d{1,2})\.(\d{1,2})\.(\d{4})(?!\d)/g)) {
@@ -220,19 +383,28 @@ function findDays(t: string, masked: string): DayTok[] {
   for (const d of days) {
     const prev = merged[merged.length - 1];
     const gap = prev ? t.slice(prev.end, d.start) : '';
-    const combinable = prev && d.start >= prev.end && /^[\s,.()]*(?:de|the|on|op)?[\s,.()]*$/.test(gap)
-      && !(prev.date && d.date) && !(prev.weekday !== undefined && d.weekday !== undefined);
+    const combinable =
+      prev &&
+      d.start >= prev.end &&
+      /^[\s,.()]*(?:de|the|on|op)?[\s,.()]*$/.test(gap) &&
+      !(prev.date && d.date) &&
+      !(prev.weekday !== undefined && d.weekday !== undefined);
     if (prev && combinable) {
       merged[merged.length - 1] = {
-        ...prev, ...Object.fromEntries(Object.entries(d).filter(([, v]) => v !== undefined)),
-        start: prev.start, end: d.end, availability: (prev.availability ?? false) && (d.availability ?? false),
+        ...prev,
+        ...Object.fromEntries(Object.entries(d).filter(([, v]) => v !== undefined)),
+        start: prev.start,
+        end: d.end,
+        availability: (prev.availability ?? false) && (d.availability ?? false),
         part: prev.part ?? d.part,
       };
     } else if (!prev || d.start >= prev.end) merged.push({ ...d });
   }
   for (let i = 0; i < merged.length; i += 1) {
     const d = merged[i]!;
-    const lead = /(volgende week|next week|komende week)\s*(op\s+)?$/.exec(t.slice(Math.max(0, d.start - 22), d.start));
+    const lead = /(volgende week|next week|komende week)\s*(op\s+)?$/.exec(
+      t.slice(Math.max(0, d.start - 22), d.start),
+    );
     if (lead && d.weekday !== undefined) {
       d.nextWeek = true;
       d.start -= lead[0].length;
@@ -253,7 +425,13 @@ const wallIs = (at: Date, y: number, m: number, d: number, h: number, mi: number
   return p.y === y && p.m === m && p.d === d && p.hh === h && p.mm === mi;
 };
 
-interface ResolvedDay { y: number; m: number; d: number; conflict: boolean; weekdayOnly: boolean }
+interface ResolvedDay {
+  y: number;
+  m: number;
+  d: number;
+  conflict: boolean;
+  weekdayOnly: boolean;
+}
 
 function resolveDay(day: DayTok, now: Date): ResolvedDay | undefined {
   const today = amsterdam(now);
@@ -261,7 +439,11 @@ function resolveDay(day: DayTok, now: Date): ResolvedDay | undefined {
   if (day.date) {
     const { d, m } = day.date;
     let y = day.date.y ?? today.y;
-    if (day.date.y === undefined && Date.UTC(y, m - 1, d) < Date.UTC(today.y, today.m - 1, today.d) - 60 * 86_400_000) y += 1;
+    if (
+      day.date.y === undefined &&
+      Date.UTC(y, m - 1, d) < Date.UTC(today.y, today.m - 1, today.d) - 60 * 86_400_000
+    )
+      y += 1;
     if (d > daysInMonth(y, m)) return undefined;
     if (day.weekday !== undefined && dayIndex(y, m, d) !== day.weekday) conflict = true;
     if (day.rel !== undefined) {
@@ -283,7 +465,12 @@ function resolveDay(day: DayTok, now: Date): ResolvedDay | undefined {
   return undefined;
 }
 
-function resolveHour(h: number, tok: TimeTok, part: Part | undefined, globalPm: boolean): { h: number; sure: boolean } {
+function resolveHour(
+  h: number,
+  tok: TimeTok,
+  part: Part | undefined,
+  globalPm: boolean,
+): { h: number; sure: boolean } {
   if (tok.ampm) return { h: (h % 12) + (tok.ampm === 'pm' ? 12 : 0), sure: true };
   if (h >= 12 || h === 0) return { h: h === 24 ? 0 : h, sure: true };
   if (part === 'pm') return { h: h + 12, sure: true };
@@ -309,7 +496,11 @@ function instant(y: number, m: number, d: number, h: number, mi: number): { at: 
   return { at, dstIssue: missing || repeated };
 }
 
-const tidy = (s: string) => s.replace(/\s+/g, ' ').trim().replace(/[?.!,:;]+$/, '');
+const tidy = (s: string) =>
+  s
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/[?.!,:;]+$/, '');
 
 /**
  * Proposed viewing slots in a message, in Europe/Amsterdam. See the header
@@ -319,7 +510,8 @@ export function parseSlots(text: string, now: Date): ProposedSlot[] {
   const t = text.toLowerCase();
   const times = findTimes(t);
   let masked = t;
-  for (const tok of times) masked = masked.slice(0, tok.start) + ' '.repeat(tok.end - tok.start) + masked.slice(tok.end);
+  for (const tok of times)
+    masked = masked.slice(0, tok.start) + ' '.repeat(tok.end - tok.start) + masked.slice(tok.end);
   const days = findDays(t, masked);
 
   const rawHourPm = (tok: TimeTok) => tok.ampm === 'pm' || (tok.h >= 12 && tok.h <= 23);
@@ -328,7 +520,9 @@ export function parseSlots(text: string, now: Date): ProposedSlot[] {
 
   for (const tok of times) {
     const before = days.filter((d) => d.end <= tok.start && tok.start - d.end <= 300);
-    const after = days.filter((d) => d.start >= tok.end && d.start - tok.end <= 60 && lineOf(d.start) === lineOf(tok.end));
+    const after = days.filter(
+      (d) => d.start >= tok.end && d.start - tok.end <= 60 && lineOf(d.start) === lineOf(tok.end),
+    );
     const sameLineBefore = before.filter((d) => lineOf(d.end) === lineOf(tok.start));
     const day = sameLineBefore[sameLineBefore.length - 1] ?? after[0] ?? before[before.length - 1];
     if (!day) continue;
@@ -350,7 +544,11 @@ export function parseSlots(text: string, now: Date): ProposedSlot[] {
       if (day.availability || (day.weekday === undefined && day.rel === undefined)) continue;
       const midnight = fromAmsterdam(r.y, r.m, r.d, 0, 0);
       if (midnight.getTime() + 86_400_000 <= now.getTime()) continue;
-      slots.push({ start: midnight.toISOString(), text: tidy(text.slice(day.start, day.end)), certain: false });
+      slots.push({
+        start: midnight.toISOString(),
+        text: tidy(text.slice(day.start, day.end)),
+        certain: false,
+      });
       continue;
     }
     if (day.availability && day.weekday === undefined) continue;
@@ -376,8 +574,11 @@ export function parseSlots(text: string, now: Date): ProposedSlot[] {
       }
       const a = Math.min(day.start, tok.start);
       const b = Math.max(day.end, tok.end);
-      const snippet = t.slice(a, b).includes('\n') ? `${text.slice(day.start, day.end)} ${text.slice(tok.start, tok.end)}` : text.slice(a, b);
-      const certain = !r.conflict && !day.range && sh.sure && endSure && !start.dstIssue && !(end?.dstIssue ?? false);
+      const snippet = t.slice(a, b).includes('\n')
+        ? `${text.slice(day.start, day.end)} ${text.slice(tok.start, tok.end)}`
+        : text.slice(a, b);
+      const certain =
+        !r.conflict && !day.range && sh.sure && endSure && !start.dstIssue && !(end?.dstIssue ?? false);
       const slot: ProposedSlot = { start: start.at.toISOString(), text: tidy(snippet), certain };
       if (end) slot.end = end.at.toISOString();
       slots.push(slot);
@@ -436,7 +637,11 @@ export function chooseSlot(
     const start = Date.parse(slot.start);
     const end = slot.end ? Date.parse(slot.end) : start + VIEWING_MINUTES * MINUTE;
     if (end - start <= VIEWING_MINUTES * MINUTE) {
-      if (fitsAvailability(new Date(start), new Date(end), availability) && !clashes(new Date(start), new Date(end), bufferMin, busy)) return slot;
+      if (
+        fitsAvailability(new Date(start), new Date(end), availability) &&
+        !clashes(new Date(start), new Date(end), bufferMin, busy)
+      )
+        return slot;
       continue;
     }
     for (let s = start; s + VIEWING_MINUTES * MINUTE <= end; s += STEP_MINUTES * MINUTE) {

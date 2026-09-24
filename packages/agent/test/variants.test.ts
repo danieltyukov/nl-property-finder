@@ -13,7 +13,8 @@ test('no variants means no variant', () => {
 });
 
 test('the same property always gets the same variant', () => {
-  for (const seed of ['p_1', 'p_2', 'p_abc']) expect(pickVariant(variants, seed)).toBe(pickVariant(variants, seed));
+  for (const seed of ['p_1', 'p_2', 'p_abc'])
+    expect(pickVariant(variants, seed)).toBe(pickVariant(variants, seed));
 });
 
 test('choices follow the weights and skip weight 0', () => {
