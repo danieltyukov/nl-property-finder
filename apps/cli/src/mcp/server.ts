@@ -1,6 +1,7 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
+import type { Readable, Writable } from 'node:stream';
 import { ZodError } from 'zod';
 import type { NlpfClient } from '../client.js';
 import { TOOLS } from './tools.js';
@@ -94,13 +95,23 @@ export function createMcpServer(client: NlpfClient, opts: { version?: string } =
   return server;
 }
 
-/** Serves MCP over stdin and stdout until the client disconnects. Nothing else may write to stdout meanwhile. */
-export async function runMcpStdio(client: NlpfClient, opts: { version?: string } = {}): Promise<void> {
+/**
+ * Serves MCP over stdin and stdout until the client disconnects, which for a
+ * stdio server means stdin ends. Nothing else may write to stdout meanwhile.
+ */
+export async function runMcpStdio(
+  client: NlpfClient,
+  opts: { version?: string; stdin?: Readable; stdout?: Writable } = {},
+): Promise<void> {
+  const stdin = opts.stdin ?? process.stdin;
   const server = createMcpServer(client, opts);
-  const transport = new StdioServerTransport();
+  const transport = new StdioServerTransport(stdin, opts.stdout ?? process.stdout);
   const closed = new Promise<void>((done) => {
     transport.onclose = () => done();
+    stdin.once('end', () => done());
+    stdin.once('close', () => done());
   });
   await server.connect(transport);
   await closed;
+  await server.close();
 }

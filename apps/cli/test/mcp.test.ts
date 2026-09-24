@@ -3,7 +3,8 @@ import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 import { ConfigSchema, type Task } from '@nlpf/core';
 import { DaemonNotRunningError, type NlpfClient } from '../src/client.js';
-import { createMcpServer } from '../src/mcp/server.js';
+import { PassThrough } from 'node:stream';
+import { createMcpServer, runMcpStdio } from '../src/mcp/server.js';
 
 const EXPECTED_TOOLS = [
   'status',
@@ -219,5 +220,26 @@ describe('MCP server', () => {
     expect(JSON.parse((cfg.contents[0] as { text: string }).text).secretsPresent).toEqual([
       'ANTHROPIC_API_KEY',
     ]);
+  });
+});
+
+describe('runMcpStdio', () => {
+  test('answers over stdio and finishes when stdin ends', async () => {
+    const stdin = new PassThrough();
+    const stdout = new PassThrough();
+    let written = '';
+    stdout.on('data', (c) => (written += String(c)));
+    const done = runMcpStdio(stubClient({}), { stdin, stdout });
+    stdin.write(
+      JSON.stringify({
+        jsonrpc: '2.0',
+        id: 1,
+        method: 'initialize',
+        params: { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 't', version: '0' } },
+      }) + '\n',
+    );
+    await vi.waitFor(() => expect(written).toContain('"serverInfo"'));
+    stdin.end();
+    await expect(done).resolves.toBeUndefined();
   });
 });
