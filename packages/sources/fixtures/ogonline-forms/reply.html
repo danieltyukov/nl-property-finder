@@ -62,7 +62,8 @@
         .then(function (r) { return r.json(); })
         .then(function (res) {
           var page = form.getAttribute('data-succes-page');
-          if (res.success && page) { window.location.href = page; return; }
+          var next = page ? new URL(page, window.location.href) : null;
+          if (res.success && next && next.origin === window.location.origin) { window.location.assign(next.pathname + next.search); return; }
           var block = res.success ? '.form-ajax-success' : res.warning ? '.form-ajax-warning' : '.form-ajax-error';
           form.querySelector('.form-ajax-form').style.display = res.success ? 'none' : 'block';
           form.querySelector(block).style.display = 'block';

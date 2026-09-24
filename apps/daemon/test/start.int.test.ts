@@ -1,6 +1,7 @@
-import { mkdtempSync } from 'node:fs';
+import { randomBytes } from 'node:crypto';
+import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { afterEach, expect, test } from 'vitest';
 import { ConfigSchema, memoryLogger, openStore, resolvePaths, saveConfig, type RawListing, type SourceAdapter } from '@nlpf/core';
 import { startDaemon, type DaemonHandle } from '../src/start.js';
@@ -10,8 +11,13 @@ afterEach(async () => {
   for (const h of handles.splice(0)) await h.stop();
 });
 
+// Seeded into each home before the daemon starts; the daemon keeps a token it finds.
+const TOKEN = randomBytes(32).toString('hex');
+
 function home(extra: Record<string, unknown> = {}) {
   const paths = resolvePaths({ NLPF_HOME: mkdtempSync(join(tmpdir(), 'nlpf-start-')) });
+  mkdirSync(dirname(paths.tokenFile), { recursive: true });
+  writeFileSync(paths.tokenFile, `${TOKEN}\n`, { mode: 0o600 });
   saveConfig(paths, ConfigSchema.parse({
     profile: { firstName: 'Sam', lastName: 'de Vries', email: 'sam@example.test', occupation: 'student', about: 'Quiet student.' },
     searches: [{ id: 'main', name: 'Delft', priceMaxEur: 1400, regions: [{ name: 'Delft', municipalities: ['delft'] }] }],
@@ -58,14 +64,15 @@ test('a matching listing is found, evaluated and contacted once; a non-matching 
   const paths = home();
   const src = fakeSource([listing('12'), listing('99', { priceEur: 2500, address: { street: 'Coolsingel', houseNumber: '99', city: 'Rotterdam' } })]);
   const h = await startDaemon({ paths, port: 0, adapters: [src.adapter], log: memoryLogger() });
+  expect(h.token).toBe(TOKEN);
   handles.push(h);
   await waitFor(() => src.contacted.length === 1);
-  const res = await fetch(`${h.url}/api/v1/properties`, { headers: { 'x-nlpf-token': h.token } });
+  const res = await fetch(`${h.url}/api/v1/properties`, { headers: { 'x-nlpf-token': TOKEN } });
   const { items } = (await res.json()) as { items: { property: { title: string }; application: { status: string } | null; match: { passed: boolean } | null }[] };
   const delft = items.find((i) => i.property.title.includes('12'))!;
   expect(delft.application?.status).toBe('contacted');
   await waitFor(() => !!items.length);
-  const status = await (await fetch(`${h.url}/api/v1/status`, { headers: { 'x-nlpf-token': h.token } })).json();
+  const status = await (await fetch(`${h.url}/api/v1/status`, { headers: { 'x-nlpf-token': TOKEN } })).json();
   expect(status.counts.contactedToday).toBe(1);
   await new Promise((r) => setTimeout(r, 500));
   expect(src.contacted).toEqual(['fake:12']);
@@ -81,7 +88,7 @@ test('review focus 2: a contact job interrupted by a crash becomes a send_uncert
   const src = fakeSource([]);
   const h = await startDaemon({ paths, port: 0, adapters: [src.adapter], log: memoryLogger() });
   handles.push(h);
-  const tasks = await (await fetch(`${h.url}/api/v1/tasks`, { headers: { 'x-nlpf-token': h.token } })).json();
+  const tasks = await (await fetch(`${h.url}/api/v1/tasks`, { headers: { 'x-nlpf-token': TOKEN } })).json();
   expect(tasks.items.map((t: { kind: string }) => t.kind)).toContain('send_uncertain');
   await new Promise((r) => setTimeout(r, 1500));
   expect(src.contacted).toEqual([]);
@@ -92,7 +99,7 @@ test('paused: listings keep arriving but nothing is sent until resume', async ()
   const src = fakeSource([listing('7')]);
   const h = await startDaemon({ paths, port: 0, adapters: [src.adapter], log: memoryLogger() });
   handles.push(h);
-  const auth = { headers: { 'x-nlpf-token': h.token } };
+  const auth = { headers: { 'x-nlpf-token': TOKEN } };
   await new Promise((r) => setTimeout(r, 2000));
   const props = await (await fetch(`${h.url}/api/v1/properties`, auth)).json();
   expect(props.items.length).toBe(1);
@@ -118,7 +125,7 @@ test('a source that blocks us backs off instead of crashing, and recovers', asyn
   handles.push(h);
   await waitFor(() => calls >= 1);
   await new Promise((r) => setTimeout(r, 500));
-  const sources = await (await fetch(`${h.url}/api/v1/sources`, { headers: { 'x-nlpf-token': h.token } })).json();
+  const sources = await (await fetch(`${h.url}/api/v1/sources`, { headers: { 'x-nlpf-token': TOKEN } })).json();
   const grumpy = sources.items.find((s: { sourceId: string }) => s.sourceId === 'grumpy');
   expect(grumpy.lastError).toContain('Blocked');
   expect(Date.parse(grumpy.nextRunAt) - Date.now()).toBeGreaterThan(500_000);

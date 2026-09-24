@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { readFileSync, statSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { dirname, extname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, test } from 'vitest';
@@ -65,10 +65,9 @@ describe.skipIf(!files)('the repository', () => {
       const abs = join(REPO, rel);
       let text: string;
       try {
-        if (!statSync(abs).isFile()) continue;
         text = readFileSync(abs, 'utf8');
       } catch {
-        continue; // listed by git but deleted in the working tree
+        continue; // a folder (a submodule), or listed by git but deleted in the working tree
       }
       if (text.includes('\0')) continue;
       for (const h of findCredentials(text)) found.push(`${rel}:${h.line} ${h.name} (${h.preview})`);

@@ -12,8 +12,8 @@ const site = fileURLToPath(new URL('..', import.meta.url));
 const html = readFileSync(join(site, 'index.html'), 'utf8');
 /** What a reader sees: no scripts, styles, comments or tags. */
 const visible = html
-  .replace(/<script[\s\S]*?<\/script>/g, ' ')
-  .replace(/<style[\s\S]*?<\/style>/g, ' ')
+  .replace(/<script\b[\s\S]*?<\/script[^>]*>/gi, ' ')
+  .replace(/<style\b[\s\S]*?<\/style[^>]*>/gi, ' ')
   .replace(/<!--[\s\S]*?-->/g, ' ')
   .replace(/<[^>]+>/g, ' ')
   .replace(/&amp;/g, '&')

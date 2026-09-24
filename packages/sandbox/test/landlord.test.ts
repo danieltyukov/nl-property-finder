@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, describe, expect, test } from 'vitest';
@@ -141,7 +141,7 @@ describe('what the agent sends back', () => {
     const sub = box.control.submissions()[0]!;
     await box.control.landlordReply(sub.id, 'documents_request');
     const request = box.inbox[0]!;
-    const file = join(tmpdir(), `nlpf-sandbox-test-${process.pid}-loonstrook.pdf`);
+    const file = join(mkdtempSync(join(tmpdir(), 'nlpf-sandbox-test-')), 'loonstrook.pdf');
     writeFileSync(file, '%PDF-1.4 loonstrook');
     await box.send({
       to: GRACHT_EMAIL,

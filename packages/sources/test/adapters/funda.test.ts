@@ -1,3 +1,4 @@
+import { load } from 'cheerio';
 import { describe, expect, test } from 'vitest';
 import type { Page } from 'playwright-core';
 import {
@@ -207,10 +208,10 @@ describe('funda adapter', () => {
   });
 
   test('without Nuxt data the cards are read instead, still skipping rented homes', async () => {
-    const html = readFixture('funda/search-delft.html').replace(
-      /<script[^>]*id="__NUXT_DATA__"[^>]*>[\s\S]*?<\/script>/,
-      '',
-    );
+    const $ = load(readFixture('funda/search-delft.html'));
+    $('script#__NUXT_DATA__').remove();
+    const html = $.html();
+    expect(html).not.toContain('__NUXT_DATA__');
     const ctx = ctxFor([{ match: '/zoeken/huur', body: html, headers: { 'content-type': 'text/html' } }]);
     const listings = await funda.search(
       { key: 'x', label: 'x', url: 'https://www.funda.nl/zoeken/huur?x=1' },

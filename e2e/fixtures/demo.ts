@@ -1,5 +1,6 @@
 import { spawn, type ChildProcess } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync } from 'node:fs';
+import { randomBytes } from 'node:crypto';
+import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { test as base, expect } from '@playwright/test';
@@ -41,6 +42,11 @@ async function waitForOk(url: string, headers: Record<string, string>, ms: numbe
 
 export async function startDemo(opts: { port: number; sandboxPort: number; blank?: boolean; env?: Record<string, string> }): Promise<Demo & { stop(): Promise<void>; child: ChildProcess }> {
   const home = mkdtempSync(join(tmpdir(), 'nlpf-e2e-'));
+  // The daemon keeps a token it finds, so the fixture makes one and seeds it
+  // rather than reading the daemon's back from disk.
+  const token = randomBytes(32).toString('hex');
+  mkdirSync(join(home, 'data'), { recursive: true });
+  writeFileSync(join(home, 'data', 'api-token'), `${token}\n`, { mode: 0o600 });
   const child = spawn(
     process.execPath,
     ['--import', 'tsx', join(ROOT, 'apps/cli/src/main.ts'), 'demo', '--port', String(opts.port), '--sandbox-port', String(opts.sandboxPort), '--no-open'],
@@ -61,14 +67,13 @@ export async function startDemo(opts: { port: number; sandboxPort: number; blank
   let log = '';
   child.stdout?.on('data', (d) => (log += String(d)));
   child.stderr?.on('data', (d) => (log += String(d)));
-  const tokenFile = join(home, 'data', 'api-token');
-  const end = Date.now() + 60_000;
-  while (!existsSync(tokenFile) && Date.now() < end) await new Promise((r) => setTimeout(r, 200));
-  if (!existsSync(tokenFile)) throw new Error(`the demo did not start:\n${log}`);
-  const token = readFileSync(tokenFile, 'utf8').trim();
   const url = `http://127.0.0.1:${opts.port}`;
   const sandbox = `http://127.0.0.1:${opts.sandboxPort}`;
-  await waitForOk(`${url}/api/v1/status`, { 'x-nlpf-token': token }, 30_000);
+  try {
+    await waitForOk(`${url}/api/v1/status`, { 'x-nlpf-token': token }, 90_000);
+  } catch {
+    throw new Error(`the demo did not start:\n${log}`);
+  }
 
   const call = async <T>(base: string, path: string, headers: Record<string, string>, init: { method?: string; body?: unknown } = {}) => {
     const r = await fetch(base + path, {
