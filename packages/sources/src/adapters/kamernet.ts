@@ -35,6 +35,7 @@ import {
   filterKey,
   firstLine,
   firstVisible,
+  guessLanguage,
   isObj,
   isoInstant,
   municipalityName,
@@ -328,7 +329,10 @@ export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdap
       if (!d) return listing;
       const out: RawListing = { ...listing, address: { ...listing.address }, extra: { ...listing.extra } };
       const description = str(d.dutchDescription) ?? str(d.englishDescription);
-      if (description) out.description = description.replace(/\r\n/g, '\n');
+      if (description) {
+        out.description = description.replace(/\r\n/g, '\n');
+        out.language = guessLanguage(description) ?? out.language;
+      }
       const postcode = normalisePostcode(String(d.postalCode ?? ''));
       if (postcode) out.address.postcode = postcode;
       const number = str(d.houseNumber);

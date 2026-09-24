@@ -215,6 +215,7 @@ describe('kamernet adapter', () => {
       city: 'Delft',
     });
     expect(full.description).toContain('indefinite contract');
+    expect(full.language).toBe('en');
     expect(full.publishedAt).toBe('2026-09-24T10:18:31.000Z');
     expect(full.agent?.name).toBe('Landlord (placeholder)');
     expect(full.images?.[0]).toMatch(/^https:\/\/resources\.kamernet\.nl\/image\//);
