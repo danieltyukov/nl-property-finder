@@ -191,11 +191,14 @@ const priceClose = (a?: number, b?: number) =>
   within(a, b, (x, y) => Math.abs(x - y) <= 0.05 * Math.max(x, y));
 const sizeClose = (a?: number, b?: number) => within(a, b, (x, y) => Math.abs(x - y) <= 3);
 
+/**
+ * A join without a full address match needs a known, close price; a size,
+ * when both sides have one, must be close too. Additions such as A and B are
+ * separate homes, so "12" with no price never joins "12A".
+ */
 function fuzzyMatch(listing: Listing, p: Property, rel: Relation): boolean {
   if (rel === 'partial')
-    return (
-      priceClose(listing.priceEur, p.priceEur) !== false && sizeClose(listing.sizeM2, p.sizeM2) !== false
-    );
+    return priceClose(listing.priceEur, p.priceEur) === true && sizeClose(listing.sizeM2, p.sizeM2) !== false;
   if (rel !== 'unknown') return false;
   const pa = normPostcode(listing.address.postcode);
   if (!pa || pa !== normPostcode(p.address.postcode)) return false;

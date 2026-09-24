@@ -165,6 +165,35 @@ describe('assignProperty', () => {
     expect(b.property.id).not.toBe(a.property.id);
   });
 
+  test('a missing addition joins only with a close price, never on no data', () => {
+    const withTwelveA = () => {
+      const store = openStore(':memory:');
+      const home = listing({
+        address: { street: 'Kerkstraat', houseNumber: '12A', city: 'Delft' },
+        priceEur: 950,
+        sizeM2: 45,
+      });
+      return { store, a: assignProperty(store, home, NOW) };
+    };
+    const twelve = (over: Partial<Parameters<typeof listing>[0]>) =>
+      listing({
+        sourceId: 'pararius',
+        address: { street: 'Kerkstraat', houseNumber: '12', city: 'Delft' },
+        ...over,
+      });
+
+    const first = withTwelveA();
+    const noData = assignProperty(first.store, twelve({ priceEur: undefined, sizeM2: undefined }), NOW);
+    expect(noData.created).toBe(true);
+
+    const second = withTwelveA();
+    const close = assignProperty(second.store, twelve({ priceEur: 960, sizeM2: undefined }), NOW);
+    expect(close.property.id).toBe(second.a.property.id);
+
+    const third = withTwelveA();
+    expect(assignProperty(third.store, twelve({ priceEur: 960, sizeM2: 60 }), NOW).created).toBe(true);
+  });
+
   test('a price far off in the same postcode does not join', () => {
     const store = openStore(':memory:');
     assignProperty(
