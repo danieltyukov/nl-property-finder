@@ -1,0 +1,660 @@
+{
+ "data": {
+  "housingPublications": {
+   "nodes": {
+    "pageInfo": {
+     "hasNextPage": false,
+     "endCursor": "SG91c2luZ1B1YmxpY2F0aW9uOjg="
+    },
+    "edges": [
+     {
+      "node": {
+       "id": "SG91c2luZ1B1YmxpY2F0aW9uOjEwMDEyMzMwMQ==",
+       "startTime": "2026-09-23T11:04:29+02:00",
+       "stopTime": "2026-10-23T11:04:29+02:00",
+       "totalNumberOfApplications": 0,
+       "allocationProcess": {
+        "id": "SG91c2luZ0FsbG9jYXRpb25Qcm9jZXNzOjkw",
+        "name": "ExternAanbod",
+        "applicationMethod": "EXTERNAL"
+       },
+       "unit": {
+        "id": "SG91c2luZ1B1YmxpY2F0aW9uVW5pdDoxNDQ5NzU7MDswOw==",
+        "description": "Bestemd voor 55 jaar of ouder. Dit 3 kamer appartement is gelegen in een rustige en groene buurt in een strak en modern vormgegeven appartementencomplex nabij winkels en openbaar vervoer.\n\nLichte woonkamer met nette open keuken, 2 slaapkamers, inpandige berging met wasmachine-aansluiting, badkamer voorzien van douche, wastafel en toilet, ruim terras aan een gezellige leefgalerij. Door het open karakter van het complex zult u zich snel thuis voelen in de Groene Schakel. \n\nBijzonderheden:\n* Woning reeds vzv een nette laminaatvloer\n* Maximaal 2 personen, geen inwonende kinderen. \n* Bestemd voor 55+\n* Verplichte huur parkeerplaats á € 44,88 per maand (is in deze advertentie reeds opgenomen in de genoemde huur prijs).\n* bij deze woning hoort GEEN  kelderbox / berging \n* Betreft een woning in de midden huur. \nDe regels van passend toewijzen zijn hierbij van toepassing.\n*Om in aanmerking te komen voor deze woning, vragen wij een minimaal (gezamenlijk) bruto jaarinkomen van  € 59000 \n\nHet is een woning in de vrije sector. Bij deze woning is geen huurtoeslag mogelijk.\n\nDe voordelen van huren bij Hefwonen:\n\n-\tWij rekenen geen borg\n-\tLage administratiekosten van € 30,-\n-\tKorte opzegtermijn van 1 maand.\n-       Foto's zijn van gelijkwaardige woning kunnen afwijken van de werkelijkheid.\n\nWij kunnen deze woning aanbieden via meerdere kanalen. Nadat u uw interesse heeft getoond, kunt u een bevestigingsmail ontvangen. Deze mail zegt niets over de volgorde van toewijzing van de woning.  \n\nEen screening op het (betalings)gedrag van de woningzoekende vormt eveneens een integraal onderdeel van de aanbiedingsvoorwaarden. Wij verwijzen u naar ons Privacy Statement - Hef Wonen.\n“Op het moment dat u huurder wenst te worden, verstrekken wij uw gegevens aan Economic Data Resources B.V. (EDR). EDR zal op basis van deze gegevens een advies geven over uw kredietwaardigheid. EDR gebruikt uw gegevens voor onderzoek naar uw kredietwaardigheid en contactgegevens. Voor meer informatie over EDR en hoe EDR uw privacy waarborgt en uw privacy rechten zoals uw recht op inzage, bezwaar, wijziging en verwijdering, zie: https://www.edrcreditservices.nl/privacy-statement/\nOp grond van de resultaten van deze screening kan Stichting Hef Wonen besluiten niet tot verhuur over te gaan aan de woningzoekende, zelfs wanneer de woning voorlopig is toegewezen.\n",
+        "slug": {
+         "value": "Hoogvliet-Alverstraat-307-SG91c2luZ1B1YmxpY2F0aW9uOjEwMDEyMzMwMQ=="
+        },
+        "unitUsageType": "STANDARD",
+        "suitability": "NONE",
+        "basicRent": {
+         "exact": 1075
+        },
+        "grossRent": {
+         "exact": 1180
+        },
+        "thumbnails": {
+         "edges": []
+        },
+        "location": {
+         "id": "SG91c2luZ0xvY2F0aW9uOjMxOTJUTjszMDc7Ow==",
+         "addressLine1": "Alverstraat 307",
+         "addressLine2": "Hoogvliet"
+        },
+        "types": {
+         "edges": [
+          {
+           "node": {
+            "name": "Bovenwoning"
+           }
+          }
+         ]
+        },
+        "availableDate": "2026-09-23T00:00:00+02:00",
+        "endDateTemporaryRentalAgreement": null,
+        "externalApplyUrl": {
+         "value": "https://huuraanbod.hefwonen.nl/huuraanbod/alverstraat-307"
+        },
+        "dimensions": {
+         "edges": [
+          {
+           "node": {
+            "area": "LIVING_ROOM",
+            "surfaceArea": 81000000
+           }
+          },
+          {
+           "node": {
+            "area": "LIVING_ROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "LIVING_BEDROOM",
+            "surfaceArea": 81000000
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "KITCHEN",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BATHROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "HOBBY_ROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "ATTIC",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "HALL",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "STORAGE",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "TRAFFIC_ZONE",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "PLOT",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "TOTAL",
+            "surfaceArea": 81000000
+           }
+          }
+         ]
+        },
+        "energyRating": {
+         "name": "B"
+        },
+        "numberOfBedrooms": {
+         "exact": 2
+        },
+        "availableFor": {
+         "name": ""
+        }
+       }
+      }
+     },
+     {
+      "node": {
+       "id": "SG91c2luZ1B1YmxpY2F0aW9uOjEwMDEyMzIyNA==",
+       "startTime": "2026-09-21T20:00:00+02:00",
+       "stopTime": null,
+       "totalNumberOfApplications": 0,
+       "allocationProcess": {
+        "id": "SG91c2luZ0FsbG9jYXRpb25Qcm9jZXNzOjg1",
+        "name": "Wens&Wacht",
+        "applicationMethod": "REGISTRATION"
+       },
+       "unit": {
+        "id": "SG91c2luZ1B1YmxpY2F0aW9uVW5pdDowOzEzNDk7MDs=",
+        "description": "<p>Op zoek naar een comfortabel appartement voor senioren op een centrale locatie? Dan is deze woning aan de Reigers wellicht iets voor u.</p><p>Dit nette 2- of 3-kamerappartementen gelegen op verschillende verdiepingen van een complex met lift en beschikt over een lichte woonkamer, een open keuken, &eacute;&eacute;n of twee slaapkamers, een badkamer met douche, een separaat toilet en een inpandige berging. Daarnaast beschikt de woning over een balkon waar u kunt genieten van het uitzicht en de buitenlucht. De woning wordt verwarmd via stadsverwarming.</p><p>De woning is uitsluitend bestemd voor woningzoekenden van 55 jaar en ouder. Inwonende kinderen zijn niet toegestaan.&nbsp;</p><p>De ligging is gunstig, met winkels, openbaar vervoer en diverse voorzieningen op korte afstand. Hierdoor woont u comfortabel en heeft u alle dagelijkse voorzieningen binnen handbereik.</p>",
+        "slug": {
+         "value": "Rotterdam-Backershagen-118-SG91c2luZ1B1YmxpY2F0aW9uOjEwMDEyMzIyNA=="
+        },
+        "unitUsageType": "CLUSTER",
+        "suitability": "NONE",
+        "basicRent": {
+         "exact": 0
+        },
+        "grossRent": {
+         "exact": 0
+        },
+        "thumbnails": {
+         "edges": [
+          {
+           "node": {
+            "url": "https://filecabinet.embracecloud.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/185843_39524/6212157_22583.jpg"
+           }
+          },
+          {
+           "node": {
+            "url": "https://filecabinet.embracecloud.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/185843_39524/6212137_67604.jpeg"
+           }
+          }
+         ]
+        },
+        "location": {
+         "id": "SG91c2luZ0xvY2F0aW9uOjMwNzhTQjsxMTg7Ow==",
+         "addressLine1": "Backershagen 118",
+         "addressLine2": "Rotterdam"
+        },
+        "types": {
+         "edges": []
+        },
+        "availableDate": null,
+        "endDateTemporaryRentalAgreement": null,
+        "externalApplyUrl": {
+         "value": ""
+        },
+        "dimensions": {
+         "edges": [
+          {
+           "node": {
+            "area": "LIVING_ROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "TOTAL",
+            "surfaceArea": 0
+           }
+          }
+         ]
+        },
+        "energyRating": {
+         "name": ""
+        },
+        "numberOfBedrooms": {
+         "exact": 0
+        },
+        "availableFor": {
+         "name": ""
+        }
+       }
+      }
+     },
+     {
+      "node": {
+       "id": "SG91c2luZ1B1YmxpY2F0aW9uOjEwMDEyMjk2OQ==",
+       "startTime": "2026-09-19T20:00:00+02:00",
+       "stopTime": "2026-09-29T20:00:00+02:00",
+       "totalNumberOfApplications": 0,
+       "allocationProcess": {
+        "id": "SG91c2luZ0FsbG9jYXRpb25Qcm9jZXNzOjk3",
+        "name": "Overig aanbod",
+        "applicationMethod": "FORM"
+       },
+       "unit": {
+        "id": "SG91c2luZ1B1YmxpY2F0aW9uVW5pdDoxNDQ1MTY7MDswOw==",
+        "description": "<p>Garagebox te huur.</p><p>Huurders van een woning van Havensteder in de Hoeken hebben voorrang bij de toewijzing.</p><p>Bent u niet de hoofdhuurder? Dan wordt de huur verhoogd met 21% BTW.</p><p>Woont u niet in Capelle aan den IJssel? Dan hoeft u niet te reageren.</p>",
+        "slug": {
+         "value": "Capelle-aan-den-IJssel-Beemsterhoek-348-SG91c2luZ1B1YmxpY2F0aW9uOjEwMDEyMjk2OQ=="
+        },
+        "unitUsageType": "STANDARD",
+        "suitability": "NONE",
+        "basicRent": {
+         "exact": 100
+        },
+        "grossRent": {
+         "exact": 100
+        },
+        "thumbnails": {
+         "edges": [
+          {
+           "node": {
+            "url": "https://filecabinet.embracecloud.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/185392_51878/6194883_54997.jpg"
+           }
+          }
+         ]
+        },
+        "location": {
+         "id": "SG91c2luZ0xvY2F0aW9uOjI5MDVYVDszNDg7Ow==",
+         "addressLine1": "Beemsterhoek 348",
+         "addressLine2": "Capelle aan den IJssel"
+        },
+        "types": {
+         "edges": [
+          {
+           "node": {
+            "name": "Garage"
+           }
+          }
+         ]
+        },
+        "availableDate": "2026-09-29T00:00:00+02:00",
+        "endDateTemporaryRentalAgreement": null,
+        "externalApplyUrl": {
+         "value": ""
+        },
+        "dimensions": {
+         "edges": [
+          {
+           "node": {
+            "area": "LIVING_ROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "LIVING_ROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "LIVING_BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "KITCHEN",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BATHROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "HOBBY_ROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "ATTIC",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "HALL",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "STORAGE",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "TRAFFIC_ZONE",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "PLOT",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "TOTAL",
+            "surfaceArea": 15000000
+           }
+          }
+         ]
+        },
+        "energyRating": {
+         "name": ""
+        },
+        "numberOfBedrooms": {
+         "exact": 0
+        },
+        "availableFor": {
+         "name": ""
+        }
+       }
+      }
+     },
+     {
+      "node": {
+       "id": "SG91c2luZ1B1YmxpY2F0aW9uOjEwMDEyMzMwOQ==",
+       "startTime": "2026-09-23T20:00:00+02:00",
+       "stopTime": "2026-09-27T20:00:00+02:00",
+       "totalNumberOfApplications": 0,
+       "allocationProcess": {
+        "id": "SG91c2luZ0FsbG9jYXRpb25Qcm9jZXNzOjEw",
+        "name": "Inschrijfduur",
+        "applicationMethod": "REGISTRATION"
+       },
+       "unit": {
+        "id": "SG91c2luZ1B1YmxpY2F0aW9uVW5pdDoxNDQ4ODE7MDswOw==",
+        "description": "<div data-ccp-timestamp=\"1790167823410\"><table width=\"2045\"><colgroup><col width=\"2045\" /></colgroup><tbody><tr><td width=\"2045\" height=\"15\">Een leuke flatwoning gelegen in een ruste wijk met veel parkeermogelijkheden. Wijkbeheerder aanwezig. Rotterdamwet is van toepassing. LET aub op de voorwaarden. Huurprijs onder voorbehoud.</td></tr></tbody></table></div>",
+        "slug": {
+         "value": "Capelle-aan-den-IJssel-Parsifal-86-SG91c2luZ1B1YmxpY2F0aW9uOjEwMDEyMzMwOQ=="
+        },
+        "unitUsageType": "STANDARD",
+        "suitability": "NO_PREFERENCE",
+        "basicRent": {
+         "exact": 713.02
+        },
+        "grossRent": {
+         "exact": 736.11
+        },
+        "thumbnails": {
+         "edges": [
+          {
+           "node": {
+            "url": "https://filecabinet.embracecloud.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/185957_28822/6218576_28241.jpg"
+           }
+          },
+          {
+           "node": {
+            "url": "https://filecabinet.embracecloud.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/185957_28822/6218586_14211.jpg"
+           }
+          }
+         ]
+        },
+        "location": {
+         "id": "SG91c2luZ0xvY2F0aW9uOjI5MDdXUDs4Njs7",
+         "addressLine1": "Parsifal 86",
+         "addressLine2": "Capelle aan den IJssel"
+        },
+        "types": {
+         "edges": [
+          {
+           "node": {
+            "name": "Maisonnettewoning"
+           }
+          }
+         ]
+        },
+        "availableDate": null,
+        "endDateTemporaryRentalAgreement": null,
+        "externalApplyUrl": {
+         "value": ""
+        },
+        "dimensions": {
+         "edges": [
+          {
+           "node": {
+            "area": "LIVING_ROOM",
+            "surfaceArea": 20340000
+           }
+          },
+          {
+           "node": {
+            "area": "LIVING_ROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "LIVING_BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 11080000
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 8300000
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "KITCHEN",
+            "surfaceArea": 10980000
+           }
+          },
+          {
+           "node": {
+            "area": "BATHROOM",
+            "surfaceArea": 3900000
+           }
+          },
+          {
+           "node": {
+            "area": "HOBBY_ROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "ATTIC",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "HALL",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "STORAGE",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "TRAFFIC_ZONE",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "PLOT",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "TOTAL",
+            "surfaceArea": 54600000
+           }
+          }
+         ]
+        },
+        "energyRating": {
+         "name": "A"
+        },
+        "numberOfBedrooms": {
+         "exact": 2
+        },
+        "availableFor": {
+         "name": "Geen voorkeur"
+        }
+       }
+      }
+     }
+    ]
+   }
+  }
+ }
+}
