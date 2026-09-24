@@ -105,7 +105,11 @@ describe('renderSystemdUnit', () => {
 
 describe('renderLaunchdPlist', () => {
   test('is a LaunchAgent that runs at load with escaped arguments', () => {
-    const plist = renderLaunchdPlist({ ...spec, entry: '/Users/sam/a&b <c>/nlpf.mjs', home: '/Users/sam/nlpf' });
+    const plist = renderLaunchdPlist({
+      ...spec,
+      entry: '/Users/sam/a&b <c>/nlpf.mjs',
+      home: '/Users/sam/nlpf',
+    });
     expect(plist).toContain('<string>nl.property-finder</string>');
     expect(plist).toContain('<key>RunAtLoad</key>\n  <true/>');
     expect(plist).toContain(
@@ -125,8 +129,16 @@ describe('renderSchtasksCreateArgs', () => {
       home: 'C:\\Users\\Sam\\nlpf home',
     });
     expect(args).toEqual([
-      '/Create', '/F', '/SC', 'ONLOGON', '/TN', 'nl-property-finder', '/RL', 'LIMITED',
-      '/TR', '"C:\\Program Files\\nodejs\\node.exe" C:\\nlpf\\dist\\nlpf.mjs daemon --home "C:\\Users\\Sam\\nlpf home"',
+      '/Create',
+      '/F',
+      '/SC',
+      'ONLOGON',
+      '/TN',
+      'nl-property-finder',
+      '/RL',
+      'LIMITED',
+      '/TR',
+      '"C:\\Program Files\\nodejs\\node.exe" C:\\nlpf\\dist\\nlpf.mjs daemon --home "C:\\Users\\Sam\\nlpf home"',
     ]);
   });
 });
@@ -161,7 +173,9 @@ describe('systemd manager', () => {
 
   test('on again with the same unit does not reload or restart a running agent', async () => {
     const home = tempHome();
-    const { exec, calls } = stubExec((cmd) => (cmd.endsWith('is-active nl-property-finder.service') ? { stdout: 'active\n' } : {}));
+    const { exec, calls } = stubExec((cmd) =>
+      cmd.endsWith('is-active nl-property-finder.service') ? { stdout: 'active\n' } : {},
+    );
     const svc = createServiceManager({ platform: 'linux', env: {}, home, exec });
     await svc.on(spec);
     calls.length = 0;
@@ -175,7 +189,9 @@ describe('systemd manager', () => {
 
   test('a changed unit restarts an agent that was already running', async () => {
     const home = tempHome();
-    const { exec, calls } = stubExec((cmd) => (cmd.endsWith('is-active nl-property-finder.service') ? { stdout: 'active\n' } : {}));
+    const { exec, calls } = stubExec((cmd) =>
+      cmd.endsWith('is-active nl-property-finder.service') ? { stdout: 'active\n' } : {},
+    );
     const svc = createServiceManager({ platform: 'linux', env: {}, home, exec });
     await svc.on(spec);
     calls.length = 0;
@@ -186,7 +202,12 @@ describe('systemd manager', () => {
 
   test('respects XDG_CONFIG_HOME', () => {
     const home = tempHome();
-    const svc = createServiceManager({ platform: 'linux', env: { XDG_CONFIG_HOME: join(home, 'cfg') }, home, exec: stubExec().exec });
+    const svc = createServiceManager({
+      platform: 'linux',
+      env: { XDG_CONFIG_HOME: join(home, 'cfg') },
+      home,
+      exec: stubExec().exec,
+    });
     expect(svc.file).toBe(join(home, 'cfg', 'systemd', 'user', 'nl-property-finder.service'));
   });
 
@@ -211,12 +232,21 @@ describe('systemd manager', () => {
   test('status reports installed, enabled, active and whether the unit is current', async () => {
     const home = tempHome();
     const { exec } = stubExec((cmd) =>
-      cmd.includes('is-enabled') ? { stdout: 'enabled\n' } : cmd.includes('is-active') ? { stdout: 'inactive\n', code: 3 } : {},
+      cmd.includes('is-enabled')
+        ? { stdout: 'enabled\n' }
+        : cmd.includes('is-active')
+          ? { stdout: 'inactive\n', code: 3 }
+          : {},
     );
     const svc = createServiceManager({ platform: 'linux', env: {}, home, exec });
     expect(await svc.status(spec)).toMatchObject({ installed: false, enabled: false, active: false });
     await svc.on(spec);
-    expect(await svc.status(spec)).toMatchObject({ installed: true, enabled: true, active: false, upToDate: true });
+    expect(await svc.status(spec)).toMatchObject({
+      installed: true,
+      enabled: true,
+      active: false,
+      upToDate: true,
+    });
     expect(await svc.status({ ...spec, node: '/other/node' })).toMatchObject({ upToDate: false });
   });
 
@@ -245,7 +275,10 @@ describe('launchd manager', () => {
     ]);
     calls.length = 0;
     await svc.off();
-    expect(calls).toEqual(['launchctl bootout gui/501/nl.property-finder', 'launchctl disable gui/501/nl.property-finder']);
+    expect(calls).toEqual([
+      'launchctl bootout gui/501/nl.property-finder',
+      'launchctl disable gui/501/nl.property-finder',
+    ]);
   });
 });
 
@@ -286,6 +319,8 @@ describe('resolveCliEntry', () => {
 
   test('from source without a build it says how to build', () => {
     const src = join(tempHome(), 'apps', 'cli', 'src', 'service', 'index.ts');
-    expect(() => resolveCliEntry(pathToFileURL(src).href, () => false)).toThrow(/npm run build -w @nlpf\/cli/);
+    expect(() => resolveCliEntry(pathToFileURL(src).href, () => false)).toThrow(
+      /npm run build -w @nlpf\/cli/,
+    );
   });
 });

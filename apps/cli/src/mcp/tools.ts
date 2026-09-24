@@ -1,6 +1,13 @@
 import type { ToolAnnotations } from '@modelcontextprotocol/sdk/types.js';
 import { z } from 'zod';
-import { NamedSearchSchema, ProfileSchema, RegionSchema, ResolveTaskBody, SearchSchema, type Page } from '@nlpf/core';
+import {
+  NamedSearchSchema,
+  ProfileSchema,
+  RegionSchema,
+  ResolveTaskBody,
+  SearchSchema,
+  type Page,
+} from '@nlpf/core';
 import type { NlpfClient } from '../client.js';
 
 /*
@@ -53,8 +60,18 @@ const LOCAL_WRITE: ToolAnnotations = { readOnlyHint: false, destructiveHint: fal
 const CONTACTS_PEOPLE: ToolAnnotations = { readOnlyHint: false, destructiveHint: true, openWorldHint: true };
 
 const applicationStatus = z.enum([
-  'queued', 'contacted', 'replied', 'viewing_proposed', 'viewing_booked', 'viewed',
-  'offer', 'rejected', 'withdrawn', 'gone', 'skipped', 'manual',
+  'queued',
+  'contacted',
+  'replied',
+  'viewing_proposed',
+  'viewing_booked',
+  'viewed',
+  'offer',
+  'rejected',
+  'withdrawn',
+  'gone',
+  'skipped',
+  'manual',
 ]);
 
 const S = SearchSchema.shape;
@@ -77,10 +94,16 @@ export const TOOLS: ToolDef[] = [
     description:
       'Searches the rental homes the agent has found, newest first. Each result is one property (one home, even when several sites list it) with its listings, the match verdict and score, the application and its status, and any viewings. Filter with q (free text on address and title) and status (an application status). Use it to answer questions about what is on the market or what happened to a home. Read only: it never contacts anyone.',
     input: {
-      q: z.string().optional().describe('Free text matched against address and title, for example "Oude Delft" or "studio".'),
+      q: z
+        .string()
+        .optional()
+        .describe('Free text matched against address and title, for example "Oude Delft" or "studio".'),
       status: applicationStatus.optional().describe('Only homes whose application has this status.'),
       limit: z.number().int().min(1).max(100).default(20).describe('How many properties to return.'),
-      before: z.string().optional().describe('The next value from a previous result, to get the page after it.'),
+      before: z
+        .string()
+        .optional()
+        .describe('The next value from a previous result, to get the page after it.'),
     },
     annotations: READ,
     run: async (c, a) => listResult(await c.properties(withoutUndefined(a))),
@@ -131,12 +154,23 @@ export const TOOLS: ToolDef[] = [
       action: ResolveTaskBody.shape.action.describe(
         'done, dismiss, snooze or reject change only the inbox. approve and send_draft contact a landlord or agent.',
       ),
-      until: z.string().optional().describe('For snooze: when the task should come back, as an ISO 8601 time.'),
+      until: z
+        .string()
+        .optional()
+        .describe('For snooze: when the task should come back, as an ISO 8601 time.'),
       draft: z.string().optional().describe('For send_draft: the exact text to send.'),
-      slot: z.number().int().optional().describe('For viewing choices: the index of the proposed slot to accept.'),
+      slot: z
+        .number()
+        .int()
+        .optional()
+        .describe('For viewing choices: the index of the proposed slot to accept.'),
     },
     annotations: CONTACTS_PEOPLE,
-    run: (c, a) => c.resolveTask(a.id, withoutUndefined({ action: a.action, until: a.until, draft: a.draft, slot: a.slot }) as never),
+    run: (c, a) =>
+      c.resolveTask(
+        a.id,
+        withoutUndefined({ action: a.action, until: a.until, draft: a.draft, slot: a.slot }) as never,
+      ),
   }),
 
   defineTool({
@@ -154,7 +188,9 @@ export const TOOLS: ToolDef[] = [
     title: 'Read a conversation',
     description:
       'Returns one conversation with every message in order: who wrote it, the channel, the intent the agent recognised, and for messages the agent wrote, why it wrote them. Also returns the property and application the conversation belongs to. Use it to read what a landlord said before drafting or sending anything. Read only.',
-    input: { id: z.string().describe('The conversation id, as returned by list_conversations or get_property.') },
+    input: {
+      id: z.string().describe('The conversation id, as returned by list_conversations or get_property.'),
+    },
     annotations: READ,
     run: (c, a) => c.conversation(a.id),
   }),
@@ -184,10 +220,17 @@ export const TOOLS: ToolDef[] = [
     input: {
       conversationId: z.string().describe('The conversation to reply in.'),
       body: z.string().min(1).describe('The exact text to send.'),
-      subject: z.string().optional().describe('A subject line, for email conversations. Usually leave it out to keep the thread.'),
+      subject: z
+        .string()
+        .optional()
+        .describe('A subject line, for email conversations. Usually leave it out to keep the thread.'),
     },
     annotations: CONTACTS_PEOPLE,
-    run: (c, a) => c.sendMessage(a.conversationId, withoutUndefined({ body: a.body, subject: a.subject, send: true }) as never),
+    run: (c, a) =>
+      c.sendMessage(
+        a.conversationId,
+        withoutUndefined({ body: a.body, subject: a.subject, send: true }) as never,
+      ),
   }),
 
   defineTool({
@@ -217,20 +260,34 @@ export const TOOLS: ToolDef[] = [
       'Changes one named search, found by id. Only the fields you pass change; the others stay as they are. Set create to true to add a new search with that id. The change applies to listings from now on and does not undo anything already sent, but homes that now match may be contacted automatically according to the automation settings. Use it when the user wants to change where or what they are looking for.',
     input: {
       id: z.string().describe('The search id, lowercase letters, digits and dashes, for example "main".'),
-      create: z.boolean().default(false).describe('Add a new search with this id instead of changing an existing one.'),
+      create: z
+        .boolean()
+        .default(false)
+        .describe('Add a new search with this id instead of changing an existing one.'),
       name: z.string().optional().describe('A readable name for the search.'),
       enabled: z.boolean().optional().describe('Whether the agent uses this search.'),
-      regions: z.array(RegionSchema).optional().describe('Replaces the regions. Each has a name and municipalities, postcode ranges like "2611-2629", or a polygon.'),
+      regions: z
+        .array(RegionSchema)
+        .optional()
+        .describe(
+          'Replaces the regions. Each has a name and municipalities, postcode ranges like "2611-2629", or a polygon.',
+        ),
       priceMinEur: optional(S.priceMinEur, 'Minimum monthly rent in euros.'),
       priceMaxEur: optional(S.priceMaxEur, 'Maximum monthly rent in euros.'),
       sizeMinM2: optional(S.sizeMinM2, 'Minimum living area in square metres.'),
       roomsMin: optional(S.roomsMin, 'Minimum number of rooms.'),
       bedroomsMin: optional(S.bedroomsMin, 'Minimum number of bedrooms.'),
       types: optional(S.types, 'Property types to include: room, studio, apartment, house, other.'),
-      furnishing: optional(S.furnishing, 'Furnishing to include: unfurnished, upholstered, furnished, unknown.'),
+      furnishing: optional(
+        S.furnishing,
+        'Furnishing to include: unfurnished, upholstered, furnished, unknown.',
+      ),
       availableBy: optional(S.availableBy, 'Only homes available by this date, YYYY-MM-DD.'),
       mustHaves: optional(S.mustHaves, 'Replaces the must-haves, as short phrases.'),
-      dealBreakers: optional(S.dealBreakers, 'Replaces the deal-breakers; a listing whose text contains one is skipped.'),
+      dealBreakers: optional(
+        S.dealBreakers,
+        'Replaces the deal-breakers; a listing whose text contains one is skipped.',
+      ),
       minScore: optional(S.minScore, 'Minimum match score from 0 to 100.'),
     },
     annotations: LOCAL_WRITE,
@@ -240,7 +297,9 @@ export const TOOLS: ToolDef[] = [
       const searches = (await c.config()).searches;
       const index = searches.findIndex((s) => s.id === id);
       if (index < 0 && !create) {
-        throw new Error(`No search with id ${id}. Existing searches: ${searches.map((s) => s.id).join(', ')}. Pass create: true to add it.`);
+        throw new Error(
+          `No search with id ${id}. Existing searches: ${searches.map((s) => s.id).join(', ')}. Pass create: true to add it.`,
+        );
       }
       const base = index >= 0 ? searches[index] : { id, name: changes.name ?? id };
       const updated = NamedSearchSchema.parse({ ...base, ...changes, id });
@@ -264,7 +323,7 @@ export const TOOLS: ToolDef[] = [
     name: 'update_profile',
     title: 'Change the profile',
     description:
-      'Changes fields of the user\'s profile. Only the fields you pass change. facts are merged into the existing facts, and a fact set to an empty string is removed. Use it when the user tells you something about themselves that landlords ask about. Record only what the user said; never invent details, and never store a BSN, bank details or passwords here.',
+      "Changes fields of the user's profile. Only the fields you pass change. facts are merged into the existing facts, and a fact set to an empty string is removed. Use it when the user tells you something about themselves that landlords ask about. Record only what the user said; never invent details, and never store a BSN, bank details or passwords here.",
     input: {
       firstName: optional(P.firstName, 'First name.'),
       lastName: optional(P.lastName, 'Last name.'),
@@ -280,9 +339,15 @@ export const TOOLS: ToolDef[] = [
       moveInLatest: optional(P.moveInLatest, 'Latest move-in date, YYYY-MM-DD.'),
       stayMonths: optional(P.stayMonths, 'How many months the user plans to stay.'),
       languages: optional(P.languages, 'Languages the user speaks, as codes like "en" and "nl".'),
-      messageLanguage: optional(P.messageLanguage, 'Language for messages: auto (follow the listing), nl or en.'),
+      messageLanguage: optional(
+        P.messageLanguage,
+        'Language for messages: auto (follow the listing), nl or en.',
+      ),
       about: optional(P.about, "A short introduction in the user's own words."),
-      facts: z.record(z.string(), z.string()).optional().describe('Extra question and answer pairs, merged into the existing facts.'),
+      facts: z
+        .record(z.string(), z.string())
+        .optional()
+        .describe('Extra question and answer pairs, merged into the existing facts.'),
       signature: optional(P.signature, 'How messages are signed.'),
     },
     annotations: LOCAL_WRITE,
@@ -333,7 +398,9 @@ export const TOOLS: ToolDef[] = [
     title: 'Test a source',
     description:
       'Runs one search on a source right now against the live site and reports what came back, to check that the site still works with the agent. It can take a minute when the site needs a browser. It never sends messages to anyone. Use it when source_health shows a problem or the user asks whether a site works.',
-    input: { id: z.string().describe('The source id, as returned by source_health, for example "kamernet".') },
+    input: {
+      id: z.string().describe('The source id, as returned by source_health, for example "kamernet".'),
+    },
     annotations: { readOnlyHint: true, openWorldHint: true },
     run: (c, a) => c.testSource(a.id),
   }),
@@ -355,11 +422,18 @@ export const TOOLS: ToolDef[] = [
       'For when the user has found a home: sends a withdrawal message on every open conversation, marks those applications withdrawn, and by default pauses automation. This CONTACTS REAL PEOPLE, possibly many at once, and cannot be undone. Pass foundAddress (the home the user took) so that conversation is left alone. It requires confirm: true, and you should only call it after the user has explicitly confirmed that they found a place and want every other landlord told.',
     input: {
       confirm: z.literal(true).describe('Must be true. Set it only after the user explicitly confirmed.'),
-      foundAddress: z.string().optional().describe('The address of the home the user took; its conversation gets no withdrawal.'),
-      message: z.string().optional().describe('The withdrawal text. Leave it out to use the configured or built-in message.'),
+      foundAddress: z
+        .string()
+        .optional()
+        .describe('The address of the home the user took; its conversation gets no withdrawal.'),
+      message: z
+        .string()
+        .optional()
+        .describe('The withdrawal text. Leave it out to use the configured or built-in message.'),
       pause: z.boolean().default(true).describe('Pause automation afterwards so no new homes are contacted.'),
     },
     annotations: CONTACTS_PEOPLE,
-    run: (c, a) => c.withdrawAll(withoutUndefined({ foundAddress: a.foundAddress, message: a.message, pause: a.pause })),
+    run: (c, a) =>
+      c.withdrawAll(withoutUndefined({ foundAddress: a.foundAddress, message: a.message, pause: a.pause })),
   }),
 ];

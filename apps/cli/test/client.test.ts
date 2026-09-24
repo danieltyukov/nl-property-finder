@@ -76,7 +76,9 @@ describe('createClient', () => {
 
   test('list endpoints come back as pages whether the daemon sends an array or a page', async () => {
     const d = await fakeDaemon((s) =>
-      s.url.startsWith('/api/v1/tasks') ? { json: [{ id: 't_1' }] } : { json: { items: [{ id: 's_1' }], next: 'c2' } },
+      s.url.startsWith('/api/v1/tasks')
+        ? { json: [{ id: 't_1' }] }
+        : { json: { items: [{ id: 's_1' }], next: 'c2' } },
     );
     const client = createClient({ baseUrl: d.url, token: () => 't0ken' });
     expect(await client.tasks()).toEqual({ items: [{ id: 't_1' }] });
@@ -99,7 +101,10 @@ describe('createClient', () => {
   });
 
   test('daemon errors surface their code and message', async () => {
-    const d = await fakeDaemon(() => ({ status: 404, json: { error: { code: 'not_found', message: 'No task t_9.' } } }));
+    const d = await fakeDaemon(() => ({
+      status: 404,
+      json: { error: { code: 'not_found', message: 'No task t_9.' } },
+    }));
     const client = createClient({ baseUrl: d.url, token: () => 't0ken' });
     const err = (await client.resolveTask('t_9', { action: 'done' }).catch((e: unknown) => e)) as ApiError;
     expect(err).toBeInstanceOf(ApiError);

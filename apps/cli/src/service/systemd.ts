@@ -27,7 +27,10 @@ export function systemdEscapeArg(arg: string, opts: { executable?: boolean } = {
 
 /** An Environment= value: specifiers are expanded there (so `%` is doubled), variables are not. */
 function systemdEnv(name: string, value: string): string {
-  const v = `${name}=${value}`.replace(/%/g, '%%').replace(/[\\"]/g, (c) => `\\${c}`).replace(/\n/g, '\\n');
+  const v = `${name}=${value}`
+    .replace(/%/g, '%%')
+    .replace(/[\\"]/g, (c) => `\\${c}`)
+    .replace(/\n/g, '\\n');
   return `Environment="${v}"`;
 }
 
@@ -102,7 +105,10 @@ export function createSystemdManager(deps: ServiceDeps): ServiceManager {
       const wasActive = (await ctl('is-active', UNIT)).stdout.trim() === 'active';
       const changed = writeIfChanged(file, renderSystemdUnit(spec));
       try {
-        writeIfChanged(desktopEntryPath(deps.env, deps.home), renderDesktopEntry({ exec: [spec.node, spec.entry, 'open'] }));
+        writeIfChanged(
+          desktopEntryPath(deps.env, deps.home),
+          renderDesktopEntry({ exec: [spec.node, spec.entry, 'open'] }),
+        );
       } catch {
         // The launcher is a convenience; a read-only applications folder must not stop the service.
       }

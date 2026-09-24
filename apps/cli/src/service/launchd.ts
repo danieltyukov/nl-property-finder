@@ -1,6 +1,13 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { mustRun, readIfExists, writeIfChanged, type ServiceDeps, type ServiceManager, type ServiceSpec } from './common.js';
+import {
+  mustRun,
+  readIfExists,
+  writeIfChanged,
+  type ServiceDeps,
+  type ServiceManager,
+  type ServiceSpec,
+} from './common.js';
 
 /*
  * macOS: a LaunchAgent in ~/Library/LaunchAgents. Generated from the same spec
@@ -101,7 +108,9 @@ export function createLaunchdManager(deps: ServiceDeps): ServiceManager {
       if (content === null) return { kind: 'launchd', file, installed: false, enabled: false, active: false };
       const printed = await deps.exec('launchctl', ['print', target]);
       const disabled = await deps.exec('launchctl', ['print-disabled', domain]);
-      const enabled = !new RegExp(`"${LAUNCHD_LABEL.replace(/\./g, '\\.')}"\\s*=>\\s*(true|disabled)`).test(disabled.stdout);
+      const enabled = !new RegExp(`"${LAUNCHD_LABEL.replace(/\./g, '\\.')}"\\s*=>\\s*(true|disabled)`).test(
+        disabled.stdout,
+      );
       const active = printed.code === 0 && /state = running/.test(printed.stdout);
       const status = { kind: 'launchd' as const, file, installed: true, enabled, active };
       return spec ? { ...status, upToDate: content === renderLaunchdPlist(spec) } : status;

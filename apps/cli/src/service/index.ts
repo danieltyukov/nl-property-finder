@@ -3,7 +3,13 @@ import { existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { Paths } from '@nlpf/core';
-import { ServiceError, type ExecFn, type ServiceDeps, type ServiceManager, type ServiceSpec } from './common.js';
+import {
+  ServiceError,
+  type ExecFn,
+  type ServiceDeps,
+  type ServiceManager,
+  type ServiceSpec,
+} from './common.js';
 import { createLaunchdManager } from './launchd.js';
 import { createSchtasksManager } from './schtasks.js';
 import { createSystemdManager } from './systemd.js';
@@ -47,7 +53,10 @@ export const execFileRunner: ExecFn = (file, args) =>
  * From source (tsx) it is the bundle next to the sources, because a service
  * cannot run TypeScript.
  */
-export function resolveCliEntry(moduleUrl: string = import.meta.url, exists: (p: string) => boolean = existsSync): string {
+export function resolveCliEntry(
+  moduleUrl: string = import.meta.url,
+  exists: (p: string) => boolean = existsSync,
+): string {
   const here = fileURLToPath(moduleUrl);
   if (/\.(mjs|cjs|js)$/.test(here)) return here;
   const dist = resolve(dirname(here), '..', '..', 'dist', 'nlpf.mjs');

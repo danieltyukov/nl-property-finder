@@ -206,7 +206,8 @@ export function createClient(opts: ClientOptions): NlpfClient {
     applications: () => request('applications'),
     withdrawAll: async (body) => request('withdrawAll', { body: WithdrawAllBody.parse(body) }),
     tasks: (query = {}) => list<Task>('tasks', { query: { ...query } }),
-    resolveTask: async (id, body) => request('resolveTask', { params: { id }, body: ResolveTaskBody.parse(body) }),
+    resolveTask: async (id, body) =>
+      request('resolveTask', { params: { id }, body: ResolveTaskBody.parse(body) }),
     conversations: () => list<Conversation>('conversations'),
     conversation: (id) => request<ConversationView>('conversation', { params: { id } }),
     sendMessage: async (id, body) =>
@@ -214,7 +215,8 @@ export function createClient(opts: ClientOptions): NlpfClient {
     draft: async (body) => request('draft', { body: DraftBody.parse(body) }),
     viewings: () => list<Viewing>('viewings'),
     sources: () => list<SourceState>('sources'),
-    patchSource: async (id, body) => request('patchSource', { params: { id }, body: SourcePatchBody.parse(body) }),
+    patchSource: async (id, body) =>
+      request('patchSource', { params: { id }, body: SourcePatchBody.parse(body) }),
     testSource: (id) => request('testSource', { params: { id }, timeoutMs: SOURCE_TEST_TIMEOUT_MS }),
     connectSource: (id) => request('connectSource', { params: { id } }),
     config: () => request<ConfigView>('config'),

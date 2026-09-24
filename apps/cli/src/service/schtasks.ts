@@ -18,7 +18,9 @@ function winQuote(arg: string): string {
 /** The argument array for `schtasks`, passed to execFile as is. */
 export function renderSchtasksCreateArgs(spec: ServiceSpec): string[] {
   // Task Scheduler cannot set environment variables, so NLPF_HOME travels as a flag.
-  const command = [spec.node, spec.entry, 'daemon', ...(spec.home ? ['--home', spec.home] : [])].map(winQuote).join(' ');
+  const command = [spec.node, spec.entry, 'daemon', ...(spec.home ? ['--home', spec.home] : [])]
+    .map(winQuote)
+    .join(' ');
   return ['/Create', '/F', '/SC', 'ONLOGON', '/TN', TASK_NAME, '/RL', 'LIMITED', '/TR', command];
 }
 
@@ -54,7 +56,8 @@ export function createSchtasksManager(deps: ServiceDeps): ServiceManager {
 
     async status() {
       const q = await query();
-      if (q.code !== 0) return { kind: 'schtasks', file: TASK_NAME, installed: false, enabled: false, active: false };
+      if (q.code !== 0)
+        return { kind: 'schtasks', file: TASK_NAME, installed: false, enabled: false, active: false };
       const { running, enabled } = parseQuery(q.stdout);
       return { kind: 'schtasks', file: TASK_NAME, installed: true, enabled, active: running };
     },

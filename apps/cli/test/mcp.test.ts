@@ -6,20 +6,49 @@ import { DaemonNotRunningError, type NlpfClient } from '../src/client.js';
 import { createMcpServer } from '../src/mcp/server.js';
 
 const EXPECTED_TOOLS = [
-  'status', 'search_listings', 'get_property', 'list_applications', 'list_tasks', 'resolve_task',
-  'list_conversations', 'get_conversation', 'draft_message', 'send_message', 'list_viewings', 'get_searches',
-  'update_search', 'get_profile', 'update_profile', 'pause', 'resume', 'source_health', 'test_source', 'stats',
+  'status',
+  'search_listings',
+  'get_property',
+  'list_applications',
+  'list_tasks',
+  'resolve_task',
+  'list_conversations',
+  'get_conversation',
+  'draft_message',
+  'send_message',
+  'list_viewings',
+  'get_searches',
+  'update_search',
+  'get_profile',
+  'update_profile',
+  'pause',
+  'resume',
+  'source_health',
+  'test_source',
+  'stats',
   'withdraw_all',
 ];
 
 const tasks: Task[] = [
   {
-    id: 't_1', kind: 'viewing_booked', title: 'Viewing booked: Oude Delft 12A', reason: 'The landlord offered Thursday 18:30.',
-    priority: 2, state: 'open', createdAt: '2026-09-24T08:00:00Z', updatedAt: '2026-09-24T08:00:00Z',
+    id: 't_1',
+    kind: 'viewing_booked',
+    title: 'Viewing booked: Oude Delft 12A',
+    reason: 'The landlord offered Thursday 18:30.',
+    priority: 2,
+    state: 'open',
+    createdAt: '2026-09-24T08:00:00Z',
+    updatedAt: '2026-09-24T08:00:00Z',
   },
   {
-    id: 't_2', kind: 'payment_warning', title: 'Deposit asked before a viewing', reason: 'Asking for money before a viewing is a scam sign.',
-    priority: 1, state: 'open', createdAt: '2026-09-24T09:00:00Z', updatedAt: '2026-09-24T09:00:00Z',
+    id: 't_2',
+    kind: 'payment_warning',
+    title: 'Deposit asked before a viewing',
+    reason: 'Asking for money before a viewing is a scam sign.',
+    priority: 1,
+    state: 'open',
+    createdAt: '2026-09-24T09:00:00Z',
+    updatedAt: '2026-09-24T09:00:00Z',
   },
 ];
 
@@ -102,7 +131,10 @@ describe('MCP server', () => {
     expect(falseConfirm.isError).toBe(true);
     expect(withdrawAll).not.toHaveBeenCalled();
 
-    const ok = await c.callTool({ name: 'withdraw_all', arguments: { confirm: true, foundAddress: 'Oude Delft 12A' } });
+    const ok = await c.callTool({
+      name: 'withdraw_all',
+      arguments: { confirm: true, foundAddress: 'Oude Delft 12A' },
+    });
     expect(ok.isError).toBeFalsy();
     expect(withdrawAll).toHaveBeenCalledWith({ foundAddress: 'Oude Delft 12A', pause: true });
   });
@@ -117,7 +149,10 @@ describe('MCP server', () => {
   test('send_message sends the body to the conversation', async () => {
     const sendMessage = vi.fn(async () => ({ id: 'm_1', status: 'sent' }));
     const c = await connect(stubClient({ sendMessage }));
-    const result = await c.callTool({ name: 'send_message', arguments: { conversationId: 'c_1', body: 'Hello' } });
+    const result = await c.callTool({
+      name: 'send_message',
+      arguments: { conversationId: 'c_1', body: 'Hello' },
+    });
     expect(result.isError).toBeFalsy();
     expect(sendMessage).toHaveBeenCalledWith('c_1', { body: 'Hello', send: true });
   });
@@ -133,7 +168,9 @@ describe('MCP server', () => {
     const c = await connect(stubClient({ config: async () => config, patchConfig }));
     const result = await c.callTool({ name: 'update_search', arguments: { id: 'main', priceMaxEur: 1500 } });
     expect(result.isError).toBeFalsy();
-    const call = patchConfig.mock.calls[0] as unknown as [{ section: string; value: { id: string; priceMaxEur: number; types: string[] }[] }];
+    const call = patchConfig.mock.calls[0] as unknown as [
+      { section: string; value: { id: string; priceMaxEur: number; types: string[] }[] },
+    ];
     expect(call[0].section).toBe('searches');
     expect(call[0].value[0]).toMatchObject({ id: 'main', priceMaxEur: 1500, types: ['studio', 'apartment'] });
     expect(call[0].value[1]).toMatchObject({ id: 'rooms', priceMaxEur: 700 });
@@ -144,18 +181,33 @@ describe('MCP server', () => {
   });
 
   test('update_profile merges facts and keeps the rest', async () => {
-    const config = ConfigSchema.parse({ profile: { firstName: 'Sam', about: 'PhD student', facts: { bike: 'yes' } } });
+    const config = ConfigSchema.parse({
+      profile: { firstName: 'Sam', about: 'PhD student', facts: { bike: 'yes' } },
+    });
     const patchConfig = vi.fn(async () => ({}));
     const c = await connect(stubClient({ config: async () => config, patchConfig }));
-    await c.callTool({ name: 'update_profile', arguments: { organisation: 'TU Delft', facts: { pets: 'no', bike: '' } } });
-    const call = patchConfig.mock.calls[0] as unknown as [{ section: string; value: Record<string, unknown> }];
+    await c.callTool({
+      name: 'update_profile',
+      arguments: { organisation: 'TU Delft', facts: { pets: 'no', bike: '' } },
+    });
+    const call = patchConfig.mock.calls[0] as unknown as [
+      { section: string; value: Record<string, unknown> },
+    ];
     expect(call[0].section).toBe('profile');
-    expect(call[0].value).toMatchObject({ firstName: 'Sam', about: 'PhD student', organisation: 'TU Delft', facts: { pets: 'no' } });
+    expect(call[0].value).toMatchObject({
+      firstName: 'Sam',
+      about: 'PhD student',
+      organisation: 'TU Delft',
+      facts: { pets: 'no' },
+    });
     expect((call[0].value.facts as Record<string, string>).bike).toBeUndefined();
   });
 
   test('offers the config and the profile as resources', async () => {
-    const config = { ...ConfigSchema.parse({ profile: { firstName: 'Sam' } }), secretsPresent: ['ANTHROPIC_API_KEY'] };
+    const config = {
+      ...ConfigSchema.parse({ profile: { firstName: 'Sam' } }),
+      secretsPresent: ['ANTHROPIC_API_KEY'],
+    };
     const c = await connect(stubClient({ config: async () => config }));
     const { resources } = await c.listResources();
     expect(resources.map((r) => r.uri).sort()).toEqual(['nlpf://config', 'nlpf://profile']);
@@ -164,6 +216,8 @@ describe('MCP server', () => {
     expect(first.mimeType).toBe('application/json');
     expect(JSON.parse(first.text)).toMatchObject({ firstName: 'Sam' });
     const cfg = await c.readResource({ uri: 'nlpf://config' });
-    expect(JSON.parse((cfg.contents[0] as { text: string }).text).secretsPresent).toEqual(['ANTHROPIC_API_KEY']);
+    expect(JSON.parse((cfg.contents[0] as { text: string }).text).secretsPresent).toEqual([
+      'ANTHROPIC_API_KEY',
+    ]);
   });
 });

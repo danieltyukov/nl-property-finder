@@ -38,7 +38,12 @@ export function createMcpServer(client: NlpfClient, opts: { version?: string } =
   for (const tool of TOOLS) {
     server.registerTool(
       tool.name,
-      { title: tool.title, description: tool.description, inputSchema: tool.input, annotations: tool.annotations },
+      {
+        title: tool.title,
+        description: tool.description,
+        inputSchema: tool.input,
+        annotations: tool.annotations,
+      },
       async (args: Record<string, unknown>): Promise<CallToolResult> => {
         try {
           const result = await tool.run(client, args);
@@ -60,7 +65,9 @@ export function createMcpServer(client: NlpfClient, opts: { version?: string } =
       mimeType: 'application/json',
     },
     async (uri) => ({
-      contents: [{ uri: uri.href, mimeType: 'application/json', text: JSON.stringify(await client.config(), null, 2) }],
+      contents: [
+        { uri: uri.href, mimeType: 'application/json', text: JSON.stringify(await client.config(), null, 2) },
+      ],
     }),
   );
 
@@ -69,12 +76,17 @@ export function createMcpServer(client: NlpfClient, opts: { version?: string } =
     'nlpf://profile',
     {
       title: 'Profile',
-      description: "The user's profile as the agent uses it to introduce them to landlords and answer their questions.",
+      description:
+        "The user's profile as the agent uses it to introduce them to landlords and answer their questions.",
       mimeType: 'application/json',
     },
     async (uri) => ({
       contents: [
-        { uri: uri.href, mimeType: 'application/json', text: JSON.stringify((await client.config()).profile, null, 2) },
+        {
+          uri: uri.href,
+          mimeType: 'application/json',
+          text: JSON.stringify((await client.config()).profile, null, 2),
+        },
       ],
     }),
   );
