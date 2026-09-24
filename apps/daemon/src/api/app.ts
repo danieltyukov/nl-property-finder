@@ -1,5 +1,5 @@
-import { existsSync, readFileSync } from 'node:fs';
-import { extname, join, normalize } from 'node:path';
+import { existsSync, readFileSync, realpathSync, statSync } from 'node:fs';
+import { extname, join, normalize, sep } from 'node:path';
 import { Hono, type Context } from 'hono';
 import { getCookie, setCookie } from 'hono/cookie';
 import { z } from 'zod';
@@ -117,7 +117,26 @@ const MIME: Record<string, string> = {
   '.map': 'application/json',
 };
 
-const LOCKED_PAGE = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>nl-property-finder</title>
+/**
+ * Resolves a request path to a file inside the dashboard build, or undefined.
+ * Both sides go through realpath, so neither `..` segments nor a symlink can
+ * reach outside, and the prefix check is anchored on a separator so a sibling
+ * folder such as `dist-other` does not pass for `dist`.
+ */
+export function staticFile(dir: string, requestPath: string): string | undefined {
+  try {
+    const base = realpathSync(dir);
+    const candidate = normalize(join(base, decodeURIComponent(requestPath)));
+    if (!extname(candidate) || !existsSync(candidate)) return undefined;
+    const real = realpathSync(candidate);
+    if (!real.startsWith(base + sep) || !statSync(real).isFile()) return undefined;
+    return real;
+  } catch {
+    return undefined;
+  }
+}
+
+const LOCKED_PAGE =`<!doctype html><html lang="en"><head><meta charset="utf-8"><title>nl-property-finder</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>body{font:16px/1.6 system-ui,sans-serif;background:#F5F2EA;color:#13201F;display:grid;place-items:center;min-height:100vh;margin:0}
 main{max-width:34rem;padding:2rem}code{background:#ECE7DC;padding:.1rem .35rem;border-radius:4px}
@@ -272,8 +291,8 @@ export function createApp(ctx: DaemonContext): Hono {
       return c.redirect(c.req.path);
     }
     if (dir && c.req.path !== '/' && !c.req.path.startsWith('/api/')) {
-      const file = normalize(join(dir, c.req.path));
-      if (file.startsWith(dir) && existsSync(file) && extname(file)) {
+      const file = staticFile(dir, c.req.path);
+      if (file) {
         c.header('content-type', MIME[extname(file)] ?? 'application/octet-stream');
         c.header('cache-control', c.req.path.startsWith('/assets/') ? 'public, max-age=31536000, immutable' : 'no-cache');
         return c.body(readFileSync(file) as unknown as ArrayBuffer);
