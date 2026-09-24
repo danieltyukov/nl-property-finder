@@ -371,14 +371,22 @@ export function createParariusAdapter(options: ParariusOptions = {}): SourceAdap
     // Only the main frame counts: ad frames on the page navigate to other hosts all the time.
     const main = (req: Request) => req.isNavigationRequest() && req.frame() === page.mainFrame();
     const onResponse = (res: Response) => {
-      const status = res.status();
-      if (status >= 300 && status < 400 && res.request().method() === 'POST' && main(res.request())) {
-        const loc = res.headers().location;
-        if (loc) target ??= offSite(new URL(loc, res.url()).toString());
+      try {
+        const status = res.status();
+        if (status >= 300 && status < 400 && res.request().method() === 'POST' && main(res.request())) {
+          const loc = res.headers().location;
+          if (loc) target ??= offSite(new URL(loc, res.url()).toString());
+        }
+      } catch {
+        // a frame that detached while the page navigated away
       }
     };
     const onRequest = (req: Request) => {
-      if (main(req)) target ??= offSite(req.url());
+      try {
+        if (main(req)) target ??= offSite(req.url());
+      } catch {
+        // as above
+      }
     };
     page.on('response', onResponse);
     page.on('request', onRequest);
