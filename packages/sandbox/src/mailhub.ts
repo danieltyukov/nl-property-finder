@@ -5,6 +5,8 @@ import nodemailer, { type Transporter } from 'nodemailer';
 import type { MailTarget, SandboxAttachment } from './types.js';
 
 export interface LandlordEmail {
+  /** From `newMessageId`, so the conversation can record the message before the agent answers it. */
+  messageId: string;
   from: { name: string; address: string };
   to: string;
   subject: string;
@@ -44,7 +46,7 @@ export class MailHub {
   }
 
   async send(mail: LandlordEmail): Promise<{ messageId: string }> {
-    const messageId = this.newMessageId(mail.from.address);
+    const { messageId } = mail;
     if ('deliver' in this.target) {
       const m: InboundMessage = {
         id: messageId,

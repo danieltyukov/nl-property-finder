@@ -260,24 +260,34 @@ export class Landlords {
         .find((m) => m.channel === 'email' && m.subject)?.subject;
       msg.subject = `Re: ${stripRe(lastSubject ?? listing?.title ?? composed.subject)}`;
       const references = emails.map((m) => m.messageId!);
-      const { messageId } = await core.mail.send({
-        from: {
-          name: agency ? `${sub.landlord.name} | Makelaardij De Gracht` : sub.landlord.name,
-          address: sub.landlord.email,
-        },
-        to: core.mail.recipient(sub.email),
-        subject: msg.subject,
-        text: msg.text,
-        inReplyTo: last?.messageId,
-        references,
-        attachments,
-        at,
-      });
-      msg.messageId = messageId;
+      msg.messageId = core.mail.newMessageId(sub.landlord.email);
       if (last?.messageId) msg.inReplyTo = last.messageId;
       if (references.length) msg.references = references;
+      // Record the message before delivering it: an in-process agent may answer it before deliver returns.
+      sub.messages.push(msg);
+      try {
+        await core.mail.send({
+          messageId: msg.messageId,
+          from: {
+            name: agency ? `${sub.landlord.name} | Makelaardij De Gracht` : sub.landlord.name,
+            address: sub.landlord.email,
+          },
+          to: core.mail.recipient(sub.email),
+          subject: msg.subject,
+          text: msg.text,
+          inReplyTo: last?.messageId,
+          references,
+          attachments,
+          at,
+        });
+      } catch (e) {
+        // The landlord did write it; an agent that failed to handle it is the agent's problem.
+        msg.deliveryError = (e as Error).message;
+        core.log.warn('landlord email not delivered', { submission: sub.id, kind, error: msg.deliveryError });
+      }
+    } else {
+      sub.messages.push(msg);
     }
-    sub.messages.push(msg);
     core.log.info('landlord replied', { submission: sub.id, kind, channel: msg.channel });
     return msg;
   }

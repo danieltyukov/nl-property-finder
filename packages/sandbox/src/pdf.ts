@@ -20,7 +20,13 @@ const PAGE_H = 842;
 const MARGIN = 56;
 
 /** WinAnsi codes for the few characters above Latin-1 that Dutch contracts use. */
-const WIN_ANSI: Record<string, number> = { '€': 0x80, '‘': 0x91, '’': 0x92, '“': 0x93, '”': 0x94 };
+const WIN_ANSI: Record<string, number> = {
+  '\u20ac': 0x80,
+  '\u2018': 0x91,
+  '\u2019': 0x92,
+  '\u201c': 0x93,
+  '\u201d': 0x94,
+};
 
 function escapeText(text: string): string {
   let out = '';

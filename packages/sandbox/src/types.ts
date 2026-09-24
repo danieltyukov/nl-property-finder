@@ -142,6 +142,8 @@ export interface ThreadMessage {
   attachments: SandboxAttachment[];
   /** The times offered in a viewing_slots message. */
   slots?: ViewingSlot[];
+  /** Why a landlord email did not reach the agent (SMTP failure, or the agent's handler threw). */
+  deliveryError?: string;
 }
 
 /** One application from the agent: the first contact and every message after it. */

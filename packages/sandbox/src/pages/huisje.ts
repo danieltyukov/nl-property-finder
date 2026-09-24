@@ -103,7 +103,7 @@ ${status}
 <img src="/media/${esc(l.id)}/1.svg" alt="${esc(l.title)}" width="480" height="360">
 <div class="facts">${facts.map(([k, v]) => `<div>${esc(k)}</div><div>${esc(v)}</div>`).join('')}</div>
 <h2>Omschrijving</h2>
-<div class="description">${paragraphs(l.description)}</div>
+<div class="description" lang="${l.language}">${paragraphs(l.description)}</div>
 <h2 id="contact">Reageren</h2>
 ${form}`;
   return page({
@@ -112,7 +112,6 @@ ${form}`;
     home: HOME,
     nav: nav(opts.loggedIn),
     body,
-    lang: l.language,
   });
 }
 
