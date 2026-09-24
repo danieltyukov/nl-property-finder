@@ -368,15 +368,17 @@ export function createParariusAdapter(options: ParariusOptions = {}): SourceAdap
         return undefined;
       }
     };
+    // Only the main frame counts: ad frames on the page navigate to other hosts all the time.
+    const main = (req: Request) => req.isNavigationRequest() && req.frame() === page.mainFrame();
     const onResponse = (res: Response) => {
       const status = res.status();
-      if (status >= 300 && status < 400 && res.request().method() === 'POST') {
+      if (status >= 300 && status < 400 && res.request().method() === 'POST' && main(res.request())) {
         const loc = res.headers().location;
         if (loc) target ??= offSite(new URL(loc, res.url()).toString());
       }
     };
     const onRequest = (req: Request) => {
-      if (req.isNavigationRequest()) target ??= offSite(req.url());
+      if (main(req)) target ??= offSite(req.url());
     };
     page.on('response', onResponse);
     page.on('request', onRequest);
@@ -397,30 +399,51 @@ export function createParariusAdapter(options: ParariusOptions = {}): SourceAdap
       return { ok: false, channel: 'form', needs: 'captcha', error: `the contact form on ${url} shows a captcha` };
     }
     const p = message.profile;
-    const fields: [string, string | undefined][] = [
-      ['input[autocomplete="given-name"], input[name*="first" i], input[name*="voornaam" i]', p.firstName],
-      ['input[autocomplete="family-name"], input[name*="last" i], input[name*="achternaam" i]', p.lastName],
-      ['input[autocomplete="name"], input[name="name"], input[name$="[name]"], input[name*="naam" i]:not([name*="voornaam" i]):not([name*="achternaam" i])', `${p.firstName} ${p.lastName}`.trim()],
-      ['input[type="email"], input[name*="email" i]', p.email],
-      ['input[type="tel"], input[name*="phone" i], input[name*="telefoon" i]', p.phone],
+    // [selector, value, overwrite what the account filled in]. The email is always the profile's
+    // (the dedicated mailbox), so the landlord's answer reaches the agent; names and phone are
+    // only filled where the account left them empty.
+    const fields: [string, string | undefined, boolean][] = [
+      ['input[autocomplete="given-name"], input[name*="first" i], input[name*="voornaam" i]', p.firstName, false],
+      ['input[autocomplete="family-name"], input[name*="last" i], input[name*="achternaam" i]', p.lastName, false],
+      ['input[autocomplete="name"], input[name="name"], input[name$="[name]"], input[name*="naam" i]:not([name*="voornaam" i]):not([name*="achternaam" i])', `${p.firstName} ${p.lastName}`.trim(), false],
+      ['input[type="email"], input[name*="email" i]', p.email, true],
+      ['input[type="tel"], input[name*="phone" i], input[name*="telefoon" i]', p.phone, false],
     ];
     try {
       await form.locator('textarea').first().fill(message.body, { timeout: 10_000 });
-      for (const [selector, value] of fields) {
+      for (const [selector, value, overwrite] of fields) {
         if (!value) continue;
         const input = form.locator(selector).first();
-        // Fields the account already filled in are left alone.
-        if ((await input.count()) > 0 && (await input.isEditable().catch(() => false)) && !(await input.inputValue())) {
-          await input.fill(value, { timeout: 10_000 });
-        }
+        if ((await input.count()) === 0 || !(await input.isEditable().catch(() => false))) continue;
+        if (overwrite || !(await input.inputValue())) await input.fill(value, { timeout: 10_000 });
       }
       const required = form.locator('input[type="checkbox"][required]');
-      for (let i = 0; i < (await required.count()); i++) await required.nth(i).check({ timeout: 10_000 });
+      for (let i = 0; i < (await required.count()); i++) {
+        const box = required.nth(i);
+        // Styled checkboxes are often visually hidden; set them directly when a click cannot reach them.
+        await box.check({ timeout: 3_000 }).catch(() =>
+          box.evaluate((el) => {
+            (el as HTMLInputElement).checked = true;
+            el.dispatchEvent(new Event('change', { bubbles: true }));
+          }),
+        );
+      }
     } catch (e) {
       return { ok: false, channel: 'form', error: `could not fill the contact form on ${url}: ${(e as Error).message.split('\n')[0]}` };
     }
+    // The browser would refuse to submit a form with a required field left empty; say which, and send nothing.
+    const missing = await form
+      .evaluate((f) =>
+        Array.from((f as HTMLFormElement).elements)
+          .filter((el) => 'checkValidity' in el && !(el as HTMLInputElement).checkValidity())
+          .map((el) => (el as HTMLInputElement).name || (el as HTMLInputElement).id || el.tagName.toLowerCase()),
+      )
+      .catch(() => [] as string[]);
+    if (missing.length) return { ok: false, channel: 'form', error: `the contact form on ${url} still needs: ${missing.join(', ')}` };
     if (message.dryRun) return { ok: true, channel: 'form', evidence: 'dry run: the form was filled and not sent' };
 
+    // Text the page showed before sending does not count as a confirmation.
+    const shownBefore = SUCCESS_TEXT.test(load(await page.content().catch(() => '')).root().text());
     const before = page.url();
     try {
       await form.locator('button[type="submit"], input[type="submit"], .form__button--submit').first().click({ timeout: 10_000 });
@@ -434,7 +457,7 @@ export function createParariusAdapter(options: ParariusOptions = {}): SourceAdap
       const $ = load(html);
       const notice = $('.notification--success, .notification--confirmation, .form__success, .contact-confirmation').first().text();
       const text = $('main').text() || $('body').text();
-      const hit = SUCCESS_TEXT.exec(notice) ?? SUCCESS_TEXT.exec(text);
+      const hit = SUCCESS_TEXT.exec(notice) ?? (shownBefore ? null : SUCCESS_TEXT.exec(text));
       if (hit || (page.url() !== before && /bedankt|verzonden|success|bevestig/i.test(page.url()))) {
         return { ok: true, channel: 'form', evidence: (notice.replace(/\s+/g, ' ').trim() || hit?.[0] || page.url()).slice(0, 200) };
       }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- SYNTHETIC fixture: a stand-in for the logged-in Pararius contact page (/contact/<uuid>). The real page could not be recorded without logging in. Class names follow the recorded login form (form.form, wc-form-errors, csrf field) and ParariusBot's notes (a textarea, .form__button--submit). The adapter fills any textarea, empty name, email and phone fields and required checkboxes, so it does not depend on these exact names. -->
+<!-- SYNTHETIC fixture: a stand-in for the logged-in Pararius contact page (/contact/<uuid>). The real page could not be recorded without logging in. Class names follow the recorded login form (form.form, wc-form-errors, csrf field) and ParariusBot's notes (a textarea, .form__button--submit). The adapter fills the textarea, empty name and phone fields, the email field with the profile's address, and required checkboxes, so it does not depend on these exact names. -->
 <html lang="nl">
 <head><meta charset="utf-8"><title>Contact met de makelaar - Pararius</title></head>
 <body class="page page--contact">
@@ -13,7 +13,7 @@
   <label class="text-control__label">Voornaam <input name="contact_agent_form[first_name]" type="text" value=""></label>
   <label class="text-control__label">Achternaam <input name="contact_agent_form[last_name]" type="text" value=""></label>
   <label class="text-control__label">E-mailadres <input name="contact_agent_form[email]" type="email" value="account@nlpf.test"></label>
-  <label class="text-control__label">Telefoonnummer <input name="contact_agent_form[phone]" type="tel" value=""></label>
+  <label class="text-control__label">Telefoonnummer <input name="contact_agent_form[phone]" type="tel" value="" required></label>
   <label class="text-control__label">Bericht <textarea name="contact_agent_form[message]" rows="8"></textarea></label>
   <label class="checkbox-control__label"><input type="checkbox" name="contact_agent_form[privacy]" value="1" required> Ik ga akkoord met de privacyverklaring</label>
   <button type="submit" class="button button--primary form__button--submit">Verstuur bericht</button>

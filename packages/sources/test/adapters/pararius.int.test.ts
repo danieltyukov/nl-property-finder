@@ -132,7 +132,19 @@ describe.skipIf(!resolveChromium())('pararius contact in a real browser', () => 
     expect(posts()).toHaveLength(before);
   });
 
-  test('fills the empty fields, keeps what the account filled in, and reports the confirmation', async () => {
+  test('a required field it cannot fill stops the send, and says which', async () => {
+    loggedIn = true;
+    const { adapter, ctx, listing, message } = setup();
+    const before = posts().length;
+    const noPhone = { ...message(false), profile: { ...config.profile, phone: undefined } };
+    const result = await adapter.contact!(listing, noPhone, ctx);
+    expect(result).toMatchObject({ ok: false, channel: 'form' });
+    expect(result.needs).toBeUndefined();
+    expect(result.error).toContain('contact_agent_form[phone]');
+    expect(posts()).toHaveLength(before);
+  });
+
+  test('fills the empty fields, uses the dedicated mailbox, and reports the confirmation', async () => {
     loggedIn = true;
     const { adapter, ctx, listing, message } = setup();
     const result = await adapter.contact!(listing, message(false), ctx);
@@ -142,7 +154,8 @@ describe.skipIf(!resolveChromium())('pararius contact in a real browser', () => 
     expect(fields.get('contact_agent_form[message]')).toContain('Kruisstraat 46');
     expect(fields.get('contact_agent_form[first_name]')).toBe('Sam');
     expect(fields.get('contact_agent_form[last_name]')).toBe('de Vries');
-    expect(fields.get('contact_agent_form[email]')).toBe('account@nlpf.test');
+    // The account had its own address prefilled; replies must reach the agent's mailbox.
+    expect(fields.get('contact_agent_form[email]')).toBe('sam@nlpf.test');
     expect(fields.get('contact_agent_form[phone]')).toBe('0612345678');
     expect(fields.get('contact_agent_form[privacy]')).toBe('1');
     expect(fields.get('contact_agent_form[_token]')).toBe('csrf-token');
