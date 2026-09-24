@@ -88,7 +88,7 @@ export async function sendInConversation(
   const adapter = sourceId ? rt.adapter(sourceId) : undefined;
   if (threadId && adapter?.reply) {
     const lang: Lang = /[a-z]/i.test(msg.body) && /\b(de|het|een|graag|groet)\b/i.test(msg.body) ? 'nl' : 'en';
-    const r = await adapter.reply(threadId, { subject: msg.subject, body: msg.body, language: lang, profile: cfg.profile, dryRun: false }, rt.sourceContext(adapter));
+    const r = await adapter.reply(threadId, { subject: msg.subject, body: msg.body, language: lang, profile: cfg.profile, attachments: msg.attachments, dryRun: false }, rt.sourceContext(adapter));
     const m = rt.store.messages.add({ ...base, channel: 'platform', subject: msg.subject, status: r.ok ? 'sent' : 'failed', externalId: r.externalId ? `${sourceId}:${r.externalId}` : undefined });
     rt.store.conversations.update(conversation.id, { lastMessageAt: nowIso });
     rt.bus.emit(r.ok ? 'message.sent' : 'message.failed', `${r.ok ? 'Replied' : 'Reply failed'} on ${adapter.name}`, { conversationId: conversation.id });

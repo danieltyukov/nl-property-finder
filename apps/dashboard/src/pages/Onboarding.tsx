@@ -23,6 +23,14 @@ const STEPS = ['Profile', 'Search', 'Mail', 'Notifications', 'Sources', 'Review'
 type Step = (typeof STEPS)[number];
 
 const CITIES = ['Delft', 'Rotterdam', 'Den Haag', 'Leiden', 'Rijswijk', 'Schiedam', 'Zoetermeer', 'Utrecht', 'Amsterdam', 'Haarlem', 'Eindhoven', 'Groningen'];
+
+const ALIASES: Record<string, string> = { "'s-gravenhage": 'Den Haag', 's-gravenhage': 'Den Haag', 'the hague': 'Den Haag', 'den haag': 'Den Haag' };
+
+/** "delft" becomes "Delft", "'s-gravenhage" becomes "Den Haag", anything else keeps its spelling. */
+export function displayCity(name: string): string {
+  const key = name.trim().toLowerCase();
+  return ALIASES[key] ?? CITIES.find((c) => c.toLowerCase() === key) ?? name.trim();
+}
 const TYPES = ['room', 'studio', 'apartment', 'house'] as const;
 
 export function OnboardingPage({ onFinish }: { onFinish: () => void }) {
@@ -45,7 +53,10 @@ function Wizard({ config, sources, onFinish }: { config: ConfigView; sources: So
   const [step, setStep] = useState<Step>('Profile');
   const [profile, setProfile] = useState<Profile>(() => structuredClone(config.profile));
   const baseSearch = config.searches[0] ?? (NamedSearchSchema.parse({ id: 'main', name: 'Main search' }) as NamedSearch);
-  const [cities, setCities] = useState<string[]>(() => baseSearch.regions.flatMap((r) => (r.municipalities.length ? r.municipalities : [r.name])));
+  // Config stores municipalities lowercased ("delft", "'s-gravenhage"); show each once, spelled the way the list spells it.
+  const [cities, setCities] = useState<string[]>(() => [
+    ...new Set(baseSearch.regions.flatMap((r) => (r.municipalities.length ? r.municipalities : [r.name])).map(displayCity)),
+  ]);
   const [other, setOther] = useState('');
   const [maxRent, setMaxRent] = useState(baseSearch.priceMaxEur ? String(baseSearch.priceMaxEur) : '');
   const [minSize, setMinSize] = useState(baseSearch.sizeMinM2 ? String(baseSearch.sizeMinM2) : '');
@@ -62,7 +73,7 @@ function Wizard({ config, sources, onFinish }: { config: ConfigView; sources: So
     setError(null);
   }, [step]);
 
-  const allCities = useMemo(() => [...new Set([...CITIES, ...cities])], [cities]);
+  const allCities = useMemo(() => [...CITIES, ...cities.filter((c) => !CITIES.includes(c))], [cities]);
 
   const save = async (section: keyof Config, value: unknown) => {
     await patch.mutateAsync({ section, value });
