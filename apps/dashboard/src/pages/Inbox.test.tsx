@@ -19,7 +19,9 @@ test('renders the open tasks from the mock, most pressing first', async () => {
 
 test('pressing A on the first item calls resolveTask with approve and shows the undo toast', async () => {
   const user = userEvent.setup();
-  const { api } = renderApp({ undoMs: 80 });
+  // The undo window must outlast a keypress on a loaded CI machine, or the
+  // toast is already gone by the time the assertion looks for it.
+  const { api } = renderApp({ undoMs: 600 });
   await screen.findByRole('heading', { name: /^Viewing booked,/ });
 
   await user.keyboard('a');
@@ -27,7 +29,7 @@ test('pressing A on the first item calls resolveTask with approve and shows the 
   const toasts = screen.getByRole('region', { name: 'Notifications' });
   expect(within(toasts).getByText(/Viewing confirmed: Viewing booked/)).toBeTruthy();
   expect(within(toasts).getByRole('button', { name: 'Undo' })).toBeTruthy();
-  await waitFor(() => expect(api.resolveTask).toHaveBeenCalledWith('t_viewing_oudedelft', { action: 'approve' }));
+  await waitFor(() => expect(api.resolveTask).toHaveBeenCalledWith('t_viewing_oudedelft', { action: 'approve' }), { timeout: 3000 });
 });
 
 test('U undoes the action before it is sent', async () => {

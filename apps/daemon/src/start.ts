@@ -41,7 +41,7 @@ import { createActions } from './actions.js';
 import { createApp } from './api/app.js';
 import type { DaemonContext } from './context.js';
 import { createRunner } from './runner.js';
-import { createScheduler } from './scheduler.js';
+import { createScheduler, initialState } from './scheduler.js';
 import { handleContact } from './pipelines/contact.js';
 import { handleEvaluate } from './pipelines/evaluate.js';
 import { handleInbound } from './pipelines/inbound.js';
@@ -328,6 +328,10 @@ export async function startDaemon(opts: StartDaemonOptions): Promise<DaemonHandl
     rt,
     connect: (adapter) => connectSource(adapter, pool, log, 600_000, { fetch: politeFetch, config }),
     setPaused,
+    notifyTest: async () => {
+      const r = await dispatcher.notify({ title: 'nl-property-finder test', body: 'Notifications reach this device.', priority: 5, key: `test:${Date.now()}` });
+      return { sent: true, channels: notifySetup.notifiers.map((n) => n.id), problems: notifySetup.problems, result: r } as never;
+    },
     patchSourceConfig: (id, patch) => {
       const current = config.sources[id] ?? {};
       config = patchConfig(paths, 'sources', { ...config.sources, [id]: { ...current, ...patch } }).config;
@@ -370,6 +374,29 @@ export async function startDaemon(opts: StartDaemonOptions): Promise<DaemonHandl
     mailStatus: () => ({ ...(mailbox?.status() ?? {}), connected: mailbox?.status().connected ?? false, address: config.mail.address, error: mailStatus.error }),
     ai: () => ({ provider: ai.id, usageThisMonth: ai.usage(), budget: config.ai.monthlyTokenBudget }),
     nextPollAt: () => scheduler.nextRunAt(),
+    sources: () => {
+      const enabled = new Set(registry.enabled(config).map((a) => a.id));
+      return registry.all().map((a) => {
+        const state = store.sources.get(a.id) ?? initialState(a, config);
+        const own = config.sources[a.id];
+        const contactMode = own?.contact ?? (a.capabilities.terms === 'forbids' ? 'watch_only' : 'auto');
+        return {
+          ...state,
+          name: a.name,
+          enabled: enabled.has(a.id),
+          health: enabled.has(a.id) ? state.health : 'disabled',
+          homepage: a.homepage,
+          capabilities: a.capabilities,
+          regions: a.regions,
+          intervalSec: own?.intervalSec ?? a.defaultIntervalSec,
+          contactMode,
+          config: own,
+          termsNote: a.capabilities.terms === 'forbids'
+            ? `${a.name}'s terms forbid automated access. Switching on automatic messages risks your ${a.name} account.`
+            : undefined,
+        };
+      });
+    },
     actions,
     dashboardDir: findDashboardDir(),
   };

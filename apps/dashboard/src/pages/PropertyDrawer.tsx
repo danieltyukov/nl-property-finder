@@ -186,7 +186,8 @@ function DrawerBody({ view }: { view: PropertyView }) {
         </h3>
         <ul className="listing-list">
           {listings.map((l) => {
-            const responses = typeof l.extra?.responses === 'number' ? l.extra.responses : undefined;
+            const raw = l.extra?.reactions ?? l.extra?.responses;
+            const responses = typeof raw === 'number' ? raw : undefined;
             return (
               <li key={l.id} className="listing-row">
                 <Tag>{sourceName(l.sourceId)}</Tag>

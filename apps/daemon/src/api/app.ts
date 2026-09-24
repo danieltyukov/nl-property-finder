@@ -213,7 +213,8 @@ export function createApp(ctx: DaemonContext): Hono {
 
   api.get('/viewings', (c) => json(c, { items: ctx.store.viewings.list({ from: c.req.query('from') }) }));
 
-  api.get('/sources', (c) => json(c, { items: ctx.store.sources.list() }));
+  api.get('/sources', (c) => json(c, { items: ctx.sources() }));
+  api.post('/notify/test', async (c) => json(c, await ctx.actions.notifyTest()));
   api.patch('/sources/:id', async (c) => json(c, await ctx.actions.patchSource(c.req.param('id'), await body(c, SourcePatchBody))));
   api.post('/sources/:id/test', async (c) => json(c, await ctx.actions.testSource(c.req.param('id'))));
   api.post('/sources/:id/connect', async (c) => {
@@ -276,7 +277,7 @@ export function createApp(ctx: DaemonContext): Hono {
     }
     const html = readFileSync(join(dir, 'index.html'), 'utf8').replace(
       '</head>',
-      `<script>window.__NLPF__=${JSON.stringify({ token: ctx.token, demo: ctx.demo, version: ctx.version })}</script></head>`,
+      `<script>window.__NLPF__=${JSON.stringify({ token: ctx.token, demo: ctx.demo, version: ctx.version, ...(process.env.NLPF_TILES === '0' ? { tiles: false } : {}) })}</script></head>`,
     );
     c.header('cache-control', 'no-store');
     return c.html(html);
