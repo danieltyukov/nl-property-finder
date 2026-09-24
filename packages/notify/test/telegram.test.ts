@@ -5,7 +5,7 @@ import { createTelegramNotifier, escapeHtml } from '../src/telegram.js';
 import { startStub } from './http-stub.js';
 
 const SECRET = 'per-install-secret-for-tests';
-const TOKEN = '123456789:AAtesttokenvalueforunittests0000000';
+const TOKEN = '123456789:test-token-value-for-unit-tests-000';
 const cfg = { chatId: '987654321', tokenEnv: 'NLPF_TELEGRAM_TOKEN', actions: true };
 
 let stub: Awaited<ReturnType<typeof startStub>> | undefined;

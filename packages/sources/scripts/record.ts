@@ -13,8 +13,9 @@
  *
  * It is gentle on purpose: the polite fetch keeps 4 s between requests to a
  * host, and by default only the first search runs. It talks to live sites, so
- * it refuses to run when CI is set. Check the saved files for anything
- * personal before committing them.
+ * it refuses to run when CI is set. Keys the site embeds in its pages (a Google
+ * Maps key, say) are replaced with placeholders on save. Check the saved files
+ * for anything personal before committing them.
  */
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -26,7 +27,9 @@ import {
   createBrowserPool,
   createPoliteFetch,
   createSourceContext,
+  findCredentials,
   loadAgencyAdapters,
+  scrubCredentials,
   type BrowserMode,
   type PoliteFetch,
 } from '../src/index.js';
@@ -120,9 +123,11 @@ async function main(): Promise<number> {
   const saved: string[] = [];
   const save = (name: string, text: string) => {
     const file = join(outDir, name);
-    writeFileSync(file, text);
+    const hits = findCredentials(text);
+    writeFileSync(file, scrubCredentials(text));
     saved.push(file);
     console.log(`saved ${file} (${text.length} characters)`);
+    for (const h of hits) console.log(`  scrubbed a ${h.name} on line ${h.line}`);
   };
 
   try {

@@ -8,7 +8,7 @@ import { createTelegramActionChannel } from '../src/telegram.js';
 import { startStub, type Recorded } from './http-stub.js';
 
 const SECRET = 'per-install-secret-for-tests';
-const TOKEN = '123456789:AAtesttokenvalueforunittests0000000';
+const TOKEN = '123456789:test-token-value-for-unit-tests-000';
 
 async function waitFor(check: () => boolean, ms = 3000): Promise<void> {
   const until = Date.now() + ms;

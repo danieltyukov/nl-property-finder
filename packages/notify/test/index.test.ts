@@ -25,7 +25,7 @@ test('createNotifySetup builds the configured notifiers and action channels', ()
     desktop: true,
   });
   const setup = createNotifySetup(cfg, {
-    secrets: { NLPF_TELEGRAM_TOKEN: '123456789:AAtesttokenvalueforunittests0000000' },
+    secrets: { NLPF_TELEGRAM_TOKEN: '123456789:test-token-value-for-unit-tests-000' },
     actionSecret: 'per-install-secret',
     mailbox,
     log: memoryLogger(),

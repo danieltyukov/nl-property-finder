@@ -146,3 +146,9 @@ with any personal data replaced, tests for search mapping, server-side filters,
 skipping rented homes and (if it contacts) a dry run and a successful send
 against a fixture form, and one passing `nlpf sources test <id>` against the
 live site, pasted in the pull request.
+
+Recorded pages often carry the site's own keys, such as a Google Maps browser
+key. The recorder replaces those with placeholders when it saves a page, and a
+unit test (`packages/sources/test/credentials.test.ts`) fails if any file in
+the repository still holds a credential-shaped string. If you save a page by
+hand, run it through `scrubCredentials` from `@nlpf/sources` first.

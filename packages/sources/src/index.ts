@@ -11,6 +11,7 @@ export * from './runtime/connect.js';
 // Parsers shared by adapters.
 export * from './util/parse.js';
 export * from './util/address.js';
+export * from './util/credentials.js';
 
 // The generic agency adapter and its presets.
 export * from './generic/agency-def.js';
