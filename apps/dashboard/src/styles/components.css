@@ -2602,10 +2602,12 @@ textarea.input {
 
 .url-list {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 6px;
 }
 
 .url-list li {
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 8px;
