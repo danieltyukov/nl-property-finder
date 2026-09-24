@@ -49,6 +49,15 @@ export const str = (v: unknown): string | undefined =>
 export const isObj = (v: unknown): v is Record<string, unknown> =>
   typeof v === 'object' && v !== null && !Array.isArray(v);
 
+/** A URL or path with spaces and other unsafe characters percent-encoded once, whether or not it was encoded before. */
+export function reencode(url: string): string {
+  try {
+    return encodeURI(decodeURI(url));
+  } catch {
+    return encodeURI(url);
+  }
+}
+
 /** "Den Haag" becomes "den-haag"; "'s-Gravenhage" becomes "s-gravenhage". */
 export function slugify(text: string): string {
   return text

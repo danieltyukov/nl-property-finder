@@ -216,6 +216,19 @@ describe('marktplaats adapter', () => {
     expect(
       await marktplaats.isAvailable!(listing, ctxFor([{ match: 'm2441586539', status: 404, body: '' }])),
     ).toBe(false);
+    // A page without the item data is not proof that the ad is gone.
+    expect(
+      await marktplaats.isAvailable!(
+        listing,
+        ctxFor([
+          {
+            match: 'm2441586539',
+            body: '<html><body>Even geen verbinding</body></html>',
+            headers: { 'content-type': 'text/html' },
+          },
+        ]),
+      ),
+    ).toBe(true);
   });
 
   test('parseAlertEmail reads the saved-search email with the same ids as the mail package', () => {

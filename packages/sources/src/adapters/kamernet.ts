@@ -209,16 +209,32 @@ export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdap
     });
   }
 
-  async function fetchDetails(url: string, ctx: SourceContext): Promise<Record<string, unknown> | undefined> {
+  interface DetailPage {
+    /** Path of the page after redirects. */
+    path: string;
+    /** `listingDetails` from the page data, when the page is a listing. */
+    details?: Record<string, unknown>;
+    /** The page is a search result list (what Kamernet shows for a withdrawn listing). */
+    searchPage: boolean;
+  }
+
+  async function fetchDetails(url: string, ctx: SourceContext): Promise<DetailPage> {
     const res = await ctx.fetch(url);
-    const $ = load(res.text);
-    const raw = $('script#__NEXT_DATA__').first().text();
-    if (!raw) return undefined;
+    const path = new URL(res.url || url).pathname;
+    const raw = load(res.text)('script#__NEXT_DATA__').first().text();
+    if (!raw) return { path, searchPage: false };
     const data = JSON.parse(raw) as {
-      props?: { pageProps?: { targetPageProps?: { listingDetails?: unknown } } };
+      props?: {
+        pageProps?: { targetPageProps?: { listingDetails?: unknown; findListingsResponse?: unknown } };
+      };
     };
-    const details = data.props?.pageProps?.targetPageProps?.listingDetails;
-    return isObj(details) ? details : undefined;
+    const target = data.props?.pageProps?.targetPageProps;
+    const details = target?.listingDetails;
+    return {
+      path,
+      details: isObj(details) ? details : undefined,
+      searchPage: target?.findListingsResponse !== undefined,
+    };
   }
 
   const adapter: SourceAdapter = {
@@ -308,7 +324,7 @@ export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdap
     },
 
     async detail(listing, ctx) {
-      const d = await fetchDetails(listing.url, ctx);
+      const d = (await fetchDetails(listing.url, ctx)).details;
       if (!d) return listing;
       const out: RawListing = { ...listing, address: { ...listing.address }, extra: { ...listing.extra } };
       const description = str(d.dutchDescription) ?? str(d.englishDescription);
@@ -361,15 +377,23 @@ export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdap
     },
 
     async isAvailable(listing, ctx) {
-      let d: Record<string, unknown> | undefined;
+      let page: DetailPage;
       try {
-        d = await fetchDetails(listing.url, ctx);
+        page = await fetchDetails(listing.url, ctx);
       } catch (e) {
         if (e instanceof SourceHttpError && (e.status === 404 || e.status === 410)) return false;
         throw e;
       }
-      // A withdrawn listing renders the search page instead of the listing.
-      if (!d || String(d.listingId ?? '') !== listing.externalId) return false;
+      // Gone: redirected elsewhere, a search list instead of the listing, or marked inactive.
+      if (page.path.replace(/\/+$/, '') !== new URL(listing.url).pathname.replace(/\/+$/, '')) return false;
+      if (page.searchPage && !page.details) return false;
+      const d = page.details;
+      if (!d) {
+        // An unfamiliar page is not proof that the home is gone; contact itself will tell.
+        ctx.log.warn('kamernet: could not read the listing page to check availability', { url: listing.url });
+        return true;
+      }
+      if (String(d.listingId ?? '') !== listing.externalId) return false;
       return d.isActive !== false && d.isBlocked !== true;
     },
 

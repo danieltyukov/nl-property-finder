@@ -350,7 +350,11 @@ export function createMarktplaatsAdapter(options: MarktplaatsOptions = {}): Sour
       }
       // A removed ad redirects to its category or a search page.
       if (!new URL(page.finalUrl).pathname.includes(listing.externalId)) return false;
-      if (!page.listing) return false;
+      if (!page.listing) {
+        // An unfamiliar page is not proof that the ad is gone.
+        ctx.log.warn('marktplaats: could not read the item page to check availability', { url: listing.url });
+        return true;
+      }
       return page.listing.isReserved !== true;
     },
 

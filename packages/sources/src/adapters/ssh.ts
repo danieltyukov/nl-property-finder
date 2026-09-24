@@ -18,6 +18,7 @@
 import type { NamedSearch, RawListing, SearchRequest, SourceAdapter } from '@nlpf/core';
 import { normalisePostcode } from '../util/address.js';
 import {
+  reencode,
   canonicalMunicipality,
   clean,
   compact,
@@ -182,7 +183,7 @@ export function createSshAdapter(): SourceAdapter {
               city,
             }),
             availableFrom: ymd(o.ContractStartDate ?? undefined),
-            images: image ? [encodeURI(decodeURI(image))] : undefined,
+            images: image ? [reencode(image)] : undefined,
             agent: { name: 'SSH', url: BASE },
             contact: 'lottery',
             contactUrl: url,
@@ -207,9 +208,9 @@ export function createSshAdapter(): SourceAdapter {
     async isAvailable(listing, ctx) {
       const res = await ctx.fetch(`${BASE}/api/v1/offer`, { headers: { accept: 'application/json' } });
       const offers = res.json<unknown>();
-      return (
-        Array.isArray(offers) &&
-        offers.some((o) => isObj(o) && String(o.FlowId) === listing.externalId && o.IsPublished !== false)
+      if (!Array.isArray(offers)) throw new Error('SSH offer list is not a list; the API may have changed');
+      return offers.some(
+        (o) => isObj(o) && String(o.FlowId) === listing.externalId && o.IsPublished !== false,
       );
     },
   };

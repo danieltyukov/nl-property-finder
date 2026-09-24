@@ -246,6 +246,20 @@ describe('kamernet adapter', () => {
     ).toBe(false);
   });
 
+  test('isAvailable: a search list in place of the listing means gone; an unfamiliar page is not proof', async () => {
+    const [room] = (await searchDelft()).filter((l) => l.externalId === '2407978');
+    const listing = asListing(room!);
+    const html = (data: unknown) =>
+      `<html><body><script id="__NEXT_DATA__" type="application/json">${JSON.stringify(data)}</script></body></html>`;
+    const searchPage = html({
+      props: { pageProps: { targetPageProps: { findListingsResponse: { listings: [] } } } },
+    });
+    const route = (body: string) =>
+      ctxFor([{ match: 'kamer-2407978', body, headers: { 'content-type': 'text/html' } }]);
+    expect(await kamernet.isAvailable!(listing, route(searchPage))).toBe(false);
+    expect(await kamernet.isAvailable!(listing, route('<html><body>Onderhoud</body></html>'))).toBe(true);
+  });
+
   test('parseAlertEmail reads the saved-search email with the same ids as the mail package', () => {
     const mail = JSON.parse(readFixture('kamernet/alert.json')) as InboundMessage;
     const listings = kamernet.parseAlertEmail!(mail);

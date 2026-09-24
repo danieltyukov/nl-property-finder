@@ -44,6 +44,7 @@ import {
   num,
   pageText,
   positive,
+  reencode,
   searchMunicipalities,
   senderIs,
   showsCaptcha,
@@ -148,7 +149,7 @@ export function createHousingAnywhereAdapter(options: HousingAnywhereOptions = {
     `https://${ALGOLIA_APP.toLowerCase()}-dsn.algolia.net/1/indexes/*/queries?x-algolia-api-key=${ALGOLIA_KEY}&x-algolia-application-id=${ALGOLIA_APP}`;
   const confirmTimeoutMs = options.confirmTimeoutMs ?? 20_000;
   const loginUrl = `${base}/oauth/signin`;
-  const listingUrl = (path: string) => `${base}${encodeURI(decodeURI(path))}`;
+  const listingUrl = (path: string) => `${base}${reencode(path)}`;
 
   async function query(
     ctx: SourceContext,
