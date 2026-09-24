@@ -46,6 +46,14 @@ describe('interhouse', () => {
     });
   });
 
+  test('a search URL copied from the site becomes the same results query', () => {
+    const source = SourceConfigSchema.parse({ searchUrls: ['https://interhouse.nl/aanbod/huur/den-haag/?maximum_price=1750'] });
+    const extra = adapter.buildSearches(config.searches, source).at(-1);
+    expect(extra?.key).toMatch(/^url-[0-9a-f]{10}$/);
+    const query = new URLSearchParams(String(extra?.params?.query).replace(/^\?/, ''));
+    expect(Object.fromEntries(query)).toMatchObject({ offer: 'huur', search_city: 'den-haag', maximum_price: '1750', sort: 'date-desc' });
+  });
+
   test('search posts the query and maps the Rotterdam results, skipping rented and commercial property', async () => {
     const ctx = fixtureContext({
       sourceId: 'interhouse',
