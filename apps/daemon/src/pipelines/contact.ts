@@ -94,6 +94,8 @@ export async function handleContact(rt: Runtime, job: Job): Promise<void> {
   if (!force && app.status !== 'queued') return;
 
   if (cfg.automation.paused && !force) throw new RetryLater(new Date(now.getTime() + 60 * SECOND), 'paused');
+  // Never write to a landlord as nobody: wait until onboarding has a name and an address.
+  if (!cfg.profile.firstName.trim() || !cfg.profile.email.trim()) throw new RetryLater(new Date(now.getTime() + 30 * SECOND), 'profile incomplete');
   if (!force && !inSendWindow(now, cfg.automation.sendWindow)) throw new RetryLater(nextWindowStart(now, cfg.automation.sendWindow), 'outside the send window');
   if (!force && rt.store.applications.countContactedSince(startOfToday(now)) >= cfg.automation.dailyCap) {
     const tomorrow = new Date(now.getTime() + 86_400_000);

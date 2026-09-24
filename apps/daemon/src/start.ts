@@ -97,7 +97,8 @@ function lanAddress(): string | undefined {
 export function demoConfig(base: Config): Config {
   return ConfigSchema.parse({
     ...base,
-    profile: base.profile.firstName
+    // NLPF_DEMO_BLANK=1 starts with an empty profile, so the onboarding wizard shows (used by the walkthrough).
+    profile: base.profile.firstName || process.env.NLPF_DEMO_BLANK === '1'
       ? base.profile
       : {
           firstName: 'Sam', lastName: 'de Vries', email: 'sam.huur@nlpf.localhost', phone: '+31 6 1234 5678',
@@ -366,6 +367,8 @@ export async function startDaemon(opts: StartDaemonOptions): Promise<DaemonHandl
     updateConfig: (section, value) => {
       const next = patchConfig(paths, section, value).config;
       reload(next);
+      // Messages that waited for a profile go now.
+      if (section === 'profile') store.raw.prepare("UPDATE jobs SET run_at = ? WHERE state = 'pending' AND kind = 'contact'").run(new Date().toISOString());
       bus.emit('config.updated', `Settings changed: ${String(section)}`, { section });
       return config;
     },
