@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import type { InboundMessage } from '@nlpf/core';
 
 /**
@@ -39,4 +40,10 @@ export function threadKey(m: InboundMessage): string[] {
   const refs = (m.references ?? []).flatMap(splitIds);
   for (let i = refs.length - 1; i >= 0; i--) add(refs[i]);
   return out;
+}
+
+/** A new Message-ID on the sender's domain, so replies thread back to it. */
+export function newMessageId(fromAddress: string): string {
+  const domain = fromAddress.split('@')[1]?.trim().toLowerCase() || 'nlpf.localhost';
+  return `<${randomUUID()}@${domain}>`;
 }
