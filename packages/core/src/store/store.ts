@@ -192,10 +192,10 @@ export function openStore(file: string): Store {
     list(f = {}) {
       const where: string[] = [];
       const args: unknown[] = [];
-      if (f.propertyId) (where.push('property_id = ?'), args.push(f.propertyId));
-      if (f.sourceId) (where.push('source_id = ?'), args.push(f.sourceId));
-      if (f.since) (where.push('first_seen_at >= ?'), args.push(f.since));
-      if (f.state) (where.push('state = ?'), args.push(f.state));
+      if (f.propertyId) { where.push('property_id = ?'); args.push(f.propertyId); }
+      if (f.sourceId) { where.push('source_id = ?'); args.push(f.sourceId); }
+      if (f.since) { where.push('first_seen_at >= ?'); args.push(f.since); }
+      if (f.state) { where.push('state = ?'); args.push(f.state); }
       const sql = `SELECT data FROM listings ${where.length ? 'WHERE ' + where.join(' AND ') : ''} ORDER BY first_seen_at DESC LIMIT ?`;
       return parseAll<Listing>(q(sql).all(...args, f.limit ?? 500));
     },
@@ -264,11 +264,19 @@ export function openStore(file: string): Store {
       const where: string[] = [];
       const args: unknown[] = [];
       let join = '';
-      if (f.status === 'matched') (join = 'JOIN matches m ON m.property_id = p.id'), where.push('m.passed = 1');
-      else if (f.status === 'unmatched') (join = 'LEFT JOIN matches m ON m.property_id = p.id'), where.push('(m.passed IS NULL OR m.passed = 0)');
-      else if (f.status) (join = 'JOIN applications a ON a.property_id = p.id'), where.push('a.status = ?'), args.push(f.status);
-      if (f.q) (where.push('(p.title LIKE ? OR p.city LIKE ? OR p.postcode LIKE ?)'), args.push(`%${f.q}%`, `%${f.q}%`, `%${f.q}%`));
-      if (f.before) (where.push('p.created_at < ?'), args.push(f.before));
+      if (f.status === 'matched') {
+        join = 'JOIN matches m ON m.property_id = p.id';
+        where.push('m.passed = 1');
+      } else if (f.status === 'unmatched') {
+        join = 'LEFT JOIN matches m ON m.property_id = p.id';
+        where.push('(m.passed IS NULL OR m.passed = 0)');
+      } else if (f.status) {
+        join = 'JOIN applications a ON a.property_id = p.id';
+        where.push('a.status = ?');
+        args.push(f.status);
+      }
+      if (f.q) { where.push('(p.title LIKE ? OR p.city LIKE ? OR p.postcode LIKE ?)'); args.push(`%${f.q}%`, `%${f.q}%`, `%${f.q}%`); }
+      if (f.before) { where.push('p.created_at < ?'); args.push(f.before); }
       const sql = `SELECT p.data FROM properties p ${join} ${where.length ? 'WHERE ' + where.join(' AND ') : ''} ORDER BY p.created_at DESC LIMIT ?`;
       return parseAll<Property>(q(sql).all(...args, f.limit ?? 100));
     },
@@ -422,8 +430,8 @@ export function openStore(file: string): Store {
       const where: string[] = [];
       const args: unknown[] = [];
       if (f.state === 'active') where.push("state IN ('open', 'snoozed')");
-      else if (f.state) (where.push('state = ?'), args.push(f.state));
-      if (f.kind) (where.push('kind = ?'), args.push(f.kind));
+      else if (f.state) { where.push('state = ?'); args.push(f.state); }
+      if (f.kind) { where.push('kind = ?'); args.push(f.kind); }
       const sql = `SELECT data FROM tasks ${where.length ? 'WHERE ' + where.join(' AND ') : ''}
         ORDER BY CASE state WHEN 'open' THEN 0 WHEN 'snoozed' THEN 1 ELSE 2 END, priority ASC, coalesce(due_at, '9999') ASC, created_at DESC LIMIT ?`;
       return parseAll<Task>(q(sql).all(...args, f.limit ?? 200));
@@ -459,8 +467,8 @@ export function openStore(file: string): Store {
     list(f = {}) {
       const where: string[] = [];
       const args: unknown[] = [];
-      if (f.from) (where.push('starts_at >= ?'), args.push(f.from));
-      if (f.state) (where.push('state = ?'), args.push(f.state));
+      if (f.from) { where.push('starts_at >= ?'); args.push(f.from); }
+      if (f.state) { where.push('state = ?'); args.push(f.state); }
       return parseAll<Viewing>(q(`SELECT data FROM viewings ${where.length ? 'WHERE ' + where.join(' AND ') : ''} ORDER BY starts_at ASC`).all(...args));
     },
     overlapping(start, end) {

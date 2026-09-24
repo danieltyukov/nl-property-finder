@@ -1,7 +1,7 @@
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['**/dist/**', '**/node_modules/**', 'docs/design/proto3d/**', '**/*.min.js', 'site/public/**'] },
+  { ignores: ['.claude/**', '**/dist/**', '**/node_modules/**', 'docs/design/proto3d/**', '**/*.min.js', 'site/public/**'] },
   ...tseslint.configs.recommended,
   {
     rules: {
