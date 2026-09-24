@@ -56,6 +56,7 @@ const STUDENTS_NEG = [
 ];
 const STUDENTS_POS = [
   /studenten\s+(?:zijn\s+)?(?:welkom|toegestaan)/,
+  /(?:only|alleen)\s+(?:for\s+|voor\s+)?(?:students|studenten)/,
   /(?:geschikt|ook)\s+voor\s+studenten/,
   /students?\s+(?:are\s+)?(?:welcome|allowed|accepted)/,
   /suitable\s+for\s+students/,
@@ -80,12 +81,14 @@ const SHARING_POS = [
 
 const PETS_NEG = [
   /geen\s+(?:huisdieren|honden|katten)/,
+  /(?:huisdieren|pets)\s*:\s*(?:nee|niet|geen|no|not allowed|niet toegestaan)\b/,
   /huisdieren\s+(?:zijn\s+)?niet\s+(?:toegestaan|toegelaten|welkom|mogelijk)/,
   /\bno\s+pets\b/,
   /pets\s+(?:are\s+)?not\s+(?:allowed|permitted|accepted)/,
   /huisdiervrij/,
 ];
 const PETS_POS = [
+  /(?:huisdieren|pets)\s*:\s*(?:ja|yes|toegestaan|allowed|bespreekbaar|in overleg|negotiable)\b/,
   /huisdier(?:en)?\s+(?:zijn\s+|is\s+)?(?:toegestaan|welkom|bespreekbaar|in\s+overleg|mogelijk)/,
   /pets?\s+(?:are\s+|is\s+)?(?:allowed|welcome|negotiable|permitted|on\s+request)/,
   /pet[- ]friendly/,
@@ -93,11 +96,13 @@ const PETS_POS = [
 
 const SMOKING_NEG = [
   /niet[- ]roken/, /rookvrij/, /niet[- ]?rokers?/, /geen\s+rokers/,
+  /(?:roken|smoking)\s*:\s*(?:nee|niet|no|not allowed|niet toegestaan)\b/,
+  /niet\s+geschikt\s+voor\s+rokers|not\s+suitable\s+for\s+smokers/,
   /roken\s+(?:is\s+)?niet\s+(?:toegestaan|toegelaten)/,
   /\bno\s+smok(?:ing|ers)/, /non[- ]?smok(?:ing|ers?)/,
   /smoking\s+(?:is\s+)?not\s+(?:allowed|permitted)/, /smoke[- ]free/,
 ];
-const SMOKING_POS = [/roken\s+(?:is\s+)?(?:toegestaan|mag)/, /rokers\s+(?:zijn\s+)?welkom/, /smoking\s+(?:is\s+)?allowed/, /smokers\s+welcome/];
+const SMOKING_POS = [/(?:roken|smoking)\s*:\s*(?:ja|yes|toegestaan|allowed)\b/, /roken\s+(?:is\s+)?(?:toegestaan|mag)/, /rokers\s+(?:zijn\s+)?welkom/, /smoking\s+(?:is\s+)?allowed/, /smokers\s+welcome/];
 
 const GUARANTOR_NEG = [
   /geen\s+garantsteller/,
@@ -106,6 +111,7 @@ const GUARANTOR_NEG = [
   /guarantors?\s+(?:are\s+|is\s+)?not\s+(?:accepted|allowed|possible)/,
 ];
 const GUARANTOR_POS = [
+  /garantsteller\s+(?:is\s+)?(?:verplicht|vereist|nodig)|guarantor\s+(?:is\s+)?(?:required|needed|mandatory)/,
   /garantsteller(?:s)?\s+(?:is\s+|zijn\s+)?(?:mogelijk|toegestaan|geaccepteerd|welkom|bespreekbaar)/,
   /met\s+(?:een\s+)?garantsteller/,
   /(?:ouders|parents)\s+(?:als\s+|as\s+)?(?:garantsteller|guarantors?)/,
@@ -150,10 +156,10 @@ export function extractRequirements(text: string, lang: Lang = 'en'): Requiremen
     if (n >= 1 && n <= 6) req.incomeMultiple = n;
   }
 
-  const income = /(?:inkomen|income|salaris|salary)[^.\n]{0,40}?(?:€|eur|euro)?\s*(\d{1,3}(?:[.,]\d{3})+|\d{4,6})(?:,-)?/.exec(t);
+  const income = /(jaar|annual\s+|yearly\s+)?(?:inkomen|income|salaris|salary)[^.\n]{0,40}?(?:€|eur|euro)?\s*(\d{1,3}(?:[.,]\d{3})+|\d{4,6})(?:,-)?(\s*(?:per jaar|p\.?j\.?|per year|a year|annually))?/.exec(t);
   if (income) {
-    let n = Number((income[1] ?? '').replace(/[.,]/g, ''));
-    if (/jaar|annual|year|p\.?j\.?/.test(income[0])) n = Math.round(n / 12);
+    let n = Number((income[2] ?? '').replace(/[.,]/g, ''));
+    if (income[1] || income[3] || /jaar|annual|year/.test(income[0])) n = Math.round(n / 12);
     if (n >= 500 && n <= 20000) req.minIncomeEur = n;
   }
 
@@ -170,9 +176,9 @@ export function extractRequirements(text: string, lang: Lang = 'en'): Requiremen
   else if (indef) req.contract = 'indefinite';
 
   // Durations. A number of years above ten is an age ("minimaal 18 jaar"), not a rental period.
-  const min = new RegExp(String.raw`(?:min(?:imaal|imum|\.)?|ten\s+minste|at\s+least)\b[a-z\s:.]{0,25}?${INT}\s*${UNIT}`).exec(t);
+  const min = new RegExp(String.raw`(?:min(?:imaal|imale|imum|\.)?|ten\s+minste|at\s+least)\b[a-z\s:.]{0,25}?${INT}\s*${UNIT}`).exec(t);
   if (min && !(isYears(min[2]) && toNumber(min[1]) > 10)) req.minMonths = toMonths(toNumber(min[1]), min[2]);
-  const max = new RegExp(String.raw`(?:max(?:imaal|imum|\.)?|ten\s+hoogste|at\s+most|up\s+to)\b[a-z\s:.]{0,25}?${INT}\s*${UNIT}`).exec(t);
+  const max = new RegExp(String.raw`(?:max(?:imaal|imale|imum|\.)?|ten\s+hoogste|at\s+most|up\s+to)\b[a-z\s:.]{0,25}?${INT}\s*${UNIT}`).exec(t);
   if (max && !(isYears(max[2]) && toNumber(max[1]) > 10)) req.maxMonths = toMonths(toNumber(max[1]), max[2]);
   if (req.contract === 'temporary' && req.maxMonths === undefined) {
     const period = new RegExp(String.raw`(?:voor|for)\s+(?:de\s+duur\s+van\s+|een\s+periode\s+van\s+|a\s+period\s+of\s+)?${INT}\s*${UNIT}`).exec(t);
@@ -240,6 +246,7 @@ const NOTES: Record<string, [string, string]> = {
   hospiteren: ['Housemates choose at a viewing evening (hospiteren)', 'Hospiteeravond'],
   vacancy_act: ['Vacancy Act (Leegstandwet) contract', 'Contract onder de Leegstandwet'],
   key_money: ['Mentions key money', 'Noemt sleutelgeld'],
+  single_occupant: ['For one person only', 'Alleen voor 1 persoon'],
 };
 
 function listingNotes(t: string): string[] {
@@ -251,6 +258,7 @@ function listingNotes(t: string): string[] {
   if (/hospiteeravond|hospiteren/.test(t)) notes.push('hospiteren');
   if (/leegstandswet|leegstandsvergunning/.test(t)) notes.push('vacancy_act');
   if (/sleutelgeld|key money/.test(t)) notes.push('key_money');
+  if (/\b(?:voor|geschikt voor|max(?:imaal)?\.?)\s+(?:1|een|één)\s+persoon\b|\b(?:for|suitable for)\s+(?:1|one)\s+person\b|single occupancy/.test(t)) notes.push('single_occupant');
   return notes;
 }
 
@@ -263,7 +271,7 @@ export function scamSignalsFromText(text: string, listing?: Pick<Listing, 'addre
     /(?:betal|overmak|over te maken|pay|transfer|deposit|borg)[^.\n]{0,60}(?:voor|voordat|before|prior to)\s+(?:de\s+|the\s+|a\s+)?(?:bezichtiging|viewing|bezoek|visit|seeing)/.test(t) ||
     /(?:voor|voordat|before)\s+(?:de\s+|the\s+)?(?:bezichtiging|viewing)[^.\n]{0,40}(?:betalen|overmaken|pay|transfer)/.test(t)
   ) out.push('payment_before_viewing');
-  if (/(?:currently|momenteel|at the moment|ik woon|i live|i am|i'm|ik ben|ik zit|werk(?:zaam)?)[^.\n]{0,30}(?:abroad|buitenland|out of the country|overseas)/.test(t)) out.push('landlord_abroad');
+  if (/(?:currently|momenteel|at the moment|ik woon|i live|i am|i'm|ik ben|ik zit|werk(?:zaam)?)[^.\n]{0,30}(?:abroad|buitenland|out of the country|overseas)/.test(t) || ABROAD.test(t)) out.push('landlord_abroad');
   if (/(?:keys?|sleutels?)[^.\n]{0,40}(?:\bpost\b|per post|by mail|courier|koerier|opsturen|toesturen|verzenden|\bsend\b|\bmail\b)/.test(t) || /(?:post|send|mail|stuur|sturen)[^.\n]{0,20}(?:the\s+|de\s+)?(?:keys|sleutels?)/.test(t)) out.push('keys_by_post');
   if (/(?:only|alleen|uitsluitend|enkel)[^.\n]{0,20}whats ?app|whats ?app[^.\n]{0,20}(?:only|alleen)/.test(t)) out.push('whatsapp_only');
   if (/(?:contact|mail|e-?mail|mailen|app|bel|call|text|reach)[^.\n]{0,30}(?:directly|direct|rechtstreeks|prive|private|personal)|[a-z0-9._-]+@(?:gmail|hotmail|outlook|yahoo|live|icloud)\.[a-z]+/.test(t)) out.push('off_platform_contact');
@@ -272,6 +280,10 @@ export function scamSignalsFromText(text: string, listing?: Pick<Listing, 'addre
   if (listing && !listing.address.street && !listing.address.postcode) out.push('no_address');
   return out;
 }
+
+/** "I live in London now", "ik woon in Spanje": a landlord who says they live in another country. */
+export const ABROAD =
+  /\b(?:i live|i am living|i'm living|i now live|i work|i am working|i moved|ik woon|ik werk|ik verblijf|ik zit)\b[^.?!\n]{0,20}\b(?:in\s+)?(?:london|england|the uk|uk|scotland|ireland|spain|spanje|france|frankrijk|germany|duitsland|italy|italie|portugal|belgium|belgie|the us|usa|the united states|america|amerika|canada|dubai|australia|australie|engeland|nigeria)\b/;
 
 export const INJECTION =
   /(?:ignore|disregard|forget|override)\s+(?:all\s+|any\s+)?(?:the\s+)?(?:previous|prior|above|earlier|your)\s+(?:instructions|prompts?|rules)|(?:negeer|vergeet)\s+(?:alle\s+)?(?:vorige|eerdere|voorgaande|bovenstaande)\s+(?:instructies|opdrachten)|system prompt|you are (?:an ai|a language model|chatgpt|claude)|as an ai (?:assistant|model)|\bai assistant\b/;

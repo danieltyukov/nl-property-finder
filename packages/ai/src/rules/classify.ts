@@ -2,7 +2,7 @@ import { fromAmsterdam, amsterdam, type ClassifyInput, type ClassifyOutput, type
 import { parseSimpleSlots } from '../slots.js';
 import { formatSlot, normalise } from '../text.js';
 import type { DocumentKind } from '../types.js';
-import { INJECTION } from './extract.js';
+import { ABROAD, INJECTION } from './extract.js';
 
 type Weighted = [RegExp, number];
 
@@ -46,6 +46,8 @@ const VIEWING: Weighted[] = [
   [/\b(?:view|see) the (?:apartment|room|studio|house|property|place|home|flat)\b/, 3],
   [/\bcome (?:by|and see|over|to see)\b/, 2],
   [/\bshow you (?:around|the)\b/, 2],
+  [/\b(?:zullen|kunnen|shall|can)\s+(?:we|wij)\b[^.?!\n]{0,40}\b(?:afspreken|meet|meeten)\b/, 2],
+  [/\bafspraak\b/, 1],
 ];
 
 const SLOT_CHOICE: RegExp[] = [
@@ -92,6 +94,8 @@ const INFO_REQUEST: Weighted[] = [
   [/\b(?:iets\s+)?(?:meer\s+)?over\s+(?:uzelf|jezelf)\b/, 3],
   [/\b(?:tell|share with) (?:me|us) (?:a bit |a little |some(?:thing)? )?(?:more )?about (?:yourself|you)\b/, 3],
   [/\b(?:kunt|kan|wilt|zou)\s+(?:u|je)\b[^.?!\n]{0,40}\b(?:vertellen|toelichten|laten weten|aangeven)\b/, 2],
+  [/\b(?:could|can|would)\s+you\b[^.?!\n]{0,40}\b(?:let (?:me|us) know|tell (?:me|us)|share|explain)\b/, 2],
+  [/\b(?:income|inkomen|inkomsten|salary|salaris|guarantor|garantsteller|occupation|beroep|job|baan|aanstelling|household|huishouden|pets|huisdieren|smoke|roken|rookt|move[- ]in|verhuisdatum|ingangsdatum)\b[^.!\n]*\?/, 2],
   [/\bwat\s+(?:is|zijn)\s+(?:uw|je|jouw)\b/, 2],
   [/\b(?:wat|welk)\s+(?:voor\s+)?(?:werk|beroep|studie|opleiding|functie)\b/, 2],
   [/\b(?:met|voor)\s+hoeveel\s+personen\b|\bhoeveel\s+(?:personen|mensen)\b/, 2],
@@ -135,6 +139,7 @@ const PAYMENT_REQUEST: Weighted[] = [
 const SCAM: Weighted[] = [
   [/\bwestern union\b|\bmoneygram\b|\bbitcoin\b|\bcrypto\b|\bgift ?card\b|\bcadeaukaart\b/, 4],
   [/\b(?:i am|i'm|ik ben|ik woon|i live|ik zit|momenteel|currently)\b[^.?!\n]{0,30}\b(?:abroad|buitenland|out of the country|overseas)\b/, 4],
+  [ABROAD, 3],
   [/\b(?:keys?|sleutels?)\b[^.?!\n]{0,40}\b(?:post|mail|courier|koerier|opsturen|send|verstuur|sturen|toesturen)\b|\b(?:post|send|mail)\b[^.?!\n]{0,20}\b(?:the\s+)?keys\b/, 3],
   [/\bvia airbnb\b/, 2],
   [/\b(?:only|alleen|uitsluitend)\b[^.?!\n]{0,20}\bwhats ?app\b/, 3],
@@ -297,6 +302,7 @@ function summarise(intent: Intent, out: Omit<ClassifyOutput, 'summary'>, lang: L
 const SCAM_WHY: [RegExp, string, string][] = [
   [/western union|moneygram|bitcoin|crypto|gift ?card|cadeaukaart/, 'untraceable payment method', 'onnaspeurbare betaalmethode'],
   [/abroad|buitenland|out of the country|overseas/, 'landlord abroad', 'verhuurder in het buitenland'],
+  [ABROAD, 'landlord lives in another country', 'verhuurder woont in een ander land'],
   [/(?:keys?|sleutels?)[^.?!\n]{0,40}(?:post|mail|courier|koerier|opsturen|send|sturen)/, 'keys by post', 'sleutels per post'],
   [/whats ?app/, 'WhatsApp contact', 'contact via WhatsApp'],
   [INJECTION, 'instructions aimed at an AI assistant', 'instructies gericht aan een AI-assistent'],

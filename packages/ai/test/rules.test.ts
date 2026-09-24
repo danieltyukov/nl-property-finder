@@ -42,6 +42,12 @@ describe('rules extract', () => {
       ['Niet geschikt voor woningdelers', { sharingAllowed: false }],
       ['Garantsteller mogelijk', { guarantorAccepted: true }],
       ['Alleen werkenden', { studentsAllowed: false }],
+      ['Huisdieren: nee. Roken: nee.', { petsAllowed: false, smokingAllowed: false }],
+      ['Minimale huurperiode: 6 maanden', { minMonths: 6 }],
+      ['Bruto jaarinkomen minimaal EUR 48.000', { minIncomeEur: 4000 }],
+      ['Only for students, pets: yes', { studentsAllowed: true, petsAllowed: true }],
+      ['Garantsteller verplicht voor studenten', { guarantorAccepted: true }],
+      ['Niet geschikt voor rokers', { smokingAllowed: false }],
     ];
     for (const [text, expected] of cases) expect(extractRequirements(text), text).toMatchObject(expected);
   });
@@ -162,6 +168,11 @@ describe('rules classify', () => {
       ['Nieuwe woningen voor je zoekopdracht Delft', 'alert'],
       ['Lees onze nieuwsbrief van september. Uitschrijven? Klik hier.', 'newsletter'],
       ['Ok.', 'other'],
+      ['Helaas kan ik morgen niet. Zullen we vrijdag om 10:00 afspreken?', 'viewing_invite'],
+      ['Hi, I am the owner. I live in London now. Please contact me on WhatsApp.', 'scam_suspect'],
+      ['Could you let us know your gross annual income and whether you have a guarantor?', 'info_request'],
+      ['Wij hebben uw reactie in goede orde ontvangen en nemen spoedig contact met u op.', 'other'],
+      ['Helaas.', 'other'],
     ];
     for (const [text, intent] of cases) expect((await classify(text)).intent, text).toBe(intent);
   });
