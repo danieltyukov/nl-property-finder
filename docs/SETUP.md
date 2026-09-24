@@ -1,6 +1,6 @@
 # Setting it up for yourself
 
-This is the long version of `nlpf init`. It takes about fifteen minutes, most
+This is the long version of `nlpf init`. Install first as the README describes. It takes about fifteen minutes, most
 of which is creating a mailbox.
 
 ## 1. A mailbox just for your search

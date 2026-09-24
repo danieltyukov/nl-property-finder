@@ -131,13 +131,19 @@ default.
 
 ## Install
 
-Requires Node 22.12 or newer.
+Requires Node 22.12 or newer and Git. On Linux, headed browser checks use Xvfb
+(`sudo apt install xvfb`), which the agent starts and stops by itself.
 
 ```
-npm install -g nl-property-finder
-nlpf init      # your profile, your search, the mailbox, notifications
-nlpf on        # start now and at every login
-nlpf open      # the dashboard
+git clone https://github.com/danieltyukov/nl-property-finder.git
+cd nl-property-finder
+npm ci
+npx playwright install chromium
+npm run build
+npm link -w @nlpf/cli      # puts nlpf on your PATH
+nlpf init                  # your profile, your search, the mailbox, notifications
+nlpf on                    # start now and at every login
+nlpf open                  # the dashboard
 ```
 
 `nlpf off` stops it and removes it from login. `nlpf pause` keeps it reading
