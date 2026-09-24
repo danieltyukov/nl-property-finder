@@ -77,7 +77,7 @@ describe('funda adapter', () => {
   test('declares an HTML source with a guest contact form', () => {
     expect(funda.id).toBe('funda');
     expect(funda.regions).toBe('nl');
-    expect(funda.defaultIntervalSec).toBe(60);
+    expect(funda.defaultIntervalSec).toBe(90);
     expect(funda.capabilities).toEqual({
       search: 'html',
       detail: true,
