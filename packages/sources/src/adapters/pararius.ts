@@ -67,7 +67,17 @@ export async function withBrowserPage<T>(ctx: SourceContext, fn: (page: Page) =>
   }
 }
 
-const isTimeout = (e: unknown) => e instanceof Error && e.name === 'TimeoutError';
+/**
+ * Throws `SourceHttpError` for a navigation that cannot recover: a timeout,
+ * or a network error such as a DNS failure or a refused connection. An
+ * aborted navigation (a challenge page replacing itself) is left to the caller.
+ */
+export function failedNavigation(e: unknown, url: string): void {
+  if (!(e instanceof Error)) return;
+  if (e.name === 'TimeoutError') throw new SourceHttpError(`${url} did not load in time`, { status: 0, url, cause: e });
+  const net = /net::(ERR_[A-Z_]+)/.exec(e.message)?.[1];
+  if (net && net !== 'ERR_ABORTED') throw new SourceHttpError(`${url} failed: ${net}`, { status: 0, url, cause: e });
+}
 
 /**
  * Navigates and waits until the `ready` selector shows up. A Cloudflare
@@ -93,8 +103,8 @@ export async function loadPage(page: Page, url: string, opts: LoadOptions): Prom
       if (res && status === undefined) status = res.status();
     } catch (e) {
       opts.signal?.throwIfAborted();
-      if (isTimeout(e)) throw new SourceHttpError(`${url} did not load in time`, { status: 0, url, cause: e });
-      // A challenge page that reloads itself interrupts the first navigation; look at what is there now.
+      failedNavigation(e, url);
+      // A challenge page that reloads itself interrupts the first navigation (net::ERR_ABORTED); look at what is there now.
     }
     const deadline = Date.now() + waitMs;
     let html = '';

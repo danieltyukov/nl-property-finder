@@ -5,7 +5,7 @@ import { SourceBlockedError, SourceHttpError } from '../runtime/errors.js';
 import { detectChallenge, sleep } from '../runtime/fetch.js';
 import { splitAddress } from '../util/address.js';
 import { detectFurnishing, detectType, parseRooms, parseSize } from '../util/parse.js';
-import { areasFromSearches, searchUrlRequests, withBrowserPage } from './pararius.js';
+import { areasFromSearches, failedNavigation, searchUrlRequests, withBrowserPage } from './pararius.js';
 
 /*
  * Holland2Stay (holland2stay.com). What is known, and how sure:
@@ -233,7 +233,7 @@ async function watchResidences(page: Page, url: string, waitMs: number, signal: 
       await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45_000 });
     } catch (e) {
       signal.throwIfAborted();
-      if (e instanceof Error && e.name === 'TimeoutError') throw new SourceHttpError(`${url} did not load in time`, { status: 0, url, cause: e });
+      failedNavigation(e, url);
     }
     const deadline = Date.now() + waitMs;
     let html = '';

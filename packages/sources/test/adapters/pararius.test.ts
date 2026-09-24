@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import type { InboundMessage } from '@nlpf/core';
-import { SourceBlockedError } from '../../src/runtime/errors.js';
+import { SourceBlockedError, SourceHttpError } from '../../src/runtime/errors.js';
 import { createParariusAdapter, mastheadLoginState, pararius } from '../../src/adapters/pararius.js';
 import { browserAdapters } from '../../src/builtin/browser.js';
 import { parseParariusCards, parseParariusDetail, parariusListingId } from '../../src/parsers/pararius-cards.js';
@@ -152,6 +152,17 @@ describe('pararius search', () => {
     const { ctx } = ctxWith({ [DELFT]: [challenge, challenge, { file: 'pararius/search-delft.html' }] });
     const [req] = adapter.buildSearches(ctx.searches, ctx.source);
     expect(await adapter.search(req!, ctx)).toHaveLength(17);
+  });
+
+  test('a network failure fails at once instead of waiting for the page', async () => {
+    const adapter = createParariusAdapter({ waitMs: 60_000 });
+    const { ctx, browser } = ctxWith({ [DELFT]: { error: 'net::ERR_NAME_NOT_RESOLVED' } });
+    const started = Date.now();
+    const err = await adapter.search(adapter.buildSearches(ctx.searches, ctx.source)[0]!, ctx).catch((e: unknown) => e);
+    expect(err).toBeInstanceOf(SourceHttpError);
+    expect(err).toMatchObject({ status: 0 });
+    expect(Date.now() - started).toBeLessThan(5_000);
+    expect(browser.open()).toBe(0);
   });
 
   test('a check that does not clear is reported as blocked, so the scheduler backs off', async () => {

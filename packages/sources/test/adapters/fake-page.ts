@@ -15,6 +15,8 @@ export interface FakeRoute {
   status?: number;
   /** Serve this URL's route instead, and report that URL as the page URL. */
   redirect?: string;
+  /** Make `goto` throw this message, like a failed navigation ("net::ERR_NAME_NOT_RESOLVED"). */
+  error?: string;
 }
 
 /** One route, or a sequence the page steps through on each look at its content (a challenge that clears, for example). */
@@ -79,6 +81,7 @@ export function fakeBrowser(routes: Record<string, FakeRouteSpec>): FakeBrowser 
         const r = resolve(url);
         steps = r.steps;
         step = 0;
+        if (steps[0]?.error) throw new Error(`page.goto: ${steps[0].error} at ${url}`);
         state.url = r.url;
         state.html = htmlOf(current());
         const status = current().status ?? 200;
