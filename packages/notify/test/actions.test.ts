@@ -126,7 +126,9 @@ describe('Telegram action channel', () => {
   async function telegramStandIn() {
     let polls = 0;
     const stub = await startStub(async (req: Recorded, res) => {
-      const reply = (result: unknown) => res.writeHead(200, { 'content-type': 'application/json' }).end(JSON.stringify({ ok: true, result }));
+      const reply = (result: unknown): void => {
+        res.writeHead(200, { 'content-type': 'application/json' }).end(JSON.stringify({ ok: true, result }));
+      };
       if (req.path.endsWith('/getUpdates')) {
         polls++;
         if (polls === 1) return reply(firstBatch);
