@@ -18,3 +18,6 @@ export * from './generic/agency.js';
 export * from './generic/presets.js';
 
 // Test helpers live in ./testing.ts and are imported from there directly.
+
+// Every built-in source.
+export * from './builtin.js';

@@ -24,7 +24,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "build": "npm run build -w @nlpf/dashboard && npm run build -w @nlpf/cli && npm run build -w @nlpf/site"
+    "build": "npm run build -w @nlpf/dashboard && npm run build -w @nlpf/cli && npm run build -w @nlpf/site",
+    "record": "tsx packages/sources/scripts/record.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
