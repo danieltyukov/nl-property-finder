@@ -17,7 +17,6 @@ export interface DesktopOptions {
 const defaultExec: ExecFileFn = (file, args, options, callback) =>
   nodeExecFile(file, [...args], options, (error) => callback(error));
 
-// eslint-disable-next-line no-control-regex
 const plain = (s: string, max: number): string => s.replace(/[\u0000-\u0008\u000b-\u001f\u007f]/g, ' ').slice(0, max);
 
 const urgency = (p: Notification['priority']): string => (p >= 5 ? 'critical' : p <= 2 ? 'low' : 'normal');

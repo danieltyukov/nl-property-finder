@@ -29,7 +29,6 @@ export async function request(fetchFn: FetchFn, url: string, init: RequestInit, 
  */
 export function headerValue(s: string): string {
   const flat = s.replace(/[\r\n]+/g, ' ').trim();
-  // eslint-disable-next-line no-control-regex
   return /^[\x20-\x7e]*$/.test(flat) ? flat : `=?UTF-8?B?${Buffer.from(flat, 'utf8').toString('base64')}?=`;
 }
 
