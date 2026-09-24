@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, test } from 'vitest';
 import { memoryLogger } from '@nlpf/core';
-import { createBrowserPool, findExecutable, resolveChromium } from '../src/index.js';
+import { createBrowserPool, findExecutable, resolveChromium, startXvfb } from '../src/index.js';
 import { startFixtureServer, type FixtureServer } from '../src/testing.js';
 
 const chromiumPath = resolveChromium();
@@ -168,6 +168,47 @@ describe.skipIf(!chromiumPath)('browser pool with a real Chromium', () => {
     expect(existsSync(`/tmp/.X11-unix/X${display.slice(1)}`)).toBe(false);
     expect(await eventually(() => browserPids(profile).length === 0)).toBe(true);
     expect(pool.info().display).toBeUndefined();
+  });
+
+  test.skipIf(!haveXvfb || !haveXwininfo)('while a visible window is open, other sessions become background tabs in it', async () => {
+    // Stand in for the desktop with our own Xvfb, so this test never opens a window on the real screen.
+    const desktop = await startXvfb({ log: memoryLogger(), from: 180 });
+    // Chromium's automatic backend would still find the real Wayland socket through
+    // XDG_SESSION_TYPE and XDG_RUNTIME_DIR, so point both away from the desktop.
+    const runtimeDir = mkdtempSync(join(tmpdir(), 'nlpf-xdg-'));
+    const env: NodeJS.ProcessEnv = { ...process.env, DISPLAY: desktop.display, XDG_SESSION_TYPE: 'x11', XDG_RUNTIME_DIR: runtimeDir };
+    delete env.WAYLAND_DISPLAY;
+    if (desktop.xauthority) env.XAUTHORITY = desktop.xauthority;
+    const pool = createBrowserPool({ dir, log: memoryLogger(), env });
+    const profile = join(dir, 'connect');
+    try {
+      const win = await pool.session('connect', { mode: 'visible' });
+      expect(win.mode).toBe('visible');
+      expect(win.display).toBe(desktop.display);
+      await win.page.goto(`${server.url}/`);
+
+      const check = await pool.session('connect', { mode: 'headless' });
+      expect(check.mode).toBe('visible');
+      expect(check.page.context()).toBe(win.page.context());
+      await check.page.goto(`${server.url}/login`);
+      expect(await check.page.title()).toBe('Logged in');
+      // The window still shows the page the person is using.
+      const titles = windowsOf(desktop.display, profile, desktop.xauthority) ?? [];
+      expect(titles.some((l) => l.includes('Pool test page'))).toBe(true);
+      expect(titles.some((l) => l.includes('Logged in'))).toBe(false);
+      await check.close();
+
+      // Closing the visible session closes that browser; the next session reopens the profile headless.
+      await win.close();
+      expect(pool.info().contexts).toEqual([]);
+      const later = await pool.session('connect');
+      expect(later.mode).toBe('headless');
+      expect((await later.page.context().cookies(server.url)).map((c) => c.name)).toContain('session');
+    } finally {
+      await pool.closeAll();
+      await desktop.stop();
+      rmSync(runtimeDir, { recursive: true, force: true });
+    }
   });
 
   test.skipIf(!haveXvfb)('asking for headed restarts a headless browser on the same profile; headless then reuses it', async () => {

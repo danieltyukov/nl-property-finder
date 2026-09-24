@@ -182,6 +182,7 @@ export function createBrowserPool(opts: BrowserPoolOptions): BrowserPool {
         const x = await ensureXvfb();
         env.DISPLAY = x.display;
         delete env.WAYLAND_DISPLAY;
+        env.XDG_SESSION_TYPE = 'x11';
         if (x.xauthority) env.XAUTHORITY = x.xauthority;
         args.push('--ozone-platform=x11');
         entry.display = x.display;
@@ -190,6 +191,7 @@ export function createBrowserPool(opts: BrowserPoolOptions): BrowserPool {
         if (platform === 'linux') {
           // X11 honours window positions; a Wayland compositor would not.
           delete env.WAYLAND_DISPLAY;
+          env.XDG_SESSION_TYPE = 'x11';
           args.push('--ozone-platform=x11');
           entry.display = env.DISPLAY;
         }

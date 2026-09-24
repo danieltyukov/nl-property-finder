@@ -7,3 +7,4 @@ export * from './runtime/context.js';
 export * from './runtime/registry.js';
 export * from './util/parse.js';
 export * from './util/address.js';
+export * from './runtime/connect.js';
