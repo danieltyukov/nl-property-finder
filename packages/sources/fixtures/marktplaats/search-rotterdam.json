@@ -1,0 +1,2393 @@
+{
+ "listings": [
+  {
+   "itemId": "m2445384547",
+   "title": "Kamer te huur",
+   "description": "Ik verhuur een complete kamer; heel schoon, heeft een mooi uitzicht en is voor één persoon. De kamer ligt in rotterdam zuid, vlakbij zuidplein ahoy, een metro- en busstation, lidl, dirk en albert heij",
+   "categorySpecificDescription": "Ik verhuur een complete kamer; heel schoon, heeft een mooi uitzicht en is voor één persoon. De kamer ligt in rotterdam zuid, vlakbij zuidplein ahoy, een metro- en busstation, lidl, dirk en albert heijn.€700per maand plus €150 per maand huis...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 70000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 4000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.889904897241,
+    "longitude": 4.4929281350296
+   },
+   "date": "Vandaag",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dc6dc4cd-c13a-46d5-bd02-c356240ef480?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 55190768,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dc6dc4cd-c13a-46d5-bd02-c356240ef480?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dc6dc4cd-c13a-46d5-bd02-c356240ef480?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dc6dc4cd-c13a-46d5-bd02-c356240ef480?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dc6dc4cd-c13a-46d5-bd02-c356240ef480?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dc6dc4cd-c13a-46d5-bd02-c356240ef480?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 4,
+      "height": 3
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2445384547-kamer-te-huur"
+  },
+  {
+   "itemId": "m2446177348",
+   "title": "Bedrijfsruimte/Kantoor/Winkel te huur",
+   "description": "Veelzijdige bedrijfsruimte beschikbaar voor huur, ideaal voor kantoor, winkel of andere commerciële doeleinden. Gelegen op een goed bereikbare locatie met diverse mogelijkheden voor ondernemers. De ru",
+   "categorySpecificDescription": "Veelzijdige bedrijfsruimte beschikbaar voor huur, ideaal voor kantoor, winkel of andere commerciële doeleinden. Gelegen op een goed bereikbare locatie met diverse mogelijkheden voor ondernemers. De ruimte beschikt over een open indeling, een pantry e...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 130000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 5000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.883255497032,
+    "longitude": 4.504054223561
+   },
+   "date": "Vandaag",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/debcfbe4-c125-4840-95b1-3ef6bc48b3d1?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 40642707,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/debcfbe4-c125-4840-95b1-3ef6bc48b3d1?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/debcfbe4-c125-4840-95b1-3ef6bc48b3d1?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/debcfbe4-c125-4840-95b1-3ef6bc48b3d1?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/debcfbe4-c125-4840-95b1-3ef6bc48b3d1?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/debcfbe4-c125-4840-95b1-3ef6bc48b3d1?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2446177348-bedrijfsruimte-kantoor-winkel-te-huur"
+  },
+  {
+   "itemId": "m2446173660",
+   "title": "tehuur per dag !!!!",
+   "description": "Te huur voor het oudste beroep wat er bestaat",
+   "categorySpecificDescription": "Te huur voor het oudste beroep wat er bestaat",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 0,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Rhoon",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 7000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.859713086168,
+    "longitude": 4.4739434376483
+   },
+   "date": "Vandaag",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/06d2fb4d-7812-4b1c-b7f5-f89e22a27e6d?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 47428320,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/06d2fb4d-7812-4b1c-b7f5-f89e22a27e6d?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/06d2fb4d-7812-4b1c-b7f5-f89e22a27e6d?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/06d2fb4d-7812-4b1c-b7f5-f89e22a27e6d?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/06d2fb4d-7812-4b1c-b7f5-f89e22a27e6d?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/06d2fb4d-7812-4b1c-b7f5-f89e22a27e6d?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 9,
+      "height": 16
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2446173660-tehuur-per-dag"
+  },
+  {
+   "itemId": "m2444919361",
+   "title": "Ruimte te huur Rotterdam",
+   "description": "In onze nieuwe salon verhuren wij deze leuke ruimte in rotterdam aan de rand van schiedam. Ben je werkzaam in de beauty en ben je geïnteresseerd stuur dan gerust een berichtje",
+   "categorySpecificDescription": "In onze nieuwe salon verhuren wij deze leuke ruimte in rotterdam aan de rand van schiedam. Ben je werkzaam in de beauty en ben je geïnteresseerd stuur dan gerust een berichtje",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 60000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 2000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.919399023268,
+    "longitude": 4.4449382957001
+   },
+   "date": "Gisteren",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f42171f6-9b9a-420d-88e0-f30bb9dd4d07?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 27241238,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f42171f6-9b9a-420d-88e0-f30bb9dd4d07?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f42171f6-9b9a-420d-88e0-f30bb9dd4d07?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f42171f6-9b9a-420d-88e0-f30bb9dd4d07?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f42171f6-9b9a-420d-88e0-f30bb9dd4d07?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f42171f6-9b9a-420d-88e0-f30bb9dd4d07?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2444919361-ruimte-te-huur-rotterdam"
+  },
+  {
+   "itemId": "m2445929754",
+   "title": "Hotelkamer beschikbaar per 24-09 in witte de withstraat",
+   "description": "Hotel kamer in hartje centrum. Gevestigd op witte de withstraat. 1 X per week een schoonmaak van de kamer. 1 Persoon minimaal 60 nachten €45 p nacht 2 personen persoon minimaal 60 nachten €6",
+   "categorySpecificDescription": "Hotel kamer in hartje centrum. Gevestigd op witte de withstraat. 1 X per week een schoonmaak van de kamer. 1 Persoon minimaal 60 nachten €45 p nacht 2 personen persoon minimaal 60 nachten €65 p nacht inschrijven mogelijk 1 persoon 30 nachte...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 135000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 5000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.953404796504,
+    "longitude": 4.5229824109073
+   },
+   "date": "Gisteren",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/615feb88-2e2d-446a-bf5f-a0d4064b770f?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 22265966,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    },
+    {
+     "key": "livingArea",
+     "value": "20 tot 35 m²",
+     "values": [
+      "20 tot 35 m²"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "livingArea",
+     "value": "20 tot 35 m²",
+     "values": [
+      "20 tot 35 m²"
+     ]
+    },
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/615feb88-2e2d-446a-bf5f-a0d4064b770f?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/615feb88-2e2d-446a-bf5f-a0d4064b770f?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/615feb88-2e2d-446a-bf5f-a0d4064b770f?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/615feb88-2e2d-446a-bf5f-a0d4064b770f?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/615feb88-2e2d-446a-bf5f-a0d4064b770f?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2445929754-hotelkamer-beschikbaar-per-24-09-in-witte-de-withstraat"
+  },
+  {
+   "itemId": "m2445614055",
+   "title": "Kamer te huur voor werkende of studenten",
+   "description": "Kamer te huur voor werkende mensen of studenten",
+   "categorySpecificDescription": "Kamer te huur voor werkende mensen of studenten",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 75500,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 7000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.8966729843,
+    "longitude": 4.5709628284754
+   },
+   "date": "Eergisteren",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/012246ff-fdbb-4984-a5de-17c10acdd66a?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 17184397,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    },
+    {
+     "key": "livingArea",
+     "value": "20 tot 35 m²",
+     "values": [
+      "20 tot 35 m²"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "livingArea",
+     "value": "20 tot 35 m²",
+     "values": [
+      "20 tot 35 m²"
+     ]
+    },
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/012246ff-fdbb-4984-a5de-17c10acdd66a?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/012246ff-fdbb-4984-a5de-17c10acdd66a?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/012246ff-fdbb-4984-a5de-17c10acdd66a?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/012246ff-fdbb-4984-a5de-17c10acdd66a?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/012246ff-fdbb-4984-a5de-17c10acdd66a?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2445614055-kamer-te-huur-voor-werkende-of-studenten"
+  },
+  {
+   "itemId": "m2445496405",
+   "title": "Vakkenkast / boekenkast van Woood. Wit. Massief hout",
+   "description": "Leuke kast voor boeken of mooie objecten. Hij is zwaar en kan niet uit elkaar. Vandaar de prijs. Ophalen uiteraard. Breed 180 cm hoog 200 diep 35",
+   "categorySpecificDescription": "Leuke kast voor boeken of mooie objecten. Hij is zwaar en kan niet uit elkaar. Vandaar de prijs. Ophalen uiteraard. Breed 180 cm hoog 200 diep 35",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 2500,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Rhoon",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 8000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.857353976384,
+    "longitude": 4.4199591487944
+   },
+   "date": "Eergisteren",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8bd9dca8-458b-4ced-a918-34bbf8a3941a?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 41301739,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8bd9dca8-458b-4ced-a918-34bbf8a3941a?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8bd9dca8-458b-4ced-a918-34bbf8a3941a?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8bd9dca8-458b-4ced-a918-34bbf8a3941a?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8bd9dca8-458b-4ced-a918-34bbf8a3941a?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8bd9dca8-458b-4ced-a918-34bbf8a3941a?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 803,
+      "height": 602
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2445496405-vakkenkast-boekenkast-van-woood-wit-massief-hout"
+  },
+  {
+   "itemId": "m2445401958",
+   "title": "Peuterbedje",
+   "description": "140x70cm een goede gebruikte staat. Klaar voor een volgende ronde. Inclusief matrasje.",
+   "categorySpecificDescription": "140x70cm een goede gebruikte staat. Klaar voor een volgende ronde. Inclusief matrasje.",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 3000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "Schiedam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 5000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.920400459698,
+    "longitude": 4.409016605643
+   },
+   "date": "Eergisteren",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5f991842-bdb2-472c-aa1e-97eaba6cddfa?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 19728871,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5f991842-bdb2-472c-aa1e-97eaba6cddfa?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5f991842-bdb2-472c-aa1e-97eaba6cddfa?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5f991842-bdb2-472c-aa1e-97eaba6cddfa?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5f991842-bdb2-472c-aa1e-97eaba6cddfa?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5f991842-bdb2-472c-aa1e-97eaba6cddfa?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2445401958-peuterbedje"
+  },
+  {
+   "itemId": "m2443994920",
+   "title": "Roommate gezocht (indoor kelderkamer)",
+   "description": "Kamer te huur, beetje lage plafond, ik raad eerst bezichtiging aan! Alleenstaande man van 32, heb een huurwoning maar een roommate kan geen kwaad dacht ik zodat we de huur kunnen splitsen ofzo. Man of",
+   "categorySpecificDescription": "Kamer te huur, beetje lage plafond, ik raad eerst bezichtiging aan! Alleenstaande man van 32, heb een huurwoning maar een roommate kan geen kwaad dacht ik zodat we de huur kunnen splitsen ofzo. Man of vrouw maakt niet uit, (mits het matcht) heb alles...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 45000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 4000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.892014728542,
+    "longitude": 4.5116879923671
+   },
+   "date": "21 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/012bfc11-a0d4-4c73-ae80-889e0f5cb213?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 40859594,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/012bfc11-a0d4-4c73-ae80-889e0f5cb213?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/012bfc11-a0d4-4c73-ae80-889e0f5cb213?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/012bfc11-a0d4-4c73-ae80-889e0f5cb213?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/012bfc11-a0d4-4c73-ae80-889e0f5cb213?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/012bfc11-a0d4-4c73-ae80-889e0f5cb213?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 803,
+      "height": 602
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": true,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2443994920-roommate-gezocht-indoor-kelderkamer"
+  },
+  {
+   "itemId": "m2444955663",
+   "title": "Fermacell therm 25 fermacell vloerverwarmingselement",
+   "description": "2x fermacell therm 25 vloerverwarmingselement. Afmetingen 100cm x 50cm",
+   "categorySpecificDescription": "2x fermacell therm 25 vloerverwarmingselement. Afmetingen 100cm x 50cm",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 5000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 5000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.874398365988,
+    "longitude": 4.4765266696915
+   },
+   "date": "20 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4752f908-0316-47b7-9813-70460d6fc4a7?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 18340911,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    },
+    {
+     "key": "livingArea",
+     "value": "Minder dan 20 m²",
+     "values": [
+      "Minder dan 20 m²"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "livingArea",
+     "value": "Minder dan 20 m²",
+     "values": [
+      "Minder dan 20 m²"
+     ]
+    },
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4752f908-0316-47b7-9813-70460d6fc4a7?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4752f908-0316-47b7-9813-70460d6fc4a7?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4752f908-0316-47b7-9813-70460d6fc4a7?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4752f908-0316-47b7-9813-70460d6fc4a7?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4752f908-0316-47b7-9813-70460d6fc4a7?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 131,
+      "height": 90
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2444955663-fermacell-therm-25-fermacell-vloerverwarmingselement"
+  },
+  {
+   "itemId": "m2444918211",
+   "title": "kamer gezocht Rotterdam zuid barendrecht Ridderkerk rhoon",
+   "description": "Ik ben opzoek naar een woning rotterdam zuid barendrecht ridderkerk rhoon kamer stodio huis",
+   "categorySpecificDescription": "Ik ben opzoek naar een woning rotterdam zuid barendrecht ridderkerk rhoon kamer stodio huis",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 0,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 6000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.872213415799,
+    "longitude": 4.5200483472548
+   },
+   "date": "20 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f059bb61-f222-45b2-97d8-f2923883cb5d?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 23368544,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f059bb61-f222-45b2-97d8-f2923883cb5d?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f059bb61-f222-45b2-97d8-f2923883cb5d?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f059bb61-f222-45b2-97d8-f2923883cb5d?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f059bb61-f222-45b2-97d8-f2923883cb5d?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f059bb61-f222-45b2-97d8-f2923883cb5d?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 60,
+      "height": 67
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2444918211-kamer-gezocht-rotterdam-zuid-barendrecht-ridderkerk-rhoon"
+  },
+  {
+   "itemId": "m2444683281",
+   "title": "Nike air max Rotterdam maat 40",
+   "description": "Product omschrijving de nike air max bw qs rotterdam biedt een frisse uitstraling met groene tinten en unieke details, geïnspireerd door de stad rotterdam. Het bovenwerk is gemaakt van duurzaam synthe",
+   "categorySpecificDescription": "Product omschrijving de nike air max bw qs rotterdam biedt een frisse uitstraling met groene tinten en unieke details, geïnspireerd door de stad rotterdam. Het bovenwerk is gemaakt van duurzaam synthetisch mesh en heeft zwarte en witte accenten die h...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 35000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Rhoon",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 8000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.853173328874,
+    "longitude": 4.4765430909496
+   },
+   "date": "20 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/312a941f-3d8b-41dd-bc4a-ba225a30224a?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 45079290,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/312a941f-3d8b-41dd-bc4a-ba225a30224a?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/312a941f-3d8b-41dd-bc4a-ba225a30224a?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/312a941f-3d8b-41dd-bc4a-ba225a30224a?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/312a941f-3d8b-41dd-bc4a-ba225a30224a?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/312a941f-3d8b-41dd-bc4a-ba225a30224a?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 803,
+      "height": 602
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2444683281-nike-air-max-rotterdam-maat-40"
+  },
+  {
+   "itemId": "m2443383083",
+   "title": "Share house for rent",
+   "description": "🏠 rental sharing – schiedam a large and comfortable house is available for rental sharing in rozenburgerplein, schiedam. 💶 €850 per person/month ✅ all expenses included 🔐 one-month deposit req",
+   "categorySpecificDescription": "🏠 rental sharing – schiedam a large and comfortable house is available for rental sharing in rozenburgerplein, schiedam. 💶 €850 per person/month ✅ all expenses included 🔐 one-month deposit required 📍 great location in schiedam. 📩 Interested...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 85000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "Schiedam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 6000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.905728794331,
+    "longitude": 4.4009093584739
+   },
+   "date": "19 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/85a465d1-f7f4-43e3-af9a-bc1544cb3028?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 52438766,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/85a465d1-f7f4-43e3-af9a-bc1544cb3028?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/85a465d1-f7f4-43e3-af9a-bc1544cb3028?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/85a465d1-f7f4-43e3-af9a-bc1544cb3028?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/85a465d1-f7f4-43e3-af9a-bc1544cb3028?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/85a465d1-f7f4-43e3-af9a-bc1544cb3028?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2443383083-share-house-for-rent"
+  },
+  {
+   "itemId": "m2394663444",
+   "title": "Overwinteren in Moraira !",
+   "description": "Heerlijk vakantiehuis voor 4 personen. 2 Slpkmrs, 1 bdkmr. Grote terrastuin op het zuiden. Gemeenschappelijk zwembad. Op 5 min rijden van strand en centrum. Vliegen op alicante of valencia. Beschikbaa",
+   "categorySpecificDescription": "Heerlijk vakantiehuis voor 4 personen. 2 Slpkmrs, 1 bdkmr. Grote terrastuin op het zuiden. Gemeenschappelijk zwembad. Op 5 min rijden van strand en centrum. Vliegen op alicante of valencia. Beschikbaarheid winter ( verhuur per maand ) 01-12 tot 31-01...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 95000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "Rhoon",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 9000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.854272034488,
+    "longitude": 4.4188884845507
+   },
+   "date": "17 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7a61fa99-df3c-4749-861f-3e1af5a0085e?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 13807543,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2143,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_PLUS"
+   ],
+   "verticals": [
+    "houses_to_sell",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7a61fa99-df3c-4749-861f-3e1af5a0085e?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7a61fa99-df3c-4749-861f-3e1af5a0085e?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7a61fa99-df3c-4749-861f-3e1af5a0085e?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7a61fa99-df3c-4749-861f-3e1af5a0085e?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7a61fa99-df3c-4749-861f-3e1af5a0085e?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 1,
+      "height": 1
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/huizen-te-huur/m2394663444-overwinteren-in-moraira"
+  },
+  {
+   "itemId": "m2443412322",
+   "title": "Mooie Seddari Hoekbank + Ronde Tafel – Zwart/Grijs",
+   "description": "🛋️ mooie seddari hoekbank – zwart/grijs/wit mooie en ruime seddari hoekbank met een luxe uitstraling. De bank heeft een stevig houten frame, comfortabele kussens en een mooie arabische/maghrebijnse s",
+   "categorySpecificDescription": "🛋️ mooie seddari hoekbank – zwart/grijs/wit mooie en ruime seddari hoekbank met een luxe uitstraling. De bank heeft een stevig houten frame, comfortabele kussens en een mooie arabische/maghrebijnse stijl. Details: • stevig houten frame • z...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 40000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 5000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.875563065338,
+    "longitude": 4.4980331625287
+   },
+   "date": "16 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7e9c5147-d4ca-40f0-ac25-732642b0fba2?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 48361328,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7e9c5147-d4ca-40f0-ac25-732642b0fba2?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7e9c5147-d4ca-40f0-ac25-732642b0fba2?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7e9c5147-d4ca-40f0-ac25-732642b0fba2?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7e9c5147-d4ca-40f0-ac25-732642b0fba2?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7e9c5147-d4ca-40f0-ac25-732642b0fba2?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 803,
+      "height": 602
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2443412322-mooie-seddari-hoekbank-ronde-tafel-zwart-grijs"
+  },
+  {
+   "itemId": "m2441951412",
+   "title": "kamer te huur",
+   "description": "Per 1 oktober 2026 komt er een kamer beschikbaar in rotterdam. De kamer is geschikt voor één vrouw en beschikt over: - 🛏️ een 2-persoonsbed (160×200) - 👗 ingebouwde kledingkasten - 👠 kleine schoene",
+   "categorySpecificDescription": "Per 1 oktober 2026 komt er een kamer beschikbaar in rotterdam. De kamer is geschikt voor één vrouw en beschikt over: - 🛏️ een 2-persoonsbed (160×200) - 👗 ingebouwde kledingkasten - 👠 kleine schoenenkast - 💡 stroom en water inbegrepen - 🚿 douche ...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 50000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 7000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.877578721225,
+    "longitude": 4.5421637425579
+   },
+   "date": "15 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fa8ce985-5d13-45f0-9dc1-4c80248b349d?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 16227906,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    },
+    {
+     "key": "livingArea",
+     "value": "Minder dan 20 m²",
+     "values": [
+      "Minder dan 20 m²"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "livingArea",
+     "value": "Minder dan 20 m²",
+     "values": [
+      "Minder dan 20 m²"
+     ]
+    },
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fa8ce985-5d13-45f0-9dc1-4c80248b349d?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fa8ce985-5d13-45f0-9dc1-4c80248b349d?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fa8ce985-5d13-45f0-9dc1-4c80248b349d?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fa8ce985-5d13-45f0-9dc1-4c80248b349d?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fa8ce985-5d13-45f0-9dc1-4c80248b349d?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2441951412-kamer-te-huur"
+  },
+  {
+   "itemId": "m2442948566",
+   "title": "Kamer te huur in Rotterdam",
+   "description": "Gezellige kamer te huur voor een vrouw ben je op zoek naar een fijne, rustige plek om te wonen? Dan is deze kamer misschien iets voor jou! 😊 Ik verhuur een kamer voor uitsluitend een vrouw in een gez",
+   "categorySpecificDescription": "Gezellige kamer te huur voor een vrouw ben je op zoek naar een fijne, rustige plek om te wonen? Dan is deze kamer misschien iets voor jou! 😊 Ik verhuur een kamer voor uitsluitend een vrouw in een gezellige woning. De woning beschikt over een gedeeld...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 65000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 2000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.91455889654,
+    "longitude": 4.4957247716169
+   },
+   "date": "15 sep 26",
+   "sellerInformation": {
+    "sellerId": 58153835,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2442948566-kamer-te-huur-in-rotterdam"
+  },
+  {
+   "itemId": "m2441657994",
+   "title": "Briefadres beschikbaar - Rotterdam",
+   "description": "Voor degene die een briefadres zoeken. Graag reageren met een korte introductie. Prijs nader overeen te komen.",
+   "categorySpecificDescription": "Voor degene die een briefadres zoeken. Graag reageren met een korte introductie. Prijs nader overeen te komen.",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 25000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 3000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.90280314747,
+    "longitude": 4.5071552603574
+   },
+   "date": "14 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/80630b0f-09ef-4843-9a35-b35363392797?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 60722223,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/80630b0f-09ef-4843-9a35-b35363392797?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/80630b0f-09ef-4843-9a35-b35363392797?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/80630b0f-09ef-4843-9a35-b35363392797?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/80630b0f-09ef-4843-9a35-b35363392797?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/80630b0f-09ef-4843-9a35-b35363392797?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 1,
+      "height": 1
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2441657994-briefadres-beschikbaar-rotterdam"
+  },
+  {
+   "itemId": "m2441586539",
+   "title": "Kamer te huur",
+   "description": "Alleen vrouwen vanaf 30 jaar. Is vanaf vandaag beschikbaar",
+   "categorySpecificDescription": "Alleen vrouwen vanaf 30 jaar. Is vanaf vandaag beschikbaar",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 60000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 3000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.911816416985,
+    "longitude": 4.438342889088
+   },
+   "date": "14 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1f7f0547-2e1c-43ca-9377-6330d6158d1d?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 50198918,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1f7f0547-2e1c-43ca-9377-6330d6158d1d?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1f7f0547-2e1c-43ca-9377-6330d6158d1d?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1f7f0547-2e1c-43ca-9377-6330d6158d1d?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1f7f0547-2e1c-43ca-9377-6330d6158d1d?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1f7f0547-2e1c-43ca-9377-6330d6158d1d?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2441586539-kamer-te-huur"
+  },
+  {
+   "itemId": "m2441915950",
+   "title": "Kamer te huur in Rotterdam",
+   "description": "Prijs is inclusief internet, tv, gas, stroom , gemeentelijke belastingen, en waterschap belastingen. 2 Maanden huur vooruitbetalen hallo, ik ben een vrouw en heb nog een kamer vrij die ik niet gebruik",
+   "categorySpecificDescription": "Prijs is inclusief internet, tv, gas, stroom , gemeentelijke belastingen, en waterschap belastingen. 2 Maanden huur vooruitbetalen hallo, ik ben een vrouw en heb nog een kamer vrij die ik niet gebruik met een tweepersoonsbed erin. Ik ben op zoek naar...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 60000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 3000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.953156134685,
+    "longitude": 4.4652865576337
+   },
+   "date": "12 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3d43364b-8f54-4723-89e7-3a1c06a125ba?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 11281781,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3d43364b-8f54-4723-89e7-3a1c06a125ba?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3d43364b-8f54-4723-89e7-3a1c06a125ba?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3d43364b-8f54-4723-89e7-3a1c06a125ba?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3d43364b-8f54-4723-89e7-3a1c06a125ba?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3d43364b-8f54-4723-89e7-3a1c06a125ba?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2441915950-kamer-te-huur-in-rotterdam"
+  },
+  {
+   "itemId": "m2441560522",
+   "title": "Gratis bank, per direct beschikbaar",
+   "description": "Wegens het aanschaffen van een nieuwe bank kan mijn huidige bank opgehaald worden. De bank is van ikea (ektorp)geen vlekken, geen beschadigingen. 3 Zitbank, licht grijs. De hoezen zijn wasbaar en heb ",
+   "categorySpecificDescription": "Wegens het aanschaffen van een nieuwe bank kan mijn huidige bank opgehaald worden. De bank is van ikea (ektorp)geen vlekken, geen beschadigingen. 3 Zitbank, licht grijs. De hoezen zijn wasbaar en heb ik ook recent gewassen. De bank kan opgehaald word...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 0,
+    "priceType": "FREE"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 4000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.887527888694,
+    "longitude": 4.4839487362572
+   },
+   "date": "11 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3059cedb-b317-4adb-8add-c345145b324a?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 47823425,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3059cedb-b317-4adb-8add-c345145b324a?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3059cedb-b317-4adb-8add-c345145b324a?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3059cedb-b317-4adb-8add-c345145b324a?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3059cedb-b317-4adb-8add-c345145b324a?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3059cedb-b317-4adb-8add-c345145b324a?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 9,
+      "height": 16
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": true,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2441560522-gratis-bank-per-direct-beschikbaar"
+  },
+  {
+   "itemId": "m2440354386",
+   "title": "Klassiek vrijstaand bad op pootjes + wastafel – complete set",
+   "description": "Mooie klassieke badkamer set te koop. 🛁 Vrijstaand bad op decoratieve pootjes 🚿 klassieke wastafel op poot ✨ witte uitvoering met klassieke uitstraling 📦 wordt bij voorkeur als complete set verkoch",
+   "categorySpecificDescription": "Mooie klassieke badkamer set te koop. 🛁 Vrijstaand bad op decoratieve pootjes 🚿 klassieke wastafel op poot ✨ witte uitvoering met klassieke uitstraling 📦 wordt bij voorkeur als complete set verkocht. De set is gebruikt, maar verkeert in nette staa...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 40000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Schiedam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 6000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.911862500005,
+    "longitude": 4.3903040423809
+   },
+   "date": "11 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5850f68e-3e8e-4019-bf9f-c1ed01a86d02?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 44604124,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5850f68e-3e8e-4019-bf9f-c1ed01a86d02?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5850f68e-3e8e-4019-bf9f-c1ed01a86d02?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5850f68e-3e8e-4019-bf9f-c1ed01a86d02?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5850f68e-3e8e-4019-bf9f-c1ed01a86d02?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5850f68e-3e8e-4019-bf9f-c1ed01a86d02?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 803,
+      "height": 602
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2440354386-klassiek-vrijstaand-bad-op-pootjes-wastafel-complete-set"
+  },
+  {
+   "itemId": "m2441280984",
+   "title": "vitrinikast",
+   "description": "Mooie grote vitrinekast past niet meer in mijn interieur is twee delig bovenkant kan eraf voor vervoer 190x35_45x225h",
+   "categorySpecificDescription": "Mooie grote vitrinekast past niet meer in mijn interieur is twee delig bovenkant kan eraf voor vervoer 190x35_45x225h",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 7500,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 4000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.955623365413,
+    "longitude": 4.5093639550162
+   },
+   "date": "10 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8a32e205-9fc5-4fa2-8552-e564c31e2b89?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 48879629,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8a32e205-9fc5-4fa2-8552-e564c31e2b89?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8a32e205-9fc5-4fa2-8552-e564c31e2b89?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8a32e205-9fc5-4fa2-8552-e564c31e2b89?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8a32e205-9fc5-4fa2-8552-e564c31e2b89?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8a32e205-9fc5-4fa2-8552-e564c31e2b89?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 803,
+      "height": 602
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2441280984-vitrinikast"
+  },
+  {
+   "itemId": "m2429401185",
+   "title": "ROOM FOR RENT ROTTERDAM SOUTH",
+   "description": "1 room available maximum occupancy: 1 person please note: the kitchen and shower are shared with 2 other male tenants. Address: 3079 ab rotterdam-zuid rent: €600 per month (including gas, water, ",
+   "categorySpecificDescription": "1 room available maximum occupancy: 1 person please note: the kitchen and shower are shared with 2 other male tenants. Address: 3079 ab rotterdam-zuid rent: €600 per month (including gas, water, and electricity) please confirm your attendance vi...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 60000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 1000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.934133346604,
+    "longitude": 4.4738376232095
+   },
+   "date": "10 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ebe85a7c-f41e-4e2a-af74-7093fbc6e2c4?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 7976580,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ebe85a7c-f41e-4e2a-af74-7093fbc6e2c4?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ebe85a7c-f41e-4e2a-af74-7093fbc6e2c4?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ebe85a7c-f41e-4e2a-af74-7093fbc6e2c4?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ebe85a7c-f41e-4e2a-af74-7093fbc6e2c4?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ebe85a7c-f41e-4e2a-af74-7093fbc6e2c4?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2429401185-room-for-rent-rotterdam-south"
+  },
+  {
+   "itemId": "m2441140585",
+   "title": "Woonboot te huur ( tijdelijk)",
+   "description": "Hallo, op een prachtige woonboot zijn een aantal ruimtes te huur voor anderhalve maand. We zoeken een vrouwelijke huisgenoot. Het gaat om een slaapkamer een gedeelde woonkamer met keuken een gedeelde ",
+   "categorySpecificDescription": "Hallo, op een prachtige woonboot zijn een aantal ruimtes te huur voor anderhalve maand. We zoeken een vrouwelijke huisgenoot. Het gaat om een slaapkamer een gedeelde woonkamer met keuken een gedeelde badkamertje en douche. De ruimtes zijn vrij eenvou...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 70000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 1000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.915074756397,
+    "longitude": 4.4853443891356
+   },
+   "date": "10 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7d96d610-0e60-4931-8d5f-339576133f6a?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 58258241,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    },
+    {
+     "key": "livingArea",
+     "value": "20 tot 35 m²",
+     "values": [
+      "20 tot 35 m²"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "livingArea",
+     "value": "20 tot 35 m²",
+     "values": [
+      "20 tot 35 m²"
+     ]
+    },
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7d96d610-0e60-4931-8d5f-339576133f6a?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7d96d610-0e60-4931-8d5f-339576133f6a?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7d96d610-0e60-4931-8d5f-339576133f6a?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7d96d610-0e60-4931-8d5f-339576133f6a?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7d96d610-0e60-4931-8d5f-339576133f6a?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 383,
+      "height": 512
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2441140585-woonboot-te-huur-tijdelijk"
+  },
+  {
+   "itemId": "m2439943096",
+   "title": "Room for rent schiedam",
+   "description": "Room for rent in schoedam",
+   "categorySpecificDescription": "Room for rent in schoedam",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 75000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "Schiedam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 5000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.91501441202,
+    "longitude": 4.4027058145175
+   },
+   "date": "10 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c968d269-222a-4e86-9f03-1f11597461fc?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 49348722,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c968d269-222a-4e86-9f03-1f11597461fc?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c968d269-222a-4e86-9f03-1f11597461fc?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c968d269-222a-4e86-9f03-1f11597461fc?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c968d269-222a-4e86-9f03-1f11597461fc?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c968d269-222a-4e86-9f03-1f11597461fc?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2439943096-room-for-rent-schiedam"
+  },
+  {
+   "itemId": "m2440937308",
+   "title": "Stapelbed",
+   "description": "Gebruikt",
+   "categorySpecificDescription": "Gebruikt",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 0,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 3000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.904346252453,
+    "longitude": 4.5123776476158
+   },
+   "date": "9 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/619b7fde-92a2-4891-973a-ace8e20de91b?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 58344568,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/619b7fde-92a2-4891-973a-ace8e20de91b?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/619b7fde-92a2-4891-973a-ace8e20de91b?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/619b7fde-92a2-4891-973a-ace8e20de91b?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/619b7fde-92a2-4891-973a-ace8e20de91b?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/619b7fde-92a2-4891-973a-ace8e20de91b?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 4,
+      "height": 3
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2440937308-stapelbed"
+  },
+  {
+   "itemId": "m2440758925",
+   "title": "Kamer/Studıo",
+   "description": "Kamer studio te huur – rotterdam | nieuwe binnenweg 📍 nieuwe binnenweg, rotterdam 🏢 2e verdieping. Nummer 245 b. Naast de duckburger. Centrale en goed bereikbare locatie. 💶 Huurprijs: €950 per",
+   "categorySpecificDescription": "Kamer studio te huur – rotterdam | nieuwe binnenweg 📍 nieuwe binnenweg, rotterdam 🏢 2e verdieping. Nummer 245 b. Naast de duckburger. Centrale en goed bereikbare locatie. 💶 Huurprijs: €950 per maand inclusief alle kosten 🔐 borg: €950 (1...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 95000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 4000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.891077068295,
+    "longitude": 4.4687441823946
+   },
+   "date": "9 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/af032eee-0948-452a-b9b0-19adf7069743?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 10341959,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/af032eee-0948-452a-b9b0-19adf7069743?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/af032eee-0948-452a-b9b0-19adf7069743?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/af032eee-0948-452a-b9b0-19adf7069743?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/af032eee-0948-452a-b9b0-19adf7069743?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/af032eee-0948-452a-b9b0-19adf7069743?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": true,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2440758925-kamer-studio"
+  },
+  {
+   "itemId": "m2439571043",
+   "title": "room for rent / kamer  te huur",
+   "description": "Rooms for rent rotterdam den-haag furnished room with shared shower and toilet. All inclusive v.a 650 ,- for respectable people only.",
+   "categorySpecificDescription": "Rooms for rent rotterdam den-haag furnished room with shared shower and toilet. All inclusive v.a 650 ,- for respectable people only.",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 65000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 0,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.920450127634,
+    "longitude": 4.4814307407611
+   },
+   "date": "9 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8482c799-1f8f-4e50-8caa-e5753cfd5d8b?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 59649576,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Rotterdam",
+     "values": [
+      "Rotterdam"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8482c799-1f8f-4e50-8caa-e5753cfd5d8b?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8482c799-1f8f-4e50-8caa-e5753cfd5d8b?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8482c799-1f8f-4e50-8caa-e5753cfd5d8b?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8482c799-1f8f-4e50-8caa-e5753cfd5d8b?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8482c799-1f8f-4e50-8caa-e5753cfd5d8b?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 781,
+      "height": 800
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2439571043-room-for-rent-kamer-te-huur"
+  },
+  {
+   "itemId": "m2440658633",
+   "title": "*For Sale: Topas #3 Outdoor Seating Set* *(100€)*",
+   "description": "We’d like to get rid of our balcony set asap we have it packed in boxes already. Includes: 1 sofa: 164 x 64 x 80 cm 2 arm chairs: 61 x 64 x 80 cm 1 table glass on top: 138 x 68 x 68 cm 2 stools: 39 x ",
+   "categorySpecificDescription": "We’d like to get rid of our balcony set asap we have it packed in boxes already. Includes: 1 sofa: 164 x 64 x 80 cm 2 arm chairs: 61 x 64 x 80 cm 1 table glass on top: 138 x 68 x 68 cm 2 stools: 39 x 39 x 39 cm frame: steel | fabric: gray-ish conditi...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 10000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "Rotterdam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 2000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.915539684672,
+    "longitude": 4.5004302540804
+   },
+   "date": "9 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5548fca5-4ae7-460b-a24f-a68f88d013ce?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 56773399,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5548fca5-4ae7-460b-a24f-a68f88d013ce?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5548fca5-4ae7-460b-a24f-a68f88d013ce?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5548fca5-4ae7-460b-a24f-a68f88d013ce?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5548fca5-4ae7-460b-a24f-a68f88d013ce?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5548fca5-4ae7-460b-a24f-a68f88d013ce?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 9,
+      "height": 16
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2440658633-for-sale-topas-3-outdoor-seating-set-100"
+  }
+ ],
+ "totalResultCount": 81,
+ "maxAllowedPageNumber": 3,
+ "searchRequest": {
+  "originalRequest": {
+   "categories": {
+    "l1Category": {
+     "id": 1032,
+     "key": "huizen-en-kamers",
+     "fullName": "Huizen en Kamers"
+    },
+    "l2Categories": [
+     {
+      "id": 2771,
+      "key": "kamers-te-huur",
+      "fullName": "Kamers te huur"
+     },
+     {
+      "id": 2143,
+      "key": "huizen-te-huur",
+      "fullName": "Huizen te huur"
+     },
+     {
+      "id": 2147,
+      "key": "expat-rentals",
+      "fullName": "Expat Rentals"
+     }
+    ]
+   },
+   "attributes": {},
+   "attributesById": [],
+   "attributesByKey": [],
+   "attributeRanges": [
+    {
+     "attributeKey": "PriceCents",
+     "from": 0,
+     "to": 140000
+    }
+   ],
+   "attributeLabels": [],
+   "sortOptions": {
+    "sortBy": "SORT_INDEX",
+    "sortOrder": "DECREASING",
+    "sortAttribute": ""
+   },
+   "pagination": {
+    "offset": 0,
+    "limit": 30
+   },
+   "distance": {
+    "postcode": "3011AD",
+    "distanceMeters": 10000
+   },
+   "viewOptions": {
+    "kind": "list-view"
+   },
+   "bypassSpellingSuggestion": true
+  },
+  "categories": {
+   "l1Category": {
+    "id": 1032,
+    "key": "huizen-en-kamers",
+    "fullName": "Huizen en Kamers"
+   },
+   "l2Categories": [
+    {
+     "id": 2771,
+     "key": "kamers-te-huur",
+     "fullName": "Kamers te huur"
+    },
+    {
+     "id": 2143,
+     "key": "huizen-te-huur",
+     "fullName": "Huizen te huur"
+    },
+    {
+     "id": 2147,
+     "key": "expat-rentals",
+     "fullName": "Expat Rentals"
+    }
+   ]
+  },
+  "attributes": {},
+  "attributesById": [],
+  "attributesByKey": [],
+  "attributeRanges": [
+   {
+    "attributeKey": "PriceCents",
+    "from": 0,
+    "to": 140000
+   }
+  ],
+  "attributeLabels": [],
+  "sortOptions": {
+   "sortBy": "SORT_INDEX",
+   "sortOrder": "DECREASING",
+   "sortAttribute": ""
+  },
+  "pagination": {
+   "offset": 0,
+   "limit": 30
+  },
+  "distance": {
+   "postcode": "3011AD",
+   "distanceMeters": 10000
+  },
+  "viewOptions": {
+   "kind": "list-view"
+  },
+  "bypassSpellingSuggestion": true
+ },
+ "searchCategory": 2771
+}

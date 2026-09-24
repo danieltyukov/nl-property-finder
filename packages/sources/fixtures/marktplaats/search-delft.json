@@ -1,0 +1,778 @@
+{
+ "listings": [
+  {
+   "itemId": "m2445192348",
+   "title": "Room for rent in Nootdorp",
+   "description": "I’m renting out a room in a spacious house in nootdorp, in a quiet and well-connected area. • €750/month • no deposit • registration possible • spacious house (142 m2) • ",
+   "categorySpecificDescription": "I’m renting out a room in a spacious house in nootdorp, in a quiet and well-connected area. • €750/month • no deposit • registration possible • spacious house (142 m2) • 2 bathrooms • shared kitchen and living areas...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 75000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "Delft",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 0,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.012677447852,
+    "longitude": 4.3588353865808
+   },
+   "date": "Vandaag",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ad2281a7-742b-4d1c-87e7-8236d29ce55e?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 60823436,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ad2281a7-742b-4d1c-87e7-8236d29ce55e?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ad2281a7-742b-4d1c-87e7-8236d29ce55e?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ad2281a7-742b-4d1c-87e7-8236d29ce55e?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ad2281a7-742b-4d1c-87e7-8236d29ce55e?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ad2281a7-742b-4d1c-87e7-8236d29ce55e?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 4,
+      "height": 3
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2445192348-room-for-rent-in-nootdorp"
+  },
+  {
+   "itemId": "m2445563850",
+   "title": "Kamer huren in Delft",
+   "description": "Ik heb een kamer te huur in delft. Deze woning is erg rustig en vredig. Er is keukengerei en een wasmachine aanwezig. €600 per maand. Ik zou graag wat meer over jezelf willen weten.",
+   "categorySpecificDescription": "Ik heb een kamer te huur in delft. Deze woning is erg rustig en vredig. Er is keukengerei en een wasmachine aanwezig. €600 per maand. Ik zou graag wat meer over jezelf willen weten.",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 0,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Delft",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 1000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.006375764015,
+    "longitude": 4.375879502869
+   },
+   "date": "Eergisteren",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e974a498-bf12-481f-afca-ea60a8c8cf76?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 47511609,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_PLUS"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e974a498-bf12-481f-afca-ea60a8c8cf76?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e974a498-bf12-481f-afca-ea60a8c8cf76?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e974a498-bf12-481f-afca-ea60a8c8cf76?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e974a498-bf12-481f-afca-ea60a8c8cf76?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e974a498-bf12-481f-afca-ea60a8c8cf76?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 893,
+      "height": 1600
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2445563850-kamer-huren-in-delft"
+  },
+  {
+   "itemId": "m2445345653",
+   "title": "Kamer te huur in delft",
+   "description": "Kamer te huur in delft alleen werkende geen student of vrouw per direct beschikbaar",
+   "categorySpecificDescription": "Kamer te huur in delft alleen werkende geen student of vrouw per direct beschikbaar",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 0,
+    "priceType": "FREE"
+   },
+   "location": {
+    "cityName": "Delft",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 2000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.993406843634,
+    "longitude": 4.3345303523193
+   },
+   "date": "Eergisteren",
+   "sellerInformation": {
+    "sellerId": 50666643,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Delft",
+     "values": [
+      "Delft"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Delft",
+     "values": [
+      "Delft"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2445345653-kamer-te-huur-in-delft"
+  },
+  {
+   "itemId": "m2440723651",
+   "title": "Ikea Bestå glazen afdekplaat, wit hoogglans, 180 x 40",
+   "description": "Hoogglans glazen afdekplaat voor ikea besta kastjes. Wit. In zeer goede staat, 180 breed en 40 diep.",
+   "categorySpecificDescription": "Hoogglans glazen afdekplaat voor ikea besta kastjes. Wit. In zeer goede staat, 180 breed en 40 diep.",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 1250,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Nootdorp",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 5000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.041728343251,
+    "longitude": 4.3976001428764
+   },
+   "date": "9 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e90639d9-919e-424b-b105-1aeef79046a3?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 5047932,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e90639d9-919e-424b-b105-1aeef79046a3?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e90639d9-919e-424b-b105-1aeef79046a3?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e90639d9-919e-424b-b105-1aeef79046a3?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e90639d9-919e-424b-b105-1aeef79046a3?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e90639d9-919e-424b-b105-1aeef79046a3?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 9,
+      "height": 16
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2440723651-ikea-besta-glazen-afdekplaat-wit-hoogglans-180-x-40"
+  },
+  {
+   "itemId": "m2437351019",
+   "title": "Stalen logeer bedden 2x",
+   "description": "Passen onder elkaar 80x190",
+   "categorySpecificDescription": "Passen onder elkaar 80x190",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 2000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "Delft",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 2000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.014800137761,
+    "longitude": 4.3346253297923
+   },
+   "date": "31 aug 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6ed90f36-fef6-46bd-a61f-a3d1bed8483e?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 9805385,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6ed90f36-fef6-46bd-a61f-a3d1bed8483e?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6ed90f36-fef6-46bd-a61f-a3d1bed8483e?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6ed90f36-fef6-46bd-a61f-a3d1bed8483e?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6ed90f36-fef6-46bd-a61f-a3d1bed8483e?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6ed90f36-fef6-46bd-a61f-a3d1bed8483e?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2437351019-stalen-logeer-bedden-2x"
+  },
+  {
+   "itemId": "m2430507777",
+   "title": "kamer te huur 500 in rijswijk",
+   "description": "Ik wil een kamer verhuren 250x450 ongeveer ik wil graag een student of werkend iemand het liefst een meisje of vrouw na een goed gesprek en kennismaken maak ik mijn keuze ook wil ik een borg van 1000 ",
+   "categorySpecificDescription": "Ik wil een kamer verhuren 250x450 ongeveer ik wil graag een student of werkend iemand het liefst een meisje of vrouw na een goed gesprek en kennismaken maak ik mijn keuze ook wil ik een borg van 1000 euro het is een kamer met gebruik van keuken en ba...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 50000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Rijswijk",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 4000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.031611032162,
+    "longitude": 4.3135572341168
+   },
+   "date": "13 aug 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5e6ecd40-6d8e-40f7-b48e-2721ed362688?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 445397,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5e6ecd40-6d8e-40f7-b48e-2721ed362688?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5e6ecd40-6d8e-40f7-b48e-2721ed362688?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5e6ecd40-6d8e-40f7-b48e-2721ed362688?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5e6ecd40-6d8e-40f7-b48e-2721ed362688?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5e6ecd40-6d8e-40f7-b48e-2721ed362688?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 901,
+      "height": 1600
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2430507777-kamer-te-huur-500-in-rijswijk"
+  },
+  {
+   "itemId": "m2430325666",
+   "title": "kamer huren",
+   "description": "The room is for rent, for students, but especially for those coming from abroad.",
+   "categorySpecificDescription": "The room is for rent, for students, but especially for those coming from abroad.",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 0,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Delft",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 2000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.991707092122,
+    "longitude": 4.3609058927126
+   },
+   "date": "12 aug 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1ac3cb82-239d-495e-a6d8-2cafcd4ce2b4?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 54263247,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1ac3cb82-239d-495e-a6d8-2cafcd4ce2b4?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1ac3cb82-239d-495e-a6d8-2cafcd4ce2b4?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1ac3cb82-239d-495e-a6d8-2cafcd4ce2b4?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1ac3cb82-239d-495e-a6d8-2cafcd4ce2b4?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1ac3cb82-239d-495e-a6d8-2cafcd4ce2b4?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2430325666-kamer-huren"
+  },
+  {
+   "itemId": "m2423796202",
+   "title": "Tuin reiniging schoonmaak opruimen van tuin",
+   "description": "Nootdorp en omgeving 0600000000",
+   "categorySpecificDescription": "Nootdorp en omgeving 0600000000",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 3500,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Nootdorp",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 4000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.04065769807,
+    "longitude": 4.3769322773842
+   },
+   "date": "25 jul 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/87698196-8ce8-4079-a1a5-6cd5472a087e?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 23873727,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/87698196-8ce8-4079-a1a5-6cd5472a087e?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/87698196-8ce8-4079-a1a5-6cd5472a087e?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/87698196-8ce8-4079-a1a5-6cd5472a087e?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/87698196-8ce8-4079-a1a5-6cd5472a087e?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/87698196-8ce8-4079-a1a5-6cd5472a087e?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2423796202-tuin-reiniging-schoonmaak-opruimen-van-tuin"
+  },
+  {
+   "itemId": "m2418812854",
+   "title": "Disigner lampen",
+   "description": "Disigner vloerlampen 1 lamp 200 euro 2 lampen 350",
+   "categorySpecificDescription": "Disigner vloerlampen 1 lamp 200 euro 2 lampen 350",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 35000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 3000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.032619144658,
+    "longitude": 4.3765615288756
+   },
+   "date": "9 jul 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5eb4e066-9ec3-48b4-8e9f-0842ff4f2e84?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 57713306,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5eb4e066-9ec3-48b4-8e9f-0842ff4f2e84?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5eb4e066-9ec3-48b4-8e9f-0842ff4f2e84?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5eb4e066-9ec3-48b4-8e9f-0842ff4f2e84?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5eb4e066-9ec3-48b4-8e9f-0842ff4f2e84?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5eb4e066-9ec3-48b4-8e9f-0842ff4f2e84?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2418812854-disigner-lampen"
+  },
+  {
+   "itemId": "m2414973087",
+   "title": "King Size Mattress Topper – €100",
+   "description": "Selling a king size mattress topper in excellent condition. Clean, comfortable, and well maintained. 💶 Price: €100 📍 pickup only message me if you’re interested!",
+   "categorySpecificDescription": "Selling a king size mattress topper in excellent condition. Clean, comfortable, and well maintained. 💶 Price: €100 📍 pickup only message me if you’re interested!",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 10000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "Delft",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 1000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 51.995189231898,
+    "longitude": 4.3556062867996
+   },
+   "date": "28 jun 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6039a195-d20c-429b-97e1-4907628d478b?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 58827635,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Delft",
+     "values": [
+      "Delft"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Delft",
+     "values": [
+      "Delft"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6039a195-d20c-429b-97e1-4907628d478b?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6039a195-d20c-429b-97e1-4907628d478b?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6039a195-d20c-429b-97e1-4907628d478b?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6039a195-d20c-429b-97e1-4907628d478b?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6039a195-d20c-429b-97e1-4907628d478b?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2414973087-king-size-mattress-topper-100"
+  }
+ ],
+ "totalResultCount": 10,
+ "maxAllowedPageNumber": 1,
+ "searchRequest": {
+  "originalRequest": {
+   "categories": {
+    "l1Category": {
+     "id": 1032,
+     "key": "huizen-en-kamers",
+     "fullName": "Huizen en Kamers"
+    },
+    "l2Categories": [
+     {
+      "id": 2771,
+      "key": "kamers-te-huur",
+      "fullName": "Kamers te huur"
+     },
+     {
+      "id": 2143,
+      "key": "huizen-te-huur",
+      "fullName": "Huizen te huur"
+     }
+    ]
+   },
+   "attributes": {},
+   "attributesById": [],
+   "attributesByKey": [],
+   "attributeRanges": [
+    {
+     "attributeKey": "PriceCents",
+     "from": 0,
+     "to": 140000
+    }
+   ],
+   "attributeLabels": [],
+   "sortOptions": {
+    "sortBy": "SORT_INDEX",
+    "sortOrder": "DECREASING",
+    "sortAttribute": ""
+   },
+   "pagination": {
+    "offset": 0,
+    "limit": 30
+   },
+   "distance": {
+    "postcode": "2611BC",
+    "distanceMeters": 5000
+   },
+   "viewOptions": {
+    "kind": "list-view"
+   },
+   "bypassSpellingSuggestion": true
+  },
+  "categories": {
+   "l1Category": {
+    "id": 1032,
+    "key": "huizen-en-kamers",
+    "fullName": "Huizen en Kamers"
+   },
+   "l2Categories": [
+    {
+     "id": 2771,
+     "key": "kamers-te-huur",
+     "fullName": "Kamers te huur"
+    },
+    {
+     "id": 2143,
+     "key": "huizen-te-huur",
+     "fullName": "Huizen te huur"
+    }
+   ]
+  },
+  "attributes": {},
+  "attributesById": [],
+  "attributesByKey": [],
+  "attributeRanges": [
+   {
+    "attributeKey": "PriceCents",
+    "from": 0,
+    "to": 140000
+   }
+  ],
+  "attributeLabels": [],
+  "sortOptions": {
+   "sortBy": "SORT_INDEX",
+   "sortOrder": "DECREASING",
+   "sortAttribute": ""
+  },
+  "pagination": {
+   "offset": 0,
+   "limit": 30
+  },
+  "distance": {
+   "postcode": "2611BC",
+   "distanceMeters": 5000
+  },
+  "viewOptions": {
+   "kind": "list-view"
+  },
+  "bypassSpellingSuggestion": true
+ },
+ "searchCategory": 2771
+}

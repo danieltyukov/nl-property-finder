@@ -1,0 +1,54 @@
+{
+ "identifiers": {
+  "globalId": 8154483,
+  "tinyId": "44509846"
+ },
+ "urls": {
+  "friendlyUrl": {
+   "fullUrl": "https://www.funda.nl/detail/huur/delft/appartement-pierre-van-hauwelaan-54/44509846/",
+   "relativeUrl": "/detail/huur/delft/appartement-pierre-van-hauwelaan-54/44509846/"
+  }
+ },
+ "price": {
+  "rentalPrice": "€ 1.131 /mnd"
+ },
+ "labels": [],
+ "address": {
+  "title": "Pierre van Hauwelaan 54",
+  "subTitle": "2625 WL Delft",
+  "city": "Delft",
+  "postCode": "2625WL"
+ },
+ "media": {
+  "thumbnailBaseUrl": "https://cloud.funda.nl/valentina_media/{id}_{size}.jpg",
+  "id": "234/870/335"
+ },
+ "fastView": {
+  "livingArea": "41 m²"
+ },
+ "tracking": {
+  "values": {
+   "global_id": 8154483,
+   "listing_offering_type": "huur",
+   "listing_type": "apartment",
+   "listing_status": "beschikbaar",
+   "listing_postal_code": "2625WL",
+   "listing_house_no": 54,
+   "listing_place": "Delft"
+  }
+ },
+ "promo": {},
+ "share": {
+  "url": "https://www.funda.nl/detail/44509846",
+  "text": "Gevonden via #funda"
+ },
+ "brokers": [
+  {
+   "name": "MVGM Wonen",
+   "officeId": 70043,
+   "officePageUrl": "~/makelaar/70043-mvgm-wonen/"
+  }
+ ],
+ "isSoldOrRented": false,
+ "publicationDate": "2026-09-16T00:00:00"
+}
