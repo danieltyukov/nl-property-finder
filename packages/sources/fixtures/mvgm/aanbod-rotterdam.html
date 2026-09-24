@@ -1,0 +1,578 @@
+
+<!DOCTYPE html>
+<html class="public h-100" lang="nl">
+<head>
+<meta charset="utf-8"/>
+<title>MVGM - Aanbod gemeente Rotterdam</title>
+</head>
+<body class="login d-flex flex-column h-100" id="body">
+<main class="site-main">
+<section class="section-content py-12">
+<div class="container">
+<div class="row justify-content-between position-relative z-1 d-none">
+<div class="col col-lg-4 col-xl-3 d-flex align-items-center">
+<span class="fs-4 ff-roboto-slab d-block fw-bold mb-0"><span class="text-blue-ncs">88</span>
+ huurwoningen</span>
+</div>
+<div class="col-auto col-lg-8 col-xl-9 d-flex">
+<div class="dropdown">
+<a aria-expanded="false" class="btn btn-white" data-bs-toggle="dropdown" href="#" role="button"><span><i class="fa-sharp fa-regular fa-bars-sort"></i></span> Sorteer</a>
+<ul class="dropdown-menu">
+<li><a class="dropdown-item" href="/aanbod/?sort=aanbodDESC">Publicatiedatum nieuw - oud</a></li>
+<li><a class="dropdown-item" href="/aanbod/?sort=aanbodASC">Publicatiedatum oud - nieuw</a></li>
+<li><a class="dropdown-item" href="/aanbod/?sort=prijsDESC">Prijs hoog - laag</a></li>
+<li><a class="dropdown-item" href="/aanbod/?sort=prijsASC">Prijs laag - hoog</a></li>
+<li><a class="dropdown-item" href="/aanbod/?sort=beschDESC">Beschikbaarheid vroeger - later</a></li>
+<li><a class="dropdown-item" href="/aanbod/?sort=beschASC">Beschikbaarheid later - vroeger</a></li>
+</ul>
+</div>
+<div class="ms-auto d-none d-lg-flex align-items-center">
+<div><a class="btn btn-white" href="/aanbod/kaart/"><span class="text-primary"><i class="fa-sharp fa-regular fa-location-dot"></i></span> Kaart</a></div>
+</div>
+</div>
+</div>
+<div class="row justify-content-between mt-4">
+<div class="col-lg-4 col-xl-3">
+<span class="h4 d-block mb-4"><span class="text-blue-ncs">88</span>
+ huurwoningen</span>
+<div aria-labelledby="offcanvasFilterLabel" class="offcanvas-lg offcanvas-start offcanvas-filter bg-azure-web" id="offcanvasFilter" tabindex="-1">
+<div class="card bg-azure-web border-0 h-100">
+<form action="/aanbod/" id="frmFilter" method="post">
+<input name="postrequest" type="hidden" value="doeFilter"/>
+<input name="objSearch" type="hidden" value='{"weergavenaam":"Gemeente Rotterdam","lat":"51.92248806","lng":"4.48653571"}'/>
+<input name="selAfstand" type="hidden" value="10"/>
+<input autocomplete="off" name="_token" type="hidden" value=""/>
+<div class="offcanvas-header d-flex position-relative px-0">
+<a aria-controls="offcanvasFilter" class="btn btn-azure d-lg-none position-absolute top-0 end-0 mt-4 me-4 d-flex align-items-center justify-content-center" data-bs-target="#offcanvasFilter" data-bs-toggle="offcanvas" href="#"><i class="fa-sharp fa-regular fa-xmark fa-fw fa-lg"></i></a>
+<div class="card-body py-0 px-8 py-lg-2">
+<span class="h3 text-center d-flex align-items-center mb-0"><span class="square d-inline-flex align-items-center justify-content-center rounded-circle bg-hunyadi-yellow text-white fs-6 me-2" style="--square-size: 24px;">0</span> Filters</span>
+</div>
+</div>
+<div class="offcanvas-body flex-column p-0">
+<hr class="m-0 d-none d-lg-block"/>
+<div class="card-body px-8 py-6">
+<p class="mb-0">
+<button class="btn btn-blue-ncs w-100" type="submit">Toon resultaten</button>
+</p>
+</div>
+<hr class="m-0"/>
+<div class="card-body px-8 py-6">
+<span class="h5 d-block mb-3">Prijs</span>
+<div class="form-floating">
+<select aria-label="Prijs vanaf" class="form-select" id="selectPrijsMin" name="selPrijsVan">
+<option selected="" value="">Geen voorkeur</option>
+<option value="500">€ 500,-</option>
+<option value="600">€ 600,-</option>
+<option value="700">€ 700,-</option>
+<option value="800">€ 800,-</option>
+<option value="900">€ 900,-</option>
+<option value="1000">€ 1.000,-</option>
+<option value="1250">€ 1.250,-</option>
+<option value="1500">€ 1.500,-</option>
+<option value="1750">€ 1.750,-</option>
+<option value="2000">€ 2.000,-</option>
+<option value="2500">€ 2.500,-</option>
+</select>
+<label for="selectPrijsMin">Van</label>
+</div>
+<div class="form-floating my-2">
+<select aria-label="Prijs tot" class="form-select" id="selectPrijsMax" name="selPrijsTot">
+<option selected="" value="">Geen voorkeur</option>
+<option value="500">€ 500,-</option>
+<option value="600">€ 600,-</option>
+<option value="700">€ 700,-</option>
+<option value="800">€ 800,-</option>
+<option value="900">€ 900,-</option>
+<option value="1000">€ 1.000,-</option>
+<option value="1250">€ 1.250,-</option>
+<option value="1500">€ 1.500,-</option>
+<option value="1750">€ 1.750,-</option>
+<option value="2000">€ 2.000,-</option>
+<option value="2500">€ 2.500,-</option>
+</select>
+<label for="selectPrijsMax">Tot</label>
+</div>
+</div>
+<hr class="m-0"/>
+<div class="card-body px-8 py-6">
+<span class="h5 d-block mb-3">Woonoppervlakte</span>
+<div class="form-floating">
+<select aria-label="Woonopp vanaf" class="form-select" id="selectWoonoppMin" name="selWoonoppervlakteVan">
+<option selected="" value="">Geen voorkeur</option>
+<option value="50">50 m<sup>2</sup></option>
+<option value="60">60 m<sup>2</sup></option>
+<option value="70">70 m<sup>2</sup></option>
+<option value="80">80 m<sup>2</sup></option>
+<option value="90">90 m<sup>2</sup></option>
+<option value="100">100 m<sup>2</sup></option>
+<option value="125">125 m<sup>2</sup></option>
+<option value="150">150 m<sup>2</sup></option>
+</select>
+<label for="selectWoonoppMin">Van</label>
+</div>
+<div class="form-floating my-2">
+<select aria-label="Woonopp tot" class="form-select" id="selectWoonoppMax" name="selWoonoppervlakteTot">
+<option selected="" value="">Geen voorkeur</option>
+<option value="50">50 m<sup>2</sup></option>
+<option value="60">60 m<sup>2</sup></option>
+<option value="70">70 m<sup>2</sup></option>
+<option value="80">80 m<sup>2</sup></option>
+<option value="90">90 m<sup>2</sup></option>
+<option value="100">100 m<sup>2</sup></option>
+<option value="125">125 m<sup>2</sup></option>
+<option value="150">150 m<sup>2</sup></option>
+</select>
+<label for="selectWoonoppMax">Tot</label>
+</div>
+</div>
+<hr class="m-0"/>
+<div class="card-body px-8 py-6">
+<span class="h5 d-block mb-3">Woningtype</span>
+<select aria-label="Woningtype" class="form-select" id="selWoninghoofdtype" name="selWoninghoofdtypeId">
+<option selected="" value="">Geen voorkeur</option>
+<option value="1">Woonhuis</option>
+<option value="2">Appartement</option>
+</select>
+</div>
+<hr class="m-0"/>
+<div class="card-body px-8 py-6">
+<span class="h5 d-block mb-3">Slaapkamers</span>
+<select aria-label="Slaapkamers" class="form-select" id="selSlaapkamersVan" name="selSlaapkamersVan">
+<option selected="" value="">Geen voorkeur</option>
+<option value="1">1+</option>
+<option value="2">2+</option>
+<option value="3">3+</option>
+<option value="4">4+</option>
+<option value="5">5+</option>
+</select>
+</div>
+<hr class="m-0"/>
+<div class="card-body px-8 py-6">
+<span class="h5 d-block mb-3">Zorgwoningen</span>
+<select aria-label="Zorg" class="form-select" id="selZorg" name="selZorg">
+<option selected="" value="">Geen voorkeur</option>
+<option value="42">Zorgwoningen</option>
+</select>
+</div>
+<hr class="m-0"/>
+<div class="card-body px-8 py-6">
+<span class="h5 d-block mb-3">Beschikbaarheid</span>
+<select aria-label="Direct" class="form-select" id="selBeschikbaarheid" name="selBeschikbaarheid">
+<option selected="" value="">Geen voorkeur</option>
+<option value="D">Direct beschikbaar</option>
+<option value="B">Binnenkort beschikbaar</option>
+</select>
+</div>
+<hr class="m-0"/>
+<div class="card-body px-8 py-6">
+<span class="h5 d-block mb-3">Energielabel</span>
+<select aria-label="Direct" class="form-select" id="selEnergielabel" name="selEnergielabel">
+<option selected="" value="">Geen voorkeur</option>
+<option value="A">A</option>
+<option value="B">B</option>
+<option value="C">C</option>
+<option value="D">D</option>
+</select>
+</div>
+<hr class="m-0"/>
+<div class="card-body px-8 py-6">
+<p class="mb-0">
+<button class="btn btn-blue-ncs w-100" type="submit">Toon resultaten</button>
+</p>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+<div class="col-lg-8 col-xl-9">
+<div class="mb-6 mb-sm-12">
+<h1>Huuraanbod</h1>
+</div>
+<div class="d-flex mb-4">
+<div class="dropdown">
+<a aria-expanded="false" class="btn btn-white" data-bs-toggle="dropdown" href="#" role="button"><span><i class="fa-sharp fa-regular fa-bars-sort"></i></span> Sorteer</a>
+<ul class="dropdown-menu">
+<li><a class="dropdown-item" href="/aanbod/?sort=aanbodDESC">Publicatiedatum nieuw - oud</a></li>
+<li><a class="dropdown-item" href="/aanbod/?sort=aanbodASC">Publicatiedatum oud - nieuw</a></li>
+<li><a class="dropdown-item" href="/aanbod/?sort=prijsDESC">Prijs hoog - laag</a></li>
+<li><a class="dropdown-item" href="/aanbod/?sort=prijsASC">Prijs laag - hoog</a></li>
+<li><a class="dropdown-item" href="/aanbod/?sort=beschDESC">Beschikbaarheid vroeger - later</a></li>
+<li><a class="dropdown-item" href="/aanbod/?sort=beschASC">Beschikbaarheid later - vroeger</a></li>
+</ul>
+</div>
+<div class="ms-auto d-none d-lg-flex align-items-center">
+<div><a class="btn btn-white" href="/aanbod/kaart/"><span class="text-primary"><i class="fa-sharp fa-regular fa-location-dot"></i></span> Kaart</a></div>
+</div>
+</div>
+<div class="row gy-8">
+<div class="col-sm-6 d-flex flex-column">
+<div class="card card-woning shadow-sm rounded-5 rounded-end-0 rounded-bottom-0 overflow-hidden flex-grow-1">
+<div class="card-img-top">
+<div class="badges position-absolute end-0 me-4 mt-4 index-1 d-flex gap-2">
+<span class="badge bg-white text-body shadow-xs">
+<span class="status-dot bg-status-te-huur rounded-circle me-1"></span>
+ Te huur
+ </span>
+</div>
+<div class="ratio" style="--bs-aspect-ratio: 66%;">
+<picture class="h-100 w-100">
+<img alt="Van Oldenbarneveltplaats 14 C" class="d-block w-100 h-100" height="383" loading="lazy" sizes="(max-width: 420px) 420px, 576px" src="//c.static.nbo.nl/media/50/50f60004392eabfb65d61382db3fb6a2/768x510/thumb.jpg" style="object-fit: cover;" width="576">
+</img></picture>
+</div>
+</div>
+<div class="card-body d-flex flex-column">
+<span class="card-title h5 text-secondary mb-0">
+<a class="stretched-link" href="/object/rotterdam-3012ah-14-c-van-oldenbarneveltplaats-70aa51a4d6bc837f556425813c248358/">
+ Appartement Van Oldenbarneveltplaats 14 C
+ </a>
+</span>
+<span>3012AH Rotterdam - 1Km.</span>
+<span class="small">
+<span class="d-flex gap-1">
+<span><i class="fal fa-calendar text-success fa-fw"></i></span>
+ Direct beschikbaar
+ </span>
+<span class="d-flex gap-1"><span><i class="far fa-solid fa-heart text-success fa-fw"></i></span>Direct inschrijven via deze site</span>
+</span>
+<div class="pt-4 dotted-spans mt-auto">
+<span class="fw-bold">€ 2.215,- /mnd</span>
+<span>120 m<sup>2</sup></span> <span>3 slaapkamers </span> </div>
+</div>
+</div>
+</div>
+<div class="col-sm-6 d-flex flex-column">
+<div class="card card-woning shadow-sm rounded-5 rounded-end-0 rounded-bottom-0 overflow-hidden flex-grow-1">
+<div class="card-img-top">
+<div class="badges position-absolute end-0 me-4 mt-4 index-1 d-flex gap-2">
+<span class="badge bg-white text-body shadow-xs">
+<span class="status-dot bg-status-te-huur rounded-circle me-1"></span>
+ Te huur
+ </span>
+</div>
+<div class="ratio" style="--bs-aspect-ratio: 66%;">
+<picture class="h-100 w-100">
+<img alt="Van Oldenbarneveltplaats 18 E" class="d-block w-100 h-100" height="383" loading="lazy" sizes="(max-width: 420px) 420px, 576px" src="//c.static.nbo.nl/media/50/50f60004392eabfb65d61382db3fb6a2/768x510/thumb.jpg" style="object-fit: cover;" width="576">
+</img></picture>
+</div>
+</div>
+<div class="card-body d-flex flex-column">
+<span class="card-title h5 text-secondary mb-0">
+<a class="stretched-link" href="/object/rotterdam-3012ah-18-e-van-oldenbarneveltplaats-9f79c05f0f156a2cd22df2918fe13ab3/">
+ Appartement Van Oldenbarneveltplaats 18 E
+ </a>
+</span>
+<span>3012AH Rotterdam - 1Km.</span>
+<span class="small">
+<span class="d-flex gap-1">
+<span><i class="fal fa-calendar text-success fa-fw"></i></span>
+ Direct beschikbaar
+ </span>
+<span class="d-flex gap-1"><span><i class="far fa-solid fa-heart text-success fa-fw"></i></span>Direct inschrijven via deze site</span>
+</span>
+<div class="pt-4 dotted-spans mt-auto">
+<span class="fw-bold">€ 1.905,- /mnd</span>
+<span>111 m<sup>2</sup></span> <span>2 slaapkamers </span> </div>
+</div>
+</div>
+</div>
+<div class="col-sm-6 d-flex flex-column">
+<div class="card card-woning shadow-sm rounded-5 rounded-end-0 rounded-bottom-0 overflow-hidden flex-grow-1">
+<div class="card-img-top">
+<div class="badges position-absolute end-0 me-4 mt-4 index-1 d-flex gap-2">
+<span class="badge bg-white text-body shadow-xs">
+<span class="status-dot bg-status-te-huur rounded-circle me-1"></span>
+ Te huur
+ </span>
+</div>
+<div class="ratio" style="--bs-aspect-ratio: 66%;">
+<picture class="h-100 w-100">
+<img alt="Van Oldenbarneveltplaats 14 K" class="d-block w-100 h-100" height="383" loading="lazy" sizes="(max-width: 420px) 420px, 576px" src="//c.static.nbo.nl/media/a5/a56bcfa84ce28e480b833941a6db7030/768x510/thumb.jpg" style="object-fit: cover;" width="576">
+</img></picture>
+</div>
+</div>
+<div class="card-body d-flex flex-column">
+<span class="card-title h5 text-secondary mb-0">
+<a class="stretched-link" href="/object/rotterdam-3012ah-14-k-van-oldenbarneveltplaats-e84c5af805e32d7771399fad0e136b22/">
+ Appartement Van Oldenbarneveltplaats 14 K
+ </a>
+</span>
+<span>3012AH Rotterdam - 1Km.</span>
+<span class="small">
+<span class="d-flex gap-1">
+<span><i class="fal fa-calendar text-success fa-fw"></i></span>
+ Direct beschikbaar
+ </span>
+<span class="d-flex gap-1"><span><i class="far fa-solid fa-heart text-success fa-fw"></i></span>Direct inschrijven via deze site</span>
+</span>
+<div class="pt-4 dotted-spans mt-auto">
+<span class="fw-bold">€ 1.990,- /mnd</span>
+<span>120 m<sup>2</sup></span> <span>2 slaapkamers </span> </div>
+</div>
+</div>
+</div>
+<div class="col-sm-6 d-flex flex-column">
+<div class="card card-woning shadow-sm rounded-5 rounded-end-0 rounded-bottom-0 overflow-hidden flex-grow-1">
+<div class="card-img-top">
+<div class="badges position-absolute end-0 me-4 mt-4 index-1 d-flex gap-2">
+<span class="badge bg-white text-body shadow-xs">
+<span class="status-dot bg-status-te-huur rounded-circle me-1"></span>
+ Te huur
+ </span>
+</div>
+<div class="ratio" style="--bs-aspect-ratio: 66%;">
+<picture class="h-100 w-100">
+<img alt="Van Oldenbarneveltplaats 24 A" class="d-block w-100 h-100" height="383" loading="lazy" sizes="(max-width: 420px) 420px, 576px" src="//a.static.nbo.nl/media/60/601ca9efcc1914034b659f63fa64afb7/768x510/thumb.jpg" style="object-fit: cover;" width="576">
+</img></picture>
+</div>
+</div>
+<div class="card-body d-flex flex-column">
+<span class="card-title h5 text-secondary mb-0">
+<a class="stretched-link" href="/object/rotterdam-3012ah-24-a-van-oldenbarneveltplaats-90d41b17c9883ddca84cf37a62e2df12/">
+ Appartement Van Oldenbarneveltplaats 24 A
+ </a>
+</span>
+<span>3012AH Rotterdam - 1Km.</span>
+<span class="small">
+<span class="d-flex gap-1">
+<span><i class="fal fa-calendar text-success fa-fw"></i></span>
+ Direct beschikbaar
+ </span>
+<span class="d-flex gap-1"><span><i class="far fa-solid fa-heart text-success fa-fw"></i></span>Direct inschrijven via deze site</span>
+</span>
+<div class="pt-4 dotted-spans mt-auto">
+<span class="fw-bold">€ 1.705,- /mnd</span>
+<span>85 m<sup>2</sup></span> <span>2 slaapkamers </span> </div>
+</div>
+</div>
+</div>
+<div class="col-sm-6 d-flex flex-column">
+<div class="card card-woning shadow-sm rounded-5 rounded-end-0 rounded-bottom-0 overflow-hidden flex-grow-1">
+<div class="card-img-top">
+<div class="badges position-absolute end-0 me-4 mt-4 index-1 d-flex gap-2">
+<span class="badge bg-white text-body shadow-xs">
+<span class="status-dot bg-status-te-huur rounded-circle me-1"></span>
+ Te huur
+ </span>
+</div>
+<div class="ratio" style="--bs-aspect-ratio: 66%;">
+<picture class="h-100 w-100">
+<img alt="'s-gravelandseweg 811 " class="d-block w-100 h-100" height="383" loading="lazy" sizes="(max-width: 420px) 420px, 576px" src="//c.static.nbo.nl/media/0a/0adb70bd989fb2d018316534ec889961/768x510/thumb.jpg" style="object-fit: cover;" width="576">
+</img></picture>
+</div>
+</div>
+<div class="card-body d-flex flex-column">
+<span class="card-title h5 text-secondary mb-0">
+<a class="stretched-link" href="/object/schiedam-3119xt-811-s-gravelandseweg-7f0e5fd00a5403c58df333c7916737ab/">
+ Appartement 's-gravelandseweg 811 
+ </a>
+</span>
+<span>3119XT Schiedam - 6Km.</span>
+<span class="small">
+<span class="d-flex gap-1">
+<span><i class="fal fa-calendar text-success fa-fw"></i></span>
+ Direct beschikbaar
+ </span>
+<span class="d-flex gap-1"><span><i class="far fa-solid fa-heart text-success fa-fw"></i></span>Direct inschrijven via deze site</span>
+</span>
+<div class="pt-4 dotted-spans mt-auto">
+<span class="fw-bold">€ 1.221,- /mnd</span>
+<span>60 m<sup>2</sup></span> <span>1 slaapkamer </span> </div>
+</div>
+</div>
+</div>
+<div class="col-sm-6 d-flex flex-column">
+<div class="card card-woning shadow-sm rounded-5 rounded-end-0 rounded-bottom-0 overflow-hidden flex-grow-1">
+<div class="card-img-top">
+<div class="badges position-absolute end-0 me-4 mt-4 index-1 d-flex gap-2">
+<span class="badge bg-white text-body shadow-xs">
+<span class="status-dot bg-status-te-huur rounded-circle me-1"></span>
+ Te huur
+ </span>
+</div>
+<div class="ratio" style="--bs-aspect-ratio: 66%;">
+<picture class="h-100 w-100">
+<img alt="Louis Pregerkade 64 " class="d-block w-100 h-100" height="383" loading="lazy" sizes="(max-width: 420px) 420px, 576px" src="//c.static.nbo.nl/media/39/39a620400d99a53dc0e92a1950dfadeb/768x510/thumb.jpg" style="object-fit: cover;" width="576">
+</img></picture>
+</div>
+</div>
+<div class="card-body d-flex flex-column">
+<span class="card-title h5 text-secondary mb-0">
+<a class="stretched-link" href="/object/rotterdam-3071az-64-louis-pregerkade-72b2200fdeb28d05ca3a8d0e6471975d/">
+ Appartement Louis Pregerkade 64 
+ </a>
+</span>
+<span>3071AZ Rotterdam - 2Km.</span>
+<span class="small">
+<span class="d-flex gap-1">
+<span><i class="fal fa-calendar text-success fa-fw"></i></span>
+ Direct beschikbaar
+ </span>
+<span class="d-flex gap-1"><span><i class="far fa-solid fa-heart text-success fa-fw"></i></span>Direct inschrijven via deze site</span>
+</span>
+<div class="pt-4 dotted-spans mt-auto">
+<span class="fw-bold">€ 1.471,- /mnd</span>
+<span>90 m<sup>2</sup></span> <span>2 slaapkamers </span> </div>
+</div>
+</div>
+</div>
+<div class="col-sm-6 d-flex flex-column">
+<div class="card card-woning shadow-sm rounded-5 rounded-end-0 rounded-bottom-0 overflow-hidden flex-grow-1">
+<div class="card-img-top">
+<div class="badges position-absolute end-0 me-4 mt-4 index-1 d-flex gap-2">
+<span class="badge bg-white text-body shadow-xs">
+<span class="status-dot bg-status-te-huur rounded-circle me-1"></span>
+ Te huur
+ </span>
+</div>
+<div class="ratio" style="--bs-aspect-ratio: 66%;">
+<picture class="h-100 w-100">
+<img alt="Laan op Zuid 1352 " class="d-block w-100 h-100" height="383" loading="lazy" sizes="(max-width: 420px) 420px, 576px" src="//d.static.nbo.nl/media/23/238e2ce2d5dc1975897ac1a207aaed9b/768x510/thumb.jpg" style="object-fit: cover;" width="576">
+</img></picture>
+</div>
+</div>
+<div class="card-body d-flex flex-column">
+<span class="card-title h5 text-secondary mb-0">
+<a class="stretched-link" href="/object/rotterdam-3071ac-1352-laan-op-zuid-848c26f9260175411fdd5f4adb681743/">
+ Appartement Laan op Zuid 1352 
+ </a>
+</span>
+<span>3071AC Rotterdam - 3Km.</span>
+<span class="small">
+<span class="d-flex gap-1">
+<span><i class="fal fa-calendar text-success fa-fw"></i></span>
+ Direct beschikbaar
+ </span>
+<span class="d-flex gap-1"><span><i class="far fa-solid fa-heart text-success fa-fw"></i></span>Direct inschrijven via deze site</span>
+</span>
+<div class="pt-4 dotted-spans mt-auto">
+<span class="fw-bold">€ 1.825,- /mnd</span>
+<span>89 m<sup>2</sup></span> <span>2 slaapkamers </span> </div>
+</div>
+</div>
+</div>
+<div class="col-sm-6 d-flex flex-column">
+<div class="card card-woning shadow-sm rounded-5 rounded-end-0 rounded-bottom-0 overflow-hidden flex-grow-1">
+<div class="card-img-top">
+<div class="badges position-absolute end-0 me-4 mt-4 index-1 d-flex gap-2">
+<span class="badge bg-white text-body shadow-xs">
+<span class="status-dot bg-status-te-huur rounded-circle me-1"></span>
+ Te huur
+ </span>
+</div>
+<div class="ratio" style="--bs-aspect-ratio: 66%;">
+<picture class="h-100 w-100">
+<img alt="Dirkje Goedhartstraat 114 " class="d-block w-100 h-100" height="383" loading="lazy" sizes="(max-width: 420px) 420px, 576px" src="//b.static.nbo.nl/media/d9/d9c6a149fd7c68ab16ec5be4ce3caf18/768x510/thumb.jpg" style="object-fit: cover;" width="576"/>
+</picture>
+</div>
+</div>
+<div class="card-body d-flex flex-column">
+<span class="card-title h5 text-secondary mb-0">
+<a class="stretched-link" href="/object/rotterdam-3065gj-114-dirkje-goedhartstraat-8c2b79e85ced7a9bd68d37e05b7ac74d/">
+ Eengezinswoning Dirkje Goedhartstraat 114 
+ </a>
+</span>
+<span>3065GJ Rotterdam - 4Km.</span>
+<span class="small">
+<span class="d-flex gap-1">
+<span><i class="fal fa-calendar text-success fa-fw"></i></span>
+ Direct beschikbaar
+ </span>
+<span class="d-flex gap-1"><span><i class="far fa-solid fa-heart text-success fa-fw"></i></span>Direct inschrijven via deze site</span>
+</span>
+<div class="pt-4 dotted-spans mt-auto">
+<span class="fw-bold">€ 1.688,- /mnd</span>
+<span>111 m<sup>2</sup></span> </div>
+</div>
+</div>
+</div>
+<div class="col-sm-6 d-flex flex-column">
+<div class="card card-woning shadow-sm rounded-5 rounded-end-0 rounded-bottom-0 overflow-hidden flex-grow-1">
+<div class="card-img-top">
+<div class="badges position-absolute end-0 me-4 mt-4 index-1 d-flex gap-2">
+<div class="badge bg-carrot-orange text-white">Stofferingskosten 70,00</div> <span class="badge bg-white text-body shadow-xs">
+<span class="status-dot bg-status-te-huur rounded-circle me-1"></span>
+ Te huur
+ </span>
+</div>
+<div class="ratio" style="--bs-aspect-ratio: 66%;">
+<picture class="h-100 w-100">
+<img alt="'s-gravelandseweg 671 " class="d-block w-100 h-100" height="383" loading="lazy" sizes="(max-width: 420px) 420px, 576px" src="//a.static.nbo.nl/media/1c/1cd62c3506baf06c07c9633f2ee5127f/768x510/thumb.jpg" style="object-fit: cover;" width="576"/>
+</picture>
+</div>
+</div>
+<div class="card-body d-flex flex-column">
+<span class="card-title h5 text-secondary mb-0">
+<a class="stretched-link" href="/object/schiedam-3119xt-671-s-gravelandseweg-923b21cd5ed0c7966da76f4034d98e07/">
+ Appartement 's-gravelandseweg 671 
+ </a>
+</span>
+<span>3119XT Schiedam - 6Km.</span>
+<span class="small">
+<span class="d-flex gap-1">
+<span><i class="fal fa-calendar text-success fa-fw"></i></span>
+ Direct beschikbaar
+ </span>
+<span class="d-flex gap-1"><span><i class="far fa-solid fa-heart text-success fa-fw"></i></span>Direct inschrijven via deze site</span>
+</span>
+<div class="pt-4 dotted-spans mt-auto">
+<span class="fw-bold">€ 1.290,- /mnd</span>
+<span>60 m<sup>2</sup></span> <span>1 slaapkamer </span> </div>
+</div>
+</div>
+</div>
+<div class="col-sm-6 d-flex flex-column">
+<div class="card card-woning shadow-sm rounded-5 rounded-end-0 rounded-bottom-0 overflow-hidden flex-grow-1">
+<div class="card-img-top">
+<div class="badges position-absolute end-0 me-4 mt-4 index-1 d-flex gap-2">
+<span class="badge bg-white text-body shadow-xs">
+<span class="status-dot bg-status-te-huur rounded-circle me-1"></span>
+ Te huur
+ </span>
+</div>
+<div class="ratio" style="--bs-aspect-ratio: 66%;">
+<picture class="h-100 w-100">
+<img alt="Cypruslaan 129 " class="d-block w-100 h-100" height="383" loading="lazy" sizes="(max-width: 420px) 420px, 576px" src="//c.static.nbo.nl/media/b0/b06aded2ca322d6da3ab4f18bf188d6d/768x510/thumb.jpg" style="object-fit: cover;" width="576"/>
+</picture>
+</div>
+</div>
+<div class="card-body d-flex flex-column">
+<span class="card-title h5 text-secondary mb-0">
+<a class="stretched-link" href="/object/rotterdam-3059xa-129-cypruslaan-c3c728db96f8af0a911dd07733e36a20/">
+ Appartement Cypruslaan 129 
+ </a>
+</span>
+<span>3059XA Rotterdam - 9Km.</span>
+<span class="small">
+<span class="d-flex gap-1">
+<span><i class="fal fa-calendar text-success fa-fw"></i></span>
+ Direct beschikbaar
+ </span>
+<span class="d-flex gap-1"><span><i class="far fa-solid fa-heart text-success fa-fw"></i></span>Direct inschrijven via deze site</span>
+</span>
+<div class="pt-4 dotted-spans mt-auto">
+<span class="fw-bold">€ 1.875,- /mnd</span>
+<span>151 m<sup>2</sup></span> <span>2 slaapkamers </span> </div>
+</div>
+</div>
+</div>
+</div>
+<div class="row mt-12 justify-content-between">
+<div class="col col-md-8">
+</div>
+<div class="col-md-auto mt-4 mt-md-0 d-flex">
+<div class="flex-grow-0 mx-auto mx-md-0">
+<div class="d-flex flex-wrap gap-2">
+<a class="btn btn-outline-primary disabled" href="/aanbod/rotterdam/?page=0">Vorige</a>
+<a class="btn btn-primary" href="/aanbod/rotterdam/?page=2">Volgende</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body>
+</html>
