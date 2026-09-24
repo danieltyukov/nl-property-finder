@@ -1,0 +1,51 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`renderLaunchdPlist > is a LaunchAgent that runs at load with escaped arguments 1`] = `
+"<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Written by nlpf on. nlpf off stops and disables it. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>nl.property-finder</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/node</string>
+    <string>/opt/nl-property-finder/apps/cli/dist/nlpf.mjs</string>
+    <string>daemon</string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <dict>
+    <key>SuccessfulExit</key>
+    <false/>
+  </dict>
+  <key>ThrottleInterval</key>
+  <integer>10</integer>
+  <key>StandardOutPath</key>
+  <string>/home/sam/.local/share/nl-property-finder/logs/launchd.log</string>
+  <key>StandardErrorPath</key>
+  <string>/home/sam/.local/share/nl-property-finder/logs/launchd.log</string>
+</dict>
+</plist>
+"
+`;
+
+exports[`renderSystemdUnit > runs node on the bundled CLI with the daemon command and restarts on failure 1`] = `
+"# Written by nlpf on. nlpf off stops and disables it.
+[Unit]
+Description=NL Property Finder agent
+Documentation=https://github.com/danieltyukov/nl-property-finder
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/node /opt/nl-property-finder/apps/cli/dist/nlpf.mjs daemon
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=30
+
+[Install]
+WantedBy=default.target
+"
+`;
