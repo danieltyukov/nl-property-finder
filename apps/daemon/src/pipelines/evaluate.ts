@@ -78,7 +78,8 @@ export async function handleEvaluate(rt: Runtime, job: Job): Promise<void> {
   // filters gets its detail page read now: one extra request, only for matches.
   let listingForAi = listing;
   const adapter = rt.adapter(listing.sourceId);
-  if (!listing.description && adapter?.detail && adapter.capabilities.detail) {
+  const needsDetail = !listing.description || (listing.contact === 'email' && !listing.agent?.email);
+  if (needsDetail && adapter?.detail && adapter.capabilities.detail) {
     try {
       const detailed = normaliseListing(await adapter.detail(listing, rt.sourceContext(adapter)));
       const saved = rt.store.listings.upsert({ ...detailed, address: { ...listing.address, ...detailed.address } }, listing.via, nowIso).listing;

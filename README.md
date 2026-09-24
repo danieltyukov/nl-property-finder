@@ -71,19 +71,52 @@ platform, knowing that the risk is your account on that platform.
 ## Sources
 
 <!-- sources:start -->
-| Source | Finds listings | Contacts automatically | Notes |
+| Source | Finds listings | Contacts automatically | How |
 | --- | --- | --- | --- |
-| Funda | Yes | Opt-in (guest form, no login) | The best free channel |
-| Pararius | Yes | Opt-in (form after one login) | Some listings go to the agent's own site |
-| Kamernet | Yes | Listings marked free to react, or with Premium | |
-| HousingAnywhere | Yes | With a paid plan | Otherwise watched for duplicates |
-| Huurwoningen.nl | Yes | With a paid plan | Mostly duplicates Pararius |
-| RoomMatch (DUWO), Woonnet Haaglanden, Plaza, Huren in Holland Rijnland | Yes | When you connect and opt in | One adapter for all Zig portals |
-| Woonnet Rijnmond | Yes | When you connect and opt in | |
-| Estate agents on OGonline, Realworks and Kolibri | Yes | Yes | Add any agent with one YAML file |
-| Marktplaats, Vesteda, SSH, MVGM, Stadswonen, WoningNet | Yes | Opt-in or watch only | |
-| Holland2Stay | Yes | Assisted: the booking page opens on your screen | It needs a human for its checkbox |
-| Kamer.nl, Directwonen, Huurstunt, Rentola, Huurzone | Yes | No (paid) | Used to find free copies of the same home |
+| [123Wonen](https://www.123wonen.nl) | Yes | Yes | Email |
+| [Amsterdam Housing](https://www.amsterdamhousing.com) | Yes | Yes | Contact form |
+| [Atrium Makelaars](https://www.atrium-makelaars.nl) | Yes | Yes | Email |
+| [B&S Rental Service](https://www.bnsrentalservice.nl) | Yes | Yes | Email |
+| [Bjornd Makelaardij](https://www.bjornd.nl) | Yes | Yes | Contact form |
+| [Carla van den Brink Makelaars](https://www.vandenbrink.nl) | Yes | Yes | Contact form |
+| [Deerenberg & Van Leeuwen Makelaars](https://www.deerenberg.nl) | Yes | Yes | Email |
+| [Dekkers de Groot Makelaardij](https://www.dekkersdegroot.nl) | Yes | Yes | Email |
+| [Directwonen](https://directwonen.nl) | Yes | Watch only | None |
+| [Estata Makelaars](https://www.estata.nl) | Yes | Yes | Contact form |
+| [Expat & Property Management](https://www.expatpropertymanagement.nl) | Yes | Yes | Contact form |
+| [Expat & Real Estate](https://www.expat-realestate.nl) | Yes | Yes | Contact form |
+| [Funda](https://www.funda.nl) | Yes | Opt-in | Contact form |
+| [HousingAnywhere](https://housinganywhere.com) | Yes | With housinganywhere-plus | Platform message |
+| [Huren in Holland Rijnland](https://www.hureninhollandrijnland.nl) | Yes | After you connect | Contact form |
+| [Huurstunt](https://www.huurstunt.nl) | Yes | Watch only | None |
+| [Huurzone](https://www.huurzone.nl) | Yes | Watch only | None |
+| [Interhouse](https://interhouse.nl) | Yes | Yes | Contact form |
+| [Kamernet](https://kamernet.nl) | Yes | With kamernet-premium | Platform message |
+| [Keij & Stefels](https://www.keij-stefels.nl) | Yes | Yes | Contact form |
+| [Lankhuijzen Makelaars](https://www.lankhuijzen.nl) | Yes | Yes | Contact form |
+| [Lex van Leeuwen Makelaars](https://www.lexvanleeuwen.nl) | Yes | Yes | Contact form |
+| [Marktplaats](https://www.marktplaats.nl) | Yes | Opt-in | Platform message |
+| [MVGM (ikwilhuren.nu)](https://ikwilhuren.nu) | Yes | Watch only | None |
+| [NederWoon](https://www.nederwoon.nl) | Yes | Watch only | None |
+| [Nelisse Makelaarsgroep](https://www.nelisse.nl) | Yes | Yes | Contact form |
+| [Perfect Rent](https://www.perfectrent.nl) | Yes | Yes | Contact form |
+| [Plaza Resident Services](https://plaza.newnewnew.space) | Yes | After you connect | Contact form |
+| [Rentola](https://rentola.nl) | Yes | Watch only | None |
+| [Residence Makelaars](https://www.residencemakelaars.com) | Yes | Yes | Contact form |
+| [RoomMatch (DUWO and other student housing)](https://www.roommatch.nl) | Yes | After you connect | Contact form |
+| [Rotsvast](https://www.rotsvast.nl) | Yes | Yes | Email |
+| [SSH](https://www.sshxl.nl) | Yes | Watch only | Lottery or waiting list |
+| [Stadswonen Rotterdam](https://www.stadswonenrotterdam.nl/nl/aanbod) | Yes | Watch only | None |
+| [The House of Expats](https://www.thehouseofexpats.com) | Yes | Yes | Contact form |
+| [Van Daal Makelaardij](https://www.vandaalmakelaardij.nl) | Yes | Yes | Email |
+| [Van der Linden](https://www.vanderlinden.nl) | Yes | Watch only | None |
+| [Van Paaschen Makelaardij](https://www.vanpaaschen.nl) | Yes | Yes | Contact form |
+| [Verra Makelaars](https://www.verra.nl) | Yes | Yes | Contact form |
+| [Vesteda](https://www.vesteda.com) | Yes | Opt-in | Contact form |
+| [WoningNet (DAK)](https://www.woningnet.nl) | Yes | Watch only | None |
+| [Woonnet Haaglanden](https://www.woonnet-haaglanden.nl) | Yes | After you connect | Contact form |
+| [Woonnet Rijnmond](https://www.woonnetrijnmond.nl) | Yes | After you connect | Contact form |
+| [WVO Makelaarsgroep](https://www.wvo.nl) | Yes | Yes | Contact form |
 <!-- sources:end -->
 
 `docs/SOURCES.md` has every source's capabilities and the reason for its

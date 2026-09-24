@@ -520,7 +520,7 @@ export function createFundaAdapter(options: FundaOptions = {}): SourceAdapter {
     name: 'Funda',
     homepage: 'https://www.funda.nl',
     regions: 'nl',
-    defaultIntervalSec: 60,
+    defaultIntervalSec: 90, // Funda now needs a browser page load per check, so a little slower
     capabilities: {
       search: 'html',
       detail: true,

@@ -34,7 +34,7 @@ function why(a: SourceAdapter): string {
   if (c.terms === 'forbids') parts.push('its terms forbid automated access, so contact waits for your opt-in');
   if (c.paid) parts.push(`reacting needs a paid plan (${c.paid.plan}); without it the agent looks for a free copy of the same home`);
   if (c.login === 'required') parts.push('it needs one login with nlpf connect');
-  if (c.browser === 'headed') parts.push('it is read in a real browser on a private display');
+  if (c.browser === 'headed') parts.push(c.search === 'browser' || c.search === 'html' ? 'it is read in a real browser on a private display' : 'contacting runs in a real browser on a private display');
   if (c.contact === 'booking') parts.push('homes are booked first come, first served');
   return parts.length ? parts.join('; ') : 'nothing special';
 }
