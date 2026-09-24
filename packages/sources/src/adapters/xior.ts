@@ -231,14 +231,18 @@ export function createXiorAdapter(options: XiorOptions = {}): SourceAdapter {
       availability = new Map();
       const ask = (t: XiorRoomType) =>
         askAvailability(page, ajaxUrl, { property_page_id: info.propertyPageId!, room_type_id: t.id, semester_id: info.semesterId ?? '' });
-      const first = await ask(open[0]!);
-      availability.set(open[0]!.id, first);
-      if (first) {
-        for (const t of open.slice(1)) {
-          if ((first.byRoom[t.id] ?? 1) <= 0) continue;
-          await sleep(gapMs, ctx.signal);
-          availability.set(t.id, await ask(t));
-        }
+      // Each room type is asked on its own, so one failed answer does not hide the others. A type an
+      // earlier answer already counted as full is skipped, and two failures in a row end the round
+      // (the endpoint is rate limited per IP, and a refusal usually repeats).
+      let failures = 0;
+      for (const [i, t] of open.entries()) {
+        const known = [...availability.values()].find((v) => v && t.id in v.byRoom)?.byRoom[t.id];
+        if (known !== undefined && known <= 0) continue;
+        if (i > 0) await sleep(gapMs, ctx.signal);
+        const answer = await ask(t);
+        availability.set(t.id, answer);
+        failures = answer ? 0 : failures + 1;
+        if (failures >= 2) break;
       }
     }
 

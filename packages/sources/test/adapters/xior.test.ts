@@ -117,6 +117,21 @@ describe('xior', () => {
     ]);
   });
 
+  test('one failed answer does not hide the other room types', async () => {
+    const adapter = createXiorAdapter({ gapMs: 0 });
+    const twoPers = JSON.stringify({
+      success: true,
+      data: { units: [{ apartmentId: 402500, apartmentName: 'AV.3.02', minimumRent: 1000, sqm: 35, availableDate: '01/12/2026' }], availability_by_room: { '33936': 1 } },
+    });
+    const { ctx, calls } = setup((body) => (body.get('room_type_id') === '33935' ? { status: 500, text: 'error' } : { status: 200, text: twoPers }));
+    const listings = await adapter.search(adapter.buildSearches(ctx.searches, ctx.source)[0]!, ctx);
+    expect(calls.map((c) => c.get('room_type_id'))).toEqual(['33935', '33936']);
+    expect(listings).toEqual([
+      expect.objectContaining({ externalId: 'type-13867-33935', extra: expect.objectContaining({ availability: 'unknown' }) }),
+      expect.objectContaining({ externalId: 'unit-402500', title: 'Comfy (2 pers) AV.3.02, Antonia Veerstraat', availableFrom: '2026-12-01' }),
+    ]);
+  });
+
   test('without the availability check no request is made to the endpoint', async () => {
     const adapter = createXiorAdapter({ gapMs: 0, checkAvailability: false });
     const { ctx, calls } = setup();
