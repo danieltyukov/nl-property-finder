@@ -41,8 +41,23 @@ function el(tag: string, cls: string, parent: HTMLElement): HTMLElement {
   const e = document.createElement(tag);
   e.className = cls;
   e.setAttribute('aria-hidden', 'true');
+  e.style.left = e.style.top = '0';
   parent.append(e);
   return e;
+}
+
+/**
+ * Where the CSS placed an element from its poster anchor (--ax, --ay), in
+ * pixels inside its box. The live scene moves elements with a transform
+ * relative to that spot instead of resetting left and top, because a change
+ * of layout position would count as a layout shift and a transform does not.
+ */
+function base(node: HTMLElement, box: DOMRect): [number, number] {
+  const ax = Number.parseFloat(node.style.getPropertyValue('--ax'));
+  const ay = Number.parseFloat(node.style.getPropertyValue('--ay'));
+  if (Number.isNaN(ax) || Number.isNaN(ay)) return [0, 0];
+  const s = box.width / 1440;
+  return [ax * s, box.height / 2 + (ay - 450) * s];
 }
 
 export class Overlay {
@@ -67,7 +82,8 @@ export class Overlay {
       this.pins.push(pin);
       return pin;
     };
-    document.querySelectorAll<HTMLElement>('.anchors .pin').forEach(pinFor);
+    // The Claude band's glows belong to its still image, not to the live scene.
+    document.querySelectorAll<HTMLElement>('.anchors .pin:not(.glow)').forEach(pinFor);
 
     // Cards with a line to a window. The hero's diamond and line exist in the
     // HTML (for the no-JS layout); feed rows get theirs created here.
@@ -126,7 +142,8 @@ export class Overlay {
         continue;
       }
       const r = this.rect(pin.box);
-      pin.el.style.transform = `translate3d(${(p[0] - r.left).toFixed(1)}px,${(p[1] - r.top).toFixed(1)}px,0)`;
+      const [bx, by] = base(pin.el, r);
+      pin.el.style.transform = `translate3d(${(p[0] - r.left - bx).toFixed(1)}px,${(p[1] - r.top - by).toFixed(1)}px,0)`;
     }
     for (const l of this.links) {
       const card = l.card;
@@ -148,7 +165,8 @@ export class Overlay {
       const y1 = c.top + Math.min(14, c.height / 2) - r.top;
       const len = Math.hypot(x1 - x0, y1 - y0);
       const ang = Math.atan2(y1 - y0, x1 - x0);
-      l.leader.style.transform = `translate3d(${x0.toFixed(1)}px,${y0.toFixed(1)}px,0) rotate(${ang.toFixed(4)}rad)`;
+      const [bx, by] = base(l.leader, r);
+      l.leader.style.transform = `translate3d(${(x0 - bx).toFixed(1)}px,${(y0 - by).toFixed(1)}px,0) rotate(${ang.toFixed(4)}rad)`;
       l.leader.style.width = `${len.toFixed(1)}px`;
     }
   }

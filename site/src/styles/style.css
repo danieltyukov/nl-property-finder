@@ -215,7 +215,6 @@ html:not(.js) .js-only, html:not(.js) .rail { display: none; }
   left: calc(50cqw + (var(--ax, -9999) - 720) * var(--s));
   top: calc(50cqh + (var(--ay, -9999) - 450) * var(--s));
 }
-.stage-live .pin { left: 0; top: 0; }
 .diamond { width: 0; height: 0; }
 .diamond::before {
   content: ""; position: absolute; left: -7px; top: -7px; width: 14px; height: 14px;
@@ -228,7 +227,7 @@ html:not(.js) .js-only, html:not(.js) .rail { display: none; }
   top: calc(50cqh + (var(--ay, -9999) - 450) * var(--s));
   width: hypot(var(--lx), var(--ly)); rotate: atan2(var(--ly), var(--lx));
 }
-.stage-live .leader { left: 0; top: 0; rotate: none; }
+.stage-live .leader { rotate: none; }
 .tag {
   margin: var(--oy, 0) 0 0 var(--ox, 0); white-space: nowrap;
   font: 400 12px/1 var(--font-mono); letter-spacing: 0.02em; color: var(--label-far);
