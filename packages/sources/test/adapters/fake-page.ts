@@ -137,10 +137,12 @@ export function fakeBrowser(routes: Record<string, FakeRouteSpec>): FakeBrowser 
       },
       context: () => ({ cookies: async () => [] }),
     };
+    let released = false;
     return {
       page: page as unknown as Page,
       close: async () => {
-        if (!closed) openCount -= 1;
+        if (!released) openCount -= 1;
+        released = true;
         closed = true;
       },
     };
