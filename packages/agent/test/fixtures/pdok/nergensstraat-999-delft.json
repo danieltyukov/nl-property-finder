@@ -1,0 +1,44 @@
+{
+  "response": {
+    "numFound": 62524,
+    "start": 0,
+    "maxScore": 11.2741585,
+    "numFoundExact": true,
+    "docs": [
+      {
+        "bron": "BAG",
+        "woonplaatscode": "2138",
+        "type": "adres",
+        "woonplaatsnaam": "Delft",
+        "wijkcode": "WK050329",
+        "huis_nlt": "999",
+        "openbareruimtetype": "Weg",
+        "buurtnaam": "Bedrijventerrein Technopolis",
+        "gemeentecode": "0503",
+        "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/nummeraanduiding/0503200000139739",
+        "weergavenaam": "Mekelweg 999, 2629JB Delft",
+        "straatnaam_verkort": "Mekelwg",
+        "id": "adr-b69949443dd6c49ad455e04e14b7070b",
+        "gekoppeld_perceel": ["DEL00-L-1486"],
+        "gemeentenaam": "Delft",
+        "buurtcode": "BU05032901",
+        "wijknaam": "Wijk 29 Ruiven",
+        "identificatie": "0503010000075707-0503200000139739",
+        "openbareruimte_id": "0503300000003387",
+        "waterschapsnaam": "Hoogheemraadschap van Delfland",
+        "provinciecode": "PV28",
+        "postcode": "2629JB",
+        "provincienaam": "Zuid-Holland",
+        "centroide_ll": "POINT(4.38298338 51.98926801)",
+        "nummeraanduiding_id": "0503200000139739",
+        "waterschapscode": "15",
+        "adresseerbaarobject_id": "0503010000075707",
+        "huisnummer": 999,
+        "provincieafkorting": "ZH",
+        "centroide_rd": "POINT(86023.251 445018.342)",
+        "straatnaam": "Mekelweg",
+        "score": 11.2741585
+      }
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "type": "https://httpstatuses.io/401",
+  "title": "Unauthorized",
+  "status": 401,
+  "detail": "Valid API key required to access this resource."
+}

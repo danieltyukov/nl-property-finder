@@ -1,0 +1,44 @@
+{
+  "response": {
+    "numFound": 356776,
+    "start": 0,
+    "maxScore": 15.507413,
+    "numFoundExact": true,
+    "docs": [
+      {
+        "bron": "BAG",
+        "woonplaatscode": "2138",
+        "type": "adres",
+        "woonplaatsnaam": "Delft",
+        "wijkcode": "WK050311",
+        "huis_nlt": "12",
+        "openbareruimtetype": "Weg",
+        "buurtnaam": "Centrum",
+        "gemeentecode": "0503",
+        "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/nummeraanduiding/0503200000040027",
+        "weergavenaam": "Oude Delft 12, 2611CC Delft",
+        "straatnaam_verkort": "Oude Delft",
+        "id": "adr-3c6a46eb8e2f731739fb02ceb7b39ca1",
+        "gekoppeld_perceel": ["DEL00-E-3089"],
+        "gemeentenaam": "Delft",
+        "buurtcode": "BU05031104",
+        "wijknaam": "Wijk 11 Binnenstad",
+        "identificatie": "0503010000003324-0503200000040027",
+        "openbareruimte_id": "0503300000003883",
+        "waterschapsnaam": "Hoogheemraadschap van Delfland",
+        "provinciecode": "PV28",
+        "postcode": "2611CC",
+        "provincienaam": "Zuid-Holland",
+        "centroide_ll": "POINT(4.35894489 52.00806498)",
+        "nummeraanduiding_id": "0503200000040027",
+        "waterschapscode": "15",
+        "adresseerbaarobject_id": "0503010000003324",
+        "huisnummer": 12,
+        "provincieafkorting": "ZH",
+        "centroide_rd": "POINT(84401.799 447132.599)",
+        "straatnaam": "Oude Delft",
+        "score": 15.507413
+      }
+    ]
+  }
+}
