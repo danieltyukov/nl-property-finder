@@ -2,6 +2,7 @@ import { describe, expect, test } from 'vitest';
 import type { InboundMessage } from '@nlpf/core';
 import { SourceBlockedError } from '../../src/runtime/errors.js';
 import { createParariusAdapter, mastheadLoginState, pararius } from '../../src/adapters/pararius.js';
+import { browserAdapters } from '../../src/builtin/browser.js';
 import { parseParariusCards, parseParariusDetail, parariusListingId } from '../../src/parsers/pararius-cards.js';
 import { fixtureContext, readFixture } from '../../src/testing.js';
 import { fakeBrowser } from './fake-page.js';
@@ -29,6 +30,25 @@ function ctxWith(routes: Parameters<typeof fakeBrowser>[0], config: Record<strin
   const ctx = fixtureContext({ sourceId: 'pararius', routes: [], config, browser, now });
   return { ctx, browser };
 }
+
+describe('browser adapter group', () => {
+  test('registers the five browser-driven sources, all in a headed browser', () => {
+    const all = browserAdapters();
+    expect(all.map((a) => a.id)).toEqual(['pararius', 'holland2stay', 'huurwoningen', 'kamernl', 'xior']);
+    expect(all.every((a) => a.capabilities.browser === 'headed' && a.capabilities.search === 'browser')).toBe(true);
+    expect(Object.fromEntries(all.map((a) => [a.id, a.capabilities.terms]))).toEqual({
+      pararius: 'forbids',
+      holland2stay: 'forbids',
+      huurwoningen: 'forbids',
+      kamernl: 'unknown',
+      xior: 'unknown',
+    });
+    expect(Object.fromEntries(all.filter((a) => a.capabilities.paid).map((a) => [a.id, a.capabilities.paid?.plan]))).toEqual({
+      huurwoningen: 'huurwoningen-premium',
+      kamernl: 'kamernl-premium',
+    });
+  });
+});
 
 describe('pararius capabilities', () => {
   test('declares a headed browser, a login, and terms that forbid automation', () => {
