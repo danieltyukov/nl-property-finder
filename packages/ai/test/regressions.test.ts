@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { memoryLogger } from '@nlpf/core';
+import { memoryLogger, ProfileSchema } from '@nlpf/core';
 import { unlimitedBudget } from '../src/budget.js';
 import { createClaudeProvider } from '../src/claude.js';
 import { createRulesProvider } from '../src/rules.js';
@@ -160,5 +160,26 @@ describe('providers never throw', () => {
     expect(extract.score).toBeGreaterThanOrEqual(0);
     const r = await rules.classify({ message: makeMessage('Kunt u donderdag om 18:30?'), now: 'not a date' });
     expect(r.intent).toBeDefined();
+  });
+});
+
+describe('found in the first demo run', () => {
+  it('"Vanaf wanneer zou u erin willen?" is answered with the move-in date', async () => {
+    const { answerQuestion } = await import('../src/rules/reply.js');
+    const profile = ProfileSchema.parse({ firstName: 'Sam', lastName: 'de Vries', moveInFrom: '2026-11-01' });
+    expect(answerQuestion('Vanaf wanneer zou u erin willen?', profile, 'nl')).toMatch(/november/i);
+  });
+
+  it('a display name with the agency after a bar greets the person', async () => {
+    const { addressee, greeting } = await import('../src/profile.js');
+    expect(greeting(addressee('Eva Brouwer | Makelaardij De Gracht'), 'nl', { firstNameOnly: true })).toBe('Beste Eva,');
+    expect(greeting(addressee('Makelaardij De Gracht'), 'nl')).toBe('Beste medewerker van Makelaardij De Gracht,');
+  });
+
+  it('a parent as guarantor reads as Dutch in a Dutch message', async () => {
+    const { incomeSentence } = await import('../src/profile.js');
+    const p = ProfileSchema.parse({ guarantor: { relation: 'parent', incomeMonthlyGrossEur: 5200 } });
+    expect(incomeSentence(p, 'nl')).toBe('Mijn ouder staat garant, met een bruto maandinkomen van EUR 5.200.');
+    expect(incomeSentence(p, 'en')).toMatch(/^My parent will act as guarantor/);
   });
 });

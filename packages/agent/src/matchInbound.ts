@@ -132,27 +132,45 @@ export function matchInbound(msg: InboundMessage, store: Store): InboundMatch {
 
   const address = msg.from.address?.toLowerCase().trim();
   if (address) {
-    const c = pick(store.conversations.byEmail(address));
-    if (c) return fromConversation(c, 'sender');
+    // Everything this sender (or their agency) could be writing about.
+    const candidates = new Map<string, Conversation | undefined>(); // applicationId -> its conversation
+    const loose: Conversation[] = []; // conversations with no application
+    const addConversation = (c: Conversation) => {
+      if (!c.applicationId) return void loose.push(c);
+      const app = store.applications.get(c.applicationId);
+      if (app && !CLOSED.has(app.status)) {
+        const prev = candidates.get(app.id);
+        if (!prev || c.lastMessageAt > prev.lastMessageAt) candidates.set(app.id, c);
+      }
+    };
+    for (const c of store.conversations.byEmail(address)) addConversation(c);
 
     const domain = domainOf(address);
     if (domain && !FREE_MAIL.has(domain)) {
-      const sameDomain = store.conversations
-        .list({ limit: 500 })
-        .filter((x) => domainOf(x.counterpart.email) === domain);
-      const byDomain = pick(sameDomain);
-      if (byDomain) return fromConversation(byDomain, 'sender');
-
+      for (const c of store.conversations.list({ limit: 500 })) if (domainOf(c.counterpart.email) === domain) addConversation(c);
       for (const l of store.listings.list({ limit: 500 })) {
         if (!l.propertyId || domainOf(l.agent?.email) !== domain) continue;
         const app = store.applications.byProperty(l.propertyId);
-        if (!app || CLOSED.has(app.status)) continue;
-        const conversation = pick(store.conversations.byApplication(app.id));
-        const out: InboundMatch = { applicationId: app.id, confidence: 'sender' };
-        if (conversation) out.conversationId = conversation.id;
-        return out;
+        if (!app || CLOSED.has(app.status) || candidates.has(app.id)) continue;
+        candidates.set(app.id, pick(store.conversations.byApplication(app.id)));
       }
     }
+
+    if (candidates.size === 1) {
+      const [[applicationId, conversation]] = [...candidates.entries()] as [[string, Conversation | undefined]];
+      const out: InboundMatch = { applicationId, confidence: 'sender' };
+      if (conversation) out.conversationId = conversation.id;
+      return out;
+    }
+    if (candidates.size > 1) {
+      // One agency, several homes: only the address in the text can say which.
+      // When it cannot, a person decides; guessing could answer about the wrong home.
+      const byAddress = matchByAddress(msg, store);
+      if (byAddress?.applicationId && candidates.has(byAddress.applicationId)) return byAddress;
+      return { confidence: 'none' };
+    }
+    const c = pick(loose);
+    if (c) return fromConversation(c, 'sender');
   }
 
   return matchByAddress(msg, store) ?? { confidence: 'none' };

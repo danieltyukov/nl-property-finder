@@ -1,4 +1,4 @@
-import { beforeEach, expect, test } from 'vitest';
+import { beforeEach, describe, expect, test } from 'vitest';
 import { openStore, type InboundMessage, type Store } from '@nlpf/core';
 import { matchInbound } from '../src/matchInbound.js';
 import { listing } from './helpers.js';
@@ -186,4 +186,35 @@ test('an unrelated email returns none', () => {
       store,
     ),
   ).toEqual({ confidence: 'none' });
+});
+
+describe('one agency, several open homes', () => {
+  const setup = () => {
+    const store = openStore(':memory:');
+    const now = '2026-09-24T10:00:00.000Z';
+    const homes = [
+      { id: 'p1', street: 'Tulpgracht', number: '12', addition: 'A' },
+      { id: 'p2', street: 'Havenlichtweg', number: '7', addition: '' },
+    ];
+    for (const h of homes) {
+      store.properties.create({ id: h.id, key: h.id, title: `${h.street} ${h.number}${h.addition}`, address: { street: h.street, houseNumber: h.number, addition: h.addition || undefined, city: 'Delft' } }, now);
+      const app = store.applications.ensure(h.id, now);
+      store.applications.update(app.id, { status: 'contacted', contactedAt: now }, now);
+      store.conversations.create({ applicationId: app.id, propertyId: h.id, counterpart: { email: 'verhuur@degracht.example' }, lastMessageAt: now, unread: 0 });
+    }
+    return store;
+  };
+  const mail = (text: string): InboundMessage => ({ id: '<x@degracht.example>', channel: 'email', from: { address: 'verhuur@degracht.example' }, text, at: '2026-09-24T11:00:00.000Z', attachments: [] });
+
+  test('the address in the text decides between them', () => {
+    const store = setup();
+    const m = matchInbound(mail('Beste Sam, bedankt voor uw interesse in Havenlichtweg 7. Kunt u donderdag komen?'), store);
+    expect(m.confidence).toBe('address');
+    expect(store.applications.get(m.applicationId!)?.propertyId).toBe('p2');
+  });
+
+  test('without an address a person decides instead of a guess', () => {
+    const store = setup();
+    expect(matchInbound(mail('Beste Sam, kunt u donderdag langskomen?'), store).confidence).toBe('none');
+  });
 });

@@ -64,12 +64,17 @@ export function tickPeriodic(rt: Runtime): void {
   const hour = nowIso.slice(0, 13);
   rt.store.jobs.enqueue('followup', `followup:${hour}`, {}, nowIso);
   rt.store.jobs.enqueue('daily', `daily:${nowIso.slice(0, 10)}`, {}, nowIso);
-  const slot = Math.floor(now.getTime() / 120_000);
+}
+
+/** Enqueues one inbox read per source with platform messaging, keyed by time slot. */
+export function syncInboxes(rt: Runtime, everyMs = 120_000): void {
+  const now = rt.now();
+  const slot = Math.floor(now.getTime() / everyMs);
   for (const a of rt.adapters()) {
     if (!a.inbox) continue;
     const state = rt.store.sources.get(a.id);
     if (state?.health === 'needs_login' || state?.enabled === false) continue;
-    rt.store.jobs.enqueue('sync_inbox', `sync_inbox:${a.id}:${slot}`, { sourceId: a.id }, nowIso);
+    rt.store.jobs.enqueue('sync_inbox', `sync_inbox:${a.id}:${slot}`, { sourceId: a.id }, now.toISOString());
   }
 }
 

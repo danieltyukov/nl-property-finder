@@ -45,7 +45,7 @@ export async function draftFirstMessage(rt: Runtime, via: Listing, channel: Chan
 
 function recordOutbound(
   rt: Runtime,
-  opts: { app: Application; property: Property; via: Listing; channel: Channel; draft: Draft; result?: ContactResult; messageId?: string; status: Message['status']; attachments?: Attachment[] },
+  opts: { app: Application; property: Property; via: Listing; channel: Channel; draft: Draft; result?: ContactResult; messageId?: string; status: Message['status']; attachments?: Attachment[]; threadCapable?: boolean },
 ): { conversation: Conversation; message: Message } {
   const nowIso = rt.now().toISOString();
   const { app, via, channel, draft } = opts;
@@ -53,7 +53,9 @@ function recordOutbound(
     name: via.agent?.name,
     email: channel.kind === 'email' ? channel.address : via.agent?.email,
     sourceId: channel.kind === 'email' ? undefined : via.sourceId,
-    threadId: opts.result?.externalId && channel.kind === 'message' ? opts.result.externalId : undefined,
+    // A platform that answers in its own threads (Kamernet, HousingAnywhere, the sandbox's Huisje)
+    // returns the thread id; replies are matched and answered there.
+    threadId: opts.result?.externalId && channel.kind !== 'email' && opts.threadCapable ? opts.result.externalId : undefined,
   };
   const conversation =
     rt.store.conversations.byApplication(app.id)[0] ??
@@ -200,7 +202,7 @@ export async function handleContact(rt: Runtime, job: Job): Promise<void> {
 
   const firstSeen = Math.min(...listings.map((l) => Date.parse(l.firstSeenAt)));
   const reactionMs = Math.max(0, now.getTime() - firstSeen);
-  recordOutbound(rt, { app, property, via, channel, draft, result, messageId, status: 'sent', attachments });
+  recordOutbound(rt, { app, property, via, channel, draft, result, messageId, status: 'sent', attachments, threadCapable: !!adapter?.reply });
   rt.store.applications.update(app.id, { status: 'contacted', contactedAt: nowIso, reactionMs, channel }, nowIso);
   rt.bus.emit('message.sent', `Sent to ${via.agent?.name ?? adapter?.name ?? 'the landlord'} about ${property.title}, ${Math.round(reactionMs / 1000)} s after it appeared`, {
     propertyId, channel: channel.kind, sourceId: channel.sourceId, reactionMs,

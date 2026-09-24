@@ -47,7 +47,7 @@ import { handleEvaluate } from './pipelines/evaluate.js';
 import { handleInbound } from './pipelines/inbound.js';
 import { handlePoll, handleSyncInbox } from './pipelines/ingest.js';
 import { startNotifications } from './pipelines/notify.js';
-import { handleDaily, handleFollowups, tickPeriodic } from './pipelines/periodic.js';
+import { handleDaily, handleFollowups, syncInboxes, tickPeriodic } from './pipelines/periodic.js';
 import { openTask, type Runtime } from './runtime.js';
 import { ensureToken } from './token.js';
 import { adaptiveInterval } from '@nlpf/agent';
@@ -72,16 +72,7 @@ export interface DaemonHandle {
   sandboxUrl?: string;
 }
 
-/** What `startSandbox` from @nlpf/sandbox returns, as far as the daemon needs it. */
-interface SandboxHandle {
-  url: string;
-  stop(): Promise<void>;
-}
-interface SandboxModule {
-  startSandbox(opts: Record<string, unknown>): Promise<SandboxHandle>;
-  huisjeAdapter(baseUrl: string): SourceAdapter;
-  grachtAgencyYaml(baseUrl: string): string;
-}
+type SandboxHandle = import('@nlpf/sandbox').Sandbox;
 
 /** Where the built dashboard lives, whether we run from source or from the bundled CLI. */
 function findDashboardDir(): string | undefined {
@@ -163,23 +154,30 @@ export async function startDaemon(opts: StartDaemonOptions): Promise<DaemonHandl
   }
 
   // Sources.
-  const politeFetch = createPoliteFetch({ log: log.child({ scope: 'fetch' }) });
+  // Both sandbox sources share one local host, so demo mode needs no politeness gap.
+  const politeFetch = createPoliteFetch({ log: log.child({ scope: 'fetch' }), ...(demo ? { minGapMs: 20 } : {}) });
   const pool = createBrowserPool({ dir: paths.browserDir, log: log.child({ scope: 'browser' }) });
   let sandbox: SandboxHandle | undefined;
   let demoAdapters: SourceAdapter[] = [];
   let memoryMailbox: MemoryMailbox | undefined;
   if (demo) {
-    const sb = (await import('@nlpf/sandbox')) as unknown as SandboxModule;
+    const sb = await import('@nlpf/sandbox');
     memoryMailbox = createMemoryMailbox(config.mail.address);
     const mm = memoryMailbox;
+    // Five homes online at once so the dashboard is alive, the rest of the catalogue trickles in.
     sandbox = await sb.startSandbox({
       port: opts.sandboxPort ?? 0,
       seed: 7,
-      speed: 10,
-      mail: { deliver: (m: InboundMessage) => mm.deliver(m), onSend: (fn: (m: unknown) => void) => mm.onSend(fn as never), address: config.mail.address },
-    });
+      speed: Number(process.env.NLPF_DEMO_SPEED ?? 10),
+      listings: sb.demoSeed(),
+      drip: process.env.NLPF_DEMO_DRIP !== '0',
+      mail: { deliver: (m: InboundMessage) => mm.deliver(m), onSend: (fn: (m: never) => void) => mm.onSend(fn as never), address: config.mail.address },
+    } as never);
     const { parseAgencyYaml, createAgencyAdapter } = await import('@nlpf/sources');
-    demoAdapters = [sb.huisjeAdapter(sandbox.url), createAgencyAdapter(parseAgencyYaml(sb.grachtAgencyYaml(sandbox.url)), { confirmTimeoutMs: 5000 })];
+    demoAdapters = [
+      sb.huisjeAdapter(sandbox.url, { attachmentsDir: join(paths.documentsDir, '.received') }),
+      createAgencyAdapter(parseAgencyYaml(sb.grachtAgencyYaml(sandbox.url)), { confirmTimeoutMs: 5000 }),
+    ];
   }
   const agencyErrors: string[] = [];
   const buildRegistry = () =>
@@ -447,6 +445,9 @@ export async function startDaemon(opts: StartDaemonOptions): Promise<DaemonHandl
   }, 60_000);
   tickPeriodic(rt);
   scheduler.tick();
+  // Platform inboxes (Kamernet, HousingAnywhere, the sandbox's Huisje): every two minutes, every few seconds in demo mode.
+  const inboxEvery = demo ? 3000 : 120_000;
+  const inboxTick = setInterval(() => syncInboxes(rt, inboxEvery), inboxEvery);
   bus.emit('daemon.started', demo ? 'Demo started: the sandbox stands in for the rental market' : 'The agent started', { version: VERSION, demo });
   void openTask;
 
@@ -463,6 +464,7 @@ export async function startDaemon(opts: StartDaemonOptions): Promise<DaemonHandl
       stopped = true;
       clearInterval(tick);
       clearInterval(minute);
+      clearInterval(inboxTick);
       unwatch();
       stopNotifications();
       await runner.stop();

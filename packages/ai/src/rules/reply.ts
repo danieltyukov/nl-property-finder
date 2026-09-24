@@ -26,7 +26,7 @@ const TOPICS: Topic[] = [
     if (l === 'nl') return p.smoker ? (we ? 'We roken.' : 'Ik rook.') : we ? 'We roken niet.' : 'Ik rook niet.';
     return p.smoker ? (we ? 'We smoke.' : 'I smoke.') : we ? 'We do not smoke.' : 'I do not smoke.';
   }],
-  [/\b(?:per wanneer|ingangsdatum|startdatum|verhuizen|intrekken|move in|move-in|moving in|start date)\b|\bwhen\b.*\b(?:move|start)\b|\bwanneer\b.*\b(?:in|verhuizen|beginnen|starten)\b/,
+  [/\b(?:per wanneer|vanaf wanneer|ingangsdatum|startdatum|verhuizen|intrekken|move in|move-in|moving in|start date)\b|\bwhen\b.*\b(?:move|start)\b|\bwanneer\b.*\b(?:in|erin|wonen|verhuizen|beginnen|starten|intrekken)\b/,
     (p, l) => (p.moveInFrom ? moveInSentence({ ...p, stayMonths: undefined }, l) : '')],
   [/\b(?:hoe lang|hoelang|huurperiode|periode|duur|how long|duration|period)\b/,
     (p, l) => (p.stayMonths ? (l === 'nl' ? `Ik wil er graag ${durationPhrase(p.stayMonths, l)} wonen.` : `I would like to stay for ${durationPhrase(p.stayMonths, l)}.`) : '')],

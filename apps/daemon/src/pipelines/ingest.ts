@@ -1,6 +1,6 @@
 import { NeedsLoginError, SourceBlockedError, SourceHttpError } from '@nlpf/sources';
 import { assignProperty, normaliseListing } from '@nlpf/agent';
-import type { Job, Listing, RawListing, SourceState } from '@nlpf/core';
+import { SourceConfigSchema, type Job, type Listing, type RawListing, type SourceState } from '@nlpf/core';
 import { createHealth } from '../health.js';
 import { initialState } from '../scheduler.js';
 import { RetryLater } from '../runner.js';
@@ -15,6 +15,21 @@ export async function ingestRaw(rt: Runtime, raw: RawListing, via: Listing['via'
   const normalised = normaliseListing(raw);
   const id = `${normalised.sourceId}:${normalised.externalId}`;
   const known = rt.store.listings.get(id);
+  if (known) {
+    // A list page usually carries less than the detail page read earlier.
+    // Keep what we already know, or every poll would look like a change.
+    normalised.description ??= known.description;
+    normalised.images ??= known.images;
+    normalised.agent = { ...known.agent, ...normalised.agent };
+    normalised.energyLabel ??= known.energyLabel;
+    normalised.availableFrom ??= known.availableFrom;
+    normalised.serviceCostsEur ??= known.serviceCostsEur;
+    normalised.depositEur ??= known.depositEur;
+    normalised.rooms ??= known.rooms;
+    normalised.bedrooms ??= known.bedrooms;
+    normalised.furnishing = normalised.furnishing && normalised.furnishing !== 'unknown' ? normalised.furnishing : known.furnishing;
+    normalised.extra = { ...known.extra, ...normalised.extra };
+  }
   if (!known) {
     try {
       normalised.address = await rt.geocode(normalised.address);
@@ -68,11 +83,12 @@ export async function handlePoll(rt: Runtime, job: Job): Promise<void> {
   const started = Date.now();
   const cfg = rt.config();
   const ctx = rt.sourceContext(adapter);
-  const requests = adapter.buildSearches(cfg.searches.filter((s) => s.enabled), cfg.sources[sourceId] ?? ({} as never));
 
   let count = 0;
   let fresh = 0;
   try {
+    // An unconfigured source still gets a full config with defaults (searchUrls, options).
+    const requests = adapter.buildSearches(cfg.searches.filter((s) => s.enabled), SourceConfigSchema.parse(cfg.sources[sourceId] ?? {}));
     for (const req of requests) {
       const raws = await adapter.search(req, ctx);
       count += raws.length;

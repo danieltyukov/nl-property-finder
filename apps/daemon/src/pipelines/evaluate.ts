@@ -1,4 +1,5 @@
 import {
+  normaliseListing,
   applyPreferences,
   evaluateFilters,
   evaluateRequirements,
@@ -72,15 +73,30 @@ export async function handleEvaluate(rt: Runtime, job: Job): Promise<void> {
     return;
   }
 
-  // 2. Read the listing: requirements, fit, scam wording, a summary in the user's language.
-  const ai = rt.ai();
-  const extracted = await ai.extract({ listing, profile: cfg.profile, search: matched });
-  const req = evaluateRequirements(extracted.requirements, cfg.profile, matched, { rentEur: listing.priceEur, now });
-  const scam = scamVerdict([...scamSignals(listing, { medianPricePerM2: medianPricePerM2(rt, listing) }), ...extracted.scamSignals]);
-  const flags = feeFlags(`${listing.title}\n${listing.description ?? ''}`, listing.priceEur);
-  const pref = applyPreferences({ score: extracted.score, reasons: extracted.reasons }, listing, matched);
+  // 2. Most list pages carry no description, and the description is where
+  // "geen studenten" or "inkomenseis 4x" lives. A listing that passed the hard
+  // filters gets its detail page read now: one extra request, only for matches.
+  let listingForAi = listing;
+  const adapter = rt.adapter(listing.sourceId);
+  if (!listing.description && adapter?.detail && adapter.capabilities.detail) {
+    try {
+      const detailed = normaliseListing(await adapter.detail(listing, rt.sourceContext(adapter)));
+      const saved = rt.store.listings.upsert({ ...detailed, address: { ...listing.address, ...detailed.address } }, listing.via, nowIso).listing;
+      listingForAi = { ...saved, propertyId: listing.propertyId };
+    } catch (e) {
+      rt.log.debug('detail fetch failed', { listingId: listing.id, error: (e as Error).message });
+    }
+  }
 
-  // 3. The legal-rent estimate, from public registers. Never blocks the pipeline.
+  // 3. Read the listing: requirements, fit, scam wording, a summary in the user's language.
+  const ai = rt.ai();
+  const extracted = await ai.extract({ listing: listingForAi, profile: cfg.profile, search: matched });
+  const req = evaluateRequirements(extracted.requirements, cfg.profile, matched, { rentEur: listing.priceEur, now });
+  const scam = scamVerdict([...scamSignals(listingForAi, { medianPricePerM2: medianPricePerM2(rt, listing) }), ...extracted.scamSignals]);
+  const flags = feeFlags(`${listingForAi.title}\n${listingForAi.description ?? ''}`, listing.priceEur);
+  const pref = applyPreferences({ score: extracted.score, reasons: extracted.reasons }, listingForAi, matched);
+
+  // 4. The legal-rent estimate, from public registers. Never blocks the pipeline.
   let rent: RentCheck | undefined;
   if (cfg.rentCheck.enabled && listing.type !== 'room' && listing.address.postcode && listing.address.houseNumber) {
     try {

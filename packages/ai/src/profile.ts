@@ -62,6 +62,10 @@ export type Addressee = { kind: 'person' | 'company'; name: string } | { kind: '
 export function addressee(name: string | undefined): Addressee {
   const cleaned = (name ?? '').replace(/["']/g, '').replace(/\s+/g, ' ').trim();
   if (!cleaned || NOT_A_NAME.test(cleaned)) return { kind: 'unknown' };
+  // "Eva Brouwer | Makelaardij De Gracht", "Eva Brouwer - Verhuur", "Verhuur, Eva Brouwer": greet the person.
+  const parts = cleaned.split(/\s*[|/]\s*|\s+-\s+|\s*,\s*/).filter(Boolean);
+  const person = parts.length > 1 ? parts.find((p) => !COMPANY.test(p) && !NOT_A_NAME.test(p)) : undefined;
+  if (person) return { kind: 'person', name: person };
   return COMPANY.test(cleaned) ? { kind: 'company', name: cleaned } : { kind: 'person', name: cleaned };
 }
 
@@ -103,7 +107,17 @@ export function occupationSentence(p: Profile, lang: Lang): string {
 }
 
 const RELATIONS: Record<string, { nl: string; en: string; plural?: boolean }> = {
+  parent: { nl: 'ouder', en: 'parent' },
+  ouder: { nl: 'ouder', en: 'parent' },
   parents: { nl: 'ouders', en: 'parents', plural: true },
+  guardian: { nl: 'voogd', en: 'guardian' },
+  voogd: { nl: 'voogd', en: 'guardian' },
+  grandparent: { nl: 'grootouder', en: 'grandparent' },
+  grandparents: { nl: 'grootouders', en: 'grandparents', plural: true },
+  uncle: { nl: 'oom', en: 'uncle' },
+  oom: { nl: 'oom', en: 'uncle' },
+  aunt: { nl: 'tante', en: 'aunt' },
+  tante: { nl: 'tante', en: 'aunt' },
   ouders: { nl: 'ouders', en: 'parents', plural: true },
   father: { nl: 'vader', en: 'father' },
   vader: { nl: 'vader', en: 'father' },
