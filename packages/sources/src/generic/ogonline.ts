@@ -516,6 +516,16 @@ export async function sendOgonlineForm(
     return fail(`could not fill the form on ${url}: ${(e as Error).message.split('\n')[0]}`);
   }
 
+  // A field the browser would refuse to send (required and empty, a bad
+  // email) is reported now; otherwise it would look like a send without a
+  // confirmation.
+  const invalid = await form.evaluate((el) =>
+    Array.from((el as HTMLFormElement).elements)
+      .filter((f) => 'validity' in f && !(f as HTMLInputElement).validity.valid)
+      .map((f) => (f as HTMLInputElement).name || f.tagName.toLowerCase()),
+  );
+  if (invalid.length) return fail(`the form on ${url} still needs: ${invalid.join(', ')}`, 'human');
+
   if (message.dryRun) return { ok: true, channel: 'form', evidence: 'dry run: the form was filled and not sent' };
 
   const startUrl = page.url();

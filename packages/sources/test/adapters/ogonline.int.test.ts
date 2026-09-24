@@ -119,6 +119,15 @@ describe.skipIf(!resolveChromium())('OGonline contact form in a real browser', (
     expect(sent.get('to')).toBe('verhuur@example.test');
   });
 
+  test('a field the browser would refuse is reported before sending', async () => {
+    const { adapter, ctx, listing, message } = setup({ ...PROFILE, email: 'sam-at-nlpf' });
+    const before = posts('/nl/forms/contact/details_consumer/6a0000000000000000000002').length;
+    const result = await adapter.contact!(listing(DETAILS, 'Rotterdam'), message(false), ctx);
+    expect(result).toMatchObject({ ok: false, needs: 'human' });
+    expect(result.error).toContain('still needs: email');
+    expect(posts('/nl/forms/contact/details_consumer/6a0000000000000000000002').length).toBe(before);
+  });
+
   test('a sum question is a captcha: nothing is filled or sent', async () => {
     const { adapter, ctx, listing, message } = setup();
     const result = await adapter.contact!(listing(CAPTCHA, 'Den Haag'), message(false), ctx);
