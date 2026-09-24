@@ -372,10 +372,8 @@ export function parseParariusDetail(html: string, pageUrl: string, now: Date = n
 
   // A clickout listing has <wc-listing-reaction-button class="listing-reaction-button--click-out"> with a
   // button that opens "Contact met de aanbieder" (read from ListingReactionButton.wc.js on 2026-09-24).
-  // Huurwoningen marks the same case with .listing-contact-info--external.
-  const clickout =
-    $('.listing-reaction-button--click-out').length > 0 ||
-    ($('.listing-contact-info--external').length > 0 && $('a[href*="/contact/"]').filter((_, a) => !/meld-een-probleem/.test(a.attribs.href ?? '')).length === 0);
+  // Huurwoningen's .listing-contact-info--external is its own account-and-premium reaction flow, not a clickout.
+  const clickout = $('.listing-reaction-button--click-out').length > 0;
   const externalUrl = clickout
     ? $('.agent-summary a[href^="http"], .listing-reaction-button--click-out a[href^="http"], a[data-tracking-id="button_agent_website"]')
         .toArray()
