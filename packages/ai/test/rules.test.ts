@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { ClassifyOutput } from '@nlpf/core';
 import { createRulesProvider } from '../src/rules.js';
+import { TEMPLATE_PLACEHOLDERS, templateValues } from '../src/rules/compose.js';
 import { extractRequirements } from '../src/rules/extract.js';
 import { NOW, allStrings, makeListing, makeMessage, makeProfile, makeSearch } from './helpers.js';
 
@@ -114,6 +115,11 @@ describe('rules compose', () => {
     expect(out.body).toMatch(/^Beste Jan Bakker,/);
     expect(out.body).not.toMatch(/inkomen/i);
     expect(out.body).not.toMatch(/\n{3,}/);
+  });
+
+  it('knows every placeholder it documents', () => {
+    const values = templateValues(makeListing(), makeProfile(), 'nl');
+    for (const name of TEMPLATE_PLACEHOLDERS) expect(values[name.toLowerCase()], name).toBeDefined();
   });
 
   it('stays under the channel limit and keeps the copy rules', async () => {

@@ -122,6 +122,14 @@ export function templateValues(listing: Listing, profile: Profile, lang: Lang): 
   return values;
 }
 
+/** Placeholder names a template may use, for the dashboard's variable chips. Matching ignores case. */
+export const TEMPLATE_PLACEHOLDERS = [
+  'greeting', 'firstName', 'lastName', 'fullName', 'street', 'houseNumber', 'streetLine', 'address', 'city', 'postcode',
+  'price', 'size', 'rooms', 'title', 'url', 'availableFrom', 'landlordName', 'occupation', 'organisation', 'income',
+  'moveInFrom', 'stayMonths', 'about', 'email', 'phone', 'signature', 'listingRef', 'nameLine', 'occupationLine',
+  'incomeLine', 'householdLine', 'lifestyleLine', 'moveInLine', 'contactLine', 'closing',
+] as const;
+
 const PLACEHOLDER = /\{\s*([a-zA-Z]+)\s*\}/g;
 
 /** Fills `{placeholders}`; lines whose placeholders all come out empty are dropped. */
