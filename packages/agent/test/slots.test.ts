@@ -27,6 +27,10 @@ describe('the plan cases (Review Focus 5)', () => {
         certain: true,
       },
     ]);
+    // Mail clients often turn the hyphen into an en dash.
+    expect(parseSlots('za 10:00–10:15', now)).toMatchObject([
+      { start: '2026-09-26T08:00:00.000Z', end: '2026-09-26T08:15:00.000Z' },
+    ]);
   });
 
   test('"zondag 25 oktober 02:30" resolves to the first occurrence of the repeated hour', () => {

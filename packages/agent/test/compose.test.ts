@@ -53,7 +53,7 @@ test('composeInput picks the template for the language and the channel limit', (
 
 describe('finaliseMessage', () => {
   test('removes dashes used as punctuation and emojis', () => {
-    expect(cleanCopy('Hallo — ik ben Sam 😊 en ik zoek een woning – graag!')).toBe(
+    expect(cleanCopy('Hallo \u2014 ik ben Sam \u{1F60A} en ik zoek een woning \u2013 graag!')).toBe(
       'Hallo, ik ben Sam en ik zoek een woning, graag!',
     );
     expect(cleanCopy('Een twee-onder-een-kapwoning, 2026-11-01')).toBe(
@@ -92,5 +92,5 @@ test('built-in withdrawal and follow-up texts', () => {
   expect(followUpText(p, dutch, 'nl')).toMatch(/Oude Delft 12A/);
   expect(followUpText(p, english, 'en')).toMatch(/still interested/);
   for (const t of [withdrawalText(automation(), p, 'nl'), followUpText(p, dutch, 'en')])
-    expect(t).not.toMatch(/[—–]/);
+    expect(t).not.toMatch(/[\u2014\u2013]/);
 });

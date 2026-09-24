@@ -139,7 +139,7 @@ const AM_CONTEXT = /('s|s'|s)[\s-]?(ochtends|morgens)|\bochtend|\bmorning/;
 const TIME_KEYWORD = /\b(om|at|rond|around|vanaf|tot|until|by|tegen)\s*$/;
 const AVAILABILITY =
   /\b(per|vanaf|beschikbaar|available|from|m\.i\.v\.|ingangsdatum|starting|start|tot|until|t\/m)\s*$/;
-const RANGE_JOIN = /^\s*(t\/m|tot en met|-|–|to|through|until|tot)\s*$/;
+const RANGE_JOIN = /^\s*(t\/m|tot en met|-|\u2013|to|through|until|tot)\s*$/;
 
 function ampmOf(s: string | undefined): Part | undefined {
   if (!s) return undefined;
@@ -170,7 +170,7 @@ function findTimes(t: string): TimeTok[] {
   // tussen 17 en 19 uur, between 5 and 7 pm, van 10:00 tot 12:00
   scan(
     new RegExp(
-      `\\b(tussen|between|van|from)\\s+(\\d{1,2})(?:[:.](\\d{2}))?\\s*(am|pm|a\\.m\\.|p\\.m\\.|uur|u)?\\s+(?:en|and|tot|to|until|-|–)\\s+(\\d{1,2})(?:[:.](\\d{2}))?(?!\\d)\\s*(am|pm|a\\.m\\.|p\\.m\\.|uur|u\\b|h\\b)?`,
+      `\\b(tussen|between|van|from)\\s+(\\d{1,2})(?:[:.](\\d{2}))?\\s*(am|pm|a\\.m\\.|p\\.m\\.|uur|u)?\\s+(?:en|and|tot|to|until|-|\\u2013)\\s+(\\d{1,2})(?:[:.](\\d{2}))?(?!\\d)\\s*(am|pm|a\\.m\\.|p\\.m\\.|uur|u\\b|h\\b)?`,
       'g',
     ),
     (m) => {
@@ -192,7 +192,7 @@ function findTimes(t: string): TimeTok[] {
   );
   // 10:00-10:15, 18.00 tot 19.00
   scan(
-    /(?<![\d:.])(\d{1,2})[:.](\d{2})\s*(am|pm|a\.m\.|p\.m\.|uur|u)?\s*(?:-|–|—|tot|to|until|t\/m)\s*(\d{1,2})[:.](\d{2})(?!\d)\s*(am|pm|a\.m\.|p\.m\.|uur|u\b|h\b)?/g,
+    /(?<![\d:.])(\d{1,2})[:.](\d{2})\s*(am|pm|a\.m\.|p\.m\.|uur|u)?\s*(?:-|\u2013|\u2014|tot|to|until|t\/m)\s*(\d{1,2})[:.](\d{2})(?!\d)\s*(am|pm|a\.m\.|p\.m\.|uur|u\b|h\b)?/g,
     (m) => {
       const tok: TimeTok = {
         ...base,
@@ -209,7 +209,7 @@ function findTimes(t: string): TimeTok[] {
     },
   );
   // 17-19 uur
-  scan(/(?<![\d:.\/-])(\d{1,2})\s*(?:-|–|tot)\s*(\d{1,2})\s*(?:uur|u|h)\b/g, (m) => ({
+  scan(/(?<![\d:.\/-])(\d{1,2})\s*(?:-|\u2013|tot)\s*(\d{1,2})\s*(?:uur|u|h)\b/g, (m) => ({
     ...base,
     h: Number(m[1]),
     m: 0,
@@ -299,7 +299,7 @@ function findTimes(t: string): TimeTok[] {
     };
   });
   // om 6, at 6
-  scan(/\b(?:om|at|rond|around)\s+(\d{1,2})(?![\d:.]|\s*(?:uur|u\b|h\b|am|pm|a\.m|p\.m|-|–))/g, (m) => {
+  scan(/\b(?:om|at|rond|around)\s+(\d{1,2})(?![\d:.]|\s*(?:uur|u\b|h\b|am|pm|a\.m|p\.m|-|\u2013))/g, (m) => {
     const h = Number(m[1]);
     return h >= 1 && h <= 23 ? { ...base, h, m: 0, kind: 'bare', weak: false } : null;
   });
@@ -336,10 +336,10 @@ function findDays(t: string, masked: string): DayTok[] {
       after,
     );
     const nextIsDay = new RegExp(
-      `^\\s*(t\\/m|tot en met|-|–|to|through|until|tot)\\s*(${FULL_DAYS}|${ABBR_DAYS})\\b`,
+      `^\\s*(t\\/m|tot en met|-|\\u2013|to|through|until|tot)\\s*(${FULL_DAYS}|${ABBR_DAYS})\\b`,
     ).test(after);
     const prevIsRange = new RegExp(
-      `(${FULL_DAYS}|${ABBR_DAYS})\\.?\\s*(t\\/m|tot en met|-|–|to|through|until|tot)\\s*$`,
+      `(${FULL_DAYS}|${ABBR_DAYS})\\.?\\s*(t\\/m|tot en met|-|\\u2013|to|through|until|tot)\\s*$`,
     ).test(before);
     if (nextIsTime || nextIsDay || prevIsRange)
       push({ start: m.index, end: m.index + m[1]!.length, weekday: WEEKDAYS[m[1]!] });

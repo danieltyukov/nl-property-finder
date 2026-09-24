@@ -55,8 +55,8 @@ export function composeInput(
  */
 export function cleanCopy(text: string): string {
   return text
-    .replace(/(\d)\s*[–—]\s*(\d)/g, '$1-$2')
-    .replace(/\s*[—–]\s*/g, ', ')
+    .replace(/(\d)\s*[\u2013\u2014]\s*(\d)/g, '$1-$2')
+    .replace(/\s*[\u2014\u2013]\s*/g, ', ')
     .replace(/[\p{Extended_Pictographic}\u{1F1E6}-\u{1F1FF}][\u{FE0F}\u{200D}\u{1F3FB}-\u{1F3FF}]*/gu, '')
     .replace(/[ \t]{2,}/g, ' ')
     .replace(/ +([,.!?])/g, '$1')
