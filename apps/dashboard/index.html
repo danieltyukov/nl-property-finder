@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NL Property Finder</title>
+    <meta name="description" content="The dashboard of your local rental agent: the Action inbox, properties, conversations, viewings and sources." />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href="data:," />
+    <script>
+      // Blocking, and in the head, because the alternative is a light page
+      // repainting to dark after the stylesheet has already been applied. It
+      // reads one key and sets one attribute; the CSS does the rest.
+      try {
+        var t = localStorage.getItem('nlpf-theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {
+        // Private mode, or storage disabled. The page is correct without it.
+      }
+    </script>
+    <!-- The daemon inserts window.__NLPF__ = { token } here when it serves this file. -->
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>The dashboard needs JavaScript. The same actions are available from the command line: run nlpf --help.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
