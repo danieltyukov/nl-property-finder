@@ -44,7 +44,7 @@ export interface EmbracePortalDef {
   registration: string;
   /** Where the login starts. Default: the homepage, which has the login button. */
   loginUrl?: string;
-  /** The Keycloak realm URL; no cookie there means no session, without loading the portal. */
+  /** The Keycloak realm URL; without its SSO cookie there is no session, and the portal is not loaded to check. */
   authRealmUrl?: string;
   intervalSec?: number;
   /** Publications per request. Default 100, which covered the whole Woonnet Rijnmond offer. */
@@ -396,7 +396,12 @@ export function createEmbraceAdapter(def: EmbracePortalDef, options: EmbraceAdap
     async checkSession(ctx) {
       const session = await ctx.browser();
       try {
-        if (def.authRealmUrl && (await session.page.context().cookies(def.authRealmUrl)).length === 0) return 'none';
+        // Keycloak sets its SSO cookies only after a login; the login form
+        // itself sets others (AUTH_SESSION_ID), so those do not count.
+        if (def.authRealmUrl) {
+          const cookies = await session.page.context().cookies(def.authRealmUrl);
+          if (!cookies.some((c) => /^KEYCLOAK_(?:IDENTITY|SESSION)/.test(c.name))) return 'none';
+        }
         const token = await portalToken(session.page, `${home}/${def.locale}`);
         return token ? 'ok' : 'none';
       } finally {

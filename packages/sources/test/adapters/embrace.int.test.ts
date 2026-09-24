@@ -125,12 +125,18 @@ describe.skipIf(!resolveChromium())('Embrace portal reaction in a real browser (
 
   const calls = (name: string) => server.requests.filter((r) => r.path === '/graphql' && operation(r) === name);
 
-  test('checkSession: no Keycloak cookie is no session; with one, the portal page must send a token', async () => {
+  test('checkSession: no Keycloak SSO cookie is no session; with one, the portal page must send a token', async () => {
     const a = adapter();
     await setSession(a.id, false);
-    const pageLoads = server.requests.filter((r) => r.path === '/nl-NL').length;
+    const pageLoads = () => server.requests.filter((r) => r.path === '/nl-NL').length;
+    const before = pageLoads();
     expect(await a.checkSession!(context(a.id))).toBe('none');
-    expect(server.requests.filter((r) => r.path === '/nl-NL').length).toBe(pageLoads);
+    // The login form's own cookie is not a session either.
+    const s = await pool.session(a.id);
+    await s.page.context().addCookies([{ name: 'AUTH_SESSION_ID', value: 'x', url: `${server.url}/auth/realms/test/` }]);
+    await s.close();
+    expect(await a.checkSession!(context(a.id))).toBe('none');
+    expect(pageLoads()).toBe(before);
     await setSession(a.id, true);
     expect(await a.checkSession!(context(a.id))).toBe('ok');
   });
