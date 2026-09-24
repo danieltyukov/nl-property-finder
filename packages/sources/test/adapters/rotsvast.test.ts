@@ -81,7 +81,7 @@ describe('rotsvast', () => {
     const live = fixtureContext({ sourceId: 'rotsvast', routes: { oppert: 'rotsvast/detail-oppert.html' } });
     expect(await adapter.isAvailable!(listing, live)).toBe(true);
     const rented = readFixture('rotsvast/detail-oppert.html').replace('<span class="label">Topper</span>', '<span class="label">Verhuurd</span>');
-    const let_ = fixtureContext({ sourceId: 'rotsvast', routes: [{ match: 'oppert', body: rented, headers: { 'content-type': 'text/html' } }] });
-    expect(await adapter.isAvailable!(listing, let_)).toBe(false);
+    const rentedCtx = fixtureContext({ sourceId: 'rotsvast', routes: [{ match: 'oppert', body: rented, headers: { 'content-type': 'text/html' } }] });
+    expect(await adapter.isAvailable!(listing, rentedCtx)).toBe(false);
   });
 });
