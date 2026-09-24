@@ -10,7 +10,12 @@ import type { InboundMessage } from '@nlpf/core';
 export function normalizeMessageId(id: string | undefined): string {
   const trimmed = (id ?? '').trim();
   if (!trimmed) return '';
-  const bare = trimmed.replace(/^<+/, '').replace(/>+$/, '').trim();
+  // Index loops rather than /^<+/ and />+$/, which are quadratic on a hostile run of brackets.
+  let start = 0;
+  let end = trimmed.length;
+  while (start < end && trimmed[start] === '<') start++;
+  while (end > start && trimmed[end - 1] === '>') end--;
+  const bare = trimmed.slice(start, end).trim();
   if (!bare.includes('@')) return trimmed;
   return `<${bare}>`;
 }

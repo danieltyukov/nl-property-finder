@@ -30,6 +30,12 @@ test('platform message ids are kept as they are', () => {
   expect(threadKey(msg({ id: 'huisje:4411', channel: 'platform', sourceId: 'huisje' }))).toEqual(['huisje:4411']);
 });
 
+test('a hostile Message-ID is normalised in linear time', () => {
+  const t0 = performance.now();
+  normalizeMessageId(`<<${'>'.repeat(100_000)}x@y`);
+  expect(performance.now() - t0).toBeLessThan(500);
+});
+
 test('normalizeMessageId leaves empty input empty', () => {
   expect(normalizeMessageId('  ')).toBe('');
   expect(normalizeMessageId('<x@y>')).toBe('<x@y>');

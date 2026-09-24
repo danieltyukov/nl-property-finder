@@ -160,6 +160,7 @@ export function createImapMailbox(cfg: Config['mail'], password: string, log: Lo
       autoIdleDelay: opts.autoIdleDelayMs ?? 1000,
       maxIdleTime: opts.maxIdleTimeMs ?? 5 * 60_000,
       clientInfo: { name: 'nl-property-finder' },
+      connectionTimeout: 30_000,
     });
     client = c;
     c.on('error', (err: Error) => log.warn('mailbox connection error', { error: err.message }));

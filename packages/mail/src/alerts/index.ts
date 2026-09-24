@@ -39,7 +39,7 @@ const REPLY_OR_FORWARD = /^\s*(re|antw|aw|sv|fw|fwd|doorst|wg|tr)\s*(\[\d+\])?\s
  */
 export function parseAlertEmail(mail: InboundMessage): { sourceId: string; listings: RawListing[] } | null {
   if (mail.channel !== 'email') return null;
-  const subject = mail.subject ?? '';
+  const subject = (mail.subject ?? '').slice(0, 300);
   if (REPLY_OR_FORWARD.test(subject) || mail.inReplyTo || mail.references?.length) return null;
   const senderHost = mail.from.address?.split('@')[1] ?? '';
 

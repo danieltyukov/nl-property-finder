@@ -119,6 +119,13 @@ describe('toInbound', () => {
     expect(m.at).toBe('2026-09-23T10:11:12.000Z');
   });
 
+  test('long runs of spaces are trimmed in linear time', () => {
+    const t0 = performance.now();
+    const m = toInbound(parsed({ text: `Hallo${' '.repeat(200_000)}x   \nregel twee   ` }));
+    expect(performance.now() - t0).toBeLessThan(1000);
+    expect(m.text.endsWith('x\nregel twee')).toBe(true);
+  });
+
   test('a sender without a display name has no name field', () => {
     expect(toInbound(parsed()).from).toEqual({ address: 'landlord@example.test' });
   });

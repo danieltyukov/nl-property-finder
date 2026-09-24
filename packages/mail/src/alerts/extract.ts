@@ -127,7 +127,8 @@ export function parseEuroNumber(raw: string): number {
 }
 
 const URL_RE = /https?:\/\/\S+/g;
-const PRICE_RE = /(?:€|\bEUR\b)\s*(\d[\d.,]*(?:,-{1,2})?)|(\d[\d.,]*)\s*(?:euro|eur)\b/gi;
+// Bounded digit groups, and no start inside a run of digits, keep this linear on hostile text.
+const PRICE_RE = /(?:€|\bEUR\b)\s*(\d[\d.,]{0,12}(?:,-{1,2})?)|(?<![\d.,])(\d[\d.,]{0,12})\s*(?:euro|eur)\b/gi;
 const NOT_RENT_BEFORE = /(borg|waarborg|deposit|servicekosten|service ?costs?|service ?charges?|bijkomende|g\/w\/l|gwl|energie|voorschot|administratie|bemiddeling)\W{0,12}$/i;
 
 export interface PriceHit {
@@ -243,7 +244,9 @@ const STREET_RE = new RegExp(
   String.raw`^(${WORD}(?:[ ](?:${WORD}|van|de|der|den|het|'t|aan|op|in|ter|ten|te|en|bij))*)(?:\s+(\d{1,5})(?:\s*-?\s*([A-Za-z]{1,2}|\d{1,4}[A-Za-z]?))?)?\s*(?:,\s*(.+))?$`,
   'u',
 );
-const CITY_RE = new RegExp(String.raw`^${WORD}(?:[ -](?:${WORD}|aan|den|de|op|in|bij))*$`, 'u');
+// Words are joined by single spaces only: a hyphen belongs to the word ("Tanthof-West"), so no
+// input can be split into words in more than one way, which keeps matching linear.
+const CITY_RE = new RegExp(String.raw`^${WORD}(?:[ ](?:${WORD}|aan|den|de|op|in|bij))*$`, 'u');
 
 const isCity = (s: string | undefined): s is string => !!s && s.length <= 40 && CITY_RE.test(s) && !STREET_SUFFIX.test(s);
 
@@ -264,7 +267,7 @@ export function streetFromTitle(title: string): { street?: string; houseNumber?:
 }
 
 const POSTCODE_RE = /\b([1-9]\d{3})\s?([A-Z]{2})\b([^\n]*)/;
-const AFTER_POSTCODE = new RegExp(String.raw`^\s*,?\s*(${WORD}(?:[ -](?:${WORD}|aan|den|de|op|in|bij))*)\s*(?:\(([^)]+)\))?`, 'u');
+const AFTER_POSTCODE = new RegExp(String.raw`^\s*,?\s*(${WORD}(?:[ ](?:${WORD}|aan|den|de|op|in|bij))*)\s*(?:\(([^)]{1,60})\))?`, 'u');
 
 export function findPostcode(text: string): { postcode?: string; city?: string; neighbourhood?: string } {
   const m = POSTCODE_RE.exec(text);
@@ -278,9 +281,10 @@ export function findPostcode(text: string): { postcode?: string; city?: string; 
 
 /** "Delft · Vandaag" or "Rotterdam | 3 km": a place followed by a date or a distance. */
 export function cityFromLocationLine(lines: string[]): string | undefined {
+  // No "i" flag: with it \p{Lu} also matches lowercase letters and "de" could be read two ways.
   const re = new RegExp(
-    String.raw`^(${WORD}(?:[ -](?:${WORD}|aan|den|de|op|in|bij))*)\s*[·•|]\s*(?:vandaag|gisteren|eergisteren|today|yesterday|\d{1,2}\s+\p{L}+|\d+(?:[.,]\d+)?\s*km)\b`,
-    'iu',
+    String.raw`^(${WORD}(?:[ ](?:${WORD}|aan|den|de|op|in|bij))*)\s*[·•|]\s*(?:[Vv]andaag|[Gg]isteren|[Ee]ergisteren|[Tt]oday|[Yy]esterday|\d{1,2}\s+\p{L}+|\d{1,4}(?:[.,]\d+)?\s*km)\b`,
+    'u',
   );
   for (const line of lines) {
     const m = re.exec(line);
@@ -290,7 +294,7 @@ export function cityFromLocationLine(lines: string[]): string | undefined {
 }
 
 function cityFromTitle(title: string): string | undefined {
-  const m = new RegExp(String.raw`\bin\s+(${WORD}(?:\s+(?:aan|den|de|op|${WORD}))*)`, 'u').exec(title);
+  const m = new RegExp(String.raw`\bin[ ](${WORD}(?:[ ](?:aan|den|de|op|${WORD}))*)`, 'u').exec(title);
   const city = m?.[1]?.trim();
   return isCity(city) ? city : undefined;
 }
@@ -302,6 +306,8 @@ const meaningful = (s: string): boolean =>
 
 const FOOTER = /^(bekijk alle|alle resultaten|see all|view all|je ontvangt|u ontvangt|you receive|you are receiving|uitschrijven|afmelden|unsubscribe|beheer|manage|instellingen|settings|privacy|zoekopdrachten beheren|alert beheren)/i;
 const MAX_BLOCK_LINES = 12;
+const MAX_LINE = 500; // bounds the cost of every pattern run on a line of an untrusted mail
+const MAX_TITLE = 200;
 
 interface Block {
   key: string;
@@ -369,9 +375,16 @@ function compactAddress(a: Address): Address {
   return out;
 }
 
-/** Runs the engine over one mail with one URL matcher. */
+/** Runs the engine over one mail with one URL matcher: the HTML part first, the text part when HTML gives nothing. */
 export function extractAlertListings(mail: InboundMessage, match: UrlMatcher, opts: ExtractOptions = {}): RawListing[] {
-  const doc = mail.html ? readHtml(mail.html) : readText(mail.text);
+  if (mail.html) {
+    const fromHtml = extractFromDoc(readHtml(mail.html), mail, match, opts);
+    if (fromHtml.length || !mail.text) return fromHtml;
+  }
+  return extractFromDoc(readText(mail.text), mail, match, opts);
+}
+
+function extractFromDoc(doc: Doc, mail: InboundMessage, match: UrlMatcher, opts: ExtractOptions): RawListing[] {
   const matches = doc.links.map((l) => {
     const url = unwrapUrl(l.href);
     return url ? match(url) : null;
@@ -383,12 +396,12 @@ export function extractAlertListings(mail: InboundMessage, match: UrlMatcher, op
   for (const block of segment(doc, keys, matches)) {
     const m = block.match;
     const lines = block.lines
-      .map((i) => doc.lines[i]?.text.replace(URL_RE, ' ').replace(/\s+/g, ' ').trim() ?? '')
+      .map((i) => (doc.lines[i]?.text ?? '').replace(URL_RE, ' ').replace(/\s+/g, ' ').trim().slice(0, MAX_LINE))
       .filter(Boolean);
     const text = lines.join('\n');
     const own = doc.links.filter((_, i) => keys[i] === block.key);
 
-    const title = own.map((l) => l.text).find(meaningful) ?? lines.find(meaningful) ?? m.street ?? m.externalId;
+    const title = (own.map((l) => l.text).find(meaningful) ?? lines.find(meaningful) ?? m.street ?? m.externalId).slice(0, MAX_TITLE);
     const fromTitle = streetFromTitle(title);
     const pc = findPostcode(text);
     const city = pc.city ?? m.city ?? fromTitle.city ?? cityFromLocationLine(lines) ?? cityFromTitle(title);

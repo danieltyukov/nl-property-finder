@@ -60,10 +60,13 @@ const cleanAddress = (a: string | undefined): string | undefined => {
 };
 
 function normaliseText(text: string): string {
+  // Trailing blanks are trimmed per line: a regex like /[ \t]+$/m is quadratic on long runs of spaces.
   return text
     .replace(/\r\n?/g, '\n')
-    .replace(/ /g, ' ')
-    .replace(/[ \t]+$/gm, '')
+    .replace(/\u00a0/g, ' ')
+    .split('\n')
+    .map((line) => line.trimEnd())
+    .join('\n')
     .trim();
 }
 

@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import type { InboundMessage } from '@nlpf/core';
 import { describe, expect, test } from 'vitest';
 import { parseAlertEmail } from '../src/alerts/index.js';
-import { findPrice, parseEuroNumber, unwrapUrl } from '../src/alerts/extract.js';
+import { cityFromLocationLine, findPostcode, findPrice, parseEuroNumber, streetFromTitle, unwrapUrl } from '../src/alerts/extract.js';
 import { parseEmail } from '../src/parse.js';
 
 const load = (name: string): Promise<InboundMessage> =>
@@ -172,6 +172,20 @@ describe('platform alert emails (synthetic fixtures)', () => {
   });
 });
 
+test('when the HTML part has no listing links the text part is read instead', () => {
+  const r = parseAlertEmail({
+    id: '<img-only@x>',
+    channel: 'email',
+    from: { address: 'noreply@kamernet.nl' },
+    subject: 'Nieuwe kamers voor je alert',
+    text: 'Kamer Oude Delft\n€ 700,- incl.\nhttps://kamernet.nl/huren/kamer-delft/oude-delft/kamer-2400001\n',
+    html: '<p><img src="https://resources.kamernet.nl/email/banner.png"></p>',
+    at: '2026-09-23T08:00:00.000Z',
+    attachments: [],
+  });
+  expect(r?.listings.map((l) => [l.externalId, l.priceEur])).toEqual([['2400001', 700]]);
+});
+
 describe('messages that are not alerts', () => {
   test('a platform message notification that links to a listing', async () => {
     expect(parseAlertEmail(await load('kamernet-message.eml'))).toBeNull();
@@ -193,6 +207,39 @@ describe('messages that are not alerts', () => {
       attachments: [],
     };
     expect(parseAlertEmail(spoof)).toBeNull();
+  });
+});
+
+describe('hostile input', () => {
+  test('a huge alert with long lines and many links is parsed quickly', () => {
+    const card = (i: number) =>
+      `<p><a href="https://www.pararius.nl/appartement-te-huur/delft/${i.toString(16).padStart(8, '0')}/straat">${'Oude Delft '.repeat(200)}</a></p><p>${'1'.repeat(20000)} ${'Beschikbaar per '.repeat(300)} &euro; 1.200</p>`;
+    const html = Array.from({ length: 300 }, (_, i) => card(i)).join('');
+    const t0 = performance.now();
+    const r = parseAlertEmail({
+      id: '<big@x>',
+      channel: 'email',
+      from: { address: 'noreply@pararius.nl' },
+      subject: 'Nieuw aanbod',
+      text: '',
+      html,
+      at: '2026-09-23T08:00:00.000Z',
+      attachments: [],
+    });
+    expect(performance.now() - t0).toBeLessThan(2000);
+    expect(r?.listings).toHaveLength(300);
+  });
+
+  test.each([
+    ['hyphenated words', `${'Den-'.repeat(40)}x · nope`],
+    ['particles', `Den ${'de '.repeat(40)}x · nope`],
+    ['spaced words', `${'Den '.repeat(40)}x · nope`],
+  ])('address helpers stay linear on %s', (_name, line) => {
+    const t0 = performance.now();
+    cityFromLocationLine([line]);
+    findPostcode(`2611 AB ${line}`);
+    streetFromTitle(line);
+    expect(performance.now() - t0).toBeLessThan(500);
   });
 });
 

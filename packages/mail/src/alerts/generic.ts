@@ -76,7 +76,7 @@ const FREEMAIL = new Set([
  * personal mailbox, and the text must not read like a conversation.
  */
 export function parseGenericAlert(mail: InboundMessage, platforms: AlertPlatform[]): RawListing[] {
-  if (!ALERT_SUBJECT.test(mail.subject ?? '')) return [];
+  if (!ALERT_SUBJECT.test((mail.subject ?? '').slice(0, 300))) return [];
   if (CONVERSATION.test(mail.text)) return [];
   const sender = registrableDomain(mail.from.address?.split('@')[1] ?? '');
   if (!sender || FREEMAIL.has(sender.split('.')[0] ?? '')) return [];

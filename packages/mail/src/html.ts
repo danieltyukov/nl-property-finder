@@ -56,7 +56,10 @@ const BLOCK = new Set([
   'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'ul',
 ]);
 const SKIP_CONTENT = new Set(['script', 'style', 'head', 'title', 'noscript', 'template', 'svg', 'xml']);
-const TAG = /<!--[\s\S]*?(?:-->|$)|<!\[CDATA\[[\s\S]*?(?:\]\]>|$)|<![^>]*>|<\?[^>]*>|<(\/?)([a-zA-Z][a-zA-Z0-9:-]*)((?:[^>"']|"[^"]*"|'[^']*')*)>/g;
+// No part of a tag may run past another "<", so a tag that never closes costs one short
+// scan instead of a scan to the end of the input for every later "<" (hostile mail).
+const TAG = /<!--[\s\S]*?(?:-->|$)|<!\[CDATA\[[\s\S]*?(?:\]\]>|$)|<![^<>]*>|<\?[^<>]*>|<(\/?)([a-zA-Z][a-zA-Z0-9:-]*)((?:[^<>"']|"[^"<>]*"|'[^'<>]*')*)>/g;
+const MAX_LINK_TEXT = 300;
 const ATTR = /([^\s"'>/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g;
 
 function attrs(raw: string): Record<string, string> {
@@ -71,7 +74,7 @@ function attrs(raw: string): Record<string, string> {
   return out;
 }
 
-const clean = (s: string): string => s.replace(/[\s ​‌‍﻿]+/g, ' ').trim();
+const clean = (s: string): string => s.replace(/[\s\u00a0\u200b\u200c\u200d\ufeff]+/g, ' ').trim();
 
 export interface ReadHtmlOptions {
   /** Append ` [url]` after a link whose text is not the URL itself, as html-to-text does. */
@@ -98,7 +101,7 @@ export function readHtml(html: string, opts: ReadHtmlOptions = {}): Doc {
     buf += text;
     if (current >= 0 && clean(text)) {
       const link = links[current];
-      if (link) link.text = clean(`${link.text} ${text}`);
+      if (link && link.text.length < MAX_LINK_TEXT) link.text = clean(`${link.text} ${text}`).slice(0, MAX_LINK_TEXT);
       lineLinks.add(current);
     }
   };
@@ -159,7 +162,8 @@ export function readText(text: string): Doc {
   const links: DocLink[] = [];
   const lines: DocLine[] = [];
   let para = 0;
-  for (const raw of text.split(/\r?\n/)) {
+  for (const full of text.split(/\r?\n/)) {
+    const raw = full.slice(0, 5000); // bounds the URL pattern on hostile text
     const line: DocLine = { text: clean(raw), links: [], para };
     for (const m of raw.matchAll(URL_IN_TEXT)) {
       links.push({ href: m[0], text: '', images: [] });
