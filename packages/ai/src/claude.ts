@@ -127,7 +127,7 @@ export function createClaudeProvider(opts: ClaudeProviderOptions): NlpfAiProvide
     } else if (err instanceof Anthropic.APIError) {
       log.warn('Claude API error, answering from rules', data);
     } else if (err instanceof Anthropic.AnthropicError) {
-      log.warn('Claude output did not match the schema, answering from rules', data);
+      log.warn('Claude output was cut off or did not match the schema, answering from rules', data);
     } else {
       log.error('Unexpected error in the Claude provider, answering from rules', data);
     }
