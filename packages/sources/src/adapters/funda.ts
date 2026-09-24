@@ -200,13 +200,20 @@ export function fundaArea(municipality: string): string {
   return slugify(municipality);
 }
 
+/**
+ * Funda's object types for the searched home types. Without this filter the
+ * rental search also returns parking spaces, storage and berths (seen live).
+ */
 function objectTypes(types: PropertyType[]): string[] {
   if (types.includes('other')) return [];
   const out = new Set<string>();
   if (types.some((t) => t === 'room' || t === 'studio' || t === 'apartment')) out.add('apartment');
   if (types.includes('house')) out.add('house');
-  return out.size === 2 ? [] : [...out];
+  return [...out];
 }
+
+/** Object types that are never a home, dropped even when a search asks for 'other'. */
+const NOT_A_HOME = new Set(['parking', 'storage', 'storage_space', 'land', 'berth', 'pitch', 'substructure']);
 
 const q = (v: unknown) => encodeURIComponent(JSON.stringify(v));
 
@@ -279,6 +286,7 @@ export function createFundaAdapter(options: FundaOptions = {}): SourceAdapter {
     if (!relative || !tinyId) return undefined;
     const status = (str(l.status) ?? 'none').toLowerCase();
     if (!OPEN_STATUS.has(status)) return undefined;
+    if (NOT_A_HOME.has(str(l.object_type) ?? '')) return undefined;
     const a = isObj(l.address) ? l.address : {};
     const street = str(a.street_name);
     const number = str(a.house_number);

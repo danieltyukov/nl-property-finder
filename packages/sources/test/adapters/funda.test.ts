@@ -99,7 +99,17 @@ describe('funda adapter', () => {
     expect(JSON.parse(url.searchParams.get('price')!)).toBe('0-1400');
     expect(JSON.parse(url.searchParams.get('availability')!)).toEqual(['available']);
     expect(JSON.parse(url.searchParams.get('sort')!)).toBe('date_down');
-    expect(url.searchParams.has('object_type')).toBe(false);
+    // Without object_type Funda also returns parking spaces and storage.
+    expect(JSON.parse(url.searchParams.get('object_type')!)).toEqual(['apartment', 'house']);
+  });
+
+  test('parking spaces and storage are never listings', async () => {
+    // The Nuxt payload stores the string "apartment" once and every listing refers to it.
+    const html = readFixture('funda/search-delft.html').replace('"apartment"', '"parking"');
+    const ctx = ctxFor([{ match: '/zoeken/huur', body: html, headers: { 'content-type': 'text/html' } }]);
+    expect(
+      await funda.search({ key: 'x', label: 'x', url: 'https://www.funda.nl/zoeken/huur?p=1' }, ctx),
+    ).toEqual([]);
   });
 
   test('types and minimum size become object_type and floor_area; identical searches are one request', () => {
