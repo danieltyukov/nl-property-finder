@@ -2,6 +2,7 @@ import { describe, expect, test } from 'vitest';
 import { ConfigSchema, SourceConfigSchema } from '@nlpf/core';
 import { createStadswonenAdapter, STADSWONEN_API } from '../../src/adapters/stadswonen.js';
 import { fixtureContext } from '../../src/testing.js';
+import { htmlAdapters } from '../../src/builtin/html.js';
 
 const NOW = new Date('2026-09-24T10:30:00Z');
 const config = ConfigSchema.parse({
@@ -12,6 +13,10 @@ const config = ConfigSchema.parse({
 
 describe('stadswonen', () => {
   const adapter = createStadswonenAdapter();
+
+  test('is one of the built-in HTML sources', () => {
+    expect(htmlAdapters().map((a) => a.id)).toContain('stadswonen');
+  });
 
   test('is a Rotterdam-only portal that needs a registration to react', () => {
     expect(adapter.id).toBe('stadswonen');

@@ -6,6 +6,7 @@ import { ConfigSchema, SourceConfigSchema, memoryLogger, type Listing, type Outb
 import { createInterhouseAdapter, INTERHOUSE_AJAX } from '../../src/adapters/interhouse.js';
 import { NeedsLoginError, createBrowserPool, createPoliteFetch, createSourceContext, resolveChromium, type BrowserPool } from '../../src/index.js';
 import { fixtureContext, startFixtureServer, type FixtureServer } from '../../src/testing.js';
+import { htmlAdapters } from '../../src/builtin/html.js';
 
 const NOW = new Date('2026-09-24T10:30:00Z');
 const config = ConfigSchema.parse({
@@ -16,6 +17,10 @@ const config = ConfigSchema.parse({
 
 describe('interhouse', () => {
   const adapter = createInterhouseAdapter();
+
+  test('is one of the built-in HTML sources', () => {
+    expect(htmlAdapters().map((a) => a.id)).toContain('interhouse');
+  });
 
   test('is a regional agent with a viewing form that needs no login', () => {
     expect(adapter.id).toBe('interhouse');

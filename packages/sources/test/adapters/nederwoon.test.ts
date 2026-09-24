@@ -2,6 +2,7 @@ import { describe, expect, test } from 'vitest';
 import { ConfigSchema, SourceConfigSchema } from '@nlpf/core';
 import { createNederwoonAdapter, parseNederwoonList } from '../../src/adapters/nederwoon.js';
 import { fixtureContext, readFixture } from '../../src/testing.js';
+import { htmlAdapters } from '../../src/builtin/html.js';
 
 const NOW = new Date('2026-09-24T10:30:00Z');
 const config = ConfigSchema.parse({
@@ -12,6 +13,10 @@ const config = ConfigSchema.parse({
 
 describe('nederwoon', () => {
   const adapter = createNederwoonAdapter();
+
+  test('is one of the built-in HTML sources', () => {
+    expect(htmlAdapters().map((a) => a.id)).toContain('nederwoon');
+  });
 
   test('is a regional agent whose viewings need a paid account', () => {
     expect(adapter.id).toBe('nederwoon');

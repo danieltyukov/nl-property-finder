@@ -3,6 +3,7 @@ import { ConfigSchema, SourceConfigSchema } from '@nlpf/core';
 import { createWonen123Adapter } from '../../src/adapters/wonen123.js';
 import { createRegistry } from '../../src/index.js';
 import { fixtureContext } from '../../src/testing.js';
+import { htmlAdapters } from '../../src/builtin/html.js';
 
 const NOW = new Date('2026-09-24T10:30:00Z');
 const config = ConfigSchema.parse({
@@ -13,6 +14,10 @@ const config = ConfigSchema.parse({
 
 describe('wonen123', () => {
   const adapter = createWonen123Adapter();
+
+  test('is one of the built-in HTML sources', () => {
+    expect(htmlAdapters().map((a) => a.id)).toContain('wonen123');
+  });
 
   test('is a regional agent reached by email, without login or fee', () => {
     expect(adapter.id).toBe('wonen123');

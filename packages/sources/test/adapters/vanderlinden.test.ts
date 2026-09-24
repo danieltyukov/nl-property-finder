@@ -3,6 +3,7 @@ import { ConfigSchema, SourceConfigSchema } from '@nlpf/core';
 import { createVanderlindenAdapter } from '../../src/adapters/vanderlinden.js';
 import { createRegistry } from '../../src/index.js';
 import { fixtureContext, readFixture } from '../../src/testing.js';
+import { htmlAdapters } from '../../src/builtin/html.js';
 
 const NOW = new Date('2026-09-24T10:30:00Z');
 const randstad = ConfigSchema.parse({
@@ -16,6 +17,10 @@ const amsterdam = ConfigSchema.parse({
 
 describe('vanderlinden', () => {
   const adapter = createVanderlindenAdapter();
+
+  test('is one of the built-in HTML sources', () => {
+    expect(htmlAdapters().map((a) => a.id)).toContain('vanderlinden');
+  });
 
   test('is a regional agent whose reaction form creates an account, so reacting is left to a person', () => {
     expect(adapter.id).toBe('vanderlinden');

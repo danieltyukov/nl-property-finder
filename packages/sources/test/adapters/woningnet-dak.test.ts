@@ -6,6 +6,7 @@ import { ConfigSchema, SourceConfigSchema, memoryLogger } from '@nlpf/core';
 import { createWoningnetDakAdapter, DAK_REGIONS, parseDakOffer } from '../../src/adapters/woningnet-dak.js';
 import { createBrowserPool, createPoliteFetch, createSourceContext, resolveChromium, type BrowserPool } from '../../src/index.js';
 import { readFixture, startFixtureServer, type FixtureServer } from '../../src/testing.js';
+import { htmlAdapters } from '../../src/builtin/html.js';
 
 const NOW = new Date('2026-09-24T10:30:00Z');
 const OFFER = JSON.parse(readFixture('woningnet-dak/aanbod-amsterdam.json')) as unknown;
@@ -18,6 +19,10 @@ function searchFor(...municipalities: string[]) {
 
 describe('woningnet-dak', () => {
   const adapter = createWoningnetDakAdapter();
+
+  test('is one of the built-in HTML sources', () => {
+    expect(htmlAdapters().map((a) => a.id)).toContain('woningnet-dak');
+  });
 
   test('is a regional portal read in a browser, with reactions on the portal', () => {
     expect(adapter.id).toBe('woningnet-dak');

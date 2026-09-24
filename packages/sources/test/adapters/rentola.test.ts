@@ -2,6 +2,7 @@ import { describe, expect, test } from 'vitest';
 import { ConfigSchema, SourceConfigSchema } from '@nlpf/core';
 import { createRentolaAdapter } from '../../src/adapters/rentola.js';
 import { fixtureContext } from '../../src/testing.js';
+import { htmlAdapters } from '../../src/builtin/html.js';
 
 const config = ConfigSchema.parse({
   searches: [
@@ -11,6 +12,10 @@ const config = ConfigSchema.parse({
 
 describe('rentola', () => {
   const adapter = createRentolaAdapter();
+
+  test('is one of the built-in HTML sources', () => {
+    expect(htmlAdapters().map((a) => a.id)).toContain('rentola');
+  });
 
   test('is a paid re-aggregator that is only ingested', () => {
     expect(adapter.id).toBe('rentola');
