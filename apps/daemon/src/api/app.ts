@@ -16,6 +16,7 @@ import {
   type Config,
   type ConversationView,
   type EventType,
+  type Property,
   type PropertyView,
   type StatusView,
   type Task,
@@ -239,7 +240,11 @@ export function createApp(ctx: DaemonContext): Hono {
 
   app.get('/calendar.ics', (c) => {
     const viewings = ctx.store.viewings.list();
-    const props = new Map(viewings.map((v) => [v.propertyId, ctx.store.properties.get(v.propertyId)!]).filter(([, p]) => p) as never);
+    const props = new Map<string, Property>();
+    for (const v of viewings) {
+      const p = ctx.store.properties.get(v.propertyId);
+      if (p) props.set(p.id, p);
+    }
     return c.body(renderIcs(viewings, props, new Date().toISOString()), 200, { 'content-type': 'text/calendar; charset=utf-8' });
   });
 
