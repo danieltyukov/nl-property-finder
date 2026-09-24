@@ -1,29 +1,14 @@
-# Dependencies
 node_modules/
-client/node_modules/
-
-# Environment variables
+dist/
+coverage/
 .env
-
-# Database
-data/db.json
-
-# Build
-client/build/
-
-# Logs
 *.log
-npm-debug.log*
-
-# OS files
 .DS_Store
-Thumbs.db
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Puppeteer
-.local-chromium/
+.playwright-mcp/
+test-results/
+playwright-report/
+e2e/.artifacts/
+.nlpf-dev/
+*.db
+*.db-wal
+*.db-shm

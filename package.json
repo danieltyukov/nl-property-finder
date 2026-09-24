@@ -1,39 +1,39 @@
 {
-  "name": "freekamerbot",
-  "version": "1.0.0",
-  "description": "Monitor Kamernet, Funda, and Pararius listings with automatic replies and notifications",
-  "main": "server/index.js",
-  "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "nodemon server/index.js",
-    "client": "cd client && npm start",
-    "dev": "npm start",
-    "build": "cd client && npm run build",
-    "install-all": "npm install && cd client && npm install"
-  },
-  "keywords": [
-    "kamernet",
-    "funda",
-    "pararius",
-    "housing",
-    "automation"
-  ],
-  "author": "",
+  "name": "nl-property-finder",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local-first agent that watches every Dutch rental site, messages landlords within a minute, sorts the replies and leaves you only the decisions.",
   "license": "MIT",
-  "dependencies": {
-    "axios": "^1.16.0",
-    "body-parser": "^1.20.5",
-    "cheerio": "^1.2.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "express": "^4.22.2",
-    "lowdb": "^1.0.0",
-    "node-cron": "^4.2.1",
-    "puppeteer": "^24.15.0",
-    "web-push": "^3.6.6"
+  "engines": {
+    "node": ">=22.12"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "site",
+    "e2e"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @nlpf/daemon",
+    "demo": "tsx apps/cli/src/main.ts demo",
+    "nlpf": "tsx apps/cli/src/main.ts",
+    "test": "vitest run --project unit",
+    "test:integration": "vitest run --project integration",
+    "test:e2e": "npm run test -w @nlpf/e2e",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "build": "npm run build -w @nlpf/dashboard && npm run build -w @nlpf/cli && npm run build -w @nlpf/site"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2",
-    "nodemon": "^3.0.1"
+    "@types/node": "^22.10.0",
+    "esbuild": "^0.28.2",
+    "eslint": "^10.11.0",
+    "prettier": "^3.6.0",
+    "tsx": "^4.23.15",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.70.1",
+    "vitest": "^5.0.1"
   }
 }

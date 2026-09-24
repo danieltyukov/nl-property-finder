@@ -1,0 +1,14 @@
+{
+  "name": "@nlpf/notify",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "exports": "./src/index.ts",
+  "dependencies": {
+    "@nlpf/core": "*"
+  }
+}

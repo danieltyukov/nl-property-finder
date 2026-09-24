@@ -1,0 +1,24 @@
+{
+  "name": "@nlpf/daemon",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "dependencies": {
+    "@nlpf/core": "*",
+    "@nlpf/sources": "*",
+    "@nlpf/agent": "*",
+    "@nlpf/ai": "*",
+    "@nlpf/mail": "*",
+    "@nlpf/notify": "*",
+    "@nlpf/sandbox": "*",
+    "hono": "^4.13.8",
+    "@hono/node-server": "^2.1.1"
+  },
+  "scripts": {
+    "dev": "tsx watch ../cli/src/main.ts daemon"
+  }
+}

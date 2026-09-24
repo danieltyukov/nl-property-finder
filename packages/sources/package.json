@@ -1,0 +1,17 @@
+{
+  "name": "@nlpf/sources",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "exports": "./src/index.ts",
+  "dependencies": {
+    "@nlpf/core": "*",
+    "cheerio": "^1.2.0",
+    "playwright-core": "^1.63.0",
+    "yaml": "^2.9.1"
+  }
+}
