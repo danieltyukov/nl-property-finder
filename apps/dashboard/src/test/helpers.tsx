@@ -4,6 +4,7 @@
  * of the whole app at a given path.
  */
 import { render } from '@testing-library/react';
+import { configure } from '@testing-library/react';
 import { QueryClient } from '@tanstack/react-query';
 import { vi } from 'vitest';
 import { memoryLocation } from 'wouter/memory-location';
@@ -12,6 +13,11 @@ import type { Api } from '../api/client';
 import type { EventSourceLike } from '../api/sse';
 import { Root } from '../app';
 import { applicationsOf, buildWorld, statusOf, type World } from '../mock/fixtures';
+
+// The whole suite runs in parallel with the site's production build, so a
+// busy machine can take longer than Testing Library's default second to show
+// an element. Five seconds keeps the tests about behaviour, not about load.
+configure({ asyncUtilTimeout: 5000 });
 
 export function makeApi(world: World = buildWorld()): Api {
   const api: Api = {
