@@ -595,7 +595,7 @@ tbody td:last-child { color: var(--muted); max-width: 70ch; }
   h1 .rule { display: none; }
 }
 @media (max-aspect-ratio: 4/5) {
-  .hero { background: var(--bleed-portrait), var(--bleed-base); }
+  .hero { background: var(--bleed-portrait), var(--bleed-portrait-ground, var(--bleed-base)); }
   .poster { background-image: image-set(url('/stills/k0p-light-780.avif') type('image/avif'), url('/stills/k0p-light-780.webp') type('image/webp')); background-position: center top; background-size: cover; }
   .scene .pin, .scene .leader, .scene .callout { display: none; }
   :root[data-theme='dark'] .poster { background-image: image-set(url('/stills/k0p-dark-780.avif') type('image/avif'), url('/stills/k0p-dark-780.webp') type('image/webp')); }
