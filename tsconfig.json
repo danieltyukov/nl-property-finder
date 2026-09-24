@@ -9,6 +9,7 @@
     "e2e/tests",
     "e2e/fixtures",
     "site/src",
-    "site/test"
+    "site/test",
+    "scripts"
   ]
 }
