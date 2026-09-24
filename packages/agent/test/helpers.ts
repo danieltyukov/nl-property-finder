@@ -85,6 +85,31 @@ export function adapter(over: Partial<SourceAdapter> & { id: string }): SourceAd
   };
 }
 
+/**
+ * The text drawn on each page of a PDF: hex and literal strings of the
+ * content streams, decoded as single-byte text. Enough for the standard
+ * fonts pdf-lib and pdfkit write; not a general extractor.
+ */
+export async function pdfText(bytes: Uint8Array): Promise<string[]> {
+  const { PDFDocument, PDFArray, PDFRawStream, decodePDFRawStream } = await import('pdf-lib');
+  const doc = await PDFDocument.load(bytes);
+  return doc.getPages().map((page) => {
+    const contents = page.node.Contents();
+    const streams = contents instanceof PDFArray ? contents.asArray().map((r) => doc.context.lookup(r)) : [contents];
+    let ops = '';
+    for (const s of streams) {
+      if (s instanceof PDFRawStream) ops += Buffer.from(decodePDFRawStream(s).decode()).toString('latin1');
+      else if (s && 'getContents' in s) ops += Buffer.from((s as { getContents(): Uint8Array }).getContents()).toString('latin1');
+    }
+    const parts: string[] = [];
+    for (const m of ops.matchAll(/<([0-9A-Fa-f\s]+)>|\(((?:\\.|[^\\)])*)\)/g)) {
+      if (m[1] !== undefined) parts.push(Buffer.from(m[1].replace(/\s+/g, ''), 'hex').toString('latin1'));
+      else parts.push(m[2]!.replace(/\\(.)/g, '$1'));
+    }
+    return parts.join('');
+  });
+}
+
 export const registryOf = (adapters: SourceAdapter[]) => ({
   get: (id: string) => adapters.find((a) => a.id === id),
 });
