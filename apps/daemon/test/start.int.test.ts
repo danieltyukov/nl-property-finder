@@ -100,3 +100,27 @@ test('paused: listings keep arriving but nothing is sent until resume', async ()
   await fetch(`${h.url}/api/v1/resume`, { method: 'POST', ...auth });
   await waitFor(() => src.contacted.length === 1, 10_000);
 }, 30_000);
+
+test('a source that blocks us backs off instead of crashing, and recovers', async () => {
+  const { SourceBlockedError } = await import('@nlpf/sources');
+  const paths = home();
+  let calls = 0;
+  const adapter: SourceAdapter = {
+    id: 'grumpy', name: 'Grumpy', homepage: 'https://grumpy.test', regions: 'nl', defaultIntervalSec: 45,
+    capabilities: { search: 'json', detail: false, contact: 'none', login: 'none', terms: 'unknown' },
+    buildSearches: () => [{ key: 'all', label: 'all' }],
+    search: async () => {
+      calls++;
+      throw new SourceBlockedError('rate limited', { status: 429, retryAfterSec: 600 });
+    },
+  };
+  const h = await startDaemon({ paths, port: 0, adapters: [adapter], log: memoryLogger() });
+  handles.push(h);
+  await waitFor(() => calls >= 1);
+  await new Promise((r) => setTimeout(r, 500));
+  const sources = await (await fetch(`${h.url}/api/v1/sources`, { headers: { 'x-nlpf-token': h.token } })).json();
+  const grumpy = sources.items.find((s: { sourceId: string }) => s.sourceId === 'grumpy');
+  expect(grumpy.lastError).toContain('Blocked');
+  expect(Date.parse(grumpy.nextRunAt) - Date.now()).toBeGreaterThan(500_000);
+  expect(calls).toBe(1);
+});

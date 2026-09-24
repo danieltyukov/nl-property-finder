@@ -302,6 +302,7 @@ export async function startDaemon(opts: StartDaemonOptions): Promise<DaemonHandl
     intervalFor: (a, base, at) =>
       demo ? 5 : adaptiveInterval(base, histogramFor(a.id), at, { floorSec: a.capabilities.search === 'browser' ? 120 : 60 }),
   });
+  late.scheduler = scheduler;
 
   const inbound = (m: InboundMessage) => handleInbound(rt, m, { parseAlert: (msg) => parseAlertEmail(msg) });
   const runner = createRunner({
