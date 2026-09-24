@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { load } from 'cheerio';
 import type { Furnishing, NamedSearch, PropertyType, RawListing, SearchRequest, SourceAdapter, SourceConfig } from '@nlpf/core';
+import { trimTrailingSlashes } from '@nlpf/core';
 import { createAgencyAdapter } from '../generic/agency.js';
 import { UNAVAILABLE_STATUS } from '../generic/presets.js';
 import { SourceHttpError } from '../runtime/errors.js';
@@ -139,7 +140,7 @@ export function parseInterhouseResults(html: string, now: Date = new Date()): Ra
     const bedrooms = values.find((v) => /^\d{1,2}$/.test(v));
     const furnishing = values.map((v) => furnishingOf(v)).find(Boolean);
     const image = /url\(([^)]+)\)/.exec(card.find('.c-result-item__image').attr('style') ?? '')?.[1]?.replace(/^['"]|['"]$/g, '');
-    const path = new URL(url).pathname.replace(/\/+$/, '');
+    const path = trimTrailingSlashes(new URL(url).pathname);
     const listing: RawListing = {
       sourceId: 'interhouse',
       externalId: path,

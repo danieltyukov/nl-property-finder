@@ -2,6 +2,7 @@ import { load } from 'cheerio';
 import type { APIRequestContext } from 'playwright-core';
 import {
   fromAmsterdam,
+  trimTrailingSlashes,
   type ContactResult,
   type NamedSearch,
   type PropertyType,
@@ -462,7 +463,7 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
  * throws `NeedsLoginError` without it.
  */
 export function createZigAdapter(def: ZigPortalDef, options: ZigAdapterOptions = {}): SourceAdapter {
-  const home = def.homepage.replace(/\/+$/, '');
+  const home = trimTrailingSlashes(def.homepage);
   const d: ZigPortalDef = { ...def, homepage: home };
   const loginUrl = def.loginUrl ?? `${home}${ZIG_PATHS.login}`;
   const confirmTimeoutMs = options.confirmTimeoutMs ?? 8_000;

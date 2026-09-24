@@ -4,6 +4,7 @@ import { isAbsolute, resolve } from 'node:path';
 import { load, type Cheerio, type CheerioAPI } from 'cheerio';
 import {
   fromAmsterdam,
+  trimTrailingSlashes,
   type ContactResult,
   type Listing,
   type OutboundMessage,
@@ -190,7 +191,7 @@ function absolute(href: string | undefined, base: string): string | undefined {
 /** A stable id from a listing URL: its path without the trailing slash, plus the query. */
 function idFromUrl(url: string): string {
   const u = new URL(url);
-  return (u.pathname.replace(/\/+$/, '') || '/') + u.search;
+  return (trimTrailingSlashes(u.pathname) || '/') + u.search;
 }
 
 function toIso(v: string | undefined, now: Date): string | undefined {
@@ -221,7 +222,7 @@ function compact<T extends object>(o: T): T {
   return o;
 }
 
-const AVAILABILITY_SENTENCE = /[^.\n]*\b(beschikbaar|available|oplevering|ingangsdatum|per direct|vanaf)\b[^.\n]*/i;
+const AVAILABILITY_WORD = /\b(beschikbaar|available|oplevering|ingangsdatum|per direct|vanaf)\b/i;
 
 /* ---------- the adapter ---------- */
 
@@ -428,7 +429,7 @@ export function createAgencyAdapter(input: AgencyDef, options: AgencyAdapterOpti
         }
       }
       if (!out.availableFrom && out.description) {
-        const sentence = AVAILABILITY_SENTENCE.exec(out.description)?.[0];
+        const sentence = out.description.split(/[.\n]/).find((s) => AVAILABILITY_WORD.test(s));
         const date = sentence ? parseDutchDate(sentence, ctx.now()) : undefined;
         if (date) out.availableFrom = date;
       }

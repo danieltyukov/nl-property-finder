@@ -25,6 +25,7 @@ import type {
   SourceAdapter,
   SourceContext,
 } from '@nlpf/core';
+import { trimTrailingSlashes } from '@nlpf/core';
 import { NeedsLoginError, SourceHttpError } from '../runtime/errors.js';
 import { normalisePostcode } from '../util/address.js';
 import { detectFurnishing, detectType, parseDutchDate, parsePrice, parseSize } from '../util/parse.js';
@@ -163,7 +164,7 @@ const DETAIL_PATH =
   /^\/(?:en\/)?(?:huren|for-rent)\/([a-z-]+)-([a-z0-9-]+)\/([a-z0-9-]+)\/[a-z-]+-(\d{5,})\/?$/i;
 
 export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdapter {
-  const base = (options.baseUrl ?? 'https://kamernet.nl').replace(/\/+$/, '');
+  const base = trimTrailingSlashes(options.baseUrl ?? 'https://kamernet.nl');
   const confirmTimeoutMs = options.confirmTimeoutMs ?? 20_000;
   const headed = options.headed ?? true;
   const loginUrl = `${base}/oauth/signin`;
@@ -389,7 +390,7 @@ export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdap
         throw e;
       }
       // Gone: redirected elsewhere, a search list instead of the listing, or marked inactive.
-      if (page.path.replace(/\/+$/, '') !== new URL(listing.url).pathname.replace(/\/+$/, '')) return false;
+      if (trimTrailingSlashes(page.path) !== trimTrailingSlashes(new URL(listing.url).pathname)) return false;
       if (page.searchPage && !page.details) return false;
       const d = page.details;
       if (!d) {
@@ -448,7 +449,7 @@ export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdap
         return compact<RawListing>({
           sourceId: 'kamernet',
           externalId: m?.[4] ?? card.id,
-          url: `https://kamernet.nl${card.url.pathname.replace(/\/+$/, '')}`,
+          url: `https://kamernet.nl${trimTrailingSlashes(card.url.pathname)}`,
           title: card.title || clean(`${typeEntry?.label ?? ''} ${m?.[3] ?? ''}`),
           priceEur: price.priceEur,
           priceBasis: price.priceEur === undefined ? undefined : price.basis,

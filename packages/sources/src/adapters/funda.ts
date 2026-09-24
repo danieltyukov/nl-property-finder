@@ -37,6 +37,7 @@ import type {
   SourceAdapter,
   SourceContext,
 } from '@nlpf/core';
+import { trimTrailingSlashes } from '@nlpf/core';
 import { NeedsLoginError, SourceBlockedError, SourceHttpError } from '../runtime/errors.js';
 import { normalisePostcode, splitAddress } from '../util/address.js';
 import {
@@ -231,8 +232,8 @@ export interface FundaOptions {
 const ALERT_DOMAINS = ['funda.nl'];
 
 export function createFundaAdapter(options: FundaOptions = {}): SourceAdapter {
-  const base = (options.baseUrl ?? 'https://www.funda.nl').replace(/\/+$/, '');
-  const summaryBase = (options.summaryUrl ?? 'https://listing-detail-summary.funda.io').replace(/\/+$/, '');
+  const base = trimTrailingSlashes(options.baseUrl ?? 'https://www.funda.nl');
+  const summaryBase = trimTrailingSlashes(options.summaryUrl ?? 'https://listing-detail-summary.funda.io');
   const confirmTimeoutMs = options.confirmTimeoutMs ?? 20_000;
   const stickyMs = options.browserStickyMs ?? 30 * 60_000;
   let browserUntil = 0;

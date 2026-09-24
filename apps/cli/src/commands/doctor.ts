@@ -3,7 +3,7 @@ import { connect as netConnect } from 'node:net';
 import { join } from 'node:path';
 import type { Duplex } from 'node:stream';
 import { connect as tlsConnect } from 'node:tls';
-import { loadConfig, loadSecrets, type Paths } from '@nlpf/core';
+import { loadConfig, loadSecrets, trimTrailingSlashes, type Paths } from '@nlpf/core';
 import { DaemonNotRunningError, type NlpfClient } from '../client.js';
 import type { ServiceManager, ServiceSpec } from '../service/index.js';
 
@@ -270,7 +270,7 @@ export async function runDoctor(d: DoctorDeps): Promise<Check[]> {
           },
     );
   } else {
-    const server = ntfy.server.replace(/\/+$/, '');
+    const server = trimTrailingSlashes(ntfy.server);
     try {
       const res = d.push
         ? await d.fetch(`${server}/${encodeURIComponent(ntfy.topic)}`, {

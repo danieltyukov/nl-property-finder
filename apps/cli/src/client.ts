@@ -11,6 +11,7 @@ import {
   SourcePatchBody,
   WithdrawAllBody,
   loadConfig,
+  trimTrailingSlashes,
   type Config,
   type Conversation,
   type ConversationView,
@@ -142,7 +143,7 @@ function isNetworkError(e: unknown): boolean {
 }
 
 export function createClient(opts: ClientOptions): NlpfClient {
-  const baseUrl = opts.baseUrl.replace(/\/+$/, '');
+  const baseUrl = trimTrailingSlashes(opts.baseUrl);
   const doFetch = opts.fetch ?? fetch;
 
   async function request<T = unknown>(route: RouteName, ro: RequestOptions = {}): Promise<T> {
@@ -238,7 +239,7 @@ export function readToken(paths: Paths): string | null {
 
 /** The daemon's address: `NLPF_URL` when set (demo daemons, tests), otherwise 127.0.0.1 and the configured port. */
 export function daemonUrl(paths: Paths, env: NodeJS.ProcessEnv): string {
-  if (env.NLPF_URL) return env.NLPF_URL.replace(/\/+$/, '');
+  if (env.NLPF_URL) return trimTrailingSlashes(env.NLPF_URL);
   return `http://127.0.0.1:${loadConfig(paths).config.server.port}`;
 }
 

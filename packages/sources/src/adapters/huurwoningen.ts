@@ -1,4 +1,5 @@
 import type { ContactResult, Listing, NamedSearch, OutboundMessage, RawListing, SearchRequest, SourceAdapter, SourceConfig, SourceContext } from '@nlpf/core';
+import { trimTrailingSlashes } from '@nlpf/core';
 import { SourceHttpError } from '../runtime/errors.js';
 import { sleep } from '../runtime/fetch.js';
 import { parariusListingId, parseParariusCards, parseParariusDetail } from '../parsers/pararius-cards.js';
@@ -49,7 +50,7 @@ const MASTHEAD_READY = 'wc-masthead, .masthead';
  * of the same home elsewhere.
  */
 export function createHuurwoningenAdapter(options: HuurwoningenOptions = {}): SourceAdapter {
-  const base = (options.baseUrl ?? 'https://www.huurwoningen.nl').replace(/\/+$/, '');
+  const base = trimTrailingSlashes(options.baseUrl ?? 'https://www.huurwoningen.nl');
   const waitMs = options.waitMs ?? 30_000;
   const maxPages = options.maxPages ?? 2;
   const pageGapMs = options.pageGapMs ?? 4_000;

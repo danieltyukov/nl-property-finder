@@ -1,5 +1,6 @@
 import type { APIRequestContext, Page, Request } from 'playwright-core';
 import type { ContactResult, PropertyType, RawListing, SourceAdapter, SourceContext } from '@nlpf/core';
+import { trimTrailingSlashes } from '@nlpf/core';
 import { NeedsLoginError, SourceBlockedError, SourceHttpError } from '../runtime/errors.js';
 import { normalisePostcode, splitAddress } from '../util/address.js';
 import { detectType } from '../util/parse.js';
@@ -316,7 +317,7 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
  * then its apply mutation.
  */
 export function createEmbraceAdapter(def: EmbracePortalDef, options: EmbraceAdapterOptions = {}): SourceAdapter {
-  const home = def.homepage.replace(/\/+$/, '');
+  const home = trimTrailingSlashes(def.homepage);
   const d: EmbracePortalDef = { ...def, homepage: home };
   const gateway = def.gateway ?? EMBRACE_GATEWAY;
   const loginUrl = def.loginUrl ?? `${home}/${def.locale}`;

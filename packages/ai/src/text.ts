@@ -106,11 +106,11 @@ export function dropPaymentPromises(text: string): string {
 
 /* ---------- prompt data blocks ---------- */
 
-const DATA_TAGS = /<\s*(\/?)\s*(listing|message|contract|profile|search|template|our_last_message)\b/gi;
+const DATA_TAGS = /<\s*(?:(\/)\s*)?(listing|message|contract|profile|search|template|our_last_message)\b/gi;
 
 /** Escapes tags inside untrusted text so it cannot close or open one of our data blocks. */
 export function neutraliseTags(text: string): string {
-  return text.replace(DATA_TAGS, (_m, slash: string, name: string) => `&lt;${slash}${name}`);
+  return text.replace(DATA_TAGS, (_m, slash: string | undefined, name: string) => `&lt;${slash ?? ''}${name}`);
 }
 
 /* ---------- language ---------- */

@@ -1,4 +1,4 @@
-import { amsterdam, fromAmsterdam, type AutomationConfig, type ProposedSlot } from '@nlpf/core';
+import { amsterdam, fromAmsterdam, trimCharsEnd, type AutomationConfig, type ProposedSlot } from '@nlpf/core';
 import { localDatePlus } from './window.js';
 
 /*
@@ -154,7 +154,7 @@ function findTimes(t: string): TimeTok[] {
   const scan = (re: RegExp, make: (m: RegExpExecArray) => TimeTok | null) => {
     for (const m of t.matchAll(re)) {
       const start = m.index;
-      const end = start + m[0].replace(/\s+$/, '').length;
+      const end = start + m[0].trimEnd().length;
       if (taken.slice(start, end).some(Boolean)) continue;
       const tok = make(m as RegExpExecArray);
       if (!tok) continue;
@@ -192,7 +192,7 @@ function findTimes(t: string): TimeTok[] {
   );
   // 10:00-10:15, 18.00 tot 19.00
   scan(
-    /(?<![\d:.])(\d{1,2})[:.](\d{2})\s*(am|pm|a\.m\.|p\.m\.|uur|u)?\s*(?:-|\u2013|\u2014|tot|to|until|t\/m)\s*(\d{1,2})[:.](\d{2})(?!\d)\s*(am|pm|a\.m\.|p\.m\.|uur|u\b|h\b)?/g,
+    /(?<![\d:.])(\d{1,2})[:.](\d{2})\s*(?:(am|pm|a\.m\.|p\.m\.|uur|u)\s*)?(?:-|\u2013|\u2014|tot|to|until|t\/m)\s*(\d{1,2})[:.](\d{2})(?!\d)\s*(am|pm|a\.m\.|p\.m\.|uur|u\b|h\b)?/g,
     (m) => {
       const tok: TimeTok = {
         ...base,
@@ -349,7 +349,7 @@ function findDays(t: string, masked: string): DayTok[] {
     const availability = AVAILABILITY.test(t.slice(Math.max(0, index - 25), index));
     push({
       start: index,
-      end: index + text.replace(/[\s,.]+$/, '').length,
+      end: index + trimCharsEnd(text, ',.', true).length,
       date: { d, m: mo, y: y === undefined ? undefined : y < 100 ? 2000 + y : y },
       availability,
     });

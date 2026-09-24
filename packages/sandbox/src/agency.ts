@@ -1,3 +1,4 @@
+import { trimTrailingSlashes } from '@nlpf/core';
 import { Hono } from 'hono';
 import type { SandboxCore } from './core.js';
 import {
@@ -29,7 +30,7 @@ import { GRACHT_EMAIL } from './world.js';
  * ```
  */
 export function grachtAgencyYaml(baseUrl: string, opts: { contact?: 'form' | 'email' } = {}): string {
-  const base = baseUrl.replace(/\/+$/, '');
+  const base = trimTrailingSlashes(baseUrl);
   const contact =
     opts.contact === 'email'
       ? `contact:

@@ -1,5 +1,6 @@
 import { load, type CheerioAPI } from 'cheerio';
 import type { ContactResult, Listing, NamedSearch, OutboundMessage, PropertyType, RawListing, SearchRequest, SourceAdapter, SourceConfig, SourceContext } from '@nlpf/core';
+import { trimTrailingSlashes } from '@nlpf/core';
 import { SourceHttpError } from '../runtime/errors.js';
 import { normalisePostcode } from '../util/address.js';
 import { detectFurnishing, parseDutchDate, parseRooms, parseSize } from '../util/parse.js';
@@ -171,7 +172,7 @@ export function parseKamerNlDetail(html: string): Partial<RawListing> {
  * reacts on a free copy of the home elsewhere unless the plan is set.
  */
 export function createKamerNlAdapter(options: KamerNlOptions = {}): SourceAdapter {
-  const base = (options.baseUrl ?? 'https://www.kamer.nl').replace(/\/+$/, '');
+  const base = trimTrailingSlashes(options.baseUrl ?? 'https://www.kamer.nl');
   const waitMs = options.waitMs ?? 30_000;
 
   return {

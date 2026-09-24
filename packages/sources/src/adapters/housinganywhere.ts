@@ -28,6 +28,7 @@ import type {
   SourceAdapter,
   SourceContext,
 } from '@nlpf/core';
+import { trimTrailingSlashes } from '@nlpf/core';
 import { NeedsLoginError, SourceHttpError } from '../runtime/errors.js';
 import { normalisePostcode } from '../util/address.js';
 import { detectFurnishing, parseBedrooms, parseDutchDate, parsePrice, parseSize } from '../util/parse.js';
@@ -143,7 +144,7 @@ export interface HousingAnywhereOptions {
 const ALERT_DOMAINS = ['housinganywhere.com'];
 
 export function createHousingAnywhereAdapter(options: HousingAnywhereOptions = {}): SourceAdapter {
-  const base = (options.baseUrl ?? 'https://housinganywhere.com').replace(/\/+$/, '');
+  const base = trimTrailingSlashes(options.baseUrl ?? 'https://housinganywhere.com');
   const algolia =
     options.algoliaUrl ??
     `https://${ALGOLIA_APP.toLowerCase()}-dsn.algolia.net/1/indexes/*/queries?x-algolia-api-key=${ALGOLIA_KEY}&x-algolia-application-id=${ALGOLIA_APP}`;
@@ -397,7 +398,7 @@ export function createHousingAnywhereAdapter(options: HousingAnywhereOptions = {
         return compact<RawListing>({
           sourceId: 'housinganywhere',
           externalId: card.id,
-          url: `https://housinganywhere.com${card.url.pathname.replace(/\/+$/, '')}`,
+          url: `https://housinganywhere.com${trimTrailingSlashes(card.url.pathname)}`,
           title: card.title,
           priceEur: price.priceEur,
           priceBasis: price.priceEur === undefined ? undefined : price.basis,

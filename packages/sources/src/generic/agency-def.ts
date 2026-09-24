@@ -124,6 +124,14 @@ function deepMerge(base: unknown, over: unknown): unknown {
   return over === undefined ? base : over;
 }
 
+/** "verhuur@gracht.nl": one @, no whitespace, and a dot inside the domain. */
+function looksLikeEmail(s: string): boolean {
+  if (/\s/.test(s)) return false;
+  const at = s.indexOf('@');
+  if (at < 1 || at !== s.lastIndexOf('@')) return false;
+  return s.slice(at + 2, -1).includes('.');
+}
+
 const FIELD_KEYS = ['selector', 'attr', 'path', 'pattern', 'map', 'exclude', 'require'];
 const PRESET_NAMES = ['realworks', 'kolibri', 'ogonline', 'none'];
 
@@ -343,7 +351,7 @@ export function parseAgencyDef(input: unknown, origin = 'agency definition'): Ag
       const kind = k.kind;
       if (kind !== 'form' && kind !== 'email' && kind !== 'none') c.add('contact.kind', 'must be form, email or none');
       const email = c.str(k.email, 'contact.email', kind === 'email');
-      if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) c.add('contact.email', `"${email}" is not an email address`);
+      if (email && !looksLikeEmail(email)) c.add('contact.email', `"${email}" is not an email address`);
       contact = { kind: kind === 'form' || kind === 'email' ? kind : 'none' };
       const url = c.str(k.url, 'contact.url');
       if (url) contact.url = url;

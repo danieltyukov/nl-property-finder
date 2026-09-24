@@ -63,7 +63,8 @@ export function addressee(name: string | undefined): Addressee {
   const cleaned = (name ?? '').replace(/["']/g, '').replace(/\s+/g, ' ').trim();
   if (!cleaned || NOT_A_NAME.test(cleaned)) return { kind: 'unknown' };
   // "Eva Brouwer | Makelaardij De Gracht", "Eva Brouwer - Verhuur", "Verhuur, Eva Brouwer": greet the person.
-  const parts = cleaned.split(/\s*[|/]\s*|\s+-\s+|\s*,\s*/).filter(Boolean);
+  // `cleaned` holds single spaces only, so one optional space on each side is enough.
+  const parts = cleaned.split(/ ?[|/] ?| - | ?, ?/).filter(Boolean);
   const person = parts.length > 1 ? parts.find((p) => !COMPANY.test(p) && !NOT_A_NAME.test(p)) : undefined;
   if (person) return { kind: 'person', name: person };
   return COMPANY.test(cleaned) ? { kind: 'company', name: cleaned } : { kind: 'person', name: cleaned };

@@ -1,3 +1,5 @@
+import { trimTrailingSlashes } from '@nlpf/core';
+
 export type FetchFn = typeof fetch;
 
 /** Raised for a non-2xx answer. The message never contains the request URL, which may hold a bot token. */
@@ -32,7 +34,7 @@ export function headerValue(s: string): string {
   return /^[\x20-\x7e]*$/.test(flat) ? flat : `=?UTF-8?B?${Buffer.from(flat, 'utf8').toString('base64')}?=`;
 }
 
-export const trimSlash = (s: string): string => s.replace(/\/+$/, '');
+export const trimSlash = (s: string): string => trimTrailingSlashes(s);
 
 /** Digits and a leading plus only, for tel: links. */
 export const phoneForTel = (phone: string): string => phone.replace(/(?!^\+)[^\d]/g, '');

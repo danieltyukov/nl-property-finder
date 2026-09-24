@@ -1,6 +1,7 @@
 import { load } from 'cheerio';
 import type { Page } from 'playwright-core';
 import type { NamedSearch, PropertyType, RawListing, SearchRequest, SourceAdapter, SourceConfig, SourceContext } from '@nlpf/core';
+import { trimTrailingSlashes } from '@nlpf/core';
 import { SourceBlockedError } from '../runtime/errors.js';
 import { sleep } from '../runtime/fetch.js';
 import { parsePrice, parseSize } from '../util/parse.js';
@@ -205,7 +206,7 @@ async function askAvailability(page: Page, ajaxUrl: string, params: Record<strin
  * Room types reserved for partner universities are skipped.
  */
 export function createXiorAdapter(options: XiorOptions = {}): SourceAdapter {
-  const base = (options.baseUrl ?? 'https://www.xiorstudenthousing.eu').replace(/\/+$/, '');
+  const base = trimTrailingSlashes(options.baseUrl ?? 'https://www.xiorstudenthousing.eu');
   const waitMs = options.waitMs ?? 30_000;
   const maxResidences = options.maxResidences ?? 8;
   const checkAvailability = options.checkAvailability ?? true;

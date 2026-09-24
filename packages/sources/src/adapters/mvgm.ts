@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { load, type CheerioAPI } from 'cheerio';
 import type { NamedSearch, RawListing, SearchRequest, SourceAdapter, SourceConfig } from '@nlpf/core';
+import { trimTrailingSlashes } from '@nlpf/core';
 import { UNAVAILABLE_STATUS } from '../generic/presets.js';
 import { SourceHttpError } from '../runtime/errors.js';
 import { splitAddress } from '../util/address.js';
@@ -54,7 +55,7 @@ function extraUrls(source: SourceConfig, label: string): SearchRequest[] {
 
 /** The 32-character hash at the end of an object URL, which stays the same when the slug changes. */
 function objectId(url: string): string {
-  const path = new URL(url).pathname.replace(/\/+$/, '');
+  const path = trimTrailingSlashes(new URL(url).pathname);
   return /-([0-9a-f]{32})$/.exec(path)?.[1] ?? path;
 }
 

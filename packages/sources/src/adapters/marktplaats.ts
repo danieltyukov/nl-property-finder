@@ -29,6 +29,7 @@ import type {
   SourceAdapter,
   SourceContext,
 } from '@nlpf/core';
+import { trimTrailingSlashes } from '@nlpf/core';
 import { SourceHttpError } from '../runtime/errors.js';
 import { detectFurnishing, detectType, parsePrice, parseRooms, parseSize } from '../util/parse.js';
 import {
@@ -381,7 +382,7 @@ export function createMarktplaatsAdapter(options: MarktplaatsOptions = {}): Sour
           return compact<RawListing>({
             sourceId: 'marktplaats',
             externalId: card.id,
-            url: `${BASE}${card.url.pathname.replace(/\/+$/, '')}`,
+            url: `${BASE}${trimTrailingSlashes(card.url.pathname)}`,
             title: card.title,
             priceEur:
               price.priceEur !== undefined && price.priceEur >= MIN_RENT_EUR ? price.priceEur : undefined,

@@ -110,13 +110,33 @@ export function makePdf(title: string, lines: PdfLine[]): Buffer {
 
 const WIN_ANSI_BACK = Object.fromEntries(Object.entries(WIN_ANSI).map(([ch, code]) => [code, ch]));
 
+/**
+ * The operands of `(...) Tj`, escapes still in place. A scan rather than a
+ * regular expression: an unanchored `\((...)*\)\s*Tj` restarts at every "(",
+ * which is quadratic on a file full of them.
+ */
+function tjOperands(raw: string): string[] {
+  const out: string[] = [];
+  let open = raw.indexOf('(');
+  while (open >= 0) {
+    let close = open + 1;
+    while (close < raw.length && raw[close] !== ')') close += raw[close] === '\\' ? 2 : 1;
+    if (close >= raw.length) break;
+    let op = close + 1;
+    while (op < raw.length && /\s/.test(raw[op]!)) op++;
+    if (raw.startsWith('Tj', op)) out.push(raw.slice(open + 1, close));
+    open = raw.indexOf('(', close + 1);
+  }
+  return out;
+}
+
 /** The text of a PDF written by `makePdf`, one line per `Tj`. Enough for this sandbox's own files. */
 export function pdfText(bytes: Uint8Array): string {
   const raw = Buffer.from(bytes).toString('latin1');
   const lines: string[] = [];
-  for (const m of raw.matchAll(/\(((?:\\.|[^\\)])*)\)\s*Tj/g)) {
+  for (const operand of tjOperands(raw)) {
     lines.push(
-      (m[1] ?? '').replace(/\\([0-7]{3}|.)/g, (_, esc: string) => {
+      operand.replace(/\\([0-7]{3}|.)/g, (_, esc: string) => {
         if (esc.length === 3) {
           const code = parseInt(esc, 8);
           return WIN_ANSI_BACK[code] ?? String.fromCharCode(code);

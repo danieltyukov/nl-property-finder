@@ -74,8 +74,8 @@ const NOT_AREA = String.raw`(?!\s*[.,]?\d*\s*${AREA_UNIT})`;
 export function parseRooms(text: string): number | undefined {
   const t = text ?? '';
   const m =
-    /(\d{1,2})\s*-?\s*(?:kamers?|rooms?)(?:appartement|woning)?\b/i.exec(t) ??
-    new RegExp(String.raw`(?:\bkamers?|(?<!(?:living|dining|sitting)\s?)\brooms?)\s*:?\s*(\d{1,2})\b${NOT_AREA}`, 'i').exec(t) ??
+    /(\d{1,2})\s*(?:-\s*)?(?:kamers?|rooms?)(?:appartement|woning)?\b/i.exec(t) ??
+    new RegExp(String.raw`(?:\bkamers?|(?<!(?:living|dining|sitting)\s?)\brooms?)\s*(?::\s*)?(\d{1,2})\b${NOT_AREA}`, 'i').exec(t) ??
     /^\s*(\d{1,2})\s*$/.exec(t);
   return m ? Number(m[1]) : undefined;
 }
@@ -85,7 +85,7 @@ export function parseBedrooms(text: string): number | undefined {
   const t = text ?? '';
   const m =
     /(\d{1,2})\s*(?:slaapkamers?|bedrooms?|slpk)\b/i.exec(t) ??
-    /\b(?:slaapkamers?|bedrooms?)\s*:?\s*(\d{1,2})\b/i.exec(t) ??
+    /\b(?:slaapkamers?|bedrooms?)\s*(?::\s*)?(\d{1,2})\b/i.exec(t) ??
     /^\s*(\d{1,2})\s*$/.exec(t);
   return m ? Number(m[1]) : undefined;
 }

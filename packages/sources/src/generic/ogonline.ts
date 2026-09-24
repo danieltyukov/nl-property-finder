@@ -1,6 +1,7 @@
 import { load } from 'cheerio';
 import type { Locator, Page } from 'playwright-core';
 import type { ContactResult, Listing, OutboundMessage, Profile, PropertyType, RawListing, SourceAdapter } from '@nlpf/core';
+import { trimTrailingSlashes } from '@nlpf/core';
 import { SourceHttpError } from '../runtime/errors.js';
 import { normalisePostcode, splitAddress } from '../util/address.js';
 import { detectType, parseDutchDate } from '../util/parse.js';
@@ -158,7 +159,7 @@ export function ogonlineListing(def: OgonlineAgencyDef, item: OgonlineItem, now:
 
   return compact<RawListing>({
     sourceId: `ogonline:${def.id}`,
-    externalId: objectId ?? new URL(url).pathname.replace(/\/+$/, ''),
+    externalId: objectId ?? trimTrailingSlashes(new URL(url).pathname),
     url,
     title,
     priceEur: price,
@@ -203,7 +204,7 @@ export interface OgonlineAdapterOptions {
  * agency is reached by email.
  */
 export function createOgonlineAdapter(def: OgonlineAgencyDef, options: OgonlineAdapterOptions = {}): SourceAdapter {
-  const home = def.homepage.replace(/\/+$/, '');
+  const home = trimTrailingSlashes(def.homepage);
   const d: OgonlineAgencyDef = { ...def, homepage: home };
   const listUrl = `${home}${OGONLINE_LIST_PATH}`;
   const known = new Set(def.regions.map((r) => r.toLowerCase()));

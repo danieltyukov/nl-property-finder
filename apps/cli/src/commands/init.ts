@@ -9,6 +9,7 @@ import {
   loadSecrets,
   saveConfig,
   setSecret,
+  trimTrailingSlashes,
   writeJsonSchema,
   type AutomationConfig,
   type Config,
@@ -588,7 +589,7 @@ export async function runInit(opts: {
       cfg.notify.ntfy?.server ?? 'https://ntfy.sh',
       (s) => {
         if (!/^https?:\/\/\S+$/.test(s)) throw new Error(`"${s}" is not a URL.`);
-        return s.replace(/\/+$/, '');
+        return trimTrailingSlashes(s);
       },
     );
     cfg.notify.ntfy = { server, topic, actions: cfg.notify.ntfy?.actions ?? true };

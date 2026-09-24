@@ -14,6 +14,7 @@ import type {
   SourceConfig,
   SourceContext,
 } from '@nlpf/core';
+import { trimTrailingSlashes } from '@nlpf/core';
 import { NeedsLoginError, SourceBlockedError, SourceHttpError } from '../runtime/errors.js';
 import { detectChallenge, sleep } from '../runtime/fetch.js';
 import {
@@ -325,7 +326,7 @@ export function mergeDetail(listing: RawListing, d: ParsedDetailPage): RawListin
  * `contact: 'form'` with a `contactUrl` on that website.
  */
 export function createParariusAdapter(options: ParariusOptions = {}): SourceAdapter {
-  const base = (options.baseUrl ?? 'https://www.pararius.nl').replace(/\/+$/, '');
+  const base = trimTrailingSlashes(options.baseUrl ?? 'https://www.pararius.nl');
   const host = new URL(base).host;
   const waitMs = options.waitMs ?? 30_000;
   const confirmTimeoutMs = options.confirmTimeoutMs ?? 20_000;

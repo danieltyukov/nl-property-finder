@@ -169,6 +169,11 @@ test('detectChallenge knows the common markers and ignores ordinary pages', () =
   expect(detectChallenge('<div class="cf-chl-widget"></div>')).toBe('cf-chl');
   expect(detectChallenge('<div id="px-captcha"></div>' + 'x'.repeat(100_000))).toBe('px-captcha');
   expect(detectChallenge('<iframe src="https://geo.captcha-delivery.com/captcha/"></iframe>')).toBe('datadome');
+  // DataDome's block page as curl sees it: an inline config and the challenge script.
+  const blocked = `<p id="cmsg">Please enable JS</p><script>var dd={'host':'geo.captcha-delivery.com'}</script><script src="https://ct.captcha-delivery.com/c.js"></script>${'x'.repeat(30_000)}`;
+  expect(detectChallenge(blocked)).toBe('datadome');
+  expect(detectChallenge(`<img src="https://captcha-delivery.com.example.nl/a.png">${'x'.repeat(30_000)}`)).toBeUndefined();
+  expect(detectChallenge(`<p>We block bots with captcha-delivery.com</p>${'x'.repeat(30_000)}`)).toBeUndefined();
   expect(detectChallenge('<html><title>Just a moment...</title></html>')).toBe('challenge');
   expect(detectChallenge('<p>Please solve the captcha to continue</p>')).toBe('captcha');
   expect(detectChallenge('<script src="https://www.google.com/recaptcha/api.js"></script>')).toBeUndefined();

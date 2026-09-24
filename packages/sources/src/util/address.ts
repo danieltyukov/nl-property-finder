@@ -1,4 +1,4 @@
-import type { Address } from '@nlpf/core';
+import { trimChars, type Address } from '@nlpf/core';
 
 const POSTCODE = /(?<![\d\p{L}])([1-9]\d{3})\s?([A-Za-z]{2})(?!\p{L})/u;
 
@@ -23,7 +23,7 @@ function normaliseAddition(a: string): string {
   return a;
 }
 
-const clean = (s: string) => s.replace(/\s+/g, ' ').replace(/^[\s,]+|[\s,]+$/g, '');
+const clean = (s: string) => trimChars(s.replace(/\s+/g, ' '), ',', true);
 
 /**
  * Splits an address as written on a listing into street, house number,

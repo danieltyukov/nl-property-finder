@@ -13,6 +13,7 @@ import type {
   SourceAdapter,
   SourceContext,
 } from '@nlpf/core';
+import { trimTrailingSlashes } from '@nlpf/core';
 import { NeedsLoginError, SourceHttpError } from '@nlpf/sources';
 import type { HuisjeItem } from './platform.js';
 
@@ -62,7 +63,7 @@ const JSON_HEADERS = { accept: 'application/json', 'content-type': 'application/
  * messages carry the same `threadId` and `sourceId: 'huisje'`.
  */
 export function huisjeAdapter(baseUrl: string, opts: HuisjeAdapterOptions = {}): SourceAdapter {
-  const base = baseUrl.replace(/\/+$/, '');
+  const base = trimTrailingSlashes(baseUrl);
   const loginUrl = `${base}/huisje/login`;
   const attachmentsDir = opts.attachmentsDir ?? join(tmpdir(), 'nlpf-huisje');
   let cookie: string | undefined;

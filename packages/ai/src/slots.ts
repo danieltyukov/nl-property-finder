@@ -248,11 +248,11 @@ function findTimes(s: string, original: string): TimeTok[] {
   const meridiemOf = (x: string | undefined): 'am' | 'pm' | undefined => (x ? (x.startsWith('p') ? 'pm' : x.startsWith('a') ? 'am' : undefined) : undefined);
 
   // Ranges with clock times: "10:00-10:15", "van 10.00 tot 10.15 uur", "tussen 18:00 en 19:00".
-  for (const m of s.matchAll(/(?<![\d.,])(\d{1,2})[:.](\d{2})\s*(?:uur|u)?\s*(?:-|\u2013|\u2014|tot(?: en met)?|t\/m|to|until|till)\s*(\d{1,2})[:.](\d{2})(?!\d)\s*(am|pm)?/g)) {
+  for (const m of s.matchAll(/(?<![\d.,])(\d{1,2})[:.](\d{2})\s*(?:(?:uur|u)\s*)?(?:-|\u2013|\u2014|tot(?: en met)?|t\/m|to|until|till)\s*(\d{1,2})[:.](\d{2})(?!\d)\s*(am|pm)?/g)) {
     add(m.index, m.index + m[0].length, num(m[1]), num(m[2]), num(m[3]), num(m[4]), meridiemOf(m[5]));
   }
   // Ranges that need a lead word: "tussen 17 en 19 uur", "between 5 and 7 pm", "van 14 tot 16u".
-  for (const m of s.matchAll(/\b(?:tussen|between|van|from)\s+(\d{1,2})(?:[:.](\d{2}))?\s*(?:uur|u|h)?\s*(?:-|\u2013|en|and|tot|to|until|till)\s*(\d{1,2})(?:[:.](\d{2}))?\s*(uur\b|u\b|h\b|am\b|pm\b)?/g)) {
+  for (const m of s.matchAll(/\b(?:tussen|between|van|from)\s+(\d{1,2})(?:[:.](\d{2}))?\s*(?:(?:uur|u|h)\s*)?(?:-|\u2013|en|and|tot|to|until|till)\s*(\d{1,2})(?:[:.](\d{2}))?\s*(uur\b|u\b|h\b|am\b|pm\b)?/g)) {
     if (!m[2] && !m[4] && !m[5]) continue;
     add(m.index, m.index + m[0].length, num(m[1]), num(m[2]), num(m[3]), num(m[4]), meridiemOf(m[5]));
   }

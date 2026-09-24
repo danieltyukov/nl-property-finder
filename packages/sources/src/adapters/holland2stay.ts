@@ -1,6 +1,7 @@
 import { load } from 'cheerio';
 import type { Page, Response } from 'playwright-core';
 import type { ContactResult, Listing, NamedSearch, OutboundMessage, RawListing, SearchRequest, SourceAdapter, SourceConfig, SourceContext } from '@nlpf/core';
+import { trimTrailingSlashes } from '@nlpf/core';
 import { SourceBlockedError, SourceHttpError } from '../runtime/errors.js';
 import { detectChallenge, sleep } from '../runtime/fetch.js';
 import { splitAddress } from '../util/address.js';
@@ -109,7 +110,7 @@ export interface MapOptions {
  * ids and are named with the response's own `aggregations`.
  */
 export function mapHolland2StayProducts(blocks: ProductsBlock[], opts: MapOptions = {}): RawListing[] {
-  const base = (opts.baseUrl ?? 'https://www.holland2stay.com').replace(/\/+$/, '');
+  const base = trimTrailingSlashes(opts.baseUrl ?? 'https://www.holland2stay.com');
   const labels = new Map<string, Map<string, string>>();
   for (const b of blocks) {
     for (const agg of b.aggregations) {
@@ -286,7 +287,7 @@ async function watchResidences(page: Page, url: string, waitMs: number, signal: 
  * which the daemon opens on the person's own screen.
  */
 export function createHolland2StayAdapter(options: Holland2StayOptions = {}): SourceAdapter {
-  const base = (options.baseUrl ?? 'https://www.holland2stay.com').replace(/\/+$/, '');
+  const base = trimTrailingSlashes(options.baseUrl ?? 'https://www.holland2stay.com');
   const waitMs = options.waitMs ?? 30_000;
   const checkWaitMs = options.checkWaitMs ?? 8_000;
 

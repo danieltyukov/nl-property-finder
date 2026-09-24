@@ -195,11 +195,26 @@ const SMALL_PAGE = 20_000;
 const CHALLENGE_TITLE =
   /<title[^>]*>[^<]*(just a moment|even geduld|attention required|access denied|verify you are human|are you a robot|ben je een robot|toegang geweigerd)[^<]*<\/title>/i;
 
+/** True when the page loads a frame or script from DataDome's challenge host. */
+function loadsFromDataDome(text: string): boolean {
+  if (!/captcha-delivery/i.test(text)) return false;
+  for (const m of text.matchAll(/\bsrc\s*=\s*["']?([^"'\s>]+)/gi)) {
+    let host: string;
+    try {
+      host = new URL(m[1]!, 'https://page.invalid/').hostname;
+    } catch {
+      continue;
+    }
+    if (host === 'captcha-delivery.com' || host.endsWith('.captcha-delivery.com')) return true;
+  }
+  return false;
+}
+
 /**
  * Names the bot-challenge marker in a page, or undefined for an ordinary
  * page. JSON bodies are never challenges. Cloudflare (`cf-chl`), PerimeterX
- * (`px-captcha`) and DataDome's block frame (`captcha-delivery.com`) are
- * matched anywhere. The bare words "captcha" and "datadome" only count on a
+ * (`px-captcha`) and a frame or script served from DataDome's challenge host
+ * count anywhere. The bare words "captcha" and "datadome" only count on a
  * small page, because ordinary pages load reCAPTCHA or the DataDome tag for
  * their forms. Adapters that read pages in a browser can call this on
  * `page.content()` too.
@@ -210,7 +225,7 @@ export function detectChallenge(text: string, contentType?: string): string | un
   if (!contentType && (head === '{' || head === '[')) return undefined;
   if (/cf[-_]chl/i.test(text)) return 'cf-chl';
   if (/px-captcha/i.test(text)) return 'px-captcha';
-  if (/captcha-delivery\.com/i.test(text)) return 'datadome';
+  if (loadsFromDataDome(text)) return 'datadome';
   if (CHALLENGE_TITLE.test(text.slice(0, 5000))) return 'challenge';
   if (text.length < SMALL_PAGE) {
     const stripped = text.replace(/g?recaptcha|hcaptcha/gi, '');
