@@ -1,0 +1,67 @@
+{
+ "data": {
+  "applicationDetails": {
+   "nodes": {
+    "edges": [
+     {
+      "node": {
+       "id": "SG91c2luZ1B1YmxpY2F0aW9uOjEwMDEyMzMwMw==",
+       "startTime": "2026-09-23T20:00:00+02:00",
+       "stopTime": "2026-09-28T20:00:00+02:00",
+       "totalNumberOfApplications": 283,
+       "allocationProcess": {
+        "id": "SG91c2luZ0FsbG9jYXRpb25Qcm9jZXNzOjEw",
+        "description": "Je inschrijfduur; de langste inschrijfduur eerst. Urgenten met een passend zoekprofiel hebben voorrang.",
+        "applicationMethod": "REGISTRATION",
+        "__typename": "HousingAllocationProcess"
+       },
+       "applicantSpecific": {
+        "applicantId": null,
+        "allocationRanking": null,
+        "sortingGroup": {
+         "id": "SG91c2luZ1NvcnRpbmdHcm91cDo3",
+         "category": "NOT_LOGGED_IN",
+         "__typename": "HousingSortingGroup"
+        },
+        "__typename": "HousingApplicantSpecific"
+       },
+       "useDigitalIncome": true,
+       "unit": {
+        "id": "SG91c2luZ1B1YmxpY2F0aW9uVW5pdDoxNDQ5MTc7MDswOw==",
+        "unitUsageType": "STANDARD",
+        "externalApplyUrl": {
+         "value": "",
+         "__typename": "HousingUrl"
+        },
+        "location": {
+         "id": "SG91c2luZ0xvY2F0aW9uOjMwNDJUTjs1MDtEOw==",
+         "address": {
+          "addressLine": "Beeningerstraat 50D",
+          "__typename": "HousingAddress"
+         },
+         "__typename": "HousingLocation"
+        },
+        "availableDate": "2026-09-22T00:00:00+02:00",
+        "photos": {
+         "items": [
+          {
+           "id": "https://filecabinet.embracecloud.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/185879_52196/6213813_58293.jpg",
+           "url": "https://filecabinet.embracecloud.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/185879_52196/6213813_58293.jpg",
+           "__typename": "HousingMedia"
+          }
+         ],
+         "__typename": "HousingMediaConnection"
+        },
+        "__typename": "HousingPublicationUnit"
+       },
+       "__typename": "HousingPublication"
+      },
+      "__typename": "HousingPublicationEdge"
+     }
+    ],
+    "__typename": "HousingPublicationConnection"
+   },
+   "__typename": "HousingPublicationsOutput"
+  }
+ }
+}

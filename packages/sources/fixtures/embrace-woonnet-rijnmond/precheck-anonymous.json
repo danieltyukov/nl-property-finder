@@ -1,0 +1,11 @@
+{
+ "data": {
+  "precheckStatus": {
+   "state": "NOT_LOGGED_IN",
+   "canApply": false,
+   "description": "Je moet inloggen om te reageren",
+   "userErrors": [],
+   "__typename": "HousingApplyOutput"
+  }
+ }
+}

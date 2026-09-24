@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Proefweg 2, Tussenverdieping in Rotterdam - Voorbeeld Makelaars</title>
+<style>.form-ajax-success, .form-ajax-warning, .form-ajax-error { display: none; }</style>
+</head>
+<body>
+<!--
+  The "details_consumer" variant of the OGonline contact form: first and last
+  name, an office to choose, and a confirmation page instead of a message
+  (data-succes-page). Trimmed from live pages read on 2026-09-24. The script
+  stands in for the site's form-ajax.js.
+-->
+<h1>Proefweg 2</h1>
+<form action="/nl/forms/contact/details_consumer/6a0000000000000000000002" method="post" class="form-horizontal form-ajax" data-succes-page="/nl/bedankt/aanbod?form_return=succes">
+  <div class="form-ajax-success alert alert-info">Jouw bericht is naar ons verzonden.</div>
+  <div class="form-ajax-warning alert alert-warning">Sorry, we kunnen niet vaststellen of je een mens bent.</div>
+  <div class="form-ajax-error alert alert-danger">Er is iets mis gegaan met het versturen van het formulier.</div>
+  <div class="form-ajax-form">
+    <input type="hidden" name="to" value="verhuur@example.test" />
+    <select name="branch" required>
+      <option value="">Kies een vestiging*</option>
+      <option value="denhaag@example.test">Vestiging Den Haag</option>
+      <option value="rotterdam@example.test">Vestiging Rotterdam</option>
+    </select>
+    <input class="form-control" type="text" name="first_name" id="field_first_name" required />
+    <input class="form-control" type="text" name="last_name" id="field_last_name" required />
+    <input class="form-control" type="email" name="email" id="field_email" required />
+    <input class="form-control" type="text" name="telephone" id="field_phone_number" />
+    <textarea class="form-control" name="question" id="field_question"></textarea>
+    <label><input type="checkbox" name="privacy" required /> Akkoord met de privacyverklaring</label>
+    <button class="btn btn-primary" type="Submit">Verzenden</button>
+  </div>
+</form>
+<script>
+  document.querySelectorAll('form.form-ajax').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.querySelector('.form-ajax-error').style.display = 'block'; return; }
+      fetch(form.getAttribute('action'), { method: 'POST', body: new URLSearchParams(new FormData(form)) })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          var page = form.getAttribute('data-succes-page');
+          if (res.success && page) { window.location.href = page; return; }
+          var block = res.success ? '.form-ajax-success' : res.warning ? '.form-ajax-warning' : '.form-ajax-error';
+          form.querySelector(block).style.display = 'block';
+        })
+        .catch(function () { form.querySelector('.form-ajax-error').style.display = 'block'; });
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Proefplein 1 A, Portiekflat in Den Haag - Voorbeeld Makelaars</title>
+<style>
+  .form-ajax-success, .form-ajax-warning, .form-ajax-error { display: none; }
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; }
+</style>
+</head>
+<body>
+<!--
+  The listing page markup of an OGonline agency site (reply form in a tab),
+  trimmed from a live page read on 2026-09-24. The script at the end stands
+  in for the site's /shared/lib/form-ajax/form-ajax.js: it posts the form and
+  shows the success, warning or error block the way the live pages do.
+-->
+<h1>Proefplein 1 A</h1>
+<ul class="nav-tabs">
+  <li><a href="#tab-omschrijving">Omschrijving</a></li>
+  <li><a href="#tab-reageer">Reageer</a></li>
+</ul>
+<ul class="tab-content">
+  <li id="tab-omschrijving" class="tab-pane active"><p>Licht appartement met balkon.</p></li>
+  <li id="tab-reageer" class="tab-pane">
+    <h2>Reageer</h2>
+    <form action="/nl/forms/reply/consumer/6a0000000000000000000001" method="post" class="form-horizontal form-ajax">
+      <div class="form-ajax-success alert alert-success">Uw bericht is naar ons verzonden. Wij nemen zo snel mogelijk contact met u op.</div>
+      <div class="form-ajax-warning alert alert-warning">Sorry, we kunnen niet vaststellen of u een mens bent.</div>
+      <div class="form-ajax-error alert alert-danger"><p>Er is iets mis gegaan met het versturen van het formulier.</p></div>
+      <div class="form-ajax-form">
+        <select type="text" name="gender" required>
+          <option value="">Aanhef*</option>
+          <option value="male">Dhr.</option>
+          <option value="female">Mw.</option>
+        </select>
+        <input class="form-control" type="text" name="name" placeholder="Naam*" required />
+        <input class="form-control" type="text" name="telephone" placeholder="Telefoonnummer*" required />
+        <input class="form-control" type="text" name="email" placeholder="E-mail adres*" required />
+        <textarea class="form-control" name="question" rows="5" placeholder="Uw vraag"></textarea>
+        <label><input type="checkbox" name="privacy" required /> Ik ga akkoord met de privacyverklaring</label>
+        <label><input type="checkbox" name="nieuwsbrief" /> Stuur mij de nieuwsbrief</label>
+        <button class="btn btn-primary" type="Submit">Verzenden</button>
+      </div>
+    </form>
+  </li>
+</ul>
+<script>
+  document.querySelectorAll('a[href^="#tab-"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelectorAll('.tab-pane').forEach(function (p) { p.classList.remove('active'); });
+      document.querySelector(a.getAttribute('href')).classList.add('active');
+    });
+  });
+  document.querySelectorAll('form.form-ajax').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.querySelector('.form-ajax-error').style.display = 'block'; return; }
+      fetch(form.getAttribute('action'), { method: 'POST', body: new URLSearchParams(new FormData(form)) })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          var page = form.getAttribute('data-succes-page');
+          if (res.success && page) { window.location.href = page; return; }
+          var block = res.success ? '.form-ajax-success' : res.warning ? '.form-ajax-warning' : '.form-ajax-error';
+          form.querySelector('.form-ajax-form').style.display = res.success ? 'none' : 'block';
+          form.querySelector(block).style.display = 'block';
+        })
+        .catch(function () { form.querySelector('.form-ajax-error').style.display = 'block'; });
+    });
+  });
+</script>
+</body>
+</html>

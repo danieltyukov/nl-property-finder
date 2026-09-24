@@ -1,0 +1,321 @@
+{
+ "sAngularServiceData": "[]",
+ "result": {
+  "uitlegAanbiedprocesVideoTonen": false,
+  "infoveldBewoners": "",
+  "infoveldKort": "",
+  "hospiterenVanaf": "",
+  "extraInformatieUrl": "",
+  "huurtoeslagVoorwaarde": {
+   "icon": "",
+   "id": null,
+   "localizedNaam": null,
+   "localizedIconText": null
+  },
+  "sorteergroep": {
+   "code": "",
+   "id": null
+  },
+  "huurtoeslagMogelijk": null,
+  "beschikbaarTot": "",
+  "actionLabelToelichting": "",
+  "huurinkomenstabelGebruiken": true,
+  "voorrangAlleUrgenties": false,
+  "voorrangHuishoudgrootteMin": 0,
+  "voorrangHuishoudgrootteMax": 0,
+  "voorrangLeeftijdMin": 0,
+  "voorrangLeeftijdMax": 0,
+  "voorrangGezinnenKinderen": false,
+  "voorrangKernbinding": false,
+  "specifiekeVoorzieningen": [],
+  "toegankelijkheid": [],
+  "reactionData": {
+   "mogelijkePositie": null,
+   "voorlopigePositie": null,
+   "kanReageren": true,
+   "kanMotiveren": false,
+   "isPassend": true,
+   "woningruilWederzijdsPassend": false,
+   "loggedin": false,
+   "action": "add",
+   "objecttype": "reactie",
+   "label": "Reageer",
+   "openExterneLink": false,
+   "isVrijeSectorWoning": false,
+   "url": "?add=168867&dwellingID=266497"
+  },
+  "isVrijeSectorWoning": false,
+  "inschrijvingVereistVoorReageren": true,
+  "eenmaligeKostenSpecificatie": [],
+  "corporation": {
+   "showWoonlasten": true,
+   "picture": {
+    "location": "corporation/pictures/Woonbron_RGB.png"
+   },
+   "website": "",
+   "huurtoeslagTonen": false,
+   "code": "08",
+   "name": "Woonbron Delft"
+  },
+  "postalcode": "2628 TR",
+  "street": "Jan Willem Frisostraat",
+  "houseNumber": "52",
+  "houseNumberAddition": "",
+  "regio": {
+   "name": null
+  },
+  "municipality": {
+   "name": "Delft"
+  },
+  "city": {
+   "name": "Delft"
+  },
+  "quarter": {
+   "name": "Wippolder",
+   "extraInformatieUrl": "https://www.delft.nl/wonen/wonen-delft/delftse-wijken/wippolder",
+   "id": "58"
+  },
+  "neighborhood": {
+   "name": ""
+  },
+  "dwellingType": {
+   "categorie": "woning",
+   "huurprijsDuurActief": false,
+   "localizedName": "Eengezinswoning"
+  },
+  "availableFrom": "",
+  "netRent": 932.93,
+  "calculationRent": 0,
+  "voorschotEnergielasten": 0,
+  "totalRent": 935.78,
+  "flexibelHurenActief": false,
+  "heatingCosts": 0,
+  "epv": 0,
+  "additionalCosts": 0,
+  "serviceCosts": 2.85,
+  "sellingPrice": 0,
+  "description": "<p><span style=\"color:#000000;\">Deze gezellige wijk ligt aan de rand van het centrum en de TU-wijk. De sociale controle is er nog groot. </span></p><p><span style=\"color:#000000;\">Een rustige omgeving met veel speelruimte.</span></p><p><span style=\"color:#000000;\">De ontsluiting van de wijk is goed. De afslagen Delft-centrum en Delft-zuid van de A13 liggen vlakbij. Er rijden buslijnen, waardoor grote delen van Wippolder per bus bereikbaar zijn.</span></p><p><span style=\"color:#000000;\"><strong>De volgende voorzieningen zijn in de buurt aanwezig:</strong></span><br />Gezondheidszorg: Huisartsenpraktijken, tandartspraktijken, apotheek<br />Basisschool, Peuterspeelzalen, kinderdagverblijven, buitenschoolse opvangen buurthuis<br />Winkels voor de dagelijkse boodschappen<span style=\"color:#000000;\"> </span><br /><span style=\"color:#000000;\">Speelvoorzieningen en sportfaciliteiten </span><br /><span style=\"color:#000000;\">Het recreatiegebied Het Delftse Hout en de Botanische tuin is op fietsafstand aanwezig.</span></p>",
+  "bestemming": {},
+  "areaLivingRoom": 24,
+  "areaSleepingRoom": "14, 13, 5",
+  "sleepingRoom": {
+   "amountOfRooms": "3",
+   "id": "3",
+   "localizedName": "3 kamers"
+  },
+  "energyLabel": {
+   "icon": "icon_label_c",
+   "id": "3",
+   "localizedName": "Energielabel C"
+  },
+  "energyIndex": "0.00",
+  "floor": {
+   "localizedName": "begane grond"
+  },
+  "garden": true,
+  "gardenSite": {
+   "localizedName": null
+  },
+  "oppervlakteTuin": {
+   "localizedName": null
+  },
+  "balcony": false,
+  "balconySite": {
+   "localizedName": null
+  },
+  "heating": {
+   "localizedName": "Individuele CV"
+  },
+  "kitchen": {
+   "localizedName": null
+  },
+  "attic": {
+   "localizedName": null
+  },
+  "constructionYear": 1920,
+  "minimumIncome": 0,
+  "maximumIncome": 0,
+  "minimumHouseholdSize": 2,
+  "maximumHouseholdSize": 4,
+  "minimumAge": 18,
+  "maximumAge": 0,
+  "inwonendeKinderenMinimum": 1,
+  "inwonendeKinderenMaximum": 0,
+  "inwonendeKinderenVerboden": false,
+  "model": {
+   "modelCategorie": {
+    "icon": "br_aanbodcooptatie",
+    "code": "inschrijfduur",
+    "toonOpWebsite": true
+   },
+   "inCode": "aanbodmodel",
+   "isVoorExtraAanbod": false,
+   "isHospiteren": false,
+   "advertentieSluitenNaEersteReactie": false,
+   "einddatumTonen": true,
+   "aantalReactiesTonen": 1,
+   "slaagkansTonen": true,
+   "id": "100026",
+   "localizedName": "Aanbodmodel"
+  },
+  "rentBuy": "Huur",
+  "publicationDate": "2026-09-20 20:00:00",
+  "closingDate": "2026-09-24 20:00:00",
+  "numberOfReactions": 339,
+  "assignmentID": 168867,
+  "latitude": "52.0083",
+  "longitude": "4.37583",
+  "pictures": [
+   {
+    "label": "",
+    "uri": "/portal/uploads/dwelling/pictures/266497-6a9035cf5bf73.jpg",
+    "type": "jpg"
+   },
+   {
+    "label": "",
+    "uri": "/portal/uploads/dwelling/pictures/266497-6a9035d18f0f8.jpg",
+    "type": "jpg"
+   },
+   {
+    "label": "",
+    "uri": "/portal/uploads/dwelling/pictures/266497-6a9035d37fd3d.jpg",
+    "type": "jpg"
+   }
+  ],
+  "videos": [],
+  "gebruikFotoAlsHeader": true,
+  "remainingTimeUntilClosingDate": "7 uur en 36 minuten",
+  "reactieUrl": "",
+  "temporaryRent": false,
+  "showEnergyCosts": true,
+  "newlyBuild": false,
+  "storageRoom": true,
+  "energyCosts": [],
+  "areaDwelling": 65,
+  "areaPerceel": "0",
+  "volumeDwelling": "0",
+  "actionLabel": {
+   "localizedLabel": null
+  },
+  "actionLabelFrom": "0000-00-00 00:00:00",
+  "actionLabelUntil": "0000-00-00 00:00:00",
+  "actionLabelIfActive": false,
+  "relatieHuurInkomenData": null,
+  "relatieHuurInkomenGroepen": null,
+  "doelgroepen": [
+   {
+    "icon": "br_doelgroep_regulier",
+    "code": "regulier"
+   }
+  ],
+  "koopvoorwaarden": {
+   "localizedNaam": null
+  },
+  "koopprijsType": {
+   "localizedNaam": null
+  },
+  "koopkorting": {
+   "localizedNaam": null
+  },
+  "koopproducten": {
+   "url": null,
+   "picture": null,
+   "localizedNaam": null
+  },
+  "isExtraAanbod": false,
+  "isWoningruil": false,
+  "makelaars": [],
+  "lengte": "0.00",
+  "breedte": "0.00",
+  "hoogte": "0.00",
+  "rentDuration": {
+   "inCode": "",
+   "id": "1",
+   "localizedName": "m2 per jaar"
+  },
+  "vatInclusive": false,
+  "isGepubliceerdInEenModelMetReageren": true,
+  "woningsoort": {
+   "isZelfstandig": false,
+   "id": null,
+   "localizedNaam": null
+  },
+  "aantalMedebewoners": 0,
+  "isExternModelType": false,
+  "isZelfstandig": false,
+  "urlKey": "266497-janwillemfrisostraat-52-delft",
+  "servicecomponentenBinnenServicekosten": [],
+  "servicecomponentenBuitenServicekosten": [],
+  "eenmaligeKosten": 0,
+  "borg": 0,
+  "reactieBeleidsregels": [],
+  "sorteringBeleidsregels": [
+   {
+    "beleidsregel": {
+     "code": "doorstromingGroteHuishoudensDieTeKleinWonen"
+    },
+    "sortering": "1",
+    "parameters": "[]"
+   },
+   {
+    "beleidsregel": {
+     "code": "doorstromingKleineHuishoudensDieTeGrootWonen"
+    },
+    "sortering": "1",
+    "parameters": "[]"
+   },
+   {
+    "beleidsregel": {
+     "code": "doorstroming65plussersVanEnNaarSpecifiekWoningtype"
+    },
+    "sortering": "1",
+    "parameters": "[]"
+   },
+   {
+    "beleidsregel": {
+     "code": "DoorstromingHuishoudensDieGroteWoningAchterlatenInGemeente"
+    },
+    "sortering": "1",
+    "parameters": "[]"
+   }
+  ],
+  "complex": {
+   "nummer": null,
+   "naam": null,
+   "url": null,
+   "serviceovereenkomstVerplicht": null,
+   "serviceovereenkomstKosten": null,
+   "id": null
+  },
+  "serviceovereenkomstKosten": "0",
+  "extraInschrijfduurUitgeschakeld": false,
+  "eigenaar": {
+   "name": "Woonbron Delft",
+   "website": "",
+   "logo": {
+    "location": ""
+   }
+  },
+  "availableFromDate": "2026-10-09",
+  "zonnepanelen": false,
+  "gaslozeWoning": false,
+  "nulOpDeMeterWoning": false,
+  "verzameladvertentieID": 0,
+  "huurprijsBuitenKortingsgrens": false,
+  "land": {
+   "id": "524"
+  },
+  "uitlegTekstAanbiedproces": "",
+  "verhuurteam": {
+   "naam": "Woonbron Delft Team 1"
+  },
+  "woningruilprofielGewensteBijzonderheden": null,
+  "woningruilprofielHuidigeBijzonderheden": null,
+  "typeContract": null,
+  "projectID": 0,
+  "projectVerzameladvertentieID": 0,
+  "id": "266497",
+  "isGepubliceerd": true,
+  "isInGepubliceerdeVerzameladvertentie": false
+ }
+}

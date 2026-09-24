@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Proefplein 3, Portiekflat in Den Haag - Voorbeeld Makelaars</title>
+<style>.form-ajax-success, .form-ajax-error { display: none; }</style>
+</head>
+<body>
+<!--
+  The OGonline reply form with its sum question ("Hoe veel is 3 + 4?"), as on
+  two live agency sites on 2026-09-24. The agent never answers it.
+-->
+<form action="/nl/forms/reply/consumer/6a0000000000000000000003" method="post" class="form-horizontal form-ajax">
+  <div class="form-ajax-success alert alert-success">Uw bericht is naar ons verzonden.</div>
+  <div class="form-ajax-error alert alert-danger">Er is iets mis gegaan.</div>
+  <div class="form-ajax-form">
+    <input type="text" name="name" required />
+    <input type="text" name="telephone" required />
+    <input type="text" name="email" required />
+    <textarea name="question"></textarea>
+    Hoe veel is <span class="captcha" data-form-id="reply-consumer">3 + 4</span>? <input class="form-control" name="captcha" required>
+    <button class="btn btn-primary" type="Submit">Verzenden</button>
+  </div>
+</form>
+</body>
+</html>

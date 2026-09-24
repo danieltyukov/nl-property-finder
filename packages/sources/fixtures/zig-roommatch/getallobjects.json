@@ -1,0 +1,935 @@
+{
+ "sAngularServiceData": "[]",
+ "result": [
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "Voorrang voor Sloop & Renovatieurgentie.",
+   "huurtoeslagVoorwaarde": {
+    "icon": "huurtoeslag",
+    "id": "2",
+    "localizedIconText": "Extra huurtoeslag ≥  21jr"
+   },
+   "huurtoeslagMogelijk": true,
+   "specifiekeVoorzieningen": [
+    {
+     "id": "15"
+    },
+    {
+     "id": "2"
+    },
+    {
+     "id": "18"
+    }
+   ],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "01"
+   },
+   "postalcode": "2624 BD",
+   "street": "Röntgenweg",
+   "houseNumber": "255",
+   "houseNumberAddition": "",
+   "regio": {
+    "name": "Regio Haaglanden/ Leiden",
+    "id": "1"
+   },
+   "municipality": {
+    "name": "Delft",
+    "id": "23"
+   },
+   "city": {
+    "name": "Delft",
+    "id": "4"
+   },
+   "quarter": {
+    "name": "Voorhof",
+    "id": "36"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "2",
+    "localizedName": "Zelf inrichten"
+   },
+   "availableFrom": "",
+   "netRent": 548.56,
+   "totalRent": 651.97,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "5",
+    "id": "1"
+   },
+   "energyLabel": {
+    "icon": "icon_label_a",
+    "id": "1"
+   },
+   "floor": {
+    "id": "4",
+    "localizedName": "3e verdieping"
+   },
+   "balcony": false,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": "1"
+   },
+   "constructionYear": 0,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_aanbodcooptatie",
+     "code": "inschrijfduur",
+     "toonOpWebsite": true,
+     "id": "1"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": true,
+    "aantalReactiesTonen": 1
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-17 12:28:00",
+   "closingDate": "2026-09-24 12:28:00",
+   "latitude": "51.9994",
+   "longitude": "4.35794",
+   "pictures": [
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/139315-6aaa9dc27a68e.jpg",
+     "type": "jpg"
+    },
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/139315-6aaa9dc591922.jpg",
+     "type": "jpg"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 27,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "icon_doelgroep_jongeren",
+     "code": "jongeren",
+     "id": "3"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": "1",
+    "localizedNaam": "Zelfstandig"
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": true,
+   "urlKey": "139315-rntgenweg-255-delft",
+   "availableFromDate": "2026-10-17",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "139315",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "huurtoeslag",
+    "id": "2",
+    "localizedIconText": "Extra huurtoeslag ≥  21jr"
+   },
+   "huurtoeslagMogelijk": true,
+   "specifiekeVoorzieningen": [
+    {
+     "id": "15"
+    },
+    {
+     "id": "2"
+    },
+    {
+     "id": "18"
+    }
+   ],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "01"
+   },
+   "postalcode": "2628 RT",
+   "street": "Mijnbouwplein",
+   "houseNumber": "65",
+   "houseNumberAddition": "",
+   "regio": {
+    "name": "Regio Haaglanden/ Leiden",
+    "id": "1"
+   },
+   "municipality": {
+    "name": "Delft",
+    "id": "23"
+   },
+   "city": {
+    "name": "Delft",
+    "id": "4"
+   },
+   "quarter": {
+    "name": "Wippolder",
+    "id": "38"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "2",
+    "localizedName": "Zelf inrichten"
+   },
+   "availableFrom": "",
+   "netRent": 570.03,
+   "totalRent": 793.07,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "1",
+    "id": "2"
+   },
+   "energyLabel": {
+    "icon": null,
+    "id": null
+   },
+   "floor": {
+    "id": "2",
+    "localizedName": "1e verdieping"
+   },
+   "balcony": false,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": "1"
+   },
+   "constructionYear": 0,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_aanbodcooptatie",
+     "code": "inschrijfduur",
+     "toonOpWebsite": true,
+     "id": "1"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": true,
+    "aantalReactiesTonen": 1
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-17 13:45:00",
+   "closingDate": "2026-09-24 13:45:00",
+   "latitude": "52.0064",
+   "longitude": "4.36733",
+   "pictures": [
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/139350-6aab0b04bb91f.jpg",
+     "type": "jpg"
+    },
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/139350-6aab0b0701a90.jpg",
+     "type": "jpg"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 31,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "icon_doelgroep_jongeren",
+     "code": "jongeren",
+     "id": "3"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": "1",
+    "localizedNaam": "Zelfstandig"
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": true,
+   "urlKey": "139350-mijnbouwplein-65-delft",
+   "availableFromDate": "2026-10-17",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "139350",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "huurtoeslag",
+    "id": "1",
+    "localizedIconText": "Huurtoeslag ≥ 18jr"
+   },
+   "huurtoeslagMogelijk": true,
+   "specifiekeVoorzieningen": [
+    {
+     "id": "44"
+    },
+    {
+     "id": "23"
+    },
+    {
+     "id": "2"
+    },
+    {
+     "id": "18"
+    }
+   ],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "02"
+   },
+   "postalcode": "6708 PG",
+   "street": "Dijkgraaf",
+   "houseNumber": "4",
+   "houseNumberAddition": "-11B-7",
+   "regio": {
+    "name": "Regio Wageningen",
+    "id": "5"
+   },
+   "municipality": {
+    "name": "Wageningen",
+    "id": "19"
+   },
+   "city": {
+    "name": "Wageningen",
+    "id": "8"
+   },
+   "quarter": {
+    "name": "Wageningen stad",
+    "id": "70"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "3",
+    "localizedName": "Gemeubileerd"
+   },
+   "availableFrom": "",
+   "netRent": 407.58,
+   "totalRent": 579.45,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "5",
+    "id": "1"
+   },
+   "energyLabel": {
+    "icon": "icon_label_d",
+    "id": "4"
+   },
+   "floor": {
+    "id": "14",
+    "localizedName": "11e verdieping"
+   },
+   "balcony": false,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": "5"
+   },
+   "constructionYear": 1977,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_aanbodcooptatie",
+     "code": "inschrijfduur",
+     "toonOpWebsite": true,
+     "id": "1"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": true,
+    "aantalReactiesTonen": 1
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-22 09:00:00",
+   "closingDate": "2026-09-25 09:00:00",
+   "latitude": "51.9803",
+   "longitude": "5.65684",
+   "pictures": [
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/139460-6ab0ed7bb1a8e.jpg",
+     "type": "jpg"
+    },
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/139460-6ab0ed7f4f67e.jpg",
+     "type": "jpg"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 0,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "icon_doelgroep_jongeren\t",
+     "code": "Studentr",
+     "id": "5"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": "2",
+    "localizedNaam": "Onzelfstandig"
+   },
+   "aantalMedebewoners": 10,
+   "isExternModelType": false,
+   "isZelfstandig": false,
+   "urlKey": "139460-dijkgraaf-4--11b-7-wageningen",
+   "availableFromDate": "2026-10-07",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "139460",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "furnished accommodation available until October 27",
+   "huurtoeslagVoorwaarde": {
+    "icon": "huurtoeslag",
+    "id": "2",
+    "localizedIconText": "Extra huurtoeslag ≥  21jr"
+   },
+   "huurtoeslagMogelijk": true,
+   "specifiekeVoorzieningen": [
+    {
+     "id": "15"
+    },
+    {
+     "id": "2"
+    },
+    {
+     "id": "18"
+    }
+   ],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "01"
+   },
+   "postalcode": "2312 EM",
+   "street": "Kloosterpoort",
+   "houseNumber": "113",
+   "houseNumberAddition": "",
+   "regio": {
+    "name": "Regio Haaglanden/ Leiden",
+    "id": "1"
+   },
+   "municipality": {
+    "name": "Leiden",
+    "id": "1"
+   },
+   "city": {
+    "name": "Leiden",
+    "id": "2"
+   },
+   "quarter": {
+    "name": "Binnenstad-Noord",
+    "id": "56"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "3",
+    "localizedName": "Gemeubileerd"
+   },
+   "availableFrom": "",
+   "netRent": 498.2,
+   "totalRent": 851.32,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "5",
+    "id": "1"
+   },
+   "energyLabel": {
+    "icon": "icon_label_e",
+    "id": "5"
+   },
+   "floor": {
+    "id": "3",
+    "localizedName": "2e verdieping"
+   },
+   "balcony": false,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": "1"
+   },
+   "constructionYear": 0,
+   "model": {
+    "modelCategorie": {
+     "icon": "br_dth",
+     "code": "reactiedatum",
+     "toonOpWebsite": true,
+     "id": "3"
+    },
+    "isHospiteren": false,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": true,
+    "aantalReactiesTonen": 1
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-22 10:49:00",
+   "closingDate": "2026-09-29 10:49:00",
+   "latitude": "52.1575",
+   "longitude": "4.49673",
+   "pictures": [
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/139546-6ab2400d0e1eb.jpg",
+     "type": "jpg"
+    },
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/139546-6ab2400e61336.jpg",
+     "type": "jpg"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 25,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "icon_doelgroep_jongeren\t",
+     "code": "Studentr",
+     "id": "5"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": "1",
+    "localizedNaam": "Zelfstandig"
+   },
+   "aantalMedebewoners": 0,
+   "isExternModelType": false,
+   "isZelfstandig": true,
+   "urlKey": "139546-kloosterpoort-113-leiden",
+   "availableFromDate": "2026-10-16",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "139546",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "",
+   "huurtoeslagVoorwaarde": {
+    "icon": "huurtoeslag",
+    "id": "1",
+    "localizedIconText": "Huurtoeslag ≥ 18jr"
+   },
+   "huurtoeslagMogelijk": true,
+   "specifiekeVoorzieningen": [
+    {
+     "id": "23"
+    },
+    {
+     "id": "50"
+    },
+    {
+     "id": "2"
+    }
+   ],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "10"
+   },
+   "postalcode": "9717 KR",
+   "street": "Noorderstationsstraat",
+   "houseNumber": "70",
+   "houseNumberAddition": "B K3",
+   "regio": {
+    "name": "Regio Groningen",
+    "id": "8"
+   },
+   "municipality": {
+    "name": "Groningen",
+    "id": "46"
+   },
+   "city": {
+    "name": "Groningen",
+    "id": "19"
+   },
+   "quarter": {
+    "name": "Noorderplantsoenbuurt",
+    "id": "100"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "2",
+    "localizedName": "Zelf inrichten"
+   },
+   "availableFrom": "",
+   "netRent": 264.95,
+   "totalRent": 409.88,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "5",
+    "id": "1"
+   },
+   "energyLabel": {
+    "icon": null,
+    "id": null
+   },
+   "floor": {
+    "id": "2",
+    "localizedName": "1e verdieping"
+   },
+   "balcony": false,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": "5"
+   },
+   "constructionYear": 1916,
+   "model": {
+    "modelCategorie": {
+     "icon": "icon_toewijzing_hospiteren_inschrijfduur",
+     "code": "hospitereninschrijfduur",
+     "toonOpWebsite": true,
+     "id": "6"
+    },
+    "isHospiteren": true,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": true,
+    "aantalReactiesTonen": 1
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-17 16:11:00",
+   "closingDate": "2026-09-24 16:11:00",
+   "latitude": "53.2292",
+   "longitude": "6.558",
+   "pictures": [
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/139386-6aabf4f288ff8.jpg",
+     "type": "jpg"
+    },
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/139386-6aabf4f37dc27.jpg",
+     "type": "jpg"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 7,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "icon_doelgroep_jongeren",
+     "code": "jongeren",
+     "id": "3"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": "2",
+    "localizedNaam": "Onzelfstandig"
+   },
+   "aantalMedebewoners": 3,
+   "isExternModelType": false,
+   "isZelfstandig": false,
+   "urlKey": "139386-noorderstationsstraat-70-bk3-groningen",
+   "availableFromDate": "2026-10-08",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "524"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "139386",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  },
+  {
+   "uitlegAanbiedprocesVideoTonen": false,
+   "infoveldKort": "Rustige kamer 10min van de stad en strand!",
+   "huurtoeslagVoorwaarde": {
+    "icon": "",
+    "id": null,
+    "localizedIconText": null
+   },
+   "huurtoeslagMogelijk": false,
+   "specifiekeVoorzieningen": [
+    {
+     "id": "23"
+    },
+    {
+     "id": "2"
+    }
+   ],
+   "toegankelijkheid": [],
+   "inschrijvingVereistVoorReageren": true,
+   "corporation": {
+    "code": "01"
+   },
+   "postalcode": "2562 BA",
+   "street": "Beeklaan",
+   "houseNumber": "397",
+   "houseNumberAddition": "18",
+   "regio": {
+    "name": "Regio Haaglanden/ Leiden",
+    "id": "1"
+   },
+   "municipality": {
+    "name": "Den Haag",
+    "id": "22"
+   },
+   "city": {
+    "name": "Den Haag",
+    "id": "5"
+   },
+   "quarter": {
+    "name": "Bomen- en Bloemenbuurt",
+    "id": "46"
+   },
+   "neighborhood": {
+    "name": "",
+    "id": null
+   },
+   "dwellingType": {
+    "categorie": "woning",
+    "huurprijsDuurActief": false,
+    "id": "2",
+    "localizedName": "Zelf inrichten"
+   },
+   "availableFrom": "",
+   "netRent": 229.52,
+   "totalRent": 410.16,
+   "flexibelHurenActief": false,
+   "sellingPrice": 0,
+   "sleepingRoom": {
+    "amountOfRooms": "5",
+    "id": "1"
+   },
+   "energyLabel": {
+    "icon": "",
+    "id": "8"
+   },
+   "floor": {
+    "id": "3",
+    "localizedName": "2e verdieping"
+   },
+   "balcony": false,
+   "balconySite": {
+    "localizedName": null
+   },
+   "kitchen": {
+    "id": "5"
+   },
+   "constructionYear": 1906,
+   "model": {
+    "modelCategorie": {
+     "icon": "icon_toewijzing_hospiteren",
+     "code": "hospiteren",
+     "toonOpWebsite": true,
+     "id": "5"
+    },
+    "isHospiteren": true,
+    "advertentieSluitenNaEersteReactie": false,
+    "einddatumTonen": false,
+    "aantalReactiesTonen": 1
+   },
+   "rentBuy": "Huur",
+   "publicationDate": "2026-09-23 11:22:00",
+   "closingDate": "2026-09-26 00:00:00",
+   "latitude": "52.0796",
+   "longitude": "4.2768",
+   "pictures": [
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/139616-6ab39c2ad7e1b.png",
+     "type": "png"
+    },
+    {
+     "label": "",
+     "uri": "/portal/uploads/dwelling/pictures/139616-6ab39c2b9f60b.jpg",
+     "type": "jpg"
+    }
+   ],
+   "reactieUrl": "",
+   "newlyBuild": false,
+   "areaDwelling": 12,
+   "actionLabel": {
+    "localizedLabel": null
+   },
+   "actionLabelFrom": "0000-00-00 00:00:00",
+   "actionLabelUntil": "0000-00-00 00:00:00",
+   "actionLabelIfActive": false,
+   "relatieHuurInkomenData": null,
+   "relatieHuurInkomenGroepen": null,
+   "doelgroepen": [
+    {
+     "icon": "icon_doelgroep_jongeren",
+     "code": "jongeren",
+     "id": "3"
+    }
+   ],
+   "koopvoorwaarden": {
+    "localizedNaam": null
+   },
+   "isExtraAanbod": false,
+   "isWoningruil": false,
+   "vatInclusive": false,
+   "woningsoort": {
+    "id": "2",
+    "localizedNaam": "Onzelfstandig"
+   },
+   "aantalMedebewoners": 14,
+   "isExternModelType": false,
+   "isZelfstandig": false,
+   "urlKey": "139616-beeklaan-397-18-denhaag",
+   "availableFromDate": "2026-10-01",
+   "verzameladvertentieID": 0,
+   "huurprijsBuitenKortingsgrens": false,
+   "land": {
+    "id": "0"
+   },
+   "uitlegTekstAanbiedproces": "",
+   "typeContract": null,
+   "projectID": 0,
+   "projectVerzameladvertentieID": 0,
+   "id": "139616",
+   "isGepubliceerd": true,
+   "isInGepubliceerdeVerzameladvertentie": false
+  }
+ ]
+}

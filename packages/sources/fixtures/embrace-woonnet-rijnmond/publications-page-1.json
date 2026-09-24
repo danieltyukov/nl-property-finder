@@ -1,0 +1,742 @@
+{
+ "data": {
+  "housingPublications": {
+   "nodes": {
+    "pageInfo": {
+     "hasNextPage": true,
+     "endCursor": "SG91c2luZ1B1YmxpY2F0aW9uOjQ="
+    },
+    "edges": [
+     {
+      "node": {
+       "id": "SG91c2luZ1B1YmxpY2F0aW9uOjEwMDEyMzMxMw==",
+       "startTime": "2026-09-23T20:00:00+02:00",
+       "stopTime": "2026-09-26T20:00:00+02:00",
+       "totalNumberOfApplications": 0,
+       "allocationProcess": {
+        "id": "SG91c2luZ0FsbG9jYXRpb25Qcm9jZXNzOjEw",
+        "name": "Inschrijfduur",
+        "applicationMethod": "REGISTRATION"
+       },
+       "unit": {
+        "id": "SG91c2luZ1B1YmxpY2F0aW9uVW5pdDoxNDQ5OTQ7MDswOw==",
+        "description": "<p>Leuke woning in de levendige wijk Bloemhof. Winkels, scholen en openbaar vervoer in de directe omgeving.&nbsp;</p><p>Via de trap bereikt u de 1e etage met woonkamer, keuken, toilet en een slaapkamer. Met de 2e trap komt u uit op de 2e etage met badkamer en de overige slaapkamers.</p><p>Neemt u mee naar de bezichtiging:</p><p>- inkomensverklaring 2024 en 2025 van de Belastingdienst</p><p>- jaaropgaaf 2025</p><p>- 3 recente loonstroken/uitkeringsspecificaties</p><p>- verhuurdersverklaring huidige verhuurder/bankverklaring hypotheekverstrekker</p><p>- een historisch uittreksel van de gemeente indien niet woonachtig in Rotterdam</p><p>- legitimatiebewijs</p><p><em>De plattegrond&nbsp; en foto's geven een impressie van de woning. Hier kunnen geen rechten aan worden ontleend.</em></p><p><em>Huurprijzen onder voorbehoud</em></p>",
+        "slug": {
+         "value": "Rotterdam-Kamperfoeliestraat-16B-SG91c2luZ1B1YmxpY2F0aW9uOjEwMDEyMzMxMw=="
+        },
+        "unitUsageType": "STANDARD",
+        "suitability": "NONE",
+        "basicRent": {
+         "exact": 932.93
+        },
+        "grossRent": {
+         "exact": 943.73
+        },
+        "thumbnails": {
+         "edges": [
+          {
+           "node": {
+            "url": "https://filecabinet.embracecloud.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/185967_93749/6219051_77458.jpg"
+           }
+          },
+          {
+           "node": {
+            "url": "https://filecabinet.embracecloud.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/185967_93749/6219071_28460.jpg"
+           }
+          }
+         ]
+        },
+        "location": {
+         "id": "SG91c2luZ0xvY2F0aW9uOjMwNzNFSjsxNjtCOw==",
+         "addressLine1": "Kamperfoeliestraat 16B",
+         "addressLine2": "Rotterdam"
+        },
+        "types": {
+         "edges": [
+          {
+           "node": {
+            "name": "Flatwoning zonder lift"
+           }
+          }
+         ]
+        },
+        "availableDate": "2026-08-11T00:00:00+02:00",
+        "endDateTemporaryRentalAgreement": null,
+        "externalApplyUrl": {
+         "value": ""
+        },
+        "dimensions": {
+         "edges": [
+          {
+           "node": {
+            "area": "LIVING_ROOM",
+            "surfaceArea": 23000000
+           }
+          },
+          {
+           "node": {
+            "area": "LIVING_ROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "LIVING_BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 14500000
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 8500000
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 7000000
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "KITCHEN",
+            "surfaceArea": 11500000
+           }
+          },
+          {
+           "node": {
+            "area": "BATHROOM",
+            "surfaceArea": 4000000
+           }
+          },
+          {
+           "node": {
+            "area": "HOBBY_ROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "ATTIC",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "HALL",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "STORAGE",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "TRAFFIC_ZONE",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "PLOT",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "TOTAL",
+            "surfaceArea": 68500000
+           }
+          }
+         ]
+        },
+        "energyRating": {
+         "name": "A"
+        },
+        "numberOfBedrooms": {
+         "exact": 3
+        },
+        "availableFor": {
+         "name": ""
+        }
+       }
+      }
+     },
+     {
+      "node": {
+       "id": "SG91c2luZ1B1YmxpY2F0aW9uOjEwMDEyMzMxMQ==",
+       "startTime": "2026-09-23T20:00:00+02:00",
+       "stopTime": "2026-09-27T20:00:00+02:00",
+       "totalNumberOfApplications": 0,
+       "allocationProcess": {
+        "id": "SG91c2luZ0FsbG9jYXRpb25Qcm9jZXNzOjEw",
+        "name": "Inschrijfduur",
+        "applicationMethod": "REGISTRATION"
+       },
+       "unit": {
+        "id": "SG91c2luZ1B1YmxpY2F0aW9uVW5pdDoxNDQ5OTM7MDswOw==",
+        "description": "<p>Zeer ruime 3-kamerwoning op de 7e etage (parkeerplaatszijde) met balkon en 2e toilet. In de buurt zijn twee winkelcentra Binnenhof en Hesseplaats. Openbaar vervoer (metro) aanwezig. In de wijk is tevens een gezondheidscentrum en een aantal apotheken. Koken doe je elektrisch, de woning heeft blokverwarming (voorschot van 100 euro in de servicekosten). Inwonende (klein)kinderen zijn niet toegestaan.</p><p>Neem de volgende documenten mee van uzelf en/of eventuele partner. Heeft u deze gegevens niet bij u tijdens de bezichtiging dan kunnen wij u de woning helaas niet aanbieden:</p><p>Een paspoort of identiteitsbewijs van u en eventueel meeverhuizende personen.</p><p>Een inkomensverklaring van de belastingdienst (IBRI-formulier) over 2024 of 2025, ook als u of uw partner geen inkomen had. Deze kunt u aanvragen bij de belastingdienst of zelf downloaden via de website van de belastingdienst.</p><p>Een verhuurdersverklaring van uw huidige verhuurder of verklaring over de hypotheekbetalingen, beide niet ouder dan 3 maanden: Woonstad sluit alleen een huurovereenkomst af, wanneer er geen sprake is van een betalingsachterstand of overlast.</p><p>Uw jaaropgave 2024 of 2025 en uw 3 laatste salarisstroken of uitkering specificaties.</p><p>Woont u niet in Rotterdam dan hebben wij ook een uittreksel basisregistratie personen (BRP) met uw historische adressen nodig. Deze vraagt u aan bij uw gemeente en mag niet ouder zijn dan 3 maanden.</p><p>Zelfstandige ondernemers dienen naast een inkomensverklaring 2024 of 2025 ook een winst- en verliesrekening van 2024 of 2025 in te leveren en een prognose over het lopende jaar.</p><p>LET OP: De genoemde huurprijzen en de advertentietekst zijn onder voorbehoud van eventuele huurstijgingen en fouten.</p>",
+        "slug": {
+         "value": "Rotterdam-Zernikeplaats-908-SG91c2luZ1B1YmxpY2F0aW9uOjEwMDEyMzMxMQ=="
+        },
+        "unitUsageType": "STANDARD",
+        "suitability": "SENIORS65_PLUS",
+        "basicRent": {
+         "exact": 713.02
+        },
+        "grossRent": {
+         "exact": 908.99
+        },
+        "thumbnails": {
+         "edges": [
+          {
+           "node": {
+            "url": "https://filecabinet.embracecloud.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/185962_36058/6218649_20745.jpg"
+           }
+          },
+          {
+           "node": {
+            "url": "https://filecabinet.embracecloud.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/185962_36058/6218659_63652.png"
+           }
+          }
+         ]
+        },
+        "location": {
+         "id": "SG91c2luZ0xvY2F0aW9uOjMwNjhKQjs5MDg7Ow==",
+         "addressLine1": "Zernikeplaats 908",
+         "addressLine2": "Rotterdam"
+        },
+        "types": {
+         "edges": [
+          {
+           "node": {
+            "name": "Flatwoning met lift"
+           }
+          }
+         ]
+        },
+        "availableDate": "2026-09-24T00:00:00+02:00",
+        "endDateTemporaryRentalAgreement": null,
+        "externalApplyUrl": {
+         "value": ""
+        },
+        "dimensions": {
+         "edges": [
+          {
+           "node": {
+            "area": "LIVING_ROOM",
+            "surfaceArea": 30200000
+           }
+          },
+          {
+           "node": {
+            "area": "LIVING_ROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "LIVING_BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 12800000
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 9500000
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "KITCHEN",
+            "surfaceArea": 10100000
+           }
+          },
+          {
+           "node": {
+            "area": "BATHROOM",
+            "surfaceArea": 8100000
+           }
+          },
+          {
+           "node": {
+            "area": "HOBBY_ROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "ATTIC",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "HALL",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "STORAGE",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "TRAFFIC_ZONE",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "PLOT",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "TOTAL",
+            "surfaceArea": 70700000
+           }
+          }
+         ]
+        },
+        "energyRating": {
+         "name": "C"
+        },
+        "numberOfBedrooms": {
+         "exact": 2
+        },
+        "availableFor": {
+         "name": "65+-ers"
+        }
+       }
+      }
+     },
+     {
+      "node": {
+       "id": "SG91c2luZ1B1YmxpY2F0aW9uOjEwMDEyMzMxMA==",
+       "startTime": "2026-09-23T20:00:00+02:00",
+       "stopTime": "2026-09-28T20:00:00+02:00",
+       "totalNumberOfApplications": 0,
+       "allocationProcess": {
+        "id": "SG91c2luZ0FsbG9jYXRpb25Qcm9jZXNzOjEw",
+        "name": "Inschrijfduur",
+        "applicationMethod": "REGISTRATION"
+       },
+       "unit": {
+        "id": "SG91c2luZ1B1YmxpY2F0aW9uVW5pdDoxNDQxMDU7MDswOw==",
+        "description": "<p><strong>Gewild ruim appartement waar we samenwerken aan prettig wonen</strong></p><p>Deze woningen zijn jarenlang toegewezen aan huishoudens van 55+ zonder thuiswonende kinderen. Voor een betere en eerlijkere slaagkans voor iedereen, zijn de woningen nu ook beschikbaar voor jongere huishoudens en gezinnen. Reageer en kies dus alleen voor deze woning als u openstaat om samen te wonen in een woongebouw met voornamelijk ouderen, die gewend zijn aan een rustige woonomgeving waar geen tot weinig kinderen wonen.<strong>&nbsp;</strong></p><ul><li>Let op: op dit moment zijn alle scootmobielplekken verhuurd.&nbsp;</li><li>Aan de rand van de wijk Holy.</li><li>Complex met 3- en 4 kamerappartementen.</li><li>Afgesloten portiek met videofooninstallatie.</li><li>Ruim balkon.</li><li>Badkamer en toilet zijn een paar jaar geleden vernieuwd en uitgebreid. Sindsdien is het toilet in de badkamer.</li><li>Scootmobielplaatsen onder in complex .</li><li>Parkeergelegenheid voor de deur.</li><li>Bibliotheek en medisch centrum op loopafstand.</li><li>dichtbij de Vlaardingse vaart met zijn mooie polderlandschap.</li><li>Aan de overkant van de woning bevindt zich een klein wandelpark met een dierenweide.</li><li>Winkelcentrum De Loper met zijn vele verschillende winkels is dichtbij en goed te bereiken met de fiets en auto.</li><li>Op loopafstand van openbaar vervoer.</li><li>Binnen enkele minuten op de snelweg A4 en A20 om binnen 20 minuten uit te komen in Rotterdam, Delft of Hoek van Holland strand.</li></ul><p><strong>Let op!</strong><strong> </strong><br />Vergeet niet uw inkomensverklaring op te vragen bij de belastingdienst. Deze hebben wij namelijk nodig. Deze kunt u opvragen via de belastingtelefoon (duurt 5 werkdagen) of online downloaden met uw DigiD via Mijnbelastingdienst.nl. <strong>Dit hoeft niet als u gebruik</strong><strong> </strong><strong>maakt van een digitale inkomensverklaring.</strong></p>",
+        "slug": {
+         "value": "Vlaardingen-Stadhouderslaan-119-SG91c2luZ1B1YmxpY2F0aW9uOjEwMDEyMzMxMA=="
+        },
+        "unitUsageType": "STANDARD",
+        "suitability": "NONE",
+        "basicRent": {
+         "exact": 932.93
+        },
+        "grossRent": {
+         "exact": 982.26
+        },
+        "thumbnails": {
+         "edges": [
+          {
+           "node": {
+            "url": "https://filecabinet.embracecloud.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/185959_10794/6218607_44361.jpg"
+           }
+          },
+          {
+           "node": {
+            "url": "https://filecabinet.embracecloud.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/185959_10794/6218617_85588.jpg"
+           }
+          }
+         ]
+        },
+        "location": {
+         "id": "SG91c2luZ0xvY2F0aW9uOjMxMzZCTTsxMTk7Ow==",
+         "addressLine1": "Stadhouderslaan 119",
+         "addressLine2": "Vlaardingen"
+        },
+        "types": {
+         "edges": [
+          {
+           "node": {
+            "name": "Flatwoning met lift"
+           }
+          }
+         ]
+        },
+        "availableDate": "2026-10-19T00:00:00+02:00",
+        "endDateTemporaryRentalAgreement": null,
+        "externalApplyUrl": {
+         "value": ""
+        },
+        "dimensions": {
+         "edges": [
+          {
+           "node": {
+            "area": "LIVING_ROOM",
+            "surfaceArea": 31110000
+           }
+          },
+          {
+           "node": {
+            "area": "LIVING_ROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "LIVING_BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 11970000
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 6520000
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "KITCHEN",
+            "surfaceArea": 11880000
+           }
+          },
+          {
+           "node": {
+            "area": "BATHROOM",
+            "surfaceArea": 4370000
+           }
+          },
+          {
+           "node": {
+            "area": "HOBBY_ROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "ATTIC",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "HALL",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "STORAGE",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "TRAFFIC_ZONE",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "PLOT",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "TOTAL",
+            "surfaceArea": 65780000
+           }
+          }
+         ]
+        },
+        "energyRating": {
+         "name": "A"
+        },
+        "numberOfBedrooms": {
+         "exact": 2
+        },
+        "availableFor": {
+         "name": ""
+        }
+       }
+      }
+     },
+     {
+      "node": {
+       "id": "SG91c2luZ1B1YmxpY2F0aW9uOjEwMDEyMzIzMQ==",
+       "startTime": "2026-09-21T20:00:00+02:00",
+       "stopTime": "2026-09-24T20:00:00+02:00",
+       "totalNumberOfApplications": 0,
+       "allocationProcess": {
+        "id": "SG91c2luZ0FsbG9jYXRpb25Qcm9jZXNzOjEx",
+        "name": "WoningLoting",
+        "applicationMethod": "REGISTRATION"
+       },
+       "unit": {
+        "id": "SG91c2luZ1B1YmxpY2F0aW9uVW5pdDoxNDQ4NzY7MDswOw==",
+        "description": "<p>Goed verzorgde wijk gelegen op loopafstand van NS-station Lombardijen en Maasstad Ziekenhuis. Tevens nabij snelwegen A15/A16 en op fietsafstand van 2 winkelcentra.</p><p>Entree via binnengalerij op de 5e verdieping (met lift). Gang, berging en badkamer met douche en toilet, woonkamer met open keuken en 2 slaapkamers.</p><p>Bij het reageren op deze woning kunt u uw inkomensverklaring van de Belastingdienst direct delen via Mijn Overheid. Makkelijk en veilig!</p>",
+        "slug": {
+         "value": "Rotterdam-Sluiskreek-830-SG91c2luZ1B1YmxpY2F0aW9uOjEwMDEyMzIzMQ=="
+        },
+        "unitUsageType": "STANDARD",
+        "suitability": "NONE",
+        "basicRent": {
+         "exact": 932.93
+        },
+        "grossRent": {
+         "exact": 1002.33
+        },
+        "thumbnails": {
+         "edges": [
+          {
+           "node": {
+            "url": "https://filecabinet.embracecloud.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/185852_53441/6212579_71406.jpg"
+           }
+          },
+          {
+           "node": {
+            "url": "https://filecabinet.embracecloud.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/185852_53441/6212549_99865.jpg"
+           }
+          }
+         ]
+        },
+        "location": {
+         "id": "SG91c2luZ0xvY2F0aW9uOjMwNzlCSDs4MzA7Ow==",
+         "addressLine1": "Sluiskreek 830",
+         "addressLine2": "Rotterdam"
+        },
+        "types": {
+         "edges": [
+          {
+           "node": {
+            "name": "Flatwoning met lift"
+           }
+          }
+         ]
+        },
+        "availableDate": "2026-09-30T00:00:00+02:00",
+        "endDateTemporaryRentalAgreement": null,
+        "externalApplyUrl": {
+         "value": ""
+        },
+        "dimensions": {
+         "edges": [
+          {
+           "node": {
+            "area": "LIVING_ROOM",
+            "surfaceArea": 23000000
+           }
+          },
+          {
+           "node": {
+            "area": "LIVING_ROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "LIVING_BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 12800000
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 8200000
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "BEDROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "KITCHEN",
+            "surfaceArea": 7400000
+           }
+          },
+          {
+           "node": {
+            "area": "BATHROOM",
+            "surfaceArea": 3100000
+           }
+          },
+          {
+           "node": {
+            "area": "HOBBY_ROOM",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "ATTIC",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "HALL",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "STORAGE",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "TRAFFIC_ZONE",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "PLOT",
+            "surfaceArea": 0
+           }
+          },
+          {
+           "node": {
+            "area": "TOTAL",
+            "surfaceArea": 60000000
+           }
+          }
+         ]
+        },
+        "energyRating": {
+         "name": "A++"
+        },
+        "numberOfBedrooms": {
+         "exact": 2
+        },
+        "availableFor": {
+         "name": ""
+        }
+       }
+      }
+     }
+    ]
+   }
+  }
+ }
+}
