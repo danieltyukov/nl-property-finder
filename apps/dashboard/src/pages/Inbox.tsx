@@ -320,8 +320,8 @@ function InboxItem(props: {
         ) : null}
         <p className="item-reason">{task.reason}</p>
 
-        {task.kind === 'offer_or_contract' ? <ContractFindings review={task.payload?.contractReview as ContractReview | undefined} /> : null}
-        {task.kind === 'scam_review' || task.kind === 'payment_warning' ? <Signals task={task} /> : null}
+        {task.kind === 'offer_or_contract' ? <ContractFindings review={(task.payload?.contractReview ?? task.payload?.review) as ContractReview | undefined} /> : null}
+        {task.kind === 'scam_review' || task.kind === 'payment_warning' || task.kind === 'offer_or_contract' ? <Signals task={task} /> : null}
 
         {task.kind === 'viewing_choice' && slots.length ? (
           <fieldset className="slots">
@@ -442,7 +442,8 @@ function ContractFindings({ review }: { review?: ContractReview }) {
 }
 
 function Signals({ task }: { task: Task }) {
-  const signals = [...payloadStrings(task, 'signals'), ...payloadStrings(task, 'feeFlags')];
+  // The daemon calls fee flags "flags"; "feeFlags" is accepted too.
+  const signals = [...new Set([...payloadStrings(task, 'signals'), ...payloadStrings(task, 'feeFlags'), ...payloadStrings(task, 'flags')])];
   if (!signals.length) return null;
   return (
     <p className="signals">
@@ -455,11 +456,14 @@ function Signals({ task }: { task: Task }) {
 
 function TaskDetails({ task }: { task: Task }) {
   const message = payloadString(task, 'message');
+  const summary = payloadString(task, 'summary');
   const documents = payloadStrings(task, 'documents');
   const questions = payloadStrings(task, 'questions');
   const errors = payloadStrings(task, 'errors');
-  const error = payloadString(task, 'error');
-  const viewing = task.payload?.viewing as { startsAt?: string; endsAt?: string; location?: string } | undefined;
+  const error = payloadString(task, 'error') ?? payloadString(task, 'lastError');
+  const viewing =
+    (task.payload?.viewing as { startsAt?: string; endsAt?: string; location?: string } | undefined) ??
+    (payloadString(task, 'startsAt') ? { startsAt: payloadString(task, 'startsAt'), endsAt: payloadString(task, 'endsAt') } : undefined);
   return (
     <div className="item-details">
       {viewing?.startsAt ? (
@@ -473,6 +477,11 @@ function TaskDetails({ task }: { task: Task }) {
         <div>
           <p className="label">Their message</p>
           <blockquote className="quote">{message}</blockquote>
+        </div>
+      ) : summary ? (
+        <div>
+          <p className="label">What they wrote, in short</p>
+          <blockquote className="quote">{summary}</blockquote>
         </div>
       ) : null}
       {questions.length ? (

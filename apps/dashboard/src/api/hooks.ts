@@ -7,7 +7,7 @@
 import { useMutation, useQuery, useQueryClient, type QueryKey } from '@tanstack/react-query';
 import type { Config } from '@nlpf/core';
 import { useApi } from './client';
-import { items } from './views';
+import { items, toApplicationView } from './views';
 import type { ConfigView } from './views';
 
 export const qk = {
@@ -34,7 +34,11 @@ export function useStatus() {
 
 export function useTasks() {
   const api = useApi();
-  return useQuery({ queryKey: qk.tasks, queryFn: async () => items(await api.tasks({ state: 'open' })) });
+  // No state filter: the daemon's default is the active list (open, plus snoozed items that are due again).
+  return useQuery({
+    queryKey: qk.tasks,
+    queryFn: async () => items(await api.tasks()).filter((t) => t.state === 'open' || t.state === 'snoozed'),
+  });
 }
 
 export function useProperties(params: { status?: string; q?: string; limit?: number } = {}) {
@@ -58,7 +62,7 @@ export function useProperty(id: string | null | undefined) {
 
 export function useApplications() {
   const api = useApi();
-  return useQuery({ queryKey: qk.applications, queryFn: async () => items(await api.applications()) });
+  return useQuery({ queryKey: qk.applications, queryFn: async () => items(await api.applications()).flatMap(toApplicationView) });
 }
 
 export function useConversations() {

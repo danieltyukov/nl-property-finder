@@ -310,8 +310,10 @@ async function api(req: IncomingMessage, res: ServerResponse, url: URL) {
       return send(res, 200, { withdrawn: count });
     }
     case 'tasks': {
-      const state = url.searchParams.get('state') ?? 'open';
-      return send(res, 200, { items: world.tasks.filter((t) => state === 'all' || t.state === state) });
+      const state = url.searchParams.get('state') ?? 'active';
+      const now = Date.now();
+      const active = (t: Task) => t.state === 'open' || (t.state === 'snoozed' && Date.parse(t.snoozedUntil ?? '') <= now);
+      return send(res, 200, { items: world.tasks.filter((t) => (state === 'active' ? active(t) : state === 'all' || t.state === state)) });
     }
     case 'resolveTask': {
       const task = world.tasks.find((t) => t.id === params.id);

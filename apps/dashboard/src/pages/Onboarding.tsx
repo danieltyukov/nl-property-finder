@@ -17,7 +17,7 @@ import { Button, Chip, Field, Loading, Tag, Toggle } from '../components/ui';
 import { eur, ymd } from '../lib/format';
 import { OCCUPATION, PROPERTY_TYPE } from '../lib/labels';
 import { suggestTopic } from '../lib/access';
-import { termsRisk } from '../lib/sources';
+import { termsOf, termsRisk } from '../lib/sources';
 
 const STEPS = ['Profile', 'Search', 'Mail', 'Notifications', 'Sources', 'Review'] as const;
 type Step = (typeof STEPS)[number];
@@ -113,8 +113,8 @@ function Wizard({ config, sources, onFinish }: { config: ConfigView; sources: So
     }
   };
 
-  const forbids = sources.filter((s) => s.capabilities?.terms === 'forbids');
-  const others = sources.filter((s) => s.capabilities?.terms !== 'forbids');
+  const forbids = sources.filter((s) => termsOf(s) === 'forbids');
+  const others = sources.filter((s) => termsOf(s) !== 'forbids');
 
   return (
     <div className="onboarding">
@@ -387,7 +387,7 @@ function Wizard({ config, sources, onFinish }: { config: ConfigView; sources: So
                   <dt className="label">Contacts automatically on</dt>
                   <dd>
                     {sources
-                      .filter((s) => (sourceCfg[s.sourceId]?.enabled ?? s.enabled) && (s.capabilities?.terms === 'forbids' ? sourceCfg[s.sourceId]?.contact === 'auto' : s.capabilities?.contact !== 'none'))
+                      .filter((s) => (sourceCfg[s.sourceId]?.enabled ?? s.enabled) && (termsOf(s) === 'forbids' ? sourceCfg[s.sourceId]?.contact === 'auto' : s.capabilities?.contact !== 'none'))
                       .map((s) => s.name)
                       .join(', ') || 'no source yet'}
                   </dd>

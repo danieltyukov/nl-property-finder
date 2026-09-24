@@ -12,6 +12,7 @@ import type {
   NlpfEvent,
   Page,
   Property,
+  PropertyView,
   RawListing,
   SourceCapabilities,
   SourceConfig,
@@ -67,6 +68,19 @@ export interface DraftResult {
 }
 
 export type ActivityPage = Page<NlpfEvent>;
+
+/**
+ * GET /applications may answer with ApplicationView cards or with plain
+ * PropertyViews (what the daemon returns today); both become cards, and the
+ * fields a PropertyView lacks stay empty.
+ */
+export function toApplicationView(value: ApplicationView | PropertyView): ApplicationView[] {
+  if ('listings' in value) {
+    if (!value.application) return [];
+    return [{ application: value.application, property: value.property, conversationId: value.conversationIds[0] ?? null }];
+  }
+  return [value];
+}
 
 /** List routes may answer with a bare array or a Page; both read the same. */
 export function items<T>(value: T[] | Page<T> | null | undefined): T[] {

@@ -5,7 +5,7 @@
  */
 import { useEffect, useMemo, useState } from 'react';
 import type { ApplicationStatus } from '@nlpf/core';
-import { useApplications, useConfig, useWithdrawAll } from '../api/hooks';
+import { useApplications, useConfig, useConversations, useWithdrawAll } from '../api/hooks';
 import type { ApplicationView } from '../api/views';
 import { CHANNEL, sourceName } from '../lib/labels';
 import { fullAddress, street } from '../lib/format';
@@ -32,7 +32,9 @@ const ELSEWHERE = '__elsewhere__';
 export function FoundPlaceDialog() {
   const ui = useUi();
   const applications = useApplications();
+  const conversations = useConversations();
   const config = useConfig();
+  const counterparts = useMemo(() => new Map((conversations.data ?? []).map((c) => [c.id, c.counterpart])), [conversations.data]);
   const withdraw = useWithdrawAll();
   const { toast } = useFeedback();
   const open = ui.foundOpen;
@@ -126,7 +128,12 @@ export function FoundPlaceDialog() {
         {recipients.map((a) => (
           <li key={a.application.id} className="preview">
             <p className="preview-head">
-              <span className="preview-to">To {a.counterpart?.name ?? a.counterpart?.email ?? 'the landlord'}</span>
+              <span className="preview-to">
+                To {(() => {
+                  const who = a.counterpart ?? (a.conversationId ? counterparts.get(a.conversationId) : undefined);
+                  return who?.name ?? who?.email ?? 'the landlord';
+                })()}
+              </span>
               <span className="preview-meta">
                 {street(a.property?.address, a.property?.title)} · {CHANNEL[a.application.channel?.kind ?? 'email'] ?? 'Email'}
                 {a.application.channel?.sourceId ? ` on ${sourceName(a.application.channel.sourceId)}` : ''}

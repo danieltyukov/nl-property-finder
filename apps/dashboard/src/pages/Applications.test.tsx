@@ -42,3 +42,13 @@ test('"I found a place" shows one preview per open conversation and calls withdr
     expect.objectContaining({ pause: true, foundAddress: 'Oude Delft 12A, Delft', message: expect.stringContaining('andere woning') }),
   );
 });
+
+test('the board also reads PropertyViews, which is what the daemon returns today', async () => {
+  const world = buildWorld();
+  const api = makeApi(world);
+  api.applications = async () => ({ items: world.properties.filter((p) => p.application) });
+  renderApp({ path: '/applications', api });
+  const offer = await screen.findByRole('region', { name: 'Offer' });
+  expect(within(offer).getByRole('link', { name: 'Kralingse Plaslaan 20' })).toBeTruthy();
+  expect(within(offer).getByRole('link', { name: 'Open conversation' }).getAttribute('href')).toBe('/conversations/c_plaslaan');
+});

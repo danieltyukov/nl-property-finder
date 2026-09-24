@@ -13,7 +13,7 @@ import { useNow } from '../components/state';
 import { Button, Dot, ErrorNote, Loading, PageHeader, StatusPill, Tag, Toggle } from '../components/ui';
 import { ago, duration, eur } from '../lib/format';
 import { CHANNEL, SOURCE_HEALTH } from '../lib/labels';
-import { planName, termsRisk } from '../lib/sources';
+import { contactModeOf, planName, termsOf, termsRisk } from '../lib/sources';
 import { safeHref } from '../lib/url';
 
 export function SourcesPage() {
@@ -60,10 +60,11 @@ function SourceCard({ source, now }: { source: SourceView; now: number }) {
   const [confirm, setConfirm] = useState(false);
   const caps = source.capabilities;
   const health = SOURCE_HEALTH[source.health];
-  const auto = source.contactMode === 'auto';
-  const forbids = caps?.terms === 'forbids';
+  const auto = contactModeOf(source, source.config ?? config.data?.sources[source.sourceId]) === 'auto';
+  const forbids = termsOf(source) === 'forbids';
   const acknowledged = Boolean(source.config?.termsAcknowledgedAt ?? config.data?.sources[source.sourceId]?.termsAcknowledgedAt);
-  const loginNeeded = caps?.login === 'required' || caps?.login === 'optional';
+  // Without capabilities from the daemon, only an expired session says a login exists.
+  const loginNeeded = caps ? caps.login !== 'none' : source.health === 'needs_login';
   const plan = caps?.paid?.plan;
   const hasPlan = Boolean(source.config?.paidPlan ?? config.data?.sources[source.sourceId]?.paidPlan);
 
@@ -117,10 +118,12 @@ function SourceCard({ source, now }: { source: SourceView; now: number }) {
           <dt>Contact</dt>
           <dd>{auto ? (CHANNEL[caps?.contact ?? ''] ?? 'Automatic') : 'Watch only'}</dd>
         </div>
-        <div>
-          <dt>Account</dt>
-          <dd>{source.health === 'needs_login' ? 'Session expired' : loginNeeded ? 'Login needed to reply' : 'No login'}</dd>
-        </div>
+        {caps || source.health === 'needs_login' ? (
+          <div>
+            <dt>Account</dt>
+            <dd>{source.health === 'needs_login' ? 'Session expired' : loginNeeded ? 'Login needed to reply' : 'No login'}</dd>
+          </div>
+        ) : null}
         {source.nextRunAt && source.enabled ? (
           <div>
             <dt>Next check</dt>

@@ -96,3 +96,27 @@ test('opting in to automatic contact on a platform that forbids it records terms
   expect(await screen.findByRole('heading', { name: 'Ready to start.' })).toBeTruthy();
   expect(screen.getByText(/Funda/, { selector: 'dd' })).toBeTruthy();
 });
+
+test('platforms whose terms forbid automation still get the opt-in when /sources has no capabilities', async () => {
+  const user = userEvent.setup();
+  const world = buildWorld(Date.now(), { fresh: true });
+  world.sources = world.sources.map((s) => ({
+    sourceId: s.sourceId,
+    name: s.name,
+    enabled: s.enabled,
+    health: s.health,
+    consecutiveFailures: s.consecutiveFailures,
+    consecutiveEmpty: s.consecutiveEmpty,
+  }));
+  renderApp({ api: makeApi(world) });
+  await user.type(await screen.findByLabelText('First name'), 'Sam');
+  await user.click(screen.getByRole('button', { name: 'Continue' }));
+  await user.click(await screen.findByRole('checkbox', { name: 'Delft' }));
+  await user.click(screen.getByRole('button', { name: 'Continue' }));
+  await user.click(await screen.findByRole('button', { name: 'Skip for now' }));
+  await screen.findByRole('heading', { name: 'How should it reach you?' });
+  await user.click(screen.getByRole('button', { name: 'Skip for now' }));
+  await screen.findByRole('heading', { name: 'Which sites, and how?' });
+  expect(screen.getByRole('checkbox', { name: /contact landlords on Pararius automatically/ })).toBeTruthy();
+  expect(screen.queryByRole('checkbox', { name: /contact landlords on RoomMatch automatically/ })).toBeNull();
+});

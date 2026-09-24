@@ -141,9 +141,9 @@ export function createApi(t: Transport) {
     contactProperty: (propertyId: string, body: ContactInput = {}) =>
       call<unknown>(ROUTES.contactProperty, { params: id(propertyId), body }),
     skipProperty: (propertyId: string) => call<unknown>(ROUTES.skipProperty, { params: id(propertyId) }),
-    applications: () => call<Page<ApplicationView> | ApplicationView[]>(ROUTES.applications),
+    applications: () => call<Page<ApplicationView | PropertyView> | (ApplicationView | PropertyView)[]>(ROUTES.applications),
     withdrawAll: (body: WithdrawAllInput) => call<unknown>(ROUTES.withdrawAll, { body }),
-    tasks: (query: { state?: string } = { state: 'open' }) => call<Page<Task> | Task[]>(ROUTES.tasks, { query }),
+    tasks: (query: { state?: string } = {}) => call<Page<Task> | Task[]>(ROUTES.tasks, { query }),
     resolveTask: (taskId: string, body: ResolveTaskInput) =>
       call<Task | undefined>(ROUTES.resolveTask, { params: id(taskId), body }),
     conversations: () => call<Page<Conversation> | Conversation[]>(ROUTES.conversations),
