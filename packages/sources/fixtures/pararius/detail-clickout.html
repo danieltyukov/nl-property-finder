@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!-- SYNTHETIC fixture: a Pararius listing "found outside our own network". Built from pieces recorded on 2026-09-24: the listing summary markup and the "Contact met de aanbieder" dialog with its clickout_contact_form (both present on every recorded listing page), plus the click-out reaction button that ListingReactionButton.wc.js looks for (class listing-reaction-button--click-out with a button). No real clickout listing was found in the 10 pages recorded. -->
+<html lang="nl">
+<head><meta charset="utf-8"><title>Appartement te huur Teststraat 12 in Delft voor € 1.250</title></head>
+<body class="page page--listing-detail">
+<wc-masthead class="masthead masthead--listing-detail"><a class="masthead__button masthead__button--login" href="/inloggen">Inloggen</a></wc-masthead>
+<wc-external-listing-contact-dialog>
+  <dialog class="dialog dialog--external-listing-contact fixed">
+    <div class="dialog__body">
+      <h3 class="dialog__title">Contact met de aanbieder</h3>
+      <p>Deze woning is gevonden buiten ons eigen netwerk. Via de knop hieronder ga je direct naar de website van de aanbieder.</p>
+      <menu class="dialog__menu">
+        <form name="clickout_contact_form" class="form form--external_listing_contact_form" method="post" action="/clickout">
+          <input type="hidden" name="clickout_contact_form[_token]" value="csrf-token" data-form-token="1">
+          <div class="form__contact">
+            <input type="hidden" name="clickout_contact_form[listing_id]" value="aaaaaaaa-0000-5000-8000-000000000001">
+            <div class="form__submit"><button class="button button--secondary dialog__external-button" type="submit">Contact met de aanbieder</button></div>
+          </div>
+        </form>
+      </menu>
+    </div>
+  </dialog>
+</wc-external-listing-contact-dialog>
+<main class="page__content">
+  <section class="listing-detail-summary">
+    <h1 class="listing-detail-summary__title">Te huur: Appartement Teststraat 12 in Delft</h1>
+    <div class="listing-detail-summary__location">2611 AB Delft (Centrum)</div>
+    <div class="listing-detail-summary__price"><span class="listing-detail-summary__price-main">€ 1.250 per maand</span></div>
+  </section>
+  <dl class="listing-features__list">
+    <dt class="listing-features__term">Huurprijs</dt><dd class="listing-features__description"><span class="listing-features__main-description">€ 1.250 per maand</span></dd>
+    <dt class="listing-features__term">Woonoppervlakte</dt><dd class="listing-features__description"><span class="listing-features__main-description">48 m²</span></dd>
+  </dl>
+  <section class="agent-summary" data-controller="agent-summary">
+    <div class="agent-summary__title">Voorbeeld Verhuur</div>
+    <div class="agent-summary__buttons">
+      <wc-listing-reaction-button class="listing-reaction-button listing-reaction-button--click-out">
+        <button class="button button--secondary" type="button">Contact met de aanbieder</button>
+      </wc-listing-reaction-button>
+    </div>
+  </section>
+</main>
+</body>
+</html>
