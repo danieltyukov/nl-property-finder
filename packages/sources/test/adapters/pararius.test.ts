@@ -281,6 +281,19 @@ describe('pararius alert emails', () => {
     expect(pararius.alertSenders).toContain('noreply@pararius.nl');
   });
 
+  test('a Pararius mail about a reaction is left to the inbox even though it links a listing', () => {
+    const mail: InboundMessage = {
+      id: '<reaction-1@pararius.nl>',
+      channel: 'email',
+      from: { address: 'noreply@pararius.nl' },
+      subject: 'Je reactie op Appartement Kruisstraat 46 is verstuurd',
+      text: 'Je bericht is doorgestuurd naar de makelaar.\nhttps://www.pararius.nl/appartement-te-huur/delft/fd826b6c/kruisstraat\n',
+      at: '2026-09-24T09:00:00Z',
+      attachments: [],
+    };
+    expect(pararius.parseAlertEmail!(mail)).toEqual([]);
+  });
+
   test('falls back to the plain-text part', () => {
     const mail: InboundMessage = {
       id: '<alert-2@pararius.nl>',

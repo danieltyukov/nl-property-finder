@@ -595,6 +595,8 @@ export function createParariusAdapter(options: ParariusOptions = {}): SourceAdap
 
 const PARARIUS_HOST = /(^|\.)pararius\.(nl|com)$/i;
 const GENERIC_LINK = /^(bekijk( de)? woning|bekijk|view( property)?|meer info(rmatie)?|lees meer)$/i;
+const ALERT = /zoekopdracht|zoekprofiel|nieuwe? (huur)?woning|nieuw aanbod|woningen gevonden|search alert|saved search|new (listings?|properties|rentals?|homes?)\b/i;
+const NOT_ALERT = /\b(reactie|gereageerd|bericht van|bezichtiging|uitnodiging|viewing|message from|replied|wachtwoord|password|account)\b/i;
 
 function alertListing(url: URL, text: string, title: string | undefined): RawListing | undefined {
   const externalId = parariusListingId(url.toString());
@@ -642,6 +644,11 @@ function alertListing(url: URL, text: string, title: string | undefined): RawLis
  * polled one are the same listing.
  */
 export function parseParariusAlert(mail: InboundMessage, base = 'https://www.pararius.nl'): RawListing[] {
+  // Other Pararius mails (a reaction sent, a message from an agent) link to listings too; those are
+  // messages for the inbox, not new listings, so only saved-search mails are read here.
+  const bodyText = mail.html ? load(mail.html).root().text() : mail.text;
+  const subject = mail.subject ?? '';
+  if (NOT_ALERT.test(subject) || !ALERT.test(`${subject}\n${bodyText.slice(0, 20_000)}`)) return [];
   const byId = new Map<string, RawListing>();
   const add = (l: RawListing | undefined) => {
     if (!l) return;
