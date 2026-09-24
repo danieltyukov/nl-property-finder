@@ -124,11 +124,11 @@ describe('rules compose', () => {
 
   it('stays under the channel limit and keeps the copy rules', async () => {
     const out = await rules.compose({
-      listing: makeListing(), profile: makeProfile({ about: 'Rustig — netjes \u{1F600} en sportief. '.repeat(20) }),
+      listing: makeListing(), profile: makeProfile({ about: 'Rustig \u2014 netjes \u{1F600} en sportief. '.repeat(20) }),
       template: '', language: 'nl', channel: 'form', maxChars: 400,
     });
     expect(out.body.length).toBeLessThanOrEqual(400);
-    expect(out.body).not.toMatch(/[–—\u{1F600}]/u);
+    expect(out.body).not.toMatch(/[\u2013\u2014\u{1F600}]/u);
     expect(out.body).toMatch(/Met vriendelijke groet,\nSam de Vries$/);
   });
 });

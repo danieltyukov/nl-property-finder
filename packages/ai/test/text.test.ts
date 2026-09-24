@@ -5,9 +5,9 @@ import {
 
 describe('cleanCopy', () => {
   it('removes emojis and turns dashes used as punctuation into commas', () => {
-    expect(cleanCopy('Leuk huis \u{1F3E0}\u{FE0F}! Graag — als het kan – bezichtigen')).toBe('Leuk huis! Graag, als het kan, bezichtigen');
-    expect(cleanCopy('Tussen 10–12 uur')).toBe('Tussen 10-12 uur');
-    expect(cleanCopy('Ik kom—graag')).toBe('Ik kom, graag');
+    expect(cleanCopy('Leuk huis \u{1F3E0}\u{FE0F}! Graag \u2014 als het kan \u2013 bezichtigen')).toBe('Leuk huis! Graag, als het kan, bezichtigen');
+    expect(cleanCopy('Tussen 10\u201312 uur')).toBe('Tussen 10-12 uur');
+    expect(cleanCopy('Ik kom\u2014graag')).toBe('Ik kom, graag');
   });
 
   it('keeps ordinary hyphens and line breaks', () => {

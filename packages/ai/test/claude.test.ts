@@ -116,11 +116,11 @@ describe('Claude provider', () => {
   });
 
   it('keeps model output to the copy rules and the length limit', async () => {
-    const long = { ...cannedCompose, body: `Beste verhuurder,\n\nIk kom graag kijken — echt waar \u{1F60A}.\n\n${'Extra zin. '.repeat(80)}\n\nMet vriendelijke groet,\nSam de Vries` };
+    const long = { ...cannedCompose, body: `Beste verhuurder,\n\nIk kom graag kijken \u2014 echt waar \u{1F60A}.\n\n${'Extra zin. '.repeat(80)}\n\nMet vriendelijke groet,\nSam de Vries` };
     const { provider } = setup((op) => (op === 'compose' ? long : canned(op)));
     const out = await provider.compose({ ...composeInput(), maxChars: 300 });
     expect(out.body.length).toBeLessThanOrEqual(300);
-    expect(out.body).not.toMatch(/[—\u{1F60A}]/u);
+    expect(out.body).not.toMatch(/[\u2014\u{1F60A}]/u);
     expect(out.body).toContain('kijken, echt waar');
   });
 
