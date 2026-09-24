@@ -83,7 +83,10 @@ export function parseRooms(text: string): number | undefined {
 /** Number of bedrooms ("2 slaapkamers", "1 bedroom", "Aantal slaapkamers: 3"). */
 export function parseBedrooms(text: string): number | undefined {
   const t = text ?? '';
-  const m = /(\d{1,2})\s*(?:slaapkamers?|bedrooms?|slpk)\b/i.exec(t) ?? /\b(?:slaapkamers?|bedrooms?)\s*:?\s*(\d{1,2})\b/i.exec(t);
+  const m =
+    /(\d{1,2})\s*(?:slaapkamers?|bedrooms?|slpk)\b/i.exec(t) ??
+    /\b(?:slaapkamers?|bedrooms?)\s*:?\s*(\d{1,2})\b/i.exec(t) ??
+    /^\s*(\d{1,2})\s*$/.exec(t);
   return m ? Number(m[1]) : undefined;
 }
 
@@ -176,9 +179,9 @@ function earliest<T>(text: string, patterns: [RegExp, T][]): T | undefined {
 }
 
 const FURNISHING: [RegExp, Furnishing][] = [
-  [/\b(?:on|niet[- ]?)gemeubileerd\b|\bongemeubeld\b|\bunfurnished\b|\bnot\s+furnished\b|\bkaal\b/i, 'unfurnished'],
-  [/\bsemi[- ]?(?:furnished|gemeubileerd|gemeubeld)\b|\bgestoffeerd\b|\bupholstered\b|\bpart(?:ly|ially)\s+furnished\b/i, 'upholstered'],
-  [/(?<!semi[- ]?|not\s+)\bfurnished\b|\bgemeubileerd\b|\bgemeubeld\b/i, 'furnished'],
+  [/\b(?:on|niet[- ]?)gemeubileerde?\b|\bongemeubelde?\b|\bunfurnished\b|\bnot\s+furnished\b|\bkaal\b/i, 'unfurnished'],
+  [/\bsemi[- ]?(?:furnished|gemeubileerde?|gemeubelde?)\b|\bgestoffeerde?\b|\bupholstered\b|\bpart(?:ly|ially)\s+furnished\b/i, 'upholstered'],
+  [/(?<!semi[- ]?|not\s+)\bfurnished\b|\bgemeubileerde?\b|\bgemeubelde?\b/i, 'furnished'],
 ];
 
 /** Furnishing from text; the first term mentioned wins. "Gestoffeerd" is `upholstered`. */

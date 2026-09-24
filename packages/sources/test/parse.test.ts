@@ -66,6 +66,7 @@ describe('sizes and rooms', () => {
     expect(parseBedrooms('3 kamers (2 slaapkamers)')).toBe(2);
     expect(parseBedrooms('1 bedroom')).toBe(1);
     expect(parseBedrooms('Aantal slaapkamers: 3')).toBe(3);
+    expect(parseBedrooms('2')).toBe(2);
   });
 });
 
@@ -113,6 +114,12 @@ describe('detectFurnishing', () => {
     expect(detectFurnishing('Semi-furnished')).toBe('upholstered');
     expect(detectFurnishing('Fully furnished studio')).toBe('furnished');
     expect(detectFurnishing('Mooie woning')).toBe('unknown');
+  });
+
+  test('inflected adjectives', () => {
+    expect(detectFurnishing('Gemeubileerde studio')).toBe('furnished');
+    expect(detectFurnishing('Een gestoffeerde bovenwoning')).toBe('upholstered');
+    expect(detectFurnishing('Ongemeubileerde woning')).toBe('unfurnished');
   });
 
   test('the first mention wins', () => {

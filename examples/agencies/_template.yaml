@@ -1,0 +1,34 @@
+# One estate agent ("makelaar") as a source. Copy this file to <agency>.yaml,
+# change the URLs and selectors to match the agent's own website, and list the
+# file under `agencies:` in config.yaml. README.md in this folder explains how
+# to find the selectors and how to test the file before you rely on it.
+id: example-makelaar            # becomes the source id "agency:example-makelaar"
+name: Example Makelaardij
+homepage: https://www.example-makelaar.nl
+regions: [delft, rijswijk]      # municipalities the agent covers, lowercased
+preset: none                    # optional: realworks | kolibri | ogonline | none
+list:
+  url: https://www.example-makelaar.nl/aanbod/woningaanbod/huur/
+  item: ".object"               # CSS selector per listing card
+  fields:
+    url: { selector: "a", attr: href }
+    title: { selector: ".object-street" }
+    price: { selector: ".object-price" }
+    size: { selector: ".object-feature-woonoppervlakte" }
+    city: { selector: ".object-place" }
+    status: { selector: ".object-status", exclude: ["verhuurd", "onder optie"] }
+detail:
+  description: ".object-description"
+  images: { selector: ".object-media img", attr: src }
+contact:
+  kind: form                    # form | email | none
+  url: "{url}#contact"
+  form:
+    name: "input[name=naam]"
+    email: "input[name=email]"
+    phone: "input[name=telefoon]"
+    message: "textarea[name=bericht]"
+    submit: "button[type=submit]"
+    success: "text=/bedankt|verzonden|thank you/i"
+  email: info@example-makelaar.nl
+terms: unknown                  # allows | forbids | unknown
