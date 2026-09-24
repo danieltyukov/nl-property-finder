@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <title>Voorbeeldstraat 12-A, Delft | Example Makelaardij</title>
+</head>
+<body>
+<!-- Synthetic fixture for examples/agencies/_template.yaml. Addresses are fictional. -->
+<main>
+  <h1 class="object-street">Voorbeeldstraat 12-A</h1>
+  <div class="object-media">
+    <img src="/media/101/1.jpg" alt="Woonkamer">
+    <img src="/media/101/2.jpg" alt="Keuken">
+    <img src="https://cdn.example-makelaar.nl/media/101/3.jpg" alt="Slaapkamer">
+  </div>
+  <div class="object-description">
+    <p>Licht en gestoffeerd appartement op de tweede verdieping, op vijf minuten lopen van station Delft.</p>
+    <p>Beschikbaar per 1 november 2026.<br>Huurprijs exclusief servicekosten.</p>
+  </div>
+  <p>Vragen? Mail ons op <a href="mailto:verhuur@example-makelaar.nl">verhuur@example-makelaar.nl</a>.</p>
+
+  <section id="contact">
+    <h2>Reageren</h2>
+    <form method="post" action="/contact">
+      <input type="hidden" name="object" value="101">
+      <label>Naam <input name="naam" required></label>
+      <label>E-mail <input name="email" type="email" required></label>
+      <label>Telefoon <input name="telefoon"></label>
+      <label>Bericht <textarea name="bericht" required></textarea></label>
+      <button type="submit">Versturen</button>
+    </form>
+  </section>
+</main>
+</body>
+</html>
