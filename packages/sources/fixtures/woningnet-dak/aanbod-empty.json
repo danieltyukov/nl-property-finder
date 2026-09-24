@@ -1,0 +1,107 @@
+{
+ "versionInfo": {
+  "hasModuleVersionChanged": false,
+  "hasApiVersionChanged": false
+ },
+ "data": {
+  "PublicatieLijst": {
+   "List": [],
+   "EmptyListItem": {
+    "Id": "0",
+    "EinddatumTijd": "1900-01-01T00:00:00",
+    "PublicatieModel": "",
+    "PublicatieModule": "",
+    "PublicatieDatum": "1900-01-01T00:00:00",
+    "Matchpercentage": 0,
+    "VoorlopigePositie": "0",
+    "Foto_Locatie": "",
+    "GepersonaliseerdeHuur": "0.0",
+    "Slaagkans": 0,
+    "IsCluster": false,
+    "EenheidSoort": "",
+    "Adres": {
+     "Straatnaam": "",
+     "Huisnummer": 0,
+     "Huisletter": "",
+     "HuisnummerToevoeging": "",
+     "Postcode": "",
+     "Woonplaats": "",
+     "Wijk": "",
+     "PublicatieId": "0"
+    },
+    "Cluster": {
+     "Naam": "",
+     "DetailSoort": "",
+     "Doelgroep": "",
+     "PrijsMinBekend": false,
+     "PrijsMin": "0.0",
+     "PrijsMaxBekend": false,
+     "PrijsMax": "0.0",
+     "WoonOppervlakteMinBekend": false,
+     "WoonVertrekkenTotOppMin": 0,
+     "WoonOppervlakteMaxBekend": false,
+     "WoonVertrekkenTotOppMax": 0,
+     "AantalEenheden": 0,
+     "AantalKamersMin": 0,
+     "AantalKamersMax": 0,
+     "Lengtegraad": "0.0",
+     "Breedtegraad": "0.0",
+     "Toegankelijkheid": "",
+     "Toegankelijkheidstag": "",
+     "PublicatieId": "0",
+     "SoortBouw": "",
+     "Eigenaar": ""
+    },
+    "Eenheid": {
+     "DetailSoort": "",
+     "Bestemming": "",
+     "AantalKamers": 0,
+     "TotaleOppervlakte": "0.0",
+     "WoonVertrekkenTotOpp": "0.0",
+     "Doelgroep": "",
+     "NettoHuurBekend": false,
+     "NettoHuur": "0.0",
+     "Lengtegraad": "0.0",
+     "Breedtegraad": "0.0",
+     "Toegankelijkheid": "",
+     "Toegankelijkheidstag": "",
+     "PublicatieId": "0",
+     "SoortBouw": "",
+     "EnergieLabel": "",
+     "EnergieIndex": 0,
+     "Eigenaar": "",
+     "BrutoHuurBekend": false,
+     "Brutohuur": "0.0",
+     "SubsidiabeleHuur": "0.0"
+    },
+    "PublicatieLabel": "",
+    "IsBewaard": false,
+    "IsVerborgen": false,
+    "ContractVorm": "",
+    "PublicatieOmschrijving": {
+     "Id": "0",
+     "Tekst": ""
+    },
+    "AantalReactiesOpPublicatie": "0",
+    "HeeftGereageerd": false,
+    "IsIntrekkenReactieToegestaan": false,
+    "RedenNietIntrekkenReactie": "",
+    "PositieAanbiedingsproces": "",
+    "VirtuelePositie": 0,
+    "Opleverdatum": "1900-01-01T00:00:00",
+    "HeeftLift": false,
+    "Verdieping": "",
+    "IsMetGepersonaliseerdeHuur": false,
+    "Voorziening": "",
+    "AanbiedingProcesSoort": "",
+    "AantalEenhedenBeschikbaar": 0
+   }
+  },
+  "Result": {
+   "IsSuccess": true,
+   "ErrorMessage": "",
+   "StatusCode": 0
+  }
+ },
+ "rolesInfo": ","
+}
