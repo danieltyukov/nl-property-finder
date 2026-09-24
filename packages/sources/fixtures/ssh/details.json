@@ -1,0 +1,1262 @@
+[
+ {
+  "Object": 709882,
+  "EenheidNummer": 25601003,
+  "AdrHeeftEnh": 61663,
+  "Soort_Product": "zelf",
+  "ADRES_H": [
+   {
+    "Oid": 61663,
+    "Straatnaam": "Biltstraat",
+    "Nummer": "91",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": null,
+    "Postcode": "3572 AK",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 25601003,
+    "TotOpp": 46.0,
+    "TotOppGem": 0.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Jongerencontract",
+    "Enh_Object": 709882,
+    "EenheidNummer": 25601003,
+    "Enh_Nettohuur": 932.93,
+    "Bruto_Huur": 940.66
+   }
+  ]
+ },
+ {
+  "Object": 710861,
+  "EenheidNummer": 36400341,
+  "AdrHeeftEnh": 67972,
+  "Soort_Product": "zelf",
+  "ADRES_H": [
+   {
+    "Oid": 67972,
+    "Straatnaam": "Bisschopssteeg",
+    "Nummer": "571",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": null,
+    "Postcode": "3584 SK",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 36400341,
+    "TotOpp": 23.0,
+    "TotOppGem": 0.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 710861,
+    "EenheidNummer": 36400341,
+    "Enh_Nettohuur": 713.02,
+    "Bruto_Huur": 808.2
+   }
+  ]
+ },
+ {
+  "Object": 710954,
+  "EenheidNummer": 36400368,
+  "AdrHeeftEnh": 67999,
+  "Soort_Product": "zelf",
+  "ADRES_H": [
+   {
+    "Oid": 67999,
+    "Straatnaam": "Bisschopssteeg",
+    "Nummer": "593",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": null,
+    "Postcode": "3584 SK",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 36400368,
+    "TotOpp": 22.0,
+    "TotOppGem": 0.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 710954,
+    "EenheidNummer": 36400368,
+    "Enh_Nettohuur": 713.02,
+    "Bruto_Huur": 808.2
+   }
+  ]
+ },
+ {
+  "Object": 691226,
+  "EenheidNummer": 29602059,
+  "AdrHeeftEnh": 68283,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 68283,
+    "Straatnaam": "Enny Vredelaan",
+    "Nummer": "339",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": "k8",
+    "Postcode": "3584 ZM",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 29602059,
+    "TotOpp": 21.0,
+    "TotOppGem": 30.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 691226,
+    "EenheidNummer": 29602059,
+    "Enh_Nettohuur": 611.28,
+    "Bruto_Huur": 725.94
+   }
+  ]
+ },
+ {
+  "Object": 701766,
+  "EenheidNummer": 20215001,
+  "AdrHeeftEnh": 63974,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 63974,
+    "Straatnaam": "Ina Boudier-Bakkerlaan",
+    "Nummer": "133",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": "k1425",
+    "Postcode": "3582 XR",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 20215001,
+    "TotOpp": 12.0,
+    "TotOppGem": 31.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 701766,
+    "EenheidNummer": 20215001,
+    "Enh_Nettohuur": 366.9,
+    "Bruto_Huur": 473.76
+   }
+  ]
+ },
+ {
+  "Object": 704249,
+  "EenheidNummer": 20214035,
+  "AdrHeeftEnh": 64135,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 64135,
+    "Straatnaam": "Ina Boudier-Bakkerlaan",
+    "Nummer": "151",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": "k1449",
+    "Postcode": "3582 XZ",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 20214035,
+    "TotOpp": 12.0,
+    "TotOppGem": 31.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 704249,
+    "EenheidNummer": 20214035,
+    "Enh_Nettohuur": 366.9,
+    "Bruto_Huur": 473.33
+   }
+  ]
+ },
+ {
+  "Object": 710259,
+  "EenheidNummer": 36400329,
+  "AdrHeeftEnh": 67960,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 67960,
+    "Straatnaam": "Bisschopssteeg",
+    "Nummer": "563",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": "k1",
+    "Postcode": "3584 SK",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 36400329,
+    "TotOpp": 17.0,
+    "TotOppGem": 24.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 710259,
+    "EenheidNummer": 36400329,
+    "Enh_Nettohuur": 498.2,
+    "Bruto_Huur": 598.29
+   }
+  ]
+ },
+ {
+  "Object": 693746,
+  "EenheidNummer": 25005590,
+  "AdrHeeftEnh": 62693,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 62693,
+    "Straatnaam": "Parkstraat",
+    "Nummer": "55",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": "k90",
+    "Postcode": "3581 PG",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 25005590,
+    "TotOpp": 21.0,
+    "TotOppGem": 0.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 693746,
+    "EenheidNummer": 25005590,
+    "Enh_Nettohuur": 664.03,
+    "Bruto_Huur": 682.39
+   }
+  ]
+ },
+ {
+  "Object": 697239,
+  "EenheidNummer": 35701712,
+  "AdrHeeftEnh": 55622,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 55622,
+    "Straatnaam": "Amsterdamsestraatweg",
+    "Nummer": "17",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": "k1.12",
+    "Postcode": "3513 AA",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 35701712,
+    "TotOpp": 16.0,
+    "TotOppGem": 26.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 697239,
+    "EenheidNummer": 35701712,
+    "Enh_Nettohuur": 448.3,
+    "Bruto_Huur": 583.01
+   }
+  ]
+ },
+ {
+  "Object": 708546,
+  "EenheidNummer": 21121005,
+  "AdrHeeftEnh": 61780,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 61780,
+    "Straatnaam": "Poortstraat",
+    "Nummer": "28",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": "k12",
+    "Postcode": "3572 HJ",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 21121005,
+    "TotOpp": 22.0,
+    "TotOppGem": 0.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 708546,
+    "EenheidNummer": 21121005,
+    "Enh_Nettohuur": 498.2,
+    "Bruto_Huur": 640.82
+   }
+  ]
+ },
+ {
+  "Object": 697312,
+  "EenheidNummer": 50021070,
+  "AdrHeeftEnh": 67206,
+  "Soort_Product": "zelf",
+  "ADRES_H": [
+   {
+    "Oid": 67206,
+    "Straatnaam": "Leuvenplein",
+    "Nummer": "107",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": null,
+    "Postcode": "3584 LE",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 50021070,
+    "TotOpp": 29.0,
+    "TotOppGem": 29.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 697312,
+    "EenheidNummer": 50021070,
+    "Enh_Nettohuur": 713.02,
+    "Bruto_Huur": 826.74
+   }
+  ]
+ },
+ {
+  "Object": 1819183,
+  "EenheidNummer": 75611164,
+  "AdrHeeftEnh": 57007,
+  "Soort_Product": "zelf",
+  "ADRES_H": [
+   {
+    "Oid": 57007,
+    "Straatnaam": "Europaplein",
+    "Nummer": "164",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": null,
+    "Postcode": "3526 WD",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 75611164,
+    "TotOpp": 28.0,
+    "TotOppGem": 0.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Jongerencontract",
+    "Enh_Object": 1819183,
+    "EenheidNummer": 75611164,
+    "Enh_Nettohuur": 713.02,
+    "Bruto_Huur": 754.6
+   }
+  ]
+ },
+ {
+  "Object": 696808,
+  "EenheidNummer": 50050991,
+  "AdrHeeftEnh": 67196,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 67196,
+    "Straatnaam": "Leuvenplein",
+    "Nummer": "99",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": "k1",
+    "Postcode": "3584 LE",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 50050991,
+    "TotOpp": 19.0,
+    "TotOppGem": 17.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 696808,
+    "EenheidNummer": 50050991,
+    "Enh_Nettohuur": 498.2,
+    "Bruto_Huur": 602.51
+   }
+  ]
+ },
+ {
+  "Object": 2324806,
+  "EenheidNummer": 30100010,
+  "AdrHeeftEnh": 108979,
+  "Soort_Product": "zelf",
+  "ADRES_H": [
+   {
+    "Oid": 108979,
+    "Straatnaam": "Burgemeester Fockema Andreaeplein",
+    "Nummer": "10",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": null,
+    "Postcode": "3582 LA",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 30100010,
+    "TotOpp": 23.0,
+    "TotOppGem": 41.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 2324806,
+    "EenheidNummer": 30100010,
+    "Enh_Nettohuur": 713.02,
+    "Bruto_Huur": 801.66
+   }
+  ]
+ },
+ {
+  "Object": 694795,
+  "EenheidNummer": 71000353,
+  "AdrHeeftEnh": 53796,
+  "Soort_Product": "zelf",
+  "ADRES_H": [
+   {
+    "Oid": 53796,
+    "Straatnaam": "Burgemeester Oudlaan",
+    "Nummer": "340",
+    "Letter": "Q",
+    "Toevoeging": null,
+    "Locatie": null,
+    "Postcode": "3062 PA",
+    "Plaats": "ROTTERDAM",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 71000353,
+    "TotOpp": 38.0,
+    "TotOppGem": 0.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 694795,
+    "EenheidNummer": 71000353,
+    "Enh_Nettohuur": 713.02,
+    "Bruto_Huur": 877.2
+   }
+  ]
+ },
+ {
+  "Object": 707774,
+  "EenheidNummer": 46200107,
+  "AdrHeeftEnh": 64760,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 64760,
+    "Straatnaam": "Pythagoraslaan",
+    "Nummer": "107",
+    "Letter": "A",
+    "Toevoeging": null,
+    "Locatie": "k8",
+    "Postcode": "3584 BB",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 46200107,
+    "TotOpp": 15.0,
+    "TotOppGem": 23.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 707774,
+    "EenheidNummer": 46200107,
+    "Enh_Nettohuur": 498.2,
+    "Bruto_Huur": 621.3
+   }
+  ]
+ },
+ {
+  "Object": 692008,
+  "EenheidNummer": 46200304,
+  "AdrHeeftEnh": 65052,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 65052,
+    "Straatnaam": "Pythagoraslaan",
+    "Nummer": "111",
+    "Letter": "C",
+    "Toevoeging": null,
+    "Locatie": "k9",
+    "Postcode": "3584 BB",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 46200304,
+    "TotOpp": 24.0,
+    "TotOppGem": 34.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 692008,
+    "EenheidNummer": 46200304,
+    "Enh_Nettohuur": 498.2,
+    "Bruto_Huur": 631.47
+   }
+  ]
+ },
+ {
+  "Object": 692042,
+  "EenheidNummer": 46200338,
+  "AdrHeeftEnh": 65087,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 65087,
+    "Straatnaam": "Pythagoraslaan",
+    "Nummer": "111",
+    "Letter": "H",
+    "Toevoeging": null,
+    "Locatie": "k4",
+    "Postcode": "3584 BB",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 46200338,
+    "TotOpp": 24.0,
+    "TotOppGem": 34.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 692042,
+    "EenheidNummer": 46200338,
+    "Enh_Nettohuur": 498.2,
+    "Bruto_Huur": 629.43
+   }
+  ]
+ },
+ {
+  "Object": 696083,
+  "EenheidNummer": 52000402,
+  "AdrHeeftEnh": 70103,
+  "Soort_Product": "zelf",
+  "ADRES_H": [
+   {
+    "Oid": 70103,
+    "Straatnaam": "Talent Square",
+    "Nummer": "402",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": null,
+    "Postcode": "5038 LZ",
+    "Plaats": "TILBURG",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 52000402,
+    "TotOpp": 23.0,
+    "TotOppGem": 0.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 696083,
+    "EenheidNummer": 52000402,
+    "Enh_Nettohuur": 713.02,
+    "Bruto_Huur": 857.24
+   }
+  ]
+ },
+ {
+  "Object": 703365,
+  "EenheidNummer": 20901041,
+  "AdrHeeftEnh": 56528,
+  "Soort_Product": "zelf",
+  "ADRES_H": [
+   {
+    "Oid": 56528,
+    "Straatnaam": "Kariboestraat",
+    "Nummer": "93",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": null,
+    "Postcode": "3523 PB",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 20901041,
+    "TotOpp": 25.0,
+    "TotOppGem": 0.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Jongerencontract",
+    "Enh_Object": 703365,
+    "EenheidNummer": 20901041,
+    "Enh_Nettohuur": 685.7,
+    "Bruto_Huur": 811.41
+   }
+  ]
+ },
+ {
+  "Object": 701963,
+  "EenheidNummer": 17372006,
+  "AdrHeeftEnh": 62757,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 62757,
+    "Straatnaam": "Sweelinckstraat",
+    "Nummer": "4",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": "k22",
+    "Postcode": "3581 RV",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 17372006,
+    "TotOpp": 13.0,
+    "TotOppGem": 0.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 701963,
+    "EenheidNummer": 17372006,
+    "Enh_Nettohuur": 539.99,
+    "Bruto_Huur": 622.11
+   }
+  ]
+ },
+ {
+  "Object": 710834,
+  "EenheidNummer": 23801005,
+  "AdrHeeftEnh": 55139,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 55139,
+    "Straatnaam": "Boothstraat",
+    "Nummer": "17",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": "k24       ",
+    "Postcode": "3512 BV",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 23801005,
+    "TotOpp": 13.0,
+    "TotOppGem": 23.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 710834,
+    "EenheidNummer": 23801005,
+    "Enh_Nettohuur": 498.2,
+    "Bruto_Huur": 517.66
+   }
+  ]
+ },
+ {
+  "Object": 702710,
+  "EenheidNummer": 17877007,
+  "AdrHeeftEnh": 55835,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 55835,
+    "Straatnaam": "Weerdsingel O.Z.",
+    "Nummer": "66",
+    "Letter": null,
+    "Toevoeging": "Bis",
+    "Locatie": "k31",
+    "Postcode": "3514 AG",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 17877007,
+    "TotOpp": 13.0,
+    "TotOppGem": 0.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 702710,
+    "EenheidNummer": 17877007,
+    "Enh_Nettohuur": 342.43,
+    "Bruto_Huur": 481.79
+   }
+  ]
+ },
+ {
+  "Object": 707849,
+  "EenheidNummer": 20207073,
+  "AdrHeeftEnh": 63639,
+  "Soort_Product": "zelf",
+  "ADRES_H": [
+   {
+    "Oid": 63639,
+    "Straatnaam": "Ina Boudier-Bakkerlaan",
+    "Nummer": "79",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": null,
+    "Postcode": "3582 VW",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 20207073,
+    "TotOpp": 30.0,
+    "TotOppGem": 0.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 707849,
+    "EenheidNummer": 20207073,
+    "Enh_Nettohuur": 527.81,
+    "Bruto_Huur": 659.59
+   }
+  ]
+ },
+ {
+  "Object": 706335,
+  "EenheidNummer": 26102002,
+  "AdrHeeftEnh": 62934,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 62934,
+    "Straatnaam": "Abstederdijk",
+    "Nummer": "198",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": "k11",
+    "Postcode": "3582 BW",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 26102002,
+    "TotOpp": 22.0,
+    "TotOppGem": 0.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 706335,
+    "EenheidNummer": 26102002,
+    "Enh_Nettohuur": 706.23,
+    "Bruto_Huur": 838.29
+   }
+  ]
+ },
+ {
+  "Object": 710090,
+  "EenheidNummer": 26908042,
+  "AdrHeeftEnh": 65823,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 65823,
+    "Straatnaam": "Cambridgelaan",
+    "Nummer": "611",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": "k22",
+    "Postcode": "3584 DM",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 26908042,
+    "TotOpp": 17.0,
+    "TotOppGem": 11.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 710090,
+    "EenheidNummer": 26908042,
+    "Enh_Nettohuur": 590.95,
+    "Bruto_Huur": 722.86
+   }
+  ]
+ },
+ {
+  "Object": 708733,
+  "EenheidNummer": 26909013,
+  "AdrHeeftEnh": 65743,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 65743,
+    "Straatnaam": "Cambridgelaan",
+    "Nummer": "553",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": "k2",
+    "Postcode": "3584 DJ",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 26909013,
+    "TotOpp": 18.0,
+    "TotOppGem": 11.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 708733,
+    "EenheidNummer": 26909013,
+    "Enh_Nettohuur": 627.09,
+    "Bruto_Huur": 757.83
+   }
+  ]
+ },
+ {
+  "Object": 691242,
+  "EenheidNummer": 29602075,
+  "AdrHeeftEnh": 68299,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 68299,
+    "Straatnaam": "Enny Vredelaan",
+    "Nummer": "345",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": "k2",
+    "Postcode": "3584 ZM",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 29602075,
+    "TotOpp": 19.0,
+    "TotOppGem": 0.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 691242,
+    "EenheidNummer": 29602075,
+    "Enh_Nettohuur": 658.79,
+    "Bruto_Huur": 765.81
+   }
+  ]
+ },
+ {
+  "Object": 701556,
+  "EenheidNummer": 50600103,
+  "AdrHeeftEnh": 70952,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 70952,
+    "Straatnaam": "Lunenstraat",
+    "Nummer": "10",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": "D",
+    "Postcode": "8017 KM",
+    "Plaats": "ZWOLLE",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 50600103,
+    "TotOpp": 21.0,
+    "TotOppGem": 0.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 701556,
+    "EenheidNummer": 50600103,
+    "Enh_Nettohuur": 407.73,
+    "Bruto_Huur": 536.12
+   }
+  ]
+ },
+ {
+  "Object": 694222,
+  "EenheidNummer": 56400309,
+  "AdrHeeftEnh": 71519,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 71519,
+    "Straatnaam": "Rijnlaan",
+    "Nummer": "131",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": "k309",
+    "Postcode": "8032 MX",
+    "Plaats": "ZWOLLE",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 56400309,
+    "TotOpp": 14.0,
+    "TotOppGem": 88.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 694222,
+    "EenheidNummer": 56400309,
+    "Enh_Nettohuur": 303.81,
+    "Bruto_Huur": 437.43
+   }
+  ]
+ },
+ {
+  "Object": 1321528,
+  "EenheidNummer": 56400324,
+  "AdrHeeftEnh": 98892,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 98892,
+    "Straatnaam": "Rijnlaan",
+    "Nummer": "131",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": "k04",
+    "Postcode": "8032 MX",
+    "Plaats": "ZWOLLE",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 56400324,
+    "TotOpp": 15.0,
+    "TotOppGem": 82.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 1321528,
+    "EenheidNummer": 56400324,
+    "Enh_Nettohuur": 348.37,
+    "Bruto_Huur": 495.91
+   }
+  ]
+ },
+ {
+  "Object": 702385,
+  "EenheidNummer": 36500102,
+  "AdrHeeftEnh": 56703,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 56703,
+    "Straatnaam": "Zevenwouden",
+    "Nummer": "260",
+    "Letter": null,
+    "Toevoeging": "1",
+    "Locatie": "k02",
+    "Postcode": "3524 CX",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 36500102,
+    "TotOpp": 14.0,
+    "TotOppGem": 53.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 702385,
+    "EenheidNummer": 36500102,
+    "Enh_Nettohuur": 427.95,
+    "Bruto_Huur": 568.15
+   }
+  ]
+ },
+ {
+  "Object": 698769,
+  "EenheidNummer": 51700318,
+  "AdrHeeftEnh": 71325,
+  "Soort_Product": "zelf",
+  "ADRES_H": [
+   {
+    "Oid": 71325,
+    "Straatnaam": "Talentenplein",
+    "Nummer": "318",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": null,
+    "Postcode": "8021 EZ",
+    "Plaats": "ZWOLLE",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 51700318,
+    "TotOpp": 27.0,
+    "TotOppGem": 0.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 698769,
+    "EenheidNummer": 51700318,
+    "Enh_Nettohuur": 582.71,
+    "Bruto_Huur": 699.18
+   }
+  ]
+ },
+ {
+  "Object": 705819,
+  "EenheidNummer": 20406017,
+  "AdrHeeftEnh": 61233,
+  "Soort_Product": "ozelf",
+  "ADRES_H": [
+   {
+    "Oid": 61233,
+    "Straatnaam": "Willem Schuylenburglaan",
+    "Nummer": "23",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": "k01",
+    "Postcode": "3571 SB",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 20406017,
+    "TotOpp": 14.0,
+    "TotOppGem": 7.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 705819,
+    "EenheidNummer": 20406017,
+    "Enh_Nettohuur": 468.72,
+    "Bruto_Huur": 570.48
+   }
+  ]
+ },
+ {
+  "Object": 2711650,
+  "EenheidNummer": 32011018,
+  "AdrHeeftEnh": 112006,
+  "Soort_Product": "zelf",
+  "ADRES_H": [
+   {
+    "Oid": 112006,
+    "Straatnaam": "Provence",
+    "Nummer": "64",
+    "Letter": null,
+    "Toevoeging": null,
+    "Locatie": null,
+    "Postcode": "3524 RS",
+    "Plaats": "UTRECHT",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 32011018,
+    "TotOpp": 23.0,
+    "TotOppGem": 0.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Jongerencontract",
+    "Enh_Object": 2711650,
+    "EenheidNummer": 32011018,
+    "Enh_Nettohuur": 596.45,
+    "Bruto_Huur": 634.32
+   }
+  ]
+ },
+ {
+  "Object": 701395,
+  "EenheidNummer": 50902178,
+  "AdrHeeftEnh": 70545,
+  "Soort_Product": "zelf",
+  "ADRES_H": [
+   {
+    "Oid": 70545,
+    "Straatnaam": "Veemarkt",
+    "Nummer": "21",
+    "Letter": null,
+    "Toevoeging": "-78",
+    "Locatie": null,
+    "Postcode": "8011 AH",
+    "Plaats": "ZWOLLE",
+    "Aanduiding": null
+   }
+  ],
+  "ASP_TOTAAL_C": [
+   {
+    "EenheidNummer": 50902178,
+    "TotOpp": 20.0,
+    "TotOppGem": 0.0
+   }
+  ],
+  "EENHEID_HUUR": [
+   {
+    "Contract_Type": "Campuscontract",
+    "Enh_Object": 701395,
+    "EenheidNummer": 50902178,
+    "Enh_Nettohuur": 589.32,
+    "Bruto_Huur": 637.65
+   }
+  ]
+ }
+]
