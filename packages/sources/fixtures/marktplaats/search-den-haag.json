@@ -1,0 +1,2398 @@
+{
+ "listings": [
+  {
+   "itemId": "m2445774555",
+   "title": "IKEA desk and chair",
+   "description": "Both chair and adjustable to hight desk from ikea",
+   "categorySpecificDescription": "Both chair and adjustable to hight desk from ikea",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 10000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 2000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.061543122944,
+    "longitude": 4.3110591972725
+   },
+   "date": "Vandaag",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5a89bcbf-bd84-4d59-b6ee-762730c79880?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 56089351,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5a89bcbf-bd84-4d59-b6ee-762730c79880?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5a89bcbf-bd84-4d59-b6ee-762730c79880?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5a89bcbf-bd84-4d59-b6ee-762730c79880?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5a89bcbf-bd84-4d59-b6ee-762730c79880?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5a89bcbf-bd84-4d59-b6ee-762730c79880?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2445774555-ikea-desk-and-chair"
+  },
+  {
+   "itemId": "m2445298907",
+   "title": "For rent: shared house near Den Haag Holland Spoor",
+   "description": "Looking for a girl roommate house near den haag holland spoor 5 minute bike dh holland spoor station 3 minute walk to tram towards city centre & dh centraal station 5 minute walk to jumbo, action,",
+   "categorySpecificDescription": "Looking for a girl roommate house near den haag holland spoor 5 minute bike dh holland spoor station 3 minute walk to tram towards city centre & dh centraal station 5 minute walk to jumbo, action, & others 📍schlegelstraat 🏡 765,5/month excl...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 76550,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 2000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.064574855749,
+    "longitude": 4.3287502998758
+   },
+   "date": "Vandaag",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ccd19610-4ca4-4c85-be6b-fce52549dbe3?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 55809934,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    },
+    {
+     "key": "livingArea",
+     "value": "35 tot 50 m²",
+     "values": [
+      "35 tot 50 m²"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "livingArea",
+     "value": "35 tot 50 m²",
+     "values": [
+      "35 tot 50 m²"
+     ]
+    },
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ccd19610-4ca4-4c85-be6b-fce52549dbe3?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ccd19610-4ca4-4c85-be6b-fce52549dbe3?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ccd19610-4ca4-4c85-be6b-fce52549dbe3?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ccd19610-4ca4-4c85-be6b-fce52549dbe3?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ccd19610-4ca4-4c85-be6b-fce52549dbe3?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 4,
+      "height": 3
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2445298907-for-rent-shared-house-near-den-haag-holland-spoor"
+  },
+  {
+   "itemId": "m2445865131",
+   "title": "Kamer met balkon",
+   "description": "Kamer met toegang tot het balkon. De kamer is groot 20m2 met een balkondeur en een vaste kledingkast. Voorzien van basis meubilair zoals bed, tafel, stoelen en servieskast. Gedeeld gebruik van keuken ",
+   "categorySpecificDescription": "Kamer met toegang tot het balkon. De kamer is groot 20m2 met een balkondeur en een vaste kledingkast. Voorzien van basis meubilair zoals bed, tafel, stoelen en servieskast. Gedeeld gebruik van keuken en sanitair. Mogelijkheid voor het stallen van een...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 60000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 4000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.059519833359,
+    "longitude": 4.2663734044914
+   },
+   "date": "Gisteren",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a625cdf0-89dd-44a5-ac13-2c72655fef5f?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 10009722,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    },
+    {
+     "key": "livingArea",
+     "value": "Minder dan 20 m²",
+     "values": [
+      "Minder dan 20 m²"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "livingArea",
+     "value": "Minder dan 20 m²",
+     "values": [
+      "Minder dan 20 m²"
+     ]
+    },
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a625cdf0-89dd-44a5-ac13-2c72655fef5f?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a625cdf0-89dd-44a5-ac13-2c72655fef5f?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a625cdf0-89dd-44a5-ac13-2c72655fef5f?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a625cdf0-89dd-44a5-ac13-2c72655fef5f?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a625cdf0-89dd-44a5-ac13-2c72655fef5f?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 4,
+      "height": 3
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2445865131-kamer-met-balkon"
+  },
+  {
+   "itemId": "m2445517285",
+   "title": "Huur kamer",
+   "description": "Kamer te huur in den haag omgeving anna bijnslaan ik huur alleen aan dames hele mooie huis is 2+1 maand bedrag €600 en eenmalig borg €600 zonder adres.",
+   "categorySpecificDescription": "Kamer te huur in den haag omgeving anna bijnslaan ik huur alleen aan dames hele mooie huis is 2+1 maand bedrag €600 en eenmalig borg €600 zonder adres.",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 60000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 3000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.053613017216,
+    "longitude": 4.3035839119176
+   },
+   "date": "Eergisteren",
+   "sellerInformation": {
+    "sellerId": 50816969,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2445517285-huur-kamer"
+  },
+  {
+   "itemId": "m2444907057",
+   "title": "Kamers te huur Den Haag",
+   "description": "Er zijn twee kamers te huur: een kamer van 6 m² voor € 850 en een kamer van 8 m² voor € 950. Het appartement bevindt zich in het laakkwartier in den haag. De kamers zijn uitsluitend bestemd ",
+   "categorySpecificDescription": "Er zijn twee kamers te huur: een kamer van 6 m² voor € 850 en een kamer van 8 m² voor € 950. Het appartement bevindt zich in het laakkwartier in den haag. De kamers zijn uitsluitend bestemd voor vrouwen (niet voor mannen). Gebruik van keuke...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 85000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 3000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.057764047089,
+    "longitude": 4.3241476372526
+   },
+   "date": "20 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/09a326d3-a410-4755-9738-71837d6cb0c6?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 24122359,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/09a326d3-a410-4755-9738-71837d6cb0c6?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/09a326d3-a410-4755-9738-71837d6cb0c6?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/09a326d3-a410-4755-9738-71837d6cb0c6?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/09a326d3-a410-4755-9738-71837d6cb0c6?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/09a326d3-a410-4755-9738-71837d6cb0c6?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2444907057-kamers-te-huur-den-haag"
+  },
+  {
+   "itemId": "m2443732608",
+   "title": "room",
+   "description": "Mein india se hu or mein indian girls ko room rent karna chatting hu,, ghar den haag hagse market k pass hai only for girls 👧",
+   "categorySpecificDescription": "Mein india se hu or mein indian girls ko room rent karna chatting hu,, ghar den haag hagse market k pass hai only for girls 👧",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 0,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 2000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.066528722856,
+    "longitude": 4.2999161437341
+   },
+   "date": "20 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0f6806f1-a0ae-402a-9c5d-8f42a5a2f7d8?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 52314648,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    },
+    {
+     "key": "livingArea",
+     "value": "35 tot 50 m²",
+     "values": [
+      "35 tot 50 m²"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "livingArea",
+     "value": "35 tot 50 m²",
+     "values": [
+      "35 tot 50 m²"
+     ]
+    },
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0f6806f1-a0ae-402a-9c5d-8f42a5a2f7d8?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0f6806f1-a0ae-402a-9c5d-8f42a5a2f7d8?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0f6806f1-a0ae-402a-9c5d-8f42a5a2f7d8?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0f6806f1-a0ae-402a-9c5d-8f42a5a2f7d8?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0f6806f1-a0ae-402a-9c5d-8f42a5a2f7d8?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 4,
+      "height": 3
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2443732608-room"
+  },
+  {
+   "itemId": "m2444732815",
+   "title": "Keuken op te halen",
+   "description": "Hele keuken op te halen in den haag inclusief fornuis van smeg: €225 exclusief koelkast keuken kost €95 als u de demontage doet. Eiland: 196 cm bij 100cm aanrechtblad raam: 60cm diep bij 205",
+   "categorySpecificDescription": "Hele keuken op te halen in den haag inclusief fornuis van smeg: €225 exclusief koelkast keuken kost €95 als u de demontage doet. Eiland: 196 cm bij 100cm aanrechtblad raam: 60cm diep bij 205 cm aanrechtblad inclusief fornuis: 60 cm diep en ...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 9500,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 2000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.08481396084,
+    "longitude": 4.2797321683162
+   },
+   "date": "20 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/75e913e0-d018-4e84-8fc6-c42806ebf327?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 21566886,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/75e913e0-d018-4e84-8fc6-c42806ebf327?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/75e913e0-d018-4e84-8fc6-c42806ebf327?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/75e913e0-d018-4e84-8fc6-c42806ebf327?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/75e913e0-d018-4e84-8fc6-c42806ebf327?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/75e913e0-d018-4e84-8fc6-c42806ebf327?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 20,
+      "height": 9
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2444732815-keuken-op-te-halen"
+  },
+  {
+   "itemId": "m2443951372",
+   "title": "Loungebank",
+   "description": "Afmeting van de bank 190x345 afmeting losse fauteuil 123x92 bank is gebruikt maar is nog prima voor een tweede leven heb altijd beschermhoesjes omheen die mogen gratis mee. Zelf ophalen westland ( 10 ",
+   "categorySpecificDescription": "Afmeting van de bank 190x345 afmeting losse fauteuil 123x92 bank is gebruikt maar is nog prima voor een tweede leven heb altijd beschermhoesjes omheen die mogen gratis mee. Zelf ophalen westland ( 10 min van den haag) €350",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 15000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 6000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.039852944631,
+    "longitude": 4.2617122287459
+   },
+   "date": "18 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dc9b6290-f6b1-4bf2-aaf9-464dd9495e58?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 11204772,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dc9b6290-f6b1-4bf2-aaf9-464dd9495e58?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dc9b6290-f6b1-4bf2-aaf9-464dd9495e58?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dc9b6290-f6b1-4bf2-aaf9-464dd9495e58?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dc9b6290-f6b1-4bf2-aaf9-464dd9495e58?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dc9b6290-f6b1-4bf2-aaf9-464dd9495e58?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 415,
+      "height": 558
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2443951372-loungebank"
+  },
+  {
+   "itemId": "m2443838716",
+   "title": "Overnachten Den Haag a lokatie 37 euro",
+   "description": "Kleine kamer met goed bed 🛌 en wifi ,waterkoker ,magnetron , cv en badkamer nabij het haagsche bos / bezuidenhout emmastraat. Max 2/4 dagen per week prijs per 37 euro minimum 2 nachten mogelijk .voor",
+   "categorySpecificDescription": "Kleine kamer met goed bed 🛌 en wifi ,waterkoker ,magnetron , cv en badkamer nabij het haagsche bos / bezuidenhout emmastraat. Max 2/4 dagen per week prijs per 37 euro minimum 2 nachten mogelijk .voor werkend persoon geen keuken gebruik allleen magne...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 3700,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 1000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.084492823729,
+    "longitude": 4.3314976606652
+   },
+   "date": "18 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f1f763fa-b50d-48a0-97ed-788a8d6f3613?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 3729011,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f1f763fa-b50d-48a0-97ed-788a8d6f3613?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f1f763fa-b50d-48a0-97ed-788a8d6f3613?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f1f763fa-b50d-48a0-97ed-788a8d6f3613?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f1f763fa-b50d-48a0-97ed-788a8d6f3613?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f1f763fa-b50d-48a0-97ed-788a8d6f3613?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 4,
+      "height": 3
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2443838716-overnachten-den-haag-a-lokatie-37-euro"
+  },
+  {
+   "itemId": "m2443420354",
+   "title": "Kamer te huur in Den Haag",
+   "description": "Een mooie kamer. Direct beschikbaar",
+   "categorySpecificDescription": "Een mooie kamer. Direct beschikbaar",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 85000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 5000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.042719557363,
+    "longitude": 4.2913225111131
+   },
+   "date": "16 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/86a25e3d-861f-4306-ab83-e96223c476f9?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 25153637,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/86a25e3d-861f-4306-ab83-e96223c476f9?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/86a25e3d-861f-4306-ab83-e96223c476f9?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/86a25e3d-861f-4306-ab83-e96223c476f9?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/86a25e3d-861f-4306-ab83-e96223c476f9?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/86a25e3d-861f-4306-ab83-e96223c476f9?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 803,
+      "height": 602
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2443420354-kamer-te-huur-in-den-haag"
+  },
+  {
+   "itemId": "m2443370028",
+   "title": "Nette kantoor-/praktijkruimte te huur – gratis parkeren",
+   "description": "Representatieve en rustige ruimte te huur, geschikt als kantoorruimte of behandel-/praktijkruimte. De ruimte is licht, netjes en kan naar eigen wens worden ingericht. Ideaal voor bijvoorbeeld een zelf",
+   "categorySpecificDescription": "Representatieve en rustige ruimte te huur, geschikt als kantoorruimte of behandel-/praktijkruimte. De ruimte is licht, netjes en kan naar eigen wens worden ingericht. Ideaal voor bijvoorbeeld een zelfstandig ondernemer, coach, schoonheidsspecialist, ...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 65000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 7000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.046225860736,
+    "longitude": 4.2376221775799
+   },
+   "date": "16 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/87ab59b9-6fbb-413c-9a85-22e993594ea2?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 20093457,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "livingArea",
+     "value": "35 tot 50 m²",
+     "values": [
+      "35 tot 50 m²"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "livingArea",
+     "value": "35 tot 50 m²",
+     "values": [
+      "35 tot 50 m²"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/87ab59b9-6fbb-413c-9a85-22e993594ea2?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/87ab59b9-6fbb-413c-9a85-22e993594ea2?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/87ab59b9-6fbb-413c-9a85-22e993594ea2?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/87ab59b9-6fbb-413c-9a85-22e993594ea2?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/87ab59b9-6fbb-413c-9a85-22e993594ea2?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 1312,
+      "height": 1199
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2443370028-nette-kantoor-praktijkruimte-te-huur-gratis-parkeren"
+  },
+  {
+   "itemId": "m2443068121",
+   "title": "woonkamer set",
+   "description": "Een woonkamer set ( schuif eettafel, salontafel, tv kast en 2 vitrine)",
+   "categorySpecificDescription": "Een woonkamer set ( schuif eettafel, salontafel, tv kast en 2 vitrine)",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 0,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 1000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.0808134249,
+    "longitude": 4.3347766968817
+   },
+   "date": "15 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8ca693dd-4759-4c58-8d54-79c10cb88a0f?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 22658453,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8ca693dd-4759-4c58-8d54-79c10cb88a0f?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8ca693dd-4759-4c58-8d54-79c10cb88a0f?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8ca693dd-4759-4c58-8d54-79c10cb88a0f?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8ca693dd-4759-4c58-8d54-79c10cb88a0f?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8ca693dd-4759-4c58-8d54-79c10cb88a0f?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 1063,
+      "height": 901
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2443068121-woonkamer-set"
+  },
+  {
+   "itemId": "m2442507844",
+   "title": "Postadres/ briefadres aangeboden Den haag",
+   "description": "Briefadres den haag 200 euro",
+   "categorySpecificDescription": "Briefadres den haag 200 euro",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 20000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 2000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.062300275165,
+    "longitude": 4.3139699260603
+   },
+   "date": "14 sep 26",
+   "sellerInformation": {
+    "sellerId": 49387823,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2442507844-postadres-briefadres-aangeboden-den-haag"
+  },
+  {
+   "itemId": "m2442497221",
+   "title": "Kamer te huur- ladies only",
+   "description": "🏠 kamer te huur – alleen voor vrouwen er is een kamer beschikbaar voor een nette en rustige vrouw. Voorwaarden: huurprijs: €800 per maand, all-inclusive 1 maand borg je bent netjes en houdt de w",
+   "categorySpecificDescription": "🏠 kamer te huur – alleen voor vrouwen er is een kamer beschikbaar voor een nette en rustige vrouw. Voorwaarden: huurprijs: €800 per maand, all-inclusive 1 maand borg je bent netjes en houdt de woning schoon niet roken in de woning geen huisdier...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 80000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 3000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.062159112029,
+    "longitude": 4.2888481388911
+   },
+   "date": "14 sep 26",
+   "sellerInformation": {
+    "sellerId": 45397936,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2442497221-kamer-te-huur-ladies-only"
+  },
+  {
+   "itemId": "m2437097923",
+   "title": "2 kamer woning te huur Paramaribo, Highway te Suriname",
+   "description": "2-kamer woning ongemeubileerd te huur – wanica | per direct 🏠 nette 2 kamer woning te huur aan de martin luther kingweg (highway), wanica, suriname. 📍 Locatie: - ±10 minuten met de auto naar paramar",
+   "categorySpecificDescription": "2-kamer woning ongemeubileerd te huur – wanica | per direct 🏠 nette 2 kamer woning te huur aan de martin luther kingweg (highway), wanica, suriname. 📍 Locatie: - ±10 minuten met de auto naar paramaribo - supermarkt op slechts 100 meter loopafstand ...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 39500,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 2000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.065145226713,
+    "longitude": 4.2995237376064
+   },
+   "date": "13 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/98fcb3e5-5843-4c73-92dd-6c9a4adbd900?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 60237392,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2143,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "numberOfRooms",
+     "value": "2 kamers",
+     "values": [
+      "2 kamers"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "typeOfProperty",
+     "value": "Vrijstaande woning",
+     "values": [
+      "Vrijstaande woning"
+     ]
+    },
+    {
+     "key": "city",
+     "value": "Wanica Paramaribo",
+     "values": [
+      "Wanica Paramaribo"
+     ]
+    },
+    {
+     "key": "numberOfRooms",
+     "value": "2 kamers",
+     "values": [
+      "2 kamers"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_BASIC"
+   ],
+   "verticals": [
+    "houses_to_sell",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/98fcb3e5-5843-4c73-92dd-6c9a4adbd900?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/98fcb3e5-5843-4c73-92dd-6c9a4adbd900?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/98fcb3e5-5843-4c73-92dd-6c9a4adbd900?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/98fcb3e5-5843-4c73-92dd-6c9a4adbd900?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/98fcb3e5-5843-4c73-92dd-6c9a4adbd900?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 128,
+      "height": 113
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/huizen-te-huur/m2437097923-2-kamer-woning-te-huur-paramaribo-highway-te-suriname"
+  },
+  {
+   "itemId": "m2419048398",
+   "title": "Pop up store/Bedrijfsruimte Den-Haag",
+   "description": "Pop-up retail space in the hague’s zeeheldenkwartier spacious and versatile 110 m² pop-up retail space available in the vibrant zeeheldenkwartier, just around the corner from the hague city centre and",
+   "categorySpecificDescription": "Pop-up retail space in the hague’s zeeheldenkwartier spacious and versatile 110 m² pop-up retail space available in the vibrant zeeheldenkwartier, just around the corner from the hague city centre and the beautiful palace garden. The space is ideal f...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 140000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 1000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.079849136467,
+    "longitude": 4.3012536959263
+   },
+   "date": "13 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/95370db2-546f-4b6b-90d3-6d70b80215ff?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 23396163,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2143,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "energyLabel",
+     "value": "D",
+     "values": [
+      "D"
+     ]
+    },
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    },
+    {
+     "key": "livingArea",
+     "value": "110 m²",
+     "values": [
+      "110 m²"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "city",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    },
+    {
+     "key": "livingArea",
+     "value": "110 m²",
+     "values": [
+      "110 m²"
+     ]
+    },
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    },
+    {
+     "key": "typeOfProperty",
+     "value": "Overige soorten",
+     "values": [
+      "Overige soorten"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_PREMIUM"
+   ],
+   "verticals": [
+    "houses_to_sell",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/95370db2-546f-4b6b-90d3-6d70b80215ff?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/95370db2-546f-4b6b-90d3-6d70b80215ff?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/95370db2-546f-4b6b-90d3-6d70b80215ff?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/95370db2-546f-4b6b-90d3-6d70b80215ff?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/95370db2-546f-4b6b-90d3-6d70b80215ff?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 4,
+      "height": 3
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/huizen-te-huur/m2419048398-pop-up-store-bedrijfsruimte-den-haag"
+  },
+  {
+   "itemId": "m2441857338",
+   "title": "TE HUUR PRAKTIJKRUIMTE",
+   "description": "In scheveningen. Voor meer info dm",
+   "categorySpecificDescription": "In scheveningen. Voor meer info dm",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 100,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 2000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.060897248921,
+    "longitude": 4.306700920537
+   },
+   "date": "12 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/06a70a40-5009-47b2-813b-34e9948b707a?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 20489141,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/06a70a40-5009-47b2-813b-34e9948b707a?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/06a70a40-5009-47b2-813b-34e9948b707a?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/06a70a40-5009-47b2-813b-34e9948b707a?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/06a70a40-5009-47b2-813b-34e9948b707a?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/06a70a40-5009-47b2-813b-34e9948b707a?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 753,
+      "height": 1024
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2441857338-te-huur-praktijkruimte"
+  },
+  {
+   "itemId": "m2441713003",
+   "title": "Bed",
+   "description": "With matraas.180:200",
+   "categorySpecificDescription": "With matraas.180:200",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 9000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 1000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.069388181332,
+    "longitude": 4.3123258147014
+   },
+   "date": "12 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f62bcc08-3351-4268-8ff3-882783f51aea?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 56269376,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f62bcc08-3351-4268-8ff3-882783f51aea?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f62bcc08-3351-4268-8ff3-882783f51aea?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f62bcc08-3351-4268-8ff3-882783f51aea?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f62bcc08-3351-4268-8ff3-882783f51aea?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f62bcc08-3351-4268-8ff3-882783f51aea?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 803,
+      "height": 602
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2441713003-bed"
+  },
+  {
+   "itemId": "m2441151863",
+   "title": "pand te huur moldau 34 den haag",
+   "description": "Hal te huur 75 m2 met ruime entree. Nu word het gebruikt als muziek studio 1e etage 1250 euro incl gwk ex service kosten beschikbaar. Geen feesten",
+   "categorySpecificDescription": "Hal te huur 75 m2 met ruime entree. Nu word het gebruikt als muziek studio 1e etage 1250 euro incl gwk ex service kosten beschikbaar. Geen feesten",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 125000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 2000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.068564781969,
+    "longitude": 4.2914455048582
+   },
+   "date": "10 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/582b87cc-8c2e-433b-a799-d199c5c54b63?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 4074994,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2143,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "typeOfProperty",
+     "value": "Studio",
+     "values": [
+      "Studio"
+     ]
+    },
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_BASIC"
+   ],
+   "verticals": [
+    "houses_to_sell",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/582b87cc-8c2e-433b-a799-d199c5c54b63?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/582b87cc-8c2e-433b-a799-d199c5c54b63?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/582b87cc-8c2e-433b-a799-d199c5c54b63?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/582b87cc-8c2e-433b-a799-d199c5c54b63?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/582b87cc-8c2e-433b-a799-d199c5c54b63?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 16,
+      "height": 9
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/huizen-te-huur/m2441151863-pand-te-huur-moldau-34-den-haag"
+  },
+  {
+   "itemId": "m2438620687",
+   "title": "Kamer gezocht  omgeving Delft/Den Haag.",
+   "description": "Hallo, mijn naam is [naam]. Ik ben een jongeman en mijn hart ligt in de zorg waarbij ik ouderen help en stimuleer. Ik spreek 3 talen, nederlands, engels, en mijn moedertaal bulgaar",
+   "categorySpecificDescription": "Hallo, mijn naam is [naam]. Ik ben een jongeman en mijn hart ligt in de zorg waarbij ik ouderen help en stimuleer. Ik spreek 3 talen, nederlands, engels, en mijn moedertaal bulgaars. Vanwege thuis situatie heb ik besloten om uit h...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 0,
+    "priceType": "FREE"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 2000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.077016665353,
+    "longitude": 4.2867064900043
+   },
+   "date": "6 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7e746f46-c936-44a0-a529-d3608e4ca50e?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 60484211,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7e746f46-c936-44a0-a529-d3608e4ca50e?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7e746f46-c936-44a0-a529-d3608e4ca50e?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7e746f46-c936-44a0-a529-d3608e4ca50e?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7e746f46-c936-44a0-a529-d3608e4ca50e?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7e746f46-c936-44a0-a529-d3608e4ca50e?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2438620687-kamer-gezocht-omgeving-delft-den-haag"
+  },
+  {
+   "itemId": "m2439765272",
+   "title": "I'm looking for a room",
+   "description": "​hi, i'm looking for a room to rent, with registration and a rental agreement.",
+   "categorySpecificDescription": "​hi, i'm looking for a room to rent, with registration and a rental agreement.",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 65000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 3000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.054865177334,
+    "longitude": 4.3059691811553
+   },
+   "date": "6 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9677a625-c5a7-4116-9037-b63e42b12145?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 49814566,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Delft",
+     "values": [
+      "Delft"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Delft",
+     "values": [
+      "Delft"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9677a625-c5a7-4116-9037-b63e42b12145?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9677a625-c5a7-4116-9037-b63e42b12145?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9677a625-c5a7-4116-9037-b63e42b12145?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9677a625-c5a7-4116-9037-b63e42b12145?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9677a625-c5a7-4116-9037-b63e42b12145?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2439765272-i-m-looking-for-a-room"
+  },
+  {
+   "itemId": "m2439419510",
+   "title": "Bed te koop",
+   "description": "Vanwege verhuizing past dit niet in mijn zolder.",
+   "categorySpecificDescription": "Vanwege verhuizing past dit niet in mijn zolder.",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 5000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 2000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.06837384021,
+    "longitude": 4.3291395029285
+   },
+   "date": "5 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9f51a19d-6da7-48af-aba4-fae0a05db0c6?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 2905307,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9f51a19d-6da7-48af-aba4-fae0a05db0c6?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9f51a19d-6da7-48af-aba4-fae0a05db0c6?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9f51a19d-6da7-48af-aba4-fae0a05db0c6?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9f51a19d-6da7-48af-aba4-fae0a05db0c6?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9f51a19d-6da7-48af-aba4-fae0a05db0c6?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2439419510-bed-te-koop"
+  },
+  {
+   "itemId": "m2438063070",
+   "title": "Schoonmaak",
+   "description": "Hallo, mijn naam is [naam]. Ik woon nu drie jaar in nederland. Ik heb ervaring op het gebied van schoonmaak en heb op meerdere plekken gewerkt.",
+   "categorySpecificDescription": "Hallo, mijn naam is [naam]. Ik woon nu drie jaar in nederland. Ik heb ervaring op het gebied van schoonmaak en heb op meerdere plekken gewerkt.",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 2000,
+    "priceType": "FIXED"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 4000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.075674797691,
+    "longitude": 4.2588464198959
+   },
+   "date": "5 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d412b708-7726-439e-b032-e7697430c8fe?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 60596162,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d412b708-7726-439e-b032-e7697430c8fe?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d412b708-7726-439e-b032-e7697430c8fe?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d412b708-7726-439e-b032-e7697430c8fe?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d412b708-7726-439e-b032-e7697430c8fe?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d412b708-7726-439e-b032-e7697430c8fe?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 321,
+      "height": 275
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2438063070-schoonmaak"
+  },
+  {
+   "itemId": "m2438695313",
+   "title": "praktijkruimte te huur",
+   "description": "Praktijkruimte te huur",
+   "categorySpecificDescription": "Praktijkruimte te huur",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 0,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 4000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.04983825002,
+    "longitude": 4.3014618058598
+   },
+   "date": "3 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6d8e7482-2b5f-47eb-a1fd-140c4c375cc9?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 59085187,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6d8e7482-2b5f-47eb-a1fd-140c4c375cc9?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6d8e7482-2b5f-47eb-a1fd-140c4c375cc9?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6d8e7482-2b5f-47eb-a1fd-140c4c375cc9?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6d8e7482-2b5f-47eb-a1fd-140c4c375cc9?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6d8e7482-2b5f-47eb-a1fd-140c4c375cc9?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 540,
+      "height": 403
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2438695313-praktijkruimte-te-huur"
+  },
+  {
+   "itemId": "m2438640681",
+   "title": "Gratis Kamer beschikbaar",
+   "description": "Ik heb een kamer van 3x3 in een bijgebouw in leidschendam/ voorburg. Let op alleen voor dames! Je deelt de ruimte (niet de kamer ) met nog een meisje. Er is een badkamertje in het gebouw en klein plek",
+   "categorySpecificDescription": "Ik heb een kamer van 3x3 in een bijgebouw in leidschendam/ voorburg. Let op alleen voor dames! Je deelt de ruimte (niet de kamer ) met nog een meisje. Er is een badkamertje in het gebouw en klein plekje om simpele gerechten te koken. In de kamer zijn...",
+   "thinContent": false,
+   "priceInfo": {
+    "priceCents": 0,
+    "priceType": "FREE"
+   },
+   "location": {
+    "cityName": "Leidschendam",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 4000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.059334215723,
+    "longitude": 4.358837039246
+   },
+   "date": "3 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9a4830a3-88bb-4815-8887-6f951600ca5a?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 11898802,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9a4830a3-88bb-4815-8887-6f951600ca5a?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9a4830a3-88bb-4815-8887-6f951600ca5a?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9a4830a3-88bb-4815-8887-6f951600ca5a?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9a4830a3-88bb-4815-8887-6f951600ca5a?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9a4830a3-88bb-4815-8887-6f951600ca5a?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 4,
+      "height": 3
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2438640681-gratis-kamer-beschikbaar"
+  },
+  {
+   "itemId": "m2437661398",
+   "title": "Sofa set / couch set",
+   "description": "Sofa set / couch set",
+   "categorySpecificDescription": "Sofa set / couch set",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 15000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 1000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.082999442696,
+    "longitude": 4.3046636179853
+   },
+   "date": "1 sep 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ef066fcf-444a-415f-91be-b1207b39912b?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 51214324,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ef066fcf-444a-415f-91be-b1207b39912b?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ef066fcf-444a-415f-91be-b1207b39912b?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ef066fcf-444a-415f-91be-b1207b39912b?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ef066fcf-444a-415f-91be-b1207b39912b?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ef066fcf-444a-415f-91be-b1207b39912b?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 4,
+      "height": 3
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2437661398-sofa-set-couch-set"
+  },
+  {
+   "itemId": "m2436725242",
+   "title": "Vakantie woning",
+   "description": "Ik reis graag. Aangezien er niet of nauwelijks huizen zijn hoop ik iemand tijdelijk te helpen. 300 Meter van het strand in denhaag duindorp. €1500 all in. Voorkeur vrouw/alleenstaande moeder",
+   "categorySpecificDescription": "Ik reis graag. Aangezien er niet of nauwelijks huizen zijn hoop ik iemand tijdelijk te helpen. 300 Meter van het strand in denhaag duindorp. €1500 all in. Voorkeur vrouw/alleenstaande moeder",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 0,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 4000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.088032130079,
+    "longitude": 4.2542940757305
+   },
+   "date": "29 aug 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2d21d999-2344-45bc-a1c6-38fda769a055?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 52025003,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "attributes": [
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    },
+    {
+     "key": "livingArea",
+     "value": "50 m² of meer",
+     "values": [
+      "50 m² of meer"
+     ]
+    }
+   ],
+   "extendedAttributes": [
+    {
+     "key": "livingArea",
+     "value": "50 m² of meer",
+     "values": [
+      "50 m² of meer"
+     ]
+    },
+    {
+     "key": "region",
+     "value": "Den Haag",
+     "values": [
+      "Den Haag"
+     ]
+    }
+   ],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2d21d999-2344-45bc-a1c6-38fda769a055?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2d21d999-2344-45bc-a1c6-38fda769a055?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2d21d999-2344-45bc-a1c6-38fda769a055?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2d21d999-2344-45bc-a1c6-38fda769a055?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2d21d999-2344-45bc-a1c6-38fda769a055?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 369,
+      "height": 800
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2436725242-vakantie-woning"
+  },
+  {
+   "itemId": "m2436273556",
+   "title": "kamer of studio zoeken",
+   "description": "Ik zoek kamer of studio voor man en vrouw.",
+   "categorySpecificDescription": "Ik zoek kamer of studio voor man en vrouw.",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 0,
+    "priceType": "FREE"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 2000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.081449083625,
+    "longitude": 4.340809314278
+   },
+   "date": "28 aug 26",
+   "sellerInformation": {
+    "sellerId": 51320269,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2436273556-kamer-of-studio-zoeken"
+  },
+  {
+   "itemId": "m2435785092",
+   "title": "Mooie hoogslaper",
+   "description": "Mooie hoogslaper wit met zwart met bureau, kledingkastje, ladenkastje, open kastje. Zonder matras (90x200) hij is al gedemonteerd paar gebruikers sporen maar aantippen en je ziet er niks meer van.",
+   "categorySpecificDescription": "Mooie hoogslaper wit met zwart met bureau, kledingkastje, ladenkastje, open kastje. Zonder matras (90x200) hij is al gedemonteerd paar gebruikers sporen maar aantippen en je ziet er niks meer van.",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 8000,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "'s-Gravenhage",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 4000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.071614088565,
+    "longitude": 4.2639796717001
+   },
+   "date": "27 aug 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dcb0753d-cee7-49a1-b069-47bd071ab123?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 15460150,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dcb0753d-cee7-49a1-b069-47bd071ab123?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dcb0753d-cee7-49a1-b069-47bd071ab123?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dcb0753d-cee7-49a1-b069-47bd071ab123?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dcb0753d-cee7-49a1-b069-47bd071ab123?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dcb0753d-cee7-49a1-b069-47bd071ab123?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2435785092-mooie-hoogslaper"
+  },
+  {
+   "itemId": "m2435132818",
+   "title": "woonkamer inrichting inrichten set setje eet tafel eettafel",
+   "description": "Ik heb er nog een lange smalle lade kastje van 4 lades erbij hoort bij de set, voor extra foto's ervan vraag gerust. 125,- Met stoelen erbij , zonder de 6 stoelen voor 55,-",
+   "categorySpecificDescription": "Ik heb er nog een lange smalle lade kastje van 4 lades erbij hoort bij de set, voor extra foto's ervan vraag gerust. 125,- Met stoelen erbij , zonder de 6 stoelen voor 55,-",
+   "thinContent": true,
+   "priceInfo": {
+    "priceCents": 5500,
+    "priceType": "MIN_BID"
+   },
+   "location": {
+    "cityName": "Voorburg",
+    "countryName": "Nederland",
+    "countryAbbreviation": "NL",
+    "distanceMeters": 3000,
+    "isBuyerLocation": false,
+    "onCountryLevel": false,
+    "abroad": false,
+    "latitude": 52.080625558988,
+    "longitude": 4.3589213722151
+   },
+   "date": "25 aug 26",
+   "imageUrls": [
+    "//images.marktplaats.com/api/v1/hz-mp-pro-listing/images/711d4c5d-f368-4d95-868b-fe96c96d8f42?rule=ecg_mp_eps$_82.jpg"
+   ],
+   "sellerInformation": {
+    "sellerId": 55358804,
+    "sellerName": "Landlord (placeholder)",
+    "showSoiUrl": true,
+    "showWebsiteUrl": false,
+    "isVerified": false
+   },
+   "categoryId": 2771,
+   "priorityProduct": "NONE",
+   "videoOnVip": false,
+   "urgencyFeatureActive": false,
+   "napAvailable": false,
+   "extendedAttributes": [],
+   "traits": [
+    "PACKAGE_FREE"
+   ],
+   "verticals": [
+    "rooms_to_rent",
+    "houses_and_rooms"
+   ],
+   "pictures": [
+    {
+     "id": 0,
+     "mediaId": "",
+     "url": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/711d4c5d-f368-4d95-868b-fe96c96d8f42?rule=ecg_mp_eps$_#.jpg",
+     "extraSmallUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/711d4c5d-f368-4d95-868b-fe96c96d8f42?rule=ecg_mp_eps$_14.jpg",
+     "mediumUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/711d4c5d-f368-4d95-868b-fe96c96d8f42?rule=ecg_mp_eps$_82.jpg",
+     "largeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/711d4c5d-f368-4d95-868b-fe96c96d8f42?rule=ecg_mp_eps$_83.jpg",
+     "extraExtraLargeUrl": "https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/711d4c5d-f368-4d95-868b-fe96c96d8f42?rule=ecg_mp_eps$_85.jpg",
+     "aspectRatio": {
+      "width": 3,
+      "height": 4
+     }
+    }
+   ],
+   "searchType": "TokenMatch",
+   "reserved": false,
+   "vipUrl": "/v/huizen-en-kamers/kamers-te-huur/m2435132818-woonkamer-inrichting-inrichten-set-setje-eet-tafel-eettafel"
+  }
+ ],
+ "totalResultCount": 59,
+ "maxAllowedPageNumber": 2,
+ "searchRequest": {
+  "originalRequest": {
+   "categories": {
+    "l1Category": {
+     "id": 1032,
+     "key": "huizen-en-kamers",
+     "fullName": "Huizen en Kamers"
+    },
+    "l2Categories": [
+     {
+      "id": 2771,
+      "key": "kamers-te-huur",
+      "fullName": "Kamers te huur"
+     },
+     {
+      "id": 2143,
+      "key": "huizen-te-huur",
+      "fullName": "Huizen te huur"
+     },
+     {
+      "id": 2147,
+      "key": "expat-rentals",
+      "fullName": "Expat Rentals"
+     }
+    ]
+   },
+   "attributes": {},
+   "attributesById": [],
+   "attributesByKey": [],
+   "attributeRanges": [
+    {
+     "attributeKey": "PriceCents",
+     "from": 0,
+     "to": 140000
+    }
+   ],
+   "attributeLabels": [],
+   "sortOptions": {
+    "sortBy": "SORT_INDEX",
+    "sortOrder": "DECREASING",
+    "sortAttribute": ""
+   },
+   "pagination": {
+    "offset": 0,
+    "limit": 30
+   },
+   "distance": {
+    "postcode": "2511CV",
+    "distanceMeters": 7000
+   },
+   "viewOptions": {
+    "kind": "list-view"
+   },
+   "bypassSpellingSuggestion": true
+  },
+  "categories": {
+   "l1Category": {
+    "id": 1032,
+    "key": "huizen-en-kamers",
+    "fullName": "Huizen en Kamers"
+   },
+   "l2Categories": [
+    {
+     "id": 2771,
+     "key": "kamers-te-huur",
+     "fullName": "Kamers te huur"
+    },
+    {
+     "id": 2143,
+     "key": "huizen-te-huur",
+     "fullName": "Huizen te huur"
+    },
+    {
+     "id": 2147,
+     "key": "expat-rentals",
+     "fullName": "Expat Rentals"
+    }
+   ]
+  },
+  "attributes": {},
+  "attributesById": [],
+  "attributesByKey": [],
+  "attributeRanges": [
+   {
+    "attributeKey": "PriceCents",
+    "from": 0,
+    "to": 140000
+   }
+  ],
+  "attributeLabels": [],
+  "sortOptions": {
+   "sortBy": "SORT_INDEX",
+   "sortOrder": "DECREASING",
+   "sortAttribute": ""
+  },
+  "pagination": {
+   "offset": 0,
+   "limit": 30
+  },
+  "distance": {
+   "postcode": "2511CV",
+   "distanceMeters": 7000
+  },
+  "viewOptions": {
+   "kind": "list-view"
+  },
+  "bypassSpellingSuggestion": true
+ },
+ "searchCategory": 2771
+}
