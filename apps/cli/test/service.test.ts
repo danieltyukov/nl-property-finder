@@ -12,7 +12,7 @@ import {
 } from '../src/service/index.js';
 import { renderDesktopEntry, renderSystemdUnit } from '../src/service/systemd.js';
 import { renderLaunchdPlist } from '../src/service/launchd.js';
-import { renderSchtasksCreateArgs } from '../src/service/schtasks.js';
+import { renderSchtasksCreateArgs, winQuote } from '../src/service/schtasks.js';
 
 const spec: ServiceSpec = {
   node: '/usr/bin/node',
@@ -140,6 +140,18 @@ describe('renderSchtasksCreateArgs', () => {
       '/TR',
       '"C:\\Program Files\\nodejs\\node.exe" C:\\nlpf\\dist\\nlpf.mjs daemon --home "C:\\Users\\Sam\\nlpf home"',
     ]);
+  });
+
+  test('quotes by the rules Windows parses a command line with', () => {
+    expect(winQuote('plain')).toBe('plain');
+    expect(winQuote('')).toBe('""');
+    // backslashes stay single unless a quote follows them
+    expect(winQuote('C:\\a b\\c')).toBe('"C:\\a b\\c"');
+    // a trailing backslash would escape the closing quote, so it is doubled
+    expect(winQuote('C:\\nlpf home\\')).toBe('"C:\\nlpf home\\\\"');
+    // an inner quote gets a backslash, and the backslashes before it are doubled
+    expect(winQuote('say "hi"')).toBe('"say \\"hi\\""');
+    expect(winQuote('a\\"b')).toBe('"a\\\\\\"b"');
   });
 });
 

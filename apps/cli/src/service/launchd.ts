@@ -1,5 +1,6 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { escapeRegExp } from '@nlpf/core';
 import {
   mustRun,
   readIfExists,
@@ -108,7 +109,7 @@ export function createLaunchdManager(deps: ServiceDeps): ServiceManager {
       if (content === null) return { kind: 'launchd', file, installed: false, enabled: false, active: false };
       const printed = await deps.exec('launchctl', ['print', target]);
       const disabled = await deps.exec('launchctl', ['print-disabled', domain]);
-      const enabled = !new RegExp(`"${LAUNCHD_LABEL.replace(/\./g, '\\.')}"\\s*=>\\s*(true|disabled)`).test(
+      const enabled = !new RegExp(`"${escapeRegExp(LAUNCHD_LABEL)}"\\s*=>\\s*(true|disabled)`).test(
         disabled.stdout,
       );
       const active = printed.code === 0 && /state = running/.test(printed.stdout);

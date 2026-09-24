@@ -1,6 +1,7 @@
 import type { Property, Viewing } from '@nlpf/core';
 
-const esc = (s: string) => s.replace(/\\/g, '\\\\').replace(/;/g, '\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+/** A TEXT value (RFC 5545 3.3.11): backslash, semicolon and comma get a backslash, newlines become \n. */
+const esc = (s: string) => s.replace(/[\\;,]/g, '\\$&').replace(/\r?\n/g, '\\n');
 
 /** UTC timestamps as iCalendar basic format: 20260924T163000Z. */
 const stamp = (iso: string) => iso.replace(/[-:]/g, '').replace(/\.\d{3}/, '');

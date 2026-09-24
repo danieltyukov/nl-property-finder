@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { trimChars, trimCharsEnd, trimTrailingSlashes } from '../src/index.js';
+import { escapeRegExp, trimChars, trimCharsEnd, trimTrailingSlashes } from '../src/index.js';
 
 describe('trimming', () => {
   test('trailing slashes, and nothing else', () => {
@@ -24,4 +24,11 @@ describe('trimming', () => {
     expect(trimChars(spaces, ',', true)).toBe('x');
     expect(performance.now() - t0).toBeLessThan(200);
   });
+});
+
+test('escapeRegExp makes a literal match only itself', () => {
+  const label = 'nl.property-finder (v1)+[x]\\y';
+  const re = new RegExp(`^${escapeRegExp(label)}$`);
+  expect(re.test(label)).toBe(true);
+  expect(re.test('nlXproperty-finder (v1)+[x]\\y')).toBe(false);
 });

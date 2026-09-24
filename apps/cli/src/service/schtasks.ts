@@ -9,10 +9,25 @@ import { SERVICE_NAME, mustRun, type ServiceDeps, type ServiceManager, type Serv
 
 export const TASK_NAME = SERVICE_NAME;
 
-/** Quotes one argument for the /TR command line when it contains spaces or quotes. */
-function winQuote(arg: string): string {
+/**
+ * Quotes one argument for the /TR command line when it contains spaces or
+ * quotes, by the rules Windows reads it back with: backslashes are literal
+ * except before a quote, so the ones before an inner quote or the closing
+ * quote are doubled, and an inner quote gets a backslash of its own.
+ */
+export function winQuote(arg: string): string {
   if (arg !== '' && !/[\s"]/.test(arg)) return arg;
-  return `"${arg.replace(/"/g, '\\"')}"`;
+  let out = '"';
+  let slashes = 0;
+  for (const ch of arg) {
+    if (ch === '\\') {
+      slashes++;
+      continue;
+    }
+    out += ch === '"' ? '\\'.repeat(slashes * 2 + 1) + '"' : '\\'.repeat(slashes) + ch;
+    slashes = 0;
+  }
+  return out + '\\'.repeat(slashes * 2) + '"';
 }
 
 /** The argument array for `schtasks`, passed to execFile as is. */

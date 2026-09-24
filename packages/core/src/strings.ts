@@ -32,3 +32,6 @@ export function trimChars(s: string, chars: string, spaces = false): string {
 
 /** "https://example.nl///" -> "https://example.nl". */
 export const trimTrailingSlashes = (s: string): string => trimCharsEnd(s, '/');
+
+/** The string with every regular-expression metacharacter escaped, for building a pattern from a literal. */
+export const escapeRegExp = (s: string): string => s.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&');

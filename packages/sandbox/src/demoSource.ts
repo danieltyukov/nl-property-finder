@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { basename, join } from 'node:path';
 import type {
@@ -65,7 +65,9 @@ const JSON_HEADERS = { accept: 'application/json', 'content-type': 'application/
 export function huisjeAdapter(baseUrl: string, opts: HuisjeAdapterOptions = {}): SourceAdapter {
   const base = trimTrailingSlashes(baseUrl);
   const loginUrl = `${base}/huisje/login`;
-  const attachmentsDir = opts.attachmentsDir ?? join(tmpdir(), 'nlpf-huisje');
+  // Made on first use and private to this process (mkdtemp), never a fixed name in the shared temp folder.
+  let attachmentsDir = opts.attachmentsDir;
+  const attachmentsRoot = () => (attachmentsDir ??= mkdtempSync(join(tmpdir(), 'nlpf-huisje-')));
   let cookie: string | undefined;
 
   const credentials = (ctx: SourceContext) => {
@@ -159,11 +161,14 @@ export function huisjeAdapter(baseUrl: string, opts: HuisjeAdapterOptions = {}):
       size: a.size,
     };
     if (a.data === undefined) return out;
-    const dir = join(attachmentsDir, `${messageId}-${a.id}`);
+    const dir = join(attachmentsRoot(), `${messageId}-${a.id}`);
     const path = join(dir, basename(a.filename) || 'attachment');
-    if (!existsSync(path) || statSync(path).size !== a.size) {
-      mkdirSync(dir, { recursive: true });
-      writeFileSync(path, Buffer.from(a.data, 'base64'));
+    mkdirSync(dir, { recursive: true });
+    try {
+      // An attachment never changes, so a file already there is this one.
+      writeFileSync(path, Buffer.from(a.data, 'base64'), { flag: 'wx' });
+    } catch (e) {
+      if ((e as NodeJS.ErrnoException).code !== 'EEXIST') throw e;
     }
     out.path = path;
     return out;

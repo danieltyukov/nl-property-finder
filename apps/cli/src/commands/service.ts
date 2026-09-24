@@ -2,6 +2,7 @@ import { readToken } from '../client.js';
 import {
   closeSync,
   existsSync,
+  fstatSync,
   openSync,
   readSync,
   readdirSync,
@@ -84,11 +85,14 @@ export function findLogFile(logsDir: string): string | null {
 }
 
 export function tailLines(file: string, n: number): string[] {
-  const size = statSync(file).size;
-  const length = Math.min(size, 512 * 1024);
-  const buf = Buffer.alloc(length);
   const fd = openSync(file, 'r');
+  let size: number;
+  let length: number;
+  let buf: Buffer;
   try {
+    size = fstatSync(fd).size;
+    length = Math.min(size, 512 * 1024);
+    buf = Buffer.alloc(length);
     readSync(fd, buf, 0, length, size - length);
   } finally {
     closeSync(fd);
@@ -131,22 +135,23 @@ async function follow(file: string, emit: (line: string) => void, stop: Promise<
   let pos = statSync(file).size;
   let partial = '';
   const onChange = () => {
-    let size: number;
+    let fd: number;
     try {
-      size = statSync(file).size;
+      fd = openSync(file, 'r');
     } catch {
       return;
     }
-    if (size < pos) pos = 0;
-    if (size === pos) return;
-    const buf = Buffer.alloc(size - pos);
-    const fd = openSync(file, 'r');
+    let buf: Buffer;
     try {
+      const size = fstatSync(fd).size;
+      if (size < pos) pos = 0;
+      if (size === pos) return;
+      buf = Buffer.alloc(size - pos);
       readSync(fd, buf, 0, buf.length, pos);
+      pos = size;
     } finally {
       closeSync(fd);
     }
-    pos = size;
     const text = partial + buf.toString('utf8');
     const lines = text.split('\n');
     partial = lines.pop() ?? '';

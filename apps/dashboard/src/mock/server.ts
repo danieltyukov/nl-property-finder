@@ -14,8 +14,8 @@
  * Node's http module only, so it adds no dependency.
  */
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
-import { readFile, stat } from 'node:fs/promises';
-import { extname, join, normalize } from 'node:path';
+import { readFile } from 'node:fs/promises';
+import { extname, join, normalize, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { EventType, Message, NlpfEvent, PropertyView, Task } from '@nlpf/core';
 import { API_PREFIX, ROUTES } from '../core';
@@ -210,6 +210,7 @@ function tenantPdf(): Buffer {
 
 function ics(): string {
   const stamp = (iso: string) => iso.replace(/[-:]/g, '').replace(/\.\d+Z$/, 'Z');
+  const text = (s: string) => s.replace(/[\\;,]/g, '\\$&').replace(/\r?\n/g, '\\n');
   const events = world.viewings
     .filter((v) => v.state === 'booked')
     .map((v) =>
@@ -219,8 +220,8 @@ function ics(): string {
         `DTSTAMP:${stamp(new Date().toISOString())}`,
         `DTSTART:${stamp(v.startsAt)}`,
         `DTEND:${stamp(v.endsAt)}`,
-        `SUMMARY:Viewing ${(v.location ?? '').replace(/,/g, '\\,')}`,
-        `LOCATION:${(v.location ?? '').replace(/,/g, '\\,')}`,
+        `SUMMARY:Viewing ${text(v.location ?? '')}`,
+        `LOCATION:${text(v.location ?? '')}`,
         'END:VEVENT',
       ].join('\r\n'),
     );
@@ -501,18 +502,21 @@ const TYPES: Record<string, string> = {
 
 async function serveStatic(res: ServerResponse, pathname: string) {
   const clean = normalize(decodeURIComponent(pathname)).replace(/^(\.\.[/\\])+/, '');
-  let file = join(DIST, clean);
-  if (!file.startsWith(DIST)) return fail(res, 403, 'forbidden', 'Outside the build folder.');
-  try {
-    const info = await stat(file);
-    if (info.isDirectory()) file = join(file, 'index.html');
-  } catch {
-    file = join(DIST, 'index.html');
+  const wanted = join(DIST, clean);
+  if (wanted !== DIST && !wanted.startsWith(DIST + sep)) return fail(res, 403, 'forbidden', 'Outside the build folder.');
+  // Read, never stat first: the file, a folder's index.html, then the app shell for client-side routes.
+  let file = '';
+  let data: Buffer | undefined;
+  for (const candidate of [wanted, join(wanted, 'index.html'), join(DIST, 'index.html')]) {
+    try {
+      data = await readFile(candidate);
+      file = candidate;
+      break;
+    } catch {
+      // a folder (EISDIR) or missing: try the next
+    }
   }
-  let data: Buffer;
-  try {
-    data = await readFile(file);
-  } catch {
+  if (!data) {
     res.writeHead(503, { 'Content-Type': 'text/plain; charset=utf-8' });
     return res.end('The dashboard is not built yet. Run: npm run build -w @nlpf/dashboard\n');
   }
@@ -547,7 +551,7 @@ const server = createServer((req, res) => {
       }
       return await serveStatic(res, url.pathname);
     } catch (error) {
-      if (!res.headersSent) fail(res, 500, 'mock_error', error instanceof Error ? error.message : String(error));
+      if (!res.headersSent) fail(res, 500, 'mock_error', error instanceof Error ? error.message : 'unexpected error');
       else res.end();
     }
   })();
