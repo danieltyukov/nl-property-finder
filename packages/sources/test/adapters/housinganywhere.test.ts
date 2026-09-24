@@ -1,7 +1,8 @@
 import { describe, expect, test } from 'vitest';
 import { ConfigSchema, type InboundMessage, type Listing, type RawListing } from '@nlpf/core';
 import { parseAlertEmail as mailPackageAlert } from '@nlpf/mail';
-import { assignedJson, housinganywhere, housingAnywhereCity, unitTypeId } from '../../src/adapters/housinganywhere.js';
+import { housinganywhere, housingAnywhereCity, unitTypeId } from '../../src/adapters/housinganywhere.js';
+import { assignedJson } from '../../src/adapters/json-shared.js';
 import { fixtureContext, readFixture, type FixtureContextOptions } from '../../src/testing.js';
 
 const config = ConfigSchema.parse({

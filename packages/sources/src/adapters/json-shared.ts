@@ -115,6 +115,33 @@ export function guessLanguage(text: string | undefined): Lang | undefined {
   return en > nl ? 'en' : 'nl';
 }
 
+/** The JSON object assigned to `window.<name>` in a page, read without running any script. */
+export function assignedJson(html: string, name: string): Record<string, unknown> | undefined {
+  const escaped = name.replace(/[$.*+?^()[\]{}|\\]/g, '\\$&');
+  const m = new RegExp(`window\\.${escaped}\\s*=\\s*\\(?\\s*\\{`).exec(html);
+  if (!m) return undefined;
+  const start = m.index + m[0].length - 1;
+  let depth = 0;
+  let inString = false;
+  for (let i = start; i < html.length; i++) {
+    const c = html[i];
+    if (inString) {
+      if (c === '\\') i++;
+      else if (c === '"') inString = false;
+    } else if (c === '"') inString = true;
+    else if (c === '{') depth++;
+    else if (c === '}' && --depth === 0) {
+      try {
+        const v = JSON.parse(html.slice(start, i + 1)) as unknown;
+        return isObj(v) ? v : undefined;
+      } catch {
+        return undefined;
+      }
+    }
+  }
+  return undefined;
+}
+
 /* ---------- searches ---------- */
 
 /** Municipality spellings that platforms know under another name. */

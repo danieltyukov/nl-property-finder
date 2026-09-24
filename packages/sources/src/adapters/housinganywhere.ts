@@ -22,6 +22,7 @@ import { normalisePostcode } from '../util/address.js';
 import { detectFurnishing, parseBedrooms, parseDutchDate, parsePrice, parseSize } from '../util/parse.js';
 import {
   alertCards,
+  assignedJson,
   clean,
   compact,
   filterKey,
@@ -87,33 +88,6 @@ export function unitTypeId(path: string): string | undefined {
 }
 
 const DETAIL_PATH = /^\/(?:[a-z]{2}\/)?(room|private-room|shared-room|studio|apartment|house)\/(ut\d{4,})\/[a-z]{2}\/([^/]+)(?:\/([^/?#]+))?\/?$/i;
-
-/** The JSON object assigned to `window.<name>` in a page, read without running any script. */
-export function assignedJson(html: string, name: string): Record<string, unknown> | undefined {
-  const at = html.indexOf(`window.${name}`);
-  if (at === -1) return undefined;
-  const start = html.indexOf('{', at);
-  if (start === -1) return undefined;
-  let depth = 0;
-  let inString = false;
-  for (let i = start; i < html.length; i++) {
-    const c = html[i];
-    if (inString) {
-      if (c === '\\') i++;
-      else if (c === '"') inString = false;
-    } else if (c === '"') inString = true;
-    else if (c === '{') depth++;
-    else if (c === '}' && --depth === 0) {
-      try {
-        const v = JSON.parse(html.slice(start, i + 1)) as unknown;
-        return isObj(v) ? v : undefined;
-      } catch {
-        return undefined;
-      }
-    }
-  }
-  return undefined;
-}
 
 export interface HousingAnywhereOptions {
   /** Site root, for tests against a local server. Default https://housinganywhere.com. */
