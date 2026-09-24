@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import type { AiProvider, AiUsage, MailStatus } from './contracts.js';
+import type { AiProvider, AiUsage, MailStatus, SourceCapabilities } from './contracts.js';
+import type { SourceConfig } from './config/schema.js';
 import type { Application, Conversation, Listing, Match, Message, Property, SourceState, Viewing } from './types.js';
 
 /*
@@ -27,6 +28,17 @@ export interface StatsView {
   freshness: { sourceId: string; medianDetectMs: number | null }[];   // publishedAt to first seen, where the source reports publishedAt
 }
 export interface Page<T> { items: T[]; next?: string }
+
+/** GET /sources: health plus what the adapter declares and what the user chose. */
+export interface SourceView extends SourceState {
+  homepage?: string;
+  capabilities?: SourceCapabilities;
+  regions?: 'nl' | string[];
+  intervalSec?: number;
+  contactMode?: 'auto' | 'watch_only';
+  config?: Partial<SourceConfig>;
+  termsNote?: string;
+}
 
 export const ResolveTaskBody = z.object({
   action: z.enum(['done', 'dismiss', 'snooze', 'approve', 'reject', 'send_draft']),
@@ -73,5 +85,6 @@ export const ROUTES = {
   uploadDocument:    { method: 'POST',  path: '/documents' },
   deleteDocument:    { method: 'DELETE',path: '/documents/:name' },
   tenantProfilePdf:  { method: 'GET',   path: '/profile.pdf' },
+  notifyTest:        { method: 'POST',  path: '/notify/test' },
   openapi:           { method: 'GET',   path: '/openapi.json' },
 } as const;

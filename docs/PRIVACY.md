@@ -12,6 +12,7 @@ leaves your machine, and why.
 | Anthropic (Claude API) | Listing text, landlord messages, and the parts of your profile the agent writes from | For each matched listing and each reply, when AI is on | `ai.provider: rules` |
 | ntfy.sh or Telegram | Notification titles; the body too if `notify.includeDetails` is on | For tasks and wins | Remove the channel |
 | PDOK, BAG, WOZ-waardeloket, EP-Online (Dutch public registers) | Addresses | Geocoding and the legal-rent estimate | `rentCheck.enabled: false` |
+| OpenStreetMap tile servers | Which map area you look at (your IP and the tile coordinates) | When a map is open in the dashboard | Start the daemon with `NLPF_TILES=0` |
 
 Nothing else leaves: no analytics, no crash reports, no update checks.
 

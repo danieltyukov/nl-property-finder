@@ -13,6 +13,7 @@ export interface ActionDeps {
   rt: Runtime;
   connect(adapter: import('@nlpf/core').SourceAdapter): Promise<'ok' | 'timeout'>;
   setPaused(paused: boolean): void;
+  notifyTest(): Promise<{ sent: boolean; channels: string[]; problems: string[] }>;
   patchSourceConfig(id: string, patch: Record<string, unknown>): void;
 }
 
@@ -303,6 +304,8 @@ export function createActions(d: ActionDeps): DaemonActions {
     stats(): StatsView {
       return computeStats(rt);
     },
+
+    notifyTest: () => d.notifyTest(),
   };
   void openTask;
   return actions;

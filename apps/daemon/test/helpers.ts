@@ -31,6 +31,7 @@ export function fakeContext(over: Partial<DaemonContext> = {}): DaemonContext {
     mailStatus: () => ({ connected: false }),
     ai: () => ({ provider: 'rules', usageThisMonth: { inputTokens: 0, outputTokens: 0, cacheReadTokens: 0, calls: 0 } }),
     nextPollAt: () => undefined,
+    sources: () => store.sources.list(),
     actions,
     ...over,
   };

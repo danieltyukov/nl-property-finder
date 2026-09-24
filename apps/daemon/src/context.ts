@@ -1,5 +1,5 @@
 import type {
-  Config, EventBus, Logger, MailStatus, Message, Paths, SourceState, StatsView, Store, Task, AiUsage,
+  Config, EventBus, Logger, MailStatus, Message, Paths, SourceState, SourceView, StatsView, Store, Task, AiUsage,
 } from '@nlpf/core';
 import type { z } from 'zod';
 import type { ContactBody, DraftBody, ResolveTaskBody, SendMessageBody, SourcePatchBody, WithdrawAllBody } from '@nlpf/core';
@@ -25,6 +25,7 @@ export interface DaemonActions {
   deleteDocument(name: string): void;
   tenantProfilePdf(): Promise<Uint8Array>;
   stats(): StatsView;
+  notifyTest(): Promise<{ sent: boolean; channels: string[]; problems: string[] }>;
 }
 
 export interface DaemonContext {
@@ -44,6 +45,8 @@ export interface DaemonContext {
   mailStatus(): MailStatus;
   ai(): { provider: 'claude' | 'rules' | 'demo'; usageThisMonth: AiUsage; budget?: number };
   nextPollAt(): string | undefined;
+  /** Every known source, enabled or not, with health, capabilities and the user's choices. */
+  sources(): SourceView[];
   actions: DaemonActions;
   dashboardDir?: string;
 }
