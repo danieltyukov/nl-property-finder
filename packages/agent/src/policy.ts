@@ -110,11 +110,13 @@ const isAutomatic = (a: PolicyAction) =>
  * low-confidence classification turns automatic actions into tasks.
  */
 export function decidePolicy(intent: Intent, ctx: PolicyContext): PolicyAction {
+  // Money and signatures reach a person whatever the config says, including 'ignore'.
+  if (NEVER_AUTO.has(intent)) return taskFor(intent);
   const configured = ctx.automation.policies[intent];
   if (configured === 'ignore') return { kind: 'ignore' };
 
   let action: PolicyAction;
-  if (NEVER_AUTO.has(intent) || configured === 'task') action = taskFor(intent);
+  if (configured === 'task') action = taskFor(intent);
   else action = defaultAction(intent, ctx, configured === 'auto');
 
   if (!isAutomatic(action)) return action;

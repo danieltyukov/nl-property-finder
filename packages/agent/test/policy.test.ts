@@ -97,6 +97,13 @@ test('offer, contract and payment_request can never be automatic', () => {
   expect(kindOf(decide('contract', { automation: { policies } }))).toBe('task:offer_or_contract:1');
 });
 
+test('offer, contract and payment_request can never be ignored either', () => {
+  const policies = { payment_request: 'ignore', offer: 'ignore', contract: 'ignore' } as const;
+  expect(kindOf(decide('payment_request', { automation: { policies } }))).toBe('task:payment_warning:1');
+  expect(kindOf(decide('offer', { automation: { policies } }))).toBe('task:offer_or_contract:1');
+  expect(kindOf(decide('contract', { automation: { policies } }))).toBe('task:offer_or_contract:1');
+});
+
 test('configured policies override the defaults', () => {
   expect(kindOf(decide('viewing_invite', { automation: { policies: { viewing_invite: 'task' } } }))).toBe(
     'task:viewing_choice:1',
