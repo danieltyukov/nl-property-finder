@@ -1,0 +1,16 @@
+X-Comment: Synthetic fixture for tests, a platform message notification that links to a listing but is not an alert. Not a real Kamernet email.
+From: Kamernet <noreply@kamernet.nl>
+To: agent@nlpf.test
+Subject: Je hebt een nieuw bericht van Anna over Kamer Van der Heimstraat
+Date: Wed, 23 Sep 2026 14:02:00 +0200
+Message-ID: <msg-notify-110293@kamernet.nl>
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html><body>
+<!-- Synthetic fixture for tests. Not a real Kamernet email. -->
+<p>Anna heeft gereageerd op je bericht over
+<a href="https://kamernet.nl/huren/kamer-delft/van-der-heimstraat/kamer-2407683">Kamer Van der Heimstraat</a> (&euro; 625,-).</p>
+<p><a href="https://kamernet.nl/berichten/gesprek/88123">Lees het bericht</a></p>
+</body></html>

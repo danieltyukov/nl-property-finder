@@ -16,9 +16,12 @@ export interface DocLine {
   text: string;
   /** Indexes into `Doc.links` for every link that has visible content on this line. */
   links: number[];
+  /** Paragraph number. Plain text starts a new paragraph after a blank line; in HTML every line is its own. */
+  para: number;
 }
 
 export interface Doc {
+  kind: 'html' | 'text';
   lines: DocLine[];
   links: DocLink[];
 }
@@ -85,7 +88,7 @@ export function readHtml(html: string, opts: ReadHtmlOptions = {}): Doc {
 
   const flush = () => {
     const text = clean(buf);
-    if (text || lineLinks.size) lines.push({ text, links: [...lineLinks] });
+    if (text || lineLinks.size) lines.push({ text, links: [...lineLinks], para: lines.length });
     buf = '';
     lineLinks = new Set();
   };
@@ -146,7 +149,7 @@ export function readHtml(html: string, opts: ReadHtmlOptions = {}): Doc {
   }
   if (pos < html.length) addText(html.slice(pos));
   flush();
-  return { lines, links };
+  return { kind: 'html', lines, links };
 }
 
 const URL_IN_TEXT = /https?:\/\/[^\s<>"'()[\]{}]+[^\s<>"'()[\]{}.,;:!?]/g;
@@ -155,15 +158,17 @@ const URL_IN_TEXT = /https?:\/\/[^\s<>"'()[\]{}]+[^\s<>"'()[\]{}.,;:!?]/g;
 export function readText(text: string): Doc {
   const links: DocLink[] = [];
   const lines: DocLine[] = [];
+  let para = 0;
   for (const raw of text.split(/\r?\n/)) {
-    const line: DocLine = { text: clean(raw), links: [] };
+    const line: DocLine = { text: clean(raw), links: [], para };
     for (const m of raw.matchAll(URL_IN_TEXT)) {
       links.push({ href: m[0], text: '', images: [] });
       line.links.push(links.length - 1);
     }
     if (line.text || line.links.length) lines.push(line);
+    else if (lines.length && lines[lines.length - 1]?.para === para) para++;
   }
-  return { lines, links };
+  return { kind: 'text', lines, links };
 }
 
 /** Visible text of an HTML document, one block per line. */

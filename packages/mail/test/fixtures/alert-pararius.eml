@@ -1,0 +1,82 @@
+X-Comment: Synthetic fixture for tests, modelled on the Pararius card fields and URL pattern in docs/research/platforms.md. Not a real Pararius email.
+From: Pararius <noreply@pararius.nl>
+To: agent@nlpf.test
+Subject: 3 nieuwe huurwoningen in Delft voor je zoekopdracht
+Date: Wed, 23 Sep 2026 07:02:11 +0200
+Message-ID: <20260923050211.4f2a9c@mailer.pararius.nl>
+List-Unsubscribe: <https://www.pararius.nl/zoekopdrachten/uitschrijven?token=abc123>
+Precedence: bulk
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="pa-alt"
+
+--pa-alt
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Nieuw aanbod voor je zoekopdracht: huurwoningen in Delft.
+
+Appartement Kruisstraat, 2611 ML Delft (Centrum), € 1.395 per maand
+https://www.pararius.nl/appartement-te-huur/delft/fd826b6c/kruisstraat
+
+Studio Phoenixstraat, 2611 AL Delft (Centrum), € 975 per maand
+https://www.pararius.nl/studio-te-huur/delft/a3b1c2d4/phoenixstraat
+
+Huis Van Foreestweg, 2614 BA Delft (Tanthof-West), € 2.150 per maand
+https://www.pararius.nl/huis-te-huur/delft/9e8d7c6b/van-foreestweg
+
+--pa-alt
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html lang="nl">
+<head><meta charset="utf-8"><title>Pararius</title>
+<style>.price { font-weight: bold; } .features { color: #666; }</style></head>
+<body style="margin:0;background:#f4f4f4">
+<!-- Synthetic fixture for tests, modelled on the Pararius card fields in docs/research/platforms.md. Not a real Pararius email. -->
+<table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+<tr><td align="center">
+<table width="600" cellpadding="0" cellspacing="0" role="presentation">
+<tr><td><a href="https://www.pararius.nl/?utm_source=zoekopdracht&amp;utm_medium=email"><img src="https://www.pararius.nl/img/logo-email.png" alt="Pararius" width="120"></a></td></tr>
+<tr><td><h1>Nieuw aanbod voor je zoekopdracht</h1>
+<p>Huurwoningen in Delft, &euro; 0 tot &euro; 2.500. Er zijn 3 nieuwe woningen gevonden.</p></td></tr>
+
+<tr><td class="listing">
+<a href="https://www.pararius.nl/appartement-te-huur/delft/fd826b6c/kruisstraat?utm_source=zoekopdracht&amp;utm_medium=email&amp;utm_campaign=dagelijks"><img src="https://casco.cmcdn.nl/pararius/fd826b6c/foto-1.jpg" alt="Appartement Kruisstraat" width="560"></a>
+<h2 style="margin:8px 0"><a href="https://www.pararius.nl/appartement-te-huur/delft/fd826b6c/kruisstraat?utm_source=zoekopdracht&amp;utm_medium=email&amp;utm_campaign=dagelijks">Appartement Kruisstraat</a></h2>
+<p class="subtitle">2611 ML Delft (Centrum)</p>
+<p class="price">&euro; 1.395 per maand</p>
+<p class="features">48 m&sup2; &middot; 2 kamers &middot; Gestoffeerd</p>
+<p><a href="https://www.pararius.nl/appartement-te-huur/delft/fd826b6c/kruisstraat?utm_source=zoekopdracht&amp;utm_medium=email&amp;utm_campaign=dagelijks">Bekijk woning</a></p>
+</td></tr>
+
+<tr><td class="listing">
+<a href="https://www.pararius.nl/studio-te-huur/delft/a3b1c2d4/phoenixstraat?utm_source=zoekopdracht&amp;utm_medium=email&amp;utm_campaign=dagelijks"><img src="https://casco.cmcdn.nl/pararius/a3b1c2d4/foto-1.jpg" alt="Studio Phoenixstraat" width="560"></a>
+<h2 style="margin:8px 0"><a href="https://www.pararius.nl/studio-te-huur/delft/a3b1c2d4/phoenixstraat?utm_source=zoekopdracht&amp;utm_medium=email&amp;utm_campaign=dagelijks">Studio Phoenixstraat</a></h2>
+<p class="subtitle">2611 AL Delft (Centrum)</p>
+<p class="price">&euro; 975 per maand</p>
+<p class="features">28 m&sup2; &middot; 1 kamer &middot; Gemeubileerd</p>
+<p><a href="https://www.pararius.nl/studio-te-huur/delft/a3b1c2d4/phoenixstraat?utm_source=zoekopdracht&amp;utm_medium=email&amp;utm_campaign=dagelijks">Bekijk woning</a></p>
+</td></tr>
+
+<tr><td class="listing">
+<a href="https://www.pararius.nl/huis-te-huur/delft/9e8d7c6b/van-foreestweg?utm_source=zoekopdracht&amp;utm_medium=email&amp;utm_campaign=dagelijks"><img src="https://casco.cmcdn.nl/pararius/9e8d7c6b/foto-1.jpg" alt="Huis Van Foreestweg" width="560"></a>
+<h2 style="margin:8px 0"><a href="https://www.pararius.nl/huis-te-huur/delft/9e8d7c6b/van-foreestweg?utm_source=zoekopdracht&amp;utm_medium=email&amp;utm_campaign=dagelijks">Huis Van Foreestweg</a></h2>
+<p class="subtitle">2614 BA Delft (Tanthof-West)</p>
+<p class="price">&euro; 2.150 per maand</p>
+<p class="features">112 m&sup2; &middot; 5 kamers &middot; Kaal</p>
+<p><a href="https://www.pararius.nl/huis-te-huur/delft/9e8d7c6b/van-foreestweg?utm_source=zoekopdracht&amp;utm_medium=email&amp;utm_campaign=dagelijks">Bekijk woning</a></p>
+</td></tr>
+
+<tr><td><a href="https://www.pararius.nl/huurwoningen/delft/0-2500?utm_source=zoekopdracht&amp;utm_medium=email">Bekijk alle resultaten</a></td></tr>
+<tr><td style="font-size:11px;color:#999">Je ontvangt deze e-mail omdat je een zoekopdracht hebt opgeslagen op Pararius.
+<a href="https://www.pararius.nl/zoekopdrachten/uitschrijven?token=abc123">Uitschrijven</a> |
+<a href="https://www.pararius.nl/mijn-pararius/instellingen">Instellingen</a></td></tr>
+</table>
+</td></tr>
+</table>
+<img src="https://www.pararius.nl/open.gif?m=4f2a9c" width="1" height="1" alt="">
+</body>
+</html>
+
+--pa-alt--

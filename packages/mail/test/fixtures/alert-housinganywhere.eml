@@ -1,0 +1,40 @@
+X-Comment: Synthetic fixture for tests, modelled on the HousingAnywhere listing fields in docs/research/platforms.md. Not a real HousingAnywhere email.
+From: HousingAnywhere <no-reply@housinganywhere.com>
+To: agent@nlpf.test
+Subject: 3 new places for your search in Delft
+Date: Wed, 23 Sep 2026 18:45:00 +0000
+Message-ID: <search-alert.93817@housinganywhere.com>
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<!doctype html>
+<html><body>
+<!-- Synthetic fixture for tests, modelled on the HousingAnywhere listing fields in docs/research/platforms.md. Not a real HousingAnywhere email. -->
+<div class="container">
+<p>Hi Sam, these new places match your saved search.</p>
+<div class="card">
+  <a href="https://housinganywhere.com/room/ut1848326/nl/Delft/phoenixstraat?utm_source=search-alert&amp;utm_medium=email"><img src="https://cdn.housinganywhere.com/listing/1848326/cover.jpg" alt="Private room"></a>
+  <p><a href="https://housinganywhere.com/room/ut1848326/nl/Delft/phoenixstraat?utm_source=search-alert&amp;utm_medium=email">Private room in Phoenixstraat</a></p>
+  <p>&euro;750 / month</p>
+  <p>16 m&sup2; &middot; Furnished</p>
+  <p>Available from 1 Oct 2026</p>
+</div>
+<div class="card">
+  <a href="https://housinganywhere.com/studio/ut1852210/nl/Rotterdam/witte-de-withstraat?utm_source=search-alert&amp;utm_medium=email"><img src="https://cdn.housinganywhere.com/listing/1852210/cover.jpg" alt="Studio"></a>
+  <p><a href="https://housinganywhere.com/studio/ut1852210/nl/Rotterdam/witte-de-withstraat?utm_source=search-alert&amp;utm_medium=email">Studio in Witte de Withstraat</a></p>
+  <p>&euro;1,150 / month</p>
+  <p>30 m&sup2; &middot; Furnished</p>
+  <p>Available from 15 Oct 2026</p>
+</div>
+<div class="card">
+  <a href="https://housinganywhere.com/apartment/ut1850001/nl/Den-Haag/prinsegracht?utm_source=search-alert&amp;utm_medium=email"><img src="https://cdn.housinganywhere.com/listing/1850001/cover.jpg" alt="Apartment"></a>
+  <p><a href="https://housinganywhere.com/apartment/ut1850001/nl/Den-Haag/prinsegracht?utm_source=search-alert&amp;utm_medium=email">Apartment in Prinsegracht</a></p>
+  <p>&euro;1,450 / month</p>
+  <p>55 m&sup2; &middot; 2 bedrooms &middot; Unfurnished</p>
+  <p>Available from 1 Nov 2026</p>
+</div>
+<p><a href="https://housinganywhere.com/s/Delft--Netherlands?utm_source=search-alert">See all places in Delft</a></p>
+<p style="font-size:11px">You receive this email because you saved a search. <a href="https://housinganywhere.com/my/alerts">Manage alerts</a></p>
+</div>
+</body></html>

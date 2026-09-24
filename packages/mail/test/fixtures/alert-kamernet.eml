@@ -1,0 +1,56 @@
+X-Comment: Synthetic fixture for tests, modelled on the Kamernet detail URL pattern and listing fields in docs/research/platforms.md. Not a real Kamernet email.
+From: Kamernet <noreply@kamernet.nl>
+To: agent@nlpf.test
+Subject: Nieuwe kamers en woningen die bij je alert passen
+Date: Wed, 23 Sep 2026 12:30:05 +0200
+Message-ID: <alert-7731902@kamernet.nl>
+Precedence: bulk
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html><body>
+<!-- Synthetic fixture for tests, modelled on the Kamernet listing fields in docs/research/platforms.md. Not a real Kamernet email. -->
+<table width="600" align="center" role="presentation">
+<tr><td><img src="https://resources.kamernet.nl/email/logo.png" alt="Kamernet"></td></tr>
+<tr><td><h2>Hoi Sam,</h2><p>We hebben 3 nieuwe advertenties gevonden voor je alert "Delft en Rotterdam, max &euro; 1.200".</p></td></tr>
+<tr><td>
+  <table role="presentation"><tr>
+    <td><a href="https://kamernet.nl/huren/kamer-delft/van-der-heimstraat/kamer-2407683?utm_source=alert&amp;utm_medium=email"><img src="https://resources.kamernet.nl/image/2407683/1.jpg" alt=""></a></td>
+    <td>
+      <div><a href="https://kamernet.nl/huren/kamer-delft/van-der-heimstraat/kamer-2407683?utm_source=alert&amp;utm_medium=email">Kamer Van der Heimstraat</a></div>
+      <div>Delft</div>
+      <div>14 m&sup2; &middot; Gemeubileerd</div>
+      <div><b>&euro; 625,-</b> incl. g/w/l</div>
+      <div>Beschikbaar vanaf 1 oktober 2026</div>
+    </td>
+  </tr></table>
+</td></tr>
+<tr><td>
+  <table role="presentation"><tr>
+    <td><a href="https://kamernet.nl/huren/studio-delft/voorstraat/studio-2411022?utm_source=alert&amp;utm_medium=email"><img src="https://resources.kamernet.nl/image/2411022/1.jpg" alt=""></a></td>
+    <td>
+      <div><a href="https://kamernet.nl/huren/studio-delft/voorstraat/studio-2411022?utm_source=alert&amp;utm_medium=email">Studio Voorstraat</a></div>
+      <div>Delft</div>
+      <div>26 m&sup2; &middot; Gestoffeerd</div>
+      <div><b>&euro; 890,-</b> incl. g/w/l</div>
+      <div>Beschikbaar vanaf 15 oktober</div>
+    </td>
+  </tr></table>
+</td></tr>
+<tr><td>
+  <table role="presentation"><tr>
+    <td><a href="https://kamernet.nl/huren/appartement-rotterdam/west-kruiskade/appartement-2412345?utm_source=alert&amp;utm_medium=email"><img src="https://resources.kamernet.nl/image/2412345/1.jpg" alt=""></a></td>
+    <td>
+      <div><a href="https://kamernet.nl/huren/appartement-rotterdam/west-kruiskade/appartement-2412345?utm_source=alert&amp;utm_medium=email">Appartement West-Kruiskade</a></div>
+      <div>Rotterdam</div>
+      <div>45 m&sup2; &middot; Kaal</div>
+      <div><b>&euro; 1.150,-</b> excl.</div>
+      <div>Beschikbaar per direct</div>
+    </td>
+  </tr></table>
+</td></tr>
+<tr><td><a href="https://kamernet.nl/huren/kamers-delft?utm_source=alert">Bekijk alle kamers in Delft</a></td></tr>
+<tr><td style="font-size:11px">Je ontvangt deze e-mail omdat je een alert hebt aangemaakt. <a href="https://kamernet.nl/alerts/beheren">Alert beheren</a></td></tr>
+</table>
+</body></html>
