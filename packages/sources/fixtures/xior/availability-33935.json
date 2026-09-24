@@ -1,0 +1,41 @@
+{
+  "_fixture": "SYNTHETIC: no availability request was made while recording. Shape taken from the residence page's own script (recorded 2026-09-24: success, data.units[].apartmentId, apartmentName, floorplanName, minimumRent, maximumRent, sqm, availableDate, applyOnlineURL, data.availability_by_room) and from 751K/holland2stay-monitor docs/XIOR.md (unitStatus, beds, deposit, availability_response). Values are invented.",
+  "success": true,
+  "data": {
+    "units": [
+      {
+        "propertyId": 185845,
+        "floorplanId": 1111471,
+        "floorplanName": "Comfy (1 pers)",
+        "apartmentId": 402419,
+        "apartmentName": "AV.1.07",
+        "beds": 1,
+        "sqm": 24,
+        "minimumRent": 813,
+        "maximumRent": 845,
+        "deposit": 813,
+        "availableDate": "01/11/2026",
+        "unitStatus": "Notice Unrented",
+        "applyOnlineURL": "https://xior.securerc.co.uk/onlineleasing/example/oleapplication.aspx?UnitID=402419"
+      },
+      {
+        "propertyId": 185845,
+        "floorplanId": 1111471,
+        "floorplanName": "Comfy (1 pers)",
+        "apartmentId": 402431,
+        "apartmentName": "AV.2.14",
+        "beds": 1,
+        "sqm": 25,
+        "minimumRent": 829,
+        "maximumRent": 829,
+        "deposit": 829,
+        "availableDate": "",
+        "unitStatus": "Vacant Unrented Not Ready",
+        "applyOnlineURL": "https://xior.securerc.co.uk/onlineleasing/example/oleapplication.aspx?UnitID=402431"
+      }
+    ],
+    "total": 2,
+    "availability_by_room": { "33935": 2, "33936": 0 },
+    "availability_response": { "errorCode": 200, "errorMessage": "" }
+  }
+}
