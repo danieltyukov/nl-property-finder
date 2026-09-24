@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <!-- App and touch icon: ink rounded square, paper gable at 60 percent, the lit window in oranje. -->
+  <rect width="160" height="160" rx="36" fill="#13201F"/>
+  <g transform="translate(32 30) scale(6)">
+    <path fill="#F5F2EA" fill-rule="evenodd" d="M2 15V7h2V4h2V1h4v3h2v3h2v8zM9 9h3v3H9z"/>
+    <rect x="9" y="9" width="3" height="3" fill="#FF7A33"/>
+  </g>
+</svg>

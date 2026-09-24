@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+  <!-- The one-window mark: a stepped canal-house gable with one square window. The window is a knockout, so it shows whatever is behind the mark. -->
+  <path fill="currentColor" fill-rule="evenodd" d="M2 15V7h2V4h2V1h4v3h2v3h2v8zM9 9h3v3H9z"/>
+</svg>

@@ -12,3 +12,4 @@ e2e/.artifacts/
 *.db
 *.db-wal
 *.db-shm
+.claude/worktrees/

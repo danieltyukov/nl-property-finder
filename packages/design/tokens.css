@@ -1,0 +1,229 @@
+/*
+ * Canal Light tokens. The dashboard and the site both read this file, so the
+ * page cannot drift away from the product it shows. Nothing outside this file
+ * writes a colour literal. Contrast ratios in the comments are WCAG ratios for
+ * these exact values; docs/design/canal-light.md has the full table.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Ground and ink */
+  --bg: #F5F2EA;                            /* paper */
+  --bg-sunk: #ECE7DC;                       /* alternate bands, table heads, sidebar */
+  --surface: #FDFCF8;                       /* cards */
+  --surface-glass: rgb(253 252 248 / 0.72);
+  --text: #13201F;                          /* 14.97:1 on --bg */
+  --muted: #56625F;                         /* 5.67:1 on --bg */
+  --faint: #8A9491;                         /* 2.79:1: decoration only, never text */
+  --line: rgb(19 32 31 / 0.12);
+  --line-strong: rgb(19 32 31 / 0.22);
+  --hover: rgb(19 32 31 / 0.05);
+  --dot: rgb(19 32 31 / 0.16);
+
+  /* Dusk, the only accent family */
+  --haze: #FFD9A8;
+  --apricot: #FFB26B;
+  --oranje: #FF7A33;
+  --brick: #E0582F;                         /* never carries text */
+  --sky: #A9C1D6;
+  --ember: #9A3417;                         /* paper text on it: 6.52:1 */
+  --ember-deep: #3A1409;                    /* paper text on it: 14.62:1 */
+  --on-bleed: #F5F2EA;
+  --accent-text: #A63E17;                   /* links and accent words, 5.65:1 on --bg */
+  --on-accent: #13201F;                     /* text on the dusk gradient, 6.45:1 at --oranje */
+  --focus: #A63E17;
+
+  /* Agent status: pills, feed verbs, row markers. All 4.8:1 or better on their 12% tint. */
+  --st-found: #2A67A6;
+  --st-contacted: #1F6F66;
+  --st-needs-you: #A8431A;
+  --st-viewing: #6149C2;
+  --st-closed: #5F6765;
+  --st-error: #B3261E;
+  --st-live: #1F6F66;
+
+  /* The facade */
+  --gable: #13201F;
+  --window-off: rgb(245 242 234 / 0.16);
+  --window-lit: #FF9A4D;
+
+  /* Gradients */
+  --grad-dusk: linear-gradient(135deg, var(--apricot) 0%, var(--oranje) 100%);
+  --grad-dusk-wide: linear-gradient(100deg, var(--haze) 0%, var(--apricot) 38%, var(--oranje) 72%, var(--brick) 100%);
+  --mesh-hero:
+    radial-gradient(60% 55% at 12% 92%, rgb(255 122 51 / 0.55) 0%, rgb(255 122 51 / 0) 70%),
+    radial-gradient(55% 50% at 40% 72%, rgb(255 178 107 / 0.60) 0%, rgb(255 178 107 / 0) 70%),
+    radial-gradient(70% 60% at 90% 6%, rgb(169 193 214 / 0.80) 0%, rgb(169 193 214 / 0) 70%),
+    radial-gradient(50% 45% at 68% 38%, rgb(255 217 168 / 0.55) 0%, rgb(255 217 168 / 0) 70%);
+  --bleed:
+    radial-gradient(52% 80% at 6% 88%, var(--ember-deep) 0%, rgb(58 20 9 / 0) 72%),
+    radial-gradient(58% 95% at 16% 62%, var(--ember) 0%, rgb(154 52 23 / 0) 74%),
+    radial-gradient(46% 90% at 34% 38%, rgb(224 88 47 / 0.92) 0%, rgb(224 88 47 / 0) 70%),
+    radial-gradient(40% 70% at 47% 78%, rgb(255 154 77 / 0.75) 0%, rgb(255 154 77 / 0) 70%),
+    radial-gradient(34% 56% at 56% 16%, rgb(255 217 168 / 0.65) 0%, rgb(255 217 168 / 0) 70%);
+  --aura: radial-gradient(closest-side, rgb(255 122 51 / 0.40), rgb(255 178 107 / 0.18) 55%, rgb(255 178 107 / 0) 100%);
+  --grain-opacity: 0.26;
+  --grain-blend: multiply;
+
+  /* Shadows */
+  --shadow-1: 0 1px 2px rgb(19 32 31 / 0.06);
+  --shadow-2: 0 1px 2px rgb(19 32 31 / 0.05), 0 8px 24px -12px rgb(19 32 31 / 0.18);
+  --shadow-3: 0 2px 4px rgb(19 32 31 / 0.04), 0 24px 48px -16px rgb(19 32 31 / 0.28);
+  --shadow-tactile: inset 0 1px 0 rgb(255 255 255 / 0.45), inset 0 -1px 0 rgb(0 0 0 / 0.12), 0 1px 2px rgb(19 32 31 / 0.16);
+  --glow-dusk: 0 8px 20px -8px rgb(255 122 51 / 0.60);
+
+  /* Type families */
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Site scale (fluid) */
+  --fs-display: clamp(2.6rem, 1.2rem + 5vw, 4.75rem);
+  --fs-h2: clamp(2rem, 1.3rem + 2.6vw, 3.5rem);
+  --fs-h3: 1.25rem;
+  --fs-lede: clamp(1.125rem, 1.02rem + 0.45vw, 1.3125rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 0.9375rem;
+  --fs-micro: 0.75rem;
+  --lh-display: 0.98;
+  --lh-h2: 1.04;
+  --lh-body: 1.6;
+  --ls-display: -0.045em;
+  --ls-h2: -0.035em;
+  --ls-micro: 0.08em;
+
+  /* Dashboard scale (fixed, dense) */
+  --fs-ui-xs: 11px;
+  --fs-ui-sm: 12.5px;
+  --fs-ui-md: 13.5px;
+  --fs-ui: 14px;
+  --fs-ui-lg: 16px;
+  --fs-ui-xl: 20px;
+  --fs-ui-stat: 28px;
+
+  /* Radii */
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  /* Space (4px base) */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px;
+  --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --wrap: 1200px;
+  --measure: 62ch;
+  --section-y: clamp(4.5rem, 3rem + 7vw, 9rem);
+
+  /* Motion */
+  --dur-instant: 100ms;
+  --dur-quick: 160ms;
+  --dur-base: 240ms;
+  --dur-slow: 400ms;
+  --dur-toast: 520ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/*
+ * Dark: the same street at night. Declared twice: once for a visitor on system
+ * dark with no stored choice, once for an explicit choice. The two blocks must
+ * stay identical; packages/design/test/tokens.test.ts checks that.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+  color-scheme: dark;
+  --bg: #0C1515;
+  --bg-sunk: #091010;
+  --surface: #142221;
+  --surface-glass: rgb(20 34 33 / 0.72);
+  --text: #ECF1EE;
+  --muted: #9AA8A4;
+  --faint: #6B7A76;
+  --line: rgb(236 241 238 / 0.10);
+  --line-strong: rgb(236 241 238 / 0.18);
+  --hover: rgb(236 241 238 / 0.05);
+  --dot: rgb(236 241 238 / 0.12);
+  --on-bleed: #ECF1EE;
+  --accent-text: #FFA56B;
+  --on-accent: #0C1515;
+  --focus: #FFA56B;
+  --st-found: #86B8EC;
+  --st-contacted: #62C9B8;
+  --st-needs-you: #FFAA70;
+  --st-viewing: #B6A6F7;
+  --st-closed: #A3ACA9;
+  --st-error: #F2877E;
+  --st-live: #62C9B8;
+  --gable: #050A0A;
+  --window-off: rgb(236 241 238 / 0.10);
+  --window-lit: #FFB26B;
+  --mesh-hero:
+    radial-gradient(60% 55% at 12% 96%, rgb(255 122 51 / 0.42) 0%, rgb(255 122 51 / 0) 70%),
+    radial-gradient(45% 40% at 42% 84%, rgb(255 178 107 / 0.20) 0%, rgb(255 178 107 / 0) 70%),
+    radial-gradient(75% 65% at 92% 0%, rgb(58 96 122 / 0.60) 0%, rgb(58 96 122 / 0) 70%);
+  --bleed:
+    radial-gradient(55% 70% at 4% 96%, rgb(154 52 23 / 0.95) 0%, rgb(154 52 23 / 0) 72%),
+    radial-gradient(45% 60% at 26% 88%, rgb(255 122 51 / 0.55) 0%, rgb(255 122 51 / 0) 70%),
+    radial-gradient(40% 50% at 44% 96%, rgb(255 178 107 / 0.22) 0%, rgb(255 178 107 / 0) 70%),
+    radial-gradient(70% 70% at 96% 0%, rgb(58 96 122 / 0.6) 0%, rgb(58 96 122 / 0) 70%);
+  --aura: radial-gradient(closest-side, rgb(255 122 51 / 0.28), rgb(255 122 51 / 0) 100%);
+  --grain-opacity: 0.16;
+  --grain-blend: overlay;
+  --shadow-1: 0 0 0 1px var(--line);
+  --shadow-2: 0 0 0 1px var(--line), inset 0 1px 0 rgb(255 255 255 / 0.04);
+  --shadow-3: 0 0 0 1px var(--line), 0 24px 48px -16px rgb(0 0 0 / 0.60);
+  --shadow-tactile: inset 0 1px 0 rgb(255 255 255 / 0.35), inset 0 -1px 0 rgb(0 0 0 / 0.20);
+  --glow-dusk: 0 8px 24px -8px rgb(255 122 51 / 0.45);
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0C1515;
+  --bg-sunk: #091010;
+  --surface: #142221;
+  --surface-glass: rgb(20 34 33 / 0.72);
+  --text: #ECF1EE;
+  --muted: #9AA8A4;
+  --faint: #6B7A76;
+  --line: rgb(236 241 238 / 0.10);
+  --line-strong: rgb(236 241 238 / 0.18);
+  --hover: rgb(236 241 238 / 0.05);
+  --dot: rgb(236 241 238 / 0.12);
+  --on-bleed: #ECF1EE;
+  --accent-text: #FFA56B;
+  --on-accent: #0C1515;
+  --focus: #FFA56B;
+  --st-found: #86B8EC;
+  --st-contacted: #62C9B8;
+  --st-needs-you: #FFAA70;
+  --st-viewing: #B6A6F7;
+  --st-closed: #A3ACA9;
+  --st-error: #F2877E;
+  --st-live: #62C9B8;
+  --gable: #050A0A;
+  --window-off: rgb(236 241 238 / 0.10);
+  --window-lit: #FFB26B;
+  --mesh-hero:
+    radial-gradient(60% 55% at 12% 96%, rgb(255 122 51 / 0.42) 0%, rgb(255 122 51 / 0) 70%),
+    radial-gradient(45% 40% at 42% 84%, rgb(255 178 107 / 0.20) 0%, rgb(255 178 107 / 0) 70%),
+    radial-gradient(75% 65% at 92% 0%, rgb(58 96 122 / 0.60) 0%, rgb(58 96 122 / 0) 70%);
+  --bleed:
+    radial-gradient(55% 70% at 4% 96%, rgb(154 52 23 / 0.95) 0%, rgb(154 52 23 / 0) 72%),
+    radial-gradient(45% 60% at 26% 88%, rgb(255 122 51 / 0.55) 0%, rgb(255 122 51 / 0) 70%),
+    radial-gradient(40% 50% at 44% 96%, rgb(255 178 107 / 0.22) 0%, rgb(255 178 107 / 0) 70%),
+    radial-gradient(70% 70% at 96% 0%, rgb(58 96 122 / 0.6) 0%, rgb(58 96 122 / 0) 70%);
+  --aura: radial-gradient(closest-side, rgb(255 122 51 / 0.28), rgb(255 122 51 / 0) 100%);
+  --grain-opacity: 0.16;
+  --grain-blend: overlay;
+  --shadow-1: 0 0 0 1px var(--line);
+  --shadow-2: 0 0 0 1px var(--line), inset 0 1px 0 rgb(255 255 255 / 0.04);
+  --shadow-3: 0 0 0 1px var(--line), 0 24px 48px -16px rgb(0 0 0 / 0.60);
+  --shadow-tactile: inset 0 1px 0 rgb(255 255 255 / 0.35), inset 0 -1px 0 rgb(0 0 0 / 0.20);
+  --glow-dusk: 0 8px 24px -8px rgb(255 122 51 / 0.45);
+}
