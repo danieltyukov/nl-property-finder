@@ -26,7 +26,13 @@ describe('ssh adapter', () => {
     expect(ssh.id).toBe('ssh');
     expect(ssh.regions).toBe('nl');
     expect(ssh.defaultIntervalSec).toBe(60);
-    expect(ssh.capabilities).toEqual({ search: 'json', detail: false, contact: 'lottery', login: 'required', terms: 'unknown' });
+    expect(ssh.capabilities).toEqual({
+      search: 'json',
+      detail: false,
+      contact: 'lottery',
+      login: 'required',
+      terms: 'unknown',
+    });
     expect(ssh.contact).toBeUndefined();
     expect(ssh.loginUrl).toBe('https://www.sshxl.nl/nl/inloggen');
   });
@@ -34,12 +40,29 @@ describe('ssh adapter', () => {
   test('buildSearches makes one request, because the offer API has no filters; the municipalities go along', () => {
     const config = ConfigSchema.parse({
       searches: [
-        { id: 'a', name: 'A', regions: [{ name: 'Delft', municipalities: ['delft'] }, { name: 'Rotterdam', municipalities: ['rotterdam'] }] },
-        { id: 'b', name: 'B', regions: [{ name: 'Den Haag', municipalities: ['den haag'] }], priceMaxEur: 1400 },
+        {
+          id: 'a',
+          name: 'A',
+          regions: [
+            { name: 'Delft', municipalities: ['delft'] },
+            { name: 'Rotterdam', municipalities: ['rotterdam'] },
+          ],
+        },
+        {
+          id: 'b',
+          name: 'B',
+          regions: [{ name: 'Den Haag', municipalities: ['den haag'] }],
+          priceMaxEur: 1400,
+        },
       ],
     });
     expect(ssh.buildSearches(config.searches, { enabled: true, searchUrls: [], options: {} })).toEqual([
-      { key: 'offers?delft,den haag,rotterdam', label: 'SSH offers', url: 'https://www.sshxl.nl/api/v1/offer', params: { municipalities: 'delft,den haag,rotterdam' } },
+      {
+        key: 'offers?delft,den haag,rotterdam',
+        label: 'SSH offers',
+        url: 'https://www.sshxl.nl/api/v1/offer',
+        params: { municipalities: 'delft,den haag,rotterdam' },
+      },
     ]);
   });
 
@@ -86,7 +109,11 @@ describe('ssh adapter', () => {
       },
     });
     const room = listings.find((l) => l.extra?.wocasId === '29602059');
-    expect(room).toMatchObject({ type: 'room', url: 'https://www.sshxl.nl/nl/aanbod/1478241-enny-vredelaan-339-k8', extra: { kind: 'Hospiteren', room: 'k8' } });
+    expect(room).toMatchObject({
+      type: 'room',
+      url: 'https://www.sshxl.nl/nl/aanbod/1478241-enny-vredelaan-339-k8',
+      extra: { kind: 'Hospiteren', room: 'k8' },
+    });
     const studio = listings.find((l) => l.extra?.wocasId === '36400341');
     expect(studio).toMatchObject({ type: 'studio', sizeM2: 23 });
   });
@@ -94,27 +121,52 @@ describe('ssh adapter', () => {
   test('without municipalities every open offer in the country comes back', async () => {
     const listings = await searchWith([]);
     expect(listings).toHaveLength(36);
-    expect(new Set(listings.map((l) => l.address.city))).toEqual(new Set(['Utrecht', 'Zwolle', 'Rotterdam', 'Tilburg']));
+    expect(new Set(listings.map((l) => l.address.city))).toEqual(
+      new Set(['Utrecht', 'Zwolle', 'Rotterdam', 'Tilburg']),
+    );
   });
 
   test('offers past their deadline are skipped', async () => {
     const config = { searches: [{ id: 'main', name: 'Main', regions: [] }] };
-    const ctx = fixtureContext({ sourceId: 'ssh', config, routes: ROUTES, now: new Date('2026-09-25T12:00:00Z') });
+    const ctx = fixtureContext({
+      sourceId: 'ssh',
+      config,
+      routes: ROUTES,
+      now: new Date('2026-09-25T12:00:00Z'),
+    });
     const [req] = ssh.buildSearches(ctx.searches, ctx.source);
     const listings = await ssh.search(req!, ctx);
     expect(listings.length).toBeLessThan(36);
-    for (const l of listings) expect(Date.parse(String(l.extra?.deadline))).toBeGreaterThan(Date.parse('2026-09-25T12:00:00Z'));
+    for (const l of listings)
+      expect(Date.parse(String(l.extra?.deadline))).toBeGreaterThan(Date.parse('2026-09-25T12:00:00Z'));
   });
 
   test('isAvailable checks that the offer is still listed', async () => {
     const [first] = await searchWith([{ name: 'Utrecht', municipalities: ['utrecht'] }]);
-    const listing: Listing = { ...first!, id: `ssh:${first!.externalId}`, propertyId: null, firstSeenAt: '', lastSeenAt: '', state: 'active', via: 'poll' };
+    const listing: Listing = {
+      ...first!,
+      id: `ssh:${first!.externalId}`,
+      propertyId: null,
+      firstSeenAt: '',
+      lastSeenAt: '',
+      state: 'active',
+      via: 'poll',
+    };
     expect(await ssh.isAvailable!(listing, ctxFor({}, { '/api/v1/offer': 'ssh/offer.json' }))).toBe(true);
-    expect(await ssh.isAvailable!({ ...listing, externalId: '1' }, ctxFor({}, { '/api/v1/offer': 'ssh/offer.json' }))).toBe(false);
+    expect(
+      await ssh.isAvailable!(
+        { ...listing, externalId: '1' },
+        ctxFor({}, { '/api/v1/offer': 'ssh/offer.json' }),
+      ),
+    ).toBe(false);
   });
 
   test('offer paths follow the portal', () => {
-    expect(sshOfferPath(1478276, { Straatnaam: 'Ina Boudier-Bakkerlaan', Nummer: '133', Locatie: 'k1425' })).toBe('/nl/aanbod/1478276-ina-boudier-bakkerlaan-133-k1425');
-    expect(sshOfferPath(1, { Straatnaam: 'Oude Gracht', Nummer: '12', Letter: 'A', Toevoeging: 'bis' })).toBe('/nl/aanbod/1-oude-gracht-12a-bis');
+    expect(
+      sshOfferPath(1478276, { Straatnaam: 'Ina Boudier-Bakkerlaan', Nummer: '133', Locatie: 'k1425' }),
+    ).toBe('/nl/aanbod/1478276-ina-boudier-bakkerlaan-133-k1425');
+    expect(sshOfferPath(1, { Straatnaam: 'Oude Gracht', Nummer: '12', Letter: 'A', Toevoeging: 'bis' })).toBe(
+      '/nl/aanbod/1-oude-gracht-12a-bis',
+    );
   });
 });

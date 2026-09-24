@@ -17,7 +17,19 @@
  */
 import type { NamedSearch, RawListing, SearchRequest, SourceAdapter } from '@nlpf/core';
 import { normalisePostcode } from '../util/address.js';
-import { canonicalMunicipality, clean, compact, isObj, isoInstant, num, positive, searchMunicipalities, str, titleCase, ymd } from './json-shared.js';
+import {
+  canonicalMunicipality,
+  clean,
+  compact,
+  isObj,
+  isoInstant,
+  num,
+  positive,
+  searchMunicipalities,
+  str,
+  titleCase,
+  ymd,
+} from './json-shared.js';
 
 const BASE = 'https://www.sshxl.nl';
 
@@ -56,9 +68,10 @@ interface Details {
 
 /** The portal's own slug for an offer URL, including its quirk of replacing only the first space. */
 export function sshOfferPath(flowId: number, a: Address): string {
-  const slug = `${(a.Straatnaam ?? '').toLowerCase()}-${(a.Nummer ?? '').toLowerCase()}${a.Letter ? a.Letter.toLowerCase() : ''}${a.Toevoeging ? `-${a.Toevoeging.toLowerCase()}` : ''}${a.Locatie ? `-${a.Locatie.toLowerCase()}` : ''}`
-    .replace('/', '-')
-    .replace(' ', '-');
+  const slug =
+    `${(a.Straatnaam ?? '').toLowerCase()}-${(a.Nummer ?? '').toLowerCase()}${a.Letter ? a.Letter.toLowerCase() : ''}${a.Toevoeging ? `-${a.Toevoeging.toLowerCase()}` : ''}${a.Locatie ? `-${a.Locatie.toLowerCase()}` : ''}`
+      .replace('/', '-')
+      .replace(' ', '-');
   return `/nl/aanbod/${flowId}-${encodeURI(slug)}`;
 }
 
@@ -86,21 +99,38 @@ export function createSshAdapter(): SourceAdapter {
         ms.forEach((m) => all.add(m));
       }
       const municipalities = everywhere ? '' : [...all].sort().join(',');
-      return [{ key: municipalities ? `offers?${municipalities}` : 'offers', label: 'SSH offers', url: `${BASE}/api/v1/offer`, params: { municipalities } }];
+      return [
+        {
+          key: municipalities ? `offers?${municipalities}` : 'offers',
+          label: 'SSH offers',
+          url: `${BASE}/api/v1/offer`,
+          params: { municipalities },
+        },
+      ];
     },
 
     async search(req, ctx) {
-      const res = await ctx.fetch(req.url ?? `${BASE}/api/v1/offer`, { headers: { accept: 'application/json' } });
+      const res = await ctx.fetch(req.url ?? `${BASE}/api/v1/offer`, {
+        headers: { accept: 'application/json' },
+      });
       const offers = res.json<unknown>();
       const now = ctx.now().getTime();
       const open = (Array.isArray(offers) ? offers : [])
         .filter(isObj)
         .map((o) => o as Offer)
-        .filter((o) => o.WocasId && o.FlowId && o.IsPublished !== false && (!o.ExpireBy || Date.parse(isoInstant(o.ExpireBy) ?? '') > now));
+        .filter(
+          (o) =>
+            o.WocasId &&
+            o.FlowId &&
+            o.IsPublished !== false &&
+            (!o.ExpireBy || Date.parse(isoInstant(o.ExpireBy) ?? '') > now),
+        );
       if (!open.length) return [];
 
       const ids = open.map((o) => o.WocasId).join(',');
-      const detailRes = await ctx.fetch(`${BASE}/api/v1/offer/getOffersDetails?wocasIds=${ids}`, { headers: { accept: 'application/json' } });
+      const detailRes = await ctx.fetch(`${BASE}/api/v1/offer/getOffersDetails?wocasIds=${ids}`, {
+        headers: { accept: 'application/json' },
+      });
       const details = new Map<string, Details>();
       for (const d of detailRes.json<unknown>() as Details[]) {
         if (isObj(d) && d.EenheidNummer) details.set(String(d.EenheidNummer), d);
@@ -131,10 +161,17 @@ export function createSshAdapter(): SourceAdapter {
             sourceId: 'ssh',
             externalId: String(flowId),
             url,
-            title: a ? clean(`${a.Straatnaam ?? ''} ${a.Nummer ?? ''}${a.Letter ?? ''}${a.Toevoeging ? ` ${a.Toevoeging}` : ''}${a.Locatie ? ` (${a.Locatie})` : ''}`) : `SSH ${o.UnitType ?? 'woonruimte'}`,
+            title: a
+              ? clean(
+                  `${a.Straatnaam ?? ''} ${a.Nummer ?? ''}${a.Letter ?? ''}${a.Toevoeging ? ` ${a.Toevoeging}` : ''}${a.Locatie ? ` (${a.Locatie})` : ''}`,
+                )
+              : `SSH ${o.UnitType ?? 'woonruimte'}`,
             priceEur: brutto,
             priceBasis: brutto === undefined ? undefined : 'incl',
-            serviceCostsEur: brutto !== undefined && netto !== undefined && brutto > netto ? Math.round((brutto - netto) * 100) / 100 : undefined,
+            serviceCostsEur:
+              brutto !== undefined && netto !== undefined && brutto > netto
+                ? Math.round((brutto - netto) * 100) / 100
+                : undefined,
             sizeM2: size,
             type: room ? 'room' : size !== undefined && size <= STUDIO_MAX_M2 ? 'studio' : 'apartment',
             address: compact({
@@ -170,7 +207,10 @@ export function createSshAdapter(): SourceAdapter {
     async isAvailable(listing, ctx) {
       const res = await ctx.fetch(`${BASE}/api/v1/offer`, { headers: { accept: 'application/json' } });
       const offers = res.json<unknown>();
-      return Array.isArray(offers) && offers.some((o) => isObj(o) && String(o.FlowId) === listing.externalId && o.IsPublished !== false);
+      return (
+        Array.isArray(offers) &&
+        offers.some((o) => isObj(o) && String(o.FlowId) === listing.externalId && o.IsPublished !== false)
+      );
     },
   };
   return adapter;

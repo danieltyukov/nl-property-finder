@@ -20,7 +20,15 @@
  * heavily here than on any other source.
  */
 import { load } from 'cheerio';
-import type { InboundMessage, NamedSearch, PropertyType, RawListing, SearchRequest, SourceAdapter, SourceContext } from '@nlpf/core';
+import type {
+  InboundMessage,
+  NamedSearch,
+  PropertyType,
+  RawListing,
+  SearchRequest,
+  SourceAdapter,
+  SourceContext,
+} from '@nlpf/core';
 import { SourceHttpError } from '../runtime/errors.js';
 import { detectFurnishing, detectType, parsePrice, parseRooms, parseSize } from '../util/parse.js';
 import {
@@ -47,7 +55,12 @@ const L1_HOUSES_AND_ROOMS = 1032;
 
 /** Rental categories of Huizen en Kamers. The "op zoek naar" categories (2145, 2146) are wanted ads and never polled. */
 const CATEGORY = { rooms: 2771, houses: 2143, expat: 2147, antiSquat: 2144 } as const;
-const CATEGORY_TYPE: Record<number, PropertyType> = { 2771: 'room', 2143: 'apartment', 2147: 'apartment', 2144: 'other' };
+const CATEGORY_TYPE: Record<number, PropertyType> = {
+  2771: 'room',
+  2143: 'apartment',
+  2147: 'apartment',
+  2144: 'other',
+};
 
 function categories(types: PropertyType[]): number[] {
   const out = new Set<number>();
@@ -85,7 +98,12 @@ interface MpItem {
   date?: string;
   imageUrls?: string[];
   pictures?: { largeUrl?: string; extraExtraLargeUrl?: string }[];
-  sellerInformation?: { sellerId?: number; sellerName?: string; isVerified?: boolean; showWebsiteUrl?: boolean };
+  sellerInformation?: {
+    sellerId?: number;
+    sellerName?: string;
+    isVerified?: boolean;
+    showWebsiteUrl?: boolean;
+  };
   categoryId?: number;
   attributes?: { key?: string; value?: string }[];
   reserved?: boolean;
@@ -116,16 +134,23 @@ function toRaw(item: MpItem, now: Date): RawListing | undefined {
   if (!isHomeOffer(title, description)) return undefined;
   const priceType = str(item.priceInfo?.priceType);
   const cents = num(item.priceInfo?.priceCents);
-  const priceEur = (priceType === 'FIXED' || priceType === 'MIN_BID') && cents && cents / 100 >= MIN_RENT_EUR ? cents / 100 : undefined;
+  const priceEur =
+    (priceType === 'FIXED' || priceType === 'MIN_BID') && cents && cents / 100 >= MIN_RENT_EUR
+      ? cents / 100
+      : undefined;
   const text = `${title}\n${description ?? ''}`;
   const living = attr(item, 'livingArea');
-  const size = living && !/\btot\b|minder|meer/i.test(living) ? parseSize(living) : parseSize(/\d\s*(m2|m²)/i.test(title) ? title : '');
+  const size =
+    living && !/\btot\b|minder|meer/i.test(living)
+      ? parseSize(living)
+      : parseSize(/\d\s*(m2|m²)/i.test(title) ? title : '');
   const furnishing = detectFurnishing(text);
   const images = (item.pictures ?? [])
     .map((p) => str(p.extraExtraLargeUrl) ?? str(p.largeUrl))
     .filter((u): u is string => Boolean(u))
     .slice(0, 5);
-  if (!images.length && item.imageUrls?.length) images.push(...item.imageUrls.slice(0, 5).map((u) => (u.startsWith('//') ? `https:${u}` : u)));
+  if (!images.length && item.imageUrls?.length)
+    images.push(...item.imageUrls.slice(0, 5).map((u) => (u.startsWith('//') ? `https:${u}` : u)));
   const seller = item.sellerInformation ?? {};
   const url = `${BASE}${item.vipUrl}`;
   const label = attr(item, 'energyLabel');
@@ -140,7 +165,11 @@ function toRaw(item: MpItem, now: Date): RawListing | undefined {
     rooms: parseRooms(attr(item, 'numberOfRooms') ?? ''),
     type: detectType(title) ?? detectType(description ?? '') ?? CATEGORY_TYPE[item.categoryId ?? 0],
     furnishing: furnishing === 'unknown' ? undefined : furnishing,
-    address: compact({ city: str(item.location?.cityName), lat: num(item.location?.latitude), lon: num(item.location?.longitude) }),
+    address: compact({
+      city: str(item.location?.cityName),
+      lat: num(item.location?.latitude),
+      lon: num(item.location?.longitude),
+    }),
     description,
     images: images.length ? images : undefined,
     energyLabel: label ? /^([A-G]\+*)/i.exec(label)?.[1]?.toUpperCase() : undefined,
@@ -169,7 +198,10 @@ export interface MarktplaatsOptions {
 export function createMarktplaatsAdapter(options: MarktplaatsOptions = {}): SourceAdapter {
   const defaultRadiusKm = options.defaultRadiusKm ?? 5;
 
-  function searchUrl(params: Record<string, string | number | boolean>, postcode: string | undefined): string {
+  function searchUrl(
+    params: Record<string, string | number | boolean>,
+    postcode: string | undefined,
+  ): string {
     const cats = String(params.categories ?? '')
       .split(',')
       .filter(Boolean);
@@ -212,8 +244,10 @@ export function createMarktplaatsAdapter(options: MarktplaatsOptions = {}): Sour
       const out = new Map<string, SearchRequest>();
       for (const search of searches) {
         const cats = categories(search.types).join(',');
-        const priceFromCents = search.priceMinEur !== undefined ? Math.round(search.priceMinEur * 100) : undefined;
-        const priceToCents = search.priceMaxEur !== undefined ? Math.round(search.priceMaxEur * 100) : undefined;
+        const priceFromCents =
+          search.priceMinEur !== undefined ? Math.round(search.priceMinEur * 100) : undefined;
+        const priceToCents =
+          search.priceMaxEur !== undefined ? Math.round(search.priceMaxEur * 100) : undefined;
         const municipalities = searchMunicipalities(search);
         for (const m of municipalities.length ? municipalities : ['']) {
           const place = m ? PLACES[m] : undefined;
@@ -245,7 +279,9 @@ export function createMarktplaatsAdapter(options: MarktplaatsOptions = {}): Sour
       if (!url) {
         const place = params.municipality ? await resolvePlace(String(params.municipality), ctx) : undefined;
         if (params.municipality && !place?.postcode) {
-          ctx.log.warn('marktplaats: no postcode for this municipality, searching without a location', { municipality: params.municipality });
+          ctx.log.warn('marktplaats: no postcode for this municipality, searching without a location', {
+            municipality: params.municipality,
+          });
         }
         url = searchUrl(params, place?.postcode);
       }
@@ -271,7 +307,9 @@ export function createMarktplaatsAdapter(options: MarktplaatsOptions = {}): Sour
       const extra = out.extra as Record<string, unknown>;
       const description = str(ld?.description);
       if (description && description.length >= (out.description?.length ?? 0)) out.description = description;
-      const images = Array.isArray(ld?.image) ? ld.image.filter((u): u is string => typeof u === 'string') : [];
+      const images = Array.isArray(ld?.image)
+        ? ld.image.filter((u): u is string => typeof u === 'string')
+        : [];
       if (images.length) out.images = images.slice(0, 10);
       if (item) {
         const seller = isObj(item.seller) ? item.seller : {};
@@ -283,7 +321,8 @@ export function createMarktplaatsAdapter(options: MarktplaatsOptions = {}): Sour
         // CONSUMER is a private person; TRADER declared itself a business under the
         // EU rules for marketplaces. A Pro or business account is never private.
         if (sellerType === 'CONSUMER') extra.privateLandlord = true;
-        else if (sellerType === 'TRADER' || /pro|business|bedrijf|dealer/i.test(accountType ?? '')) extra.privateLandlord = false;
+        else if (sellerType === 'TRADER' || /pro|business|bedrijf|dealer/i.test(accountType ?? ''))
+          extra.privateLandlord = false;
         const location = isObj(seller.location) ? seller.location : {};
         if (typeof location.isAbroad === 'boolean') extra.sellerAbroad = location.isAbroad;
         const years = num(seller.activeYears);
@@ -321,7 +360,9 @@ export function createMarktplaatsAdapter(options: MarktplaatsOptions = {}): Sour
         if (!/(^|\.)marktplaats\.nl$/i.test(u.hostname)) return undefined;
         const m = DETAIL_PATH.exec(u.pathname);
         const category = m?.[1]?.toLowerCase();
-        return category && (category in ALERT_CATEGORY_TYPE || category === 'expat-rentals') ? m?.[2]?.toLowerCase() : undefined;
+        return category && (category in ALERT_CATEGORY_TYPE || category === 'expat-rentals')
+          ? m?.[2]?.toLowerCase()
+          : undefined;
       });
       const now = new Date(mail.at);
       return cards
@@ -338,8 +379,10 @@ export function createMarktplaatsAdapter(options: MarktplaatsOptions = {}): Sour
             externalId: card.id,
             url: `${BASE}${card.url.pathname.replace(/\/+$/, '')}`,
             title: card.title,
-            priceEur: price.priceEur !== undefined && price.priceEur >= MIN_RENT_EUR ? price.priceEur : undefined,
-            priceBasis: price.priceEur !== undefined && price.priceEur >= MIN_RENT_EUR ? price.basis : undefined,
+            priceEur:
+              price.priceEur !== undefined && price.priceEur >= MIN_RENT_EUR ? price.priceEur : undefined,
+            priceBasis:
+              price.priceEur !== undefined && price.priceEur >= MIN_RENT_EUR ? price.basis : undefined,
             sizeM2: parseSize(/\d\s*(m2|m²)/i.test(card.title) ? card.title : ''),
             type: detectType(card.title) ?? ALERT_CATEGORY_TYPE[category],
             address: compact({ city }),

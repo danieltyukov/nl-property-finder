@@ -1,6 +1,12 @@
 import { describe, expect, test } from 'vitest';
 import type { Page } from 'playwright-core';
-import { ConfigSchema, type BrowserSession, type InboundMessage, type Listing, type RawListing } from '@nlpf/core';
+import {
+  ConfigSchema,
+  type BrowserSession,
+  type InboundMessage,
+  type Listing,
+  type RawListing,
+} from '@nlpf/core';
 import { parseAlertEmail as mailPackageAlert } from '@nlpf/mail';
 import { createFundaAdapter, funda, fundaTinyId, reviveNuxt } from '../../src/adapters/funda.js';
 import { SourceBlockedError } from '../../src/runtime/errors.js';
@@ -47,7 +53,11 @@ function fakeBrowser(file: string, opened: string[]): FixtureContextOptions['bro
 async function searchDelft(): Promise<RawListing[]> {
   const ctx = ctxFor({ '/zoeken/huur': 'funda/search-delft.html' });
   const [req] = funda.buildSearches(
-    ConfigSchema.parse({ searches: [{ id: 'd', name: 'D', regions: [{ name: 'Delft', municipalities: ['delft'] }], priceMaxEur: 1400 }] }).searches,
+    ConfigSchema.parse({
+      searches: [
+        { id: 'd', name: 'D', regions: [{ name: 'Delft', municipalities: ['delft'] }], priceMaxEur: 1400 },
+      ],
+    }).searches,
     ctx.source,
   );
   return funda.search(req!, ctx);
@@ -68,7 +78,14 @@ describe('funda adapter', () => {
     expect(funda.id).toBe('funda');
     expect(funda.regions).toBe('nl');
     expect(funda.defaultIntervalSec).toBe(60);
-    expect(funda.capabilities).toEqual({ search: 'html', detail: true, contact: 'form', login: 'none', terms: 'forbids', browser: 'headless' });
+    expect(funda.capabilities).toEqual({
+      search: 'html',
+      detail: true,
+      contact: 'form',
+      login: 'none',
+      terms: 'forbids',
+      browser: 'headless',
+    });
     expect(funda.capabilities.paid).toBeUndefined();
     expect(typeof funda.contact).toBe('function');
   });
@@ -88,8 +105,22 @@ describe('funda adapter', () => {
   test('types and minimum size become object_type and floor_area; identical searches are one request', () => {
     const cfg = ConfigSchema.parse({
       searches: [
-        { id: 'a', name: 'A', regions: [{ name: "'s-Gravenhage", municipalities: [] }], priceMaxEur: 1100, types: ['studio', 'apartment'], sizeMinM2: 30 },
-        { id: 'b', name: 'B', regions: [{ name: 'Den Haag', municipalities: ['Den Haag'] }], priceMaxEur: 1100, types: ['apartment', 'studio'], sizeMinM2: 30 },
+        {
+          id: 'a',
+          name: 'A',
+          regions: [{ name: "'s-Gravenhage", municipalities: [] }],
+          priceMaxEur: 1100,
+          types: ['studio', 'apartment'],
+          sizeMinM2: 30,
+        },
+        {
+          id: 'b',
+          name: 'B',
+          regions: [{ name: 'Den Haag', municipalities: ['Den Haag'] }],
+          priceMaxEur: 1100,
+          types: ['apartment', 'studio'],
+          sizeMinM2: 30,
+        },
         { id: 'c', name: 'C', regions: [], types: ['house'] },
       ],
     });
@@ -117,7 +148,13 @@ describe('funda adapter', () => {
       sizeM2: 41,
       rooms: 1,
       type: 'apartment',
-      address: { street: 'Pierre van Hauwelaan', houseNumber: '54', postcode: '2625 WL', city: 'Delft', neighbourhood: 'Juniusbuurt' },
+      address: {
+        street: 'Pierre van Hauwelaan',
+        houseNumber: '54',
+        postcode: '2625 WL',
+        city: 'Delft',
+        neighbourhood: 'Juniusbuurt',
+      },
       agent: { name: 'MVGM Wonen', url: 'https://www.funda.nl/makelaar/70043-mvgm-wonen/' },
       contact: 'form',
       contactUrl: 'https://www.funda.nl/makelaar-contact/?listingId=8154483',
@@ -142,17 +179,33 @@ describe('funda adapter', () => {
 
   test('one request covers several areas, with house number additions kept', async () => {
     const ctx = ctxFor({ '/zoeken/huur': 'funda/search-rotterdam-den-haag.html' });
-    const listings = await funda.search({ key: 'x', label: 'x', url: 'https://www.funda.nl/zoeken/huur?selected_area=%5B%22rotterdam%22%2C%22den-haag%22%5D' }, ctx);
+    const listings = await funda.search(
+      {
+        key: 'x',
+        label: 'x',
+        url: 'https://www.funda.nl/zoeken/huur?selected_area=%5B%22rotterdam%22%2C%22den-haag%22%5D',
+      },
+      ctx,
+    );
     expect(listings.length).toBe(15);
     expect(new Set(listings.map((l) => l.address.city))).toEqual(new Set(['Rotterdam', 'Den Haag']));
-    expect(listings.find((l) => l.externalId === '44597374')).toMatchObject({ title: 'Schiedamsedijk 6 C', address: { houseNumber: '6', addition: 'C' } });
+    expect(listings.find((l) => l.externalId === '44597374')).toMatchObject({
+      title: 'Schiedamsedijk 6 C',
+      address: { houseNumber: '6', addition: 'C' },
+    });
     expect(listings.find((l) => l.externalId === '44598154')?.type).toBe('house');
   });
 
   test('without Nuxt data the cards are read instead, still skipping rented homes', async () => {
-    const html = readFixture('funda/search-delft.html').replace(/<script[^>]*id="__NUXT_DATA__"[^>]*>[\s\S]*?<\/script>/, '');
+    const html = readFixture('funda/search-delft.html').replace(
+      /<script[^>]*id="__NUXT_DATA__"[^>]*>[\s\S]*?<\/script>/,
+      '',
+    );
     const ctx = ctxFor([{ match: '/zoeken/huur', body: html, headers: { 'content-type': 'text/html' } }]);
-    const listings = await funda.search({ key: 'x', label: 'x', url: 'https://www.funda.nl/zoeken/huur?x=1' }, ctx);
+    const listings = await funda.search(
+      { key: 'x', label: 'x', url: 'https://www.funda.nl/zoeken/huur?x=1' },
+      ctx,
+    );
     expect(listings).toHaveLength(10);
     expect(listings[0]).toMatchObject({
       externalId: '44509846',
@@ -166,8 +219,15 @@ describe('funda adapter', () => {
   test('when Akamai refuses the plain request the page is read in the browser, and the browser stays in use', async () => {
     const opened: string[] = [];
     const adapter = createFundaAdapter();
-    const ctx = ctxFor({ '/zoeken/huur': 'funda/akamai-interstitial.html' }, { browser: fakeBrowser('funda/search-delft.html', opened) });
-    const req = { key: 'x', label: 'x', url: 'https://www.funda.nl/zoeken/huur?selected_area=%5B%22delft%22%5D' };
+    const ctx = ctxFor(
+      { '/zoeken/huur': 'funda/akamai-interstitial.html' },
+      { browser: fakeBrowser('funda/search-delft.html', opened) },
+    );
+    const req = {
+      key: 'x',
+      label: 'x',
+      url: 'https://www.funda.nl/zoeken/huur?selected_area=%5B%22delft%22%5D',
+    };
     expect(await adapter.search(req, ctx)).toHaveLength(10);
     expect(await adapter.search(req, ctx)).toHaveLength(10);
     expect(ctx.requests).toHaveLength(1);
@@ -175,19 +235,31 @@ describe('funda adapter', () => {
   });
 
   test('a bot check in the browser too is reported as blocked', async () => {
-    const ctx = ctxFor({ '/zoeken/huur': 'funda/akamai-interstitial.html' }, { browser: fakeBrowser('funda/akamai-interstitial.html', []) });
-    await expect(createFundaAdapter().search({ key: 'x', label: 'x', url: 'https://www.funda.nl/zoeken/huur?a=1' }, ctx)).rejects.toBeInstanceOf(SourceBlockedError);
+    const ctx = ctxFor(
+      { '/zoeken/huur': 'funda/akamai-interstitial.html' },
+      { browser: fakeBrowser('funda/akamai-interstitial.html', []) },
+    );
+    await expect(
+      createFundaAdapter().search({ key: 'x', label: 'x', url: 'https://www.funda.nl/zoeken/huur?a=1' }, ctx),
+    ).rejects.toBeInstanceOf(SourceBlockedError);
   });
 
   test('detail adds the description, availability, coordinates and photos', async () => {
     const [first] = await searchDelft();
-    const ctx = ctxFor({ '/detail/huur/delft/appartement-pierre-van-hauwelaan-54/44509846/': 'funda/detail.html' });
+    const ctx = ctxFor({
+      '/detail/huur/delft/appartement-pierre-van-hauwelaan-54/44509846/': 'funda/detail.html',
+    });
     const full = await funda.detail!(first!, ctx);
     expect(full.description).toMatch(/^Nu te huur: dit fraaie appartement/);
     expect(full.availableFrom).toBe('2026-09-24');
     expect(full.address).toMatchObject({ lat: 51.995857, lon: 4.346027, postcode: '2625 WL' });
     expect(full.images?.[0]).toBe('https://cloud.funda.nl/valentina_media/234/870/335.jpg');
-    expect(full.extra).toMatchObject({ globalId: 8154483, contract: 'Onbepaalde tijd', views: 881, saves: 32 });
+    expect(full.extra).toMatchObject({
+      globalId: 8154483,
+      contract: 'Onbepaalde tijd',
+      views: 881,
+      saves: 32,
+    });
   });
 
   test('isAvailable asks the summary API by global id', async () => {
@@ -195,7 +267,10 @@ describe('funda adapter', () => {
     const listing = asListing(first!);
     const api = 'https://listing-detail-summary.funda.io/api/v1/listing/nl/8154483';
     expect(await funda.isAvailable!(listing, ctxFor({ [api]: 'funda/summary.json' }))).toBe(true);
-    const rented = readFixture('funda/summary.json').replace('"isSoldOrRented": false', '"isSoldOrRented": true');
+    const rented = readFixture('funda/summary.json').replace(
+      '"isSoldOrRented": false',
+      '"isSoldOrRented": true',
+    );
     expect(await funda.isAvailable!(listing, ctxFor([{ match: api, body: rented }]))).toBe(false);
     expect(await funda.isAvailable!(listing, ctxFor([{ match: api, status: 404, body: '' }]))).toBe(false);
   });
@@ -226,7 +301,9 @@ describe('funda adapter', () => {
   });
 
   test('tinyIds come from current and older URL shapes', () => {
-    expect(fundaTinyId('https://www.funda.nl/detail/huur/delft/appartement-oude-delft-12-a/43123456/')).toBe('43123456');
+    expect(fundaTinyId('https://www.funda.nl/detail/huur/delft/appartement-oude-delft-12-a/43123456/')).toBe(
+      '43123456',
+    );
     expect(fundaTinyId('/huur/rotterdam/appartement-43129999-mathenesserlaan-120-b/')).toBe('43129999');
     expect(fundaTinyId('/zoeken/huur')).toBeUndefined();
   });

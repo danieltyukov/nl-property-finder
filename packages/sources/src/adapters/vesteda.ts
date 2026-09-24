@@ -14,7 +14,15 @@
  * page's definition lists plus the minimum gross income it shows.
  */
 import { load, type CheerioAPI } from 'cheerio';
-import type { NamedSearch, PropertyType, RawListing, Requirements, SearchRequest, SourceAdapter, SourceContext } from '@nlpf/core';
+import type {
+  NamedSearch,
+  PropertyType,
+  RawListing,
+  Requirements,
+  SearchRequest,
+  SourceAdapter,
+  SourceContext,
+} from '@nlpf/core';
 import { SourceHttpError } from '../runtime/errors.js';
 import { normalisePostcode } from '../util/address.js';
 import { detectType, parseDutchDate, parsePrice } from '../util/parse.js';
@@ -37,7 +45,13 @@ const BASE = 'https://www.vesteda.com';
 
 /** `UnitStatus` from the Vesteda bundle. Only ForRent and New are open to reactions. */
 const OPEN_STATUS = new Set([1, 5]);
-const STATUS_LABEL: Record<number, string> = { 1: 'for rent', 2: 'rented', 3: 'rented under reservation', 4: 'reserved', 5: 'new' };
+const STATUS_LABEL: Record<number, string> = {
+  1: 'for rent',
+  2: 'rented',
+  3: 'rented under reservation',
+  4: 'reserved',
+  5: 'new',
+};
 
 /** The lowest `priceFrom` the site offers; lower values make the API ignore the price range. */
 const MIN_PRICE_FROM = 500;
@@ -72,7 +86,9 @@ interface VUnit {
 /** "'s-gravenhage" becomes "'s-Gravenhage"; "Capelle Aan Den Ijssel" becomes "Capelle aan den IJssel". */
 function cityName(city: string): string {
   return titleCase(city)
-    .replace(/\b(Aan|Den|De|Der|Van|Op|In|Bij)\b/g, (w, _m, offset: number) => (offset === 0 ? w : w.toLowerCase()))
+    .replace(/\b(Aan|Den|De|Der|Van|Op|In|Bij)\b/g, (w, _m, offset: number) =>
+      offset === 0 ? w : w.toLowerCase(),
+    )
     .replace(/\bIj/g, 'IJ');
 }
 
@@ -95,7 +111,9 @@ function toRaw(unit: VUnit, group: string | undefined): RawListing | undefined {
   const addition = str(unit.houseNumberAddition ?? undefined);
   const price = num(unit.priceUnformatted);
   const kind = str(unit.entitysubtypelabel ?? undefined);
-  const type: PropertyType = kind ? (detectType(kind) ?? (/eengezins|woning/i.test(kind) ? 'house' : 'apartment')) : 'apartment';
+  const type: PropertyType = kind
+    ? (detectType(kind) ?? (/eengezins|woning/i.test(kind) ? 'house' : 'apartment'))
+    : 'apartment';
   const image = str(unit.imageBig) ?? str(unit.imageSmall);
   return compact<RawListing>({
     sourceId: 'vesteda',
@@ -173,7 +191,8 @@ export function createVestedaAdapter(options: VestedaOptions = {}): SourceAdapte
       const out = new Map<string, SearchRequest>();
       for (const search of searches) {
         // Vesteda rents out apartments and family houses only.
-        if (!search.types.some((t) => t === 'apartment' || t === 'house' || t === 'studio' || t === 'other')) continue;
+        if (!search.types.some((t) => t === 'apartment' || t === 'house' || t === 'studio' || t === 'other'))
+          continue;
         const priceTo = search.priceMaxEur ?? 9999;
         const priceFrom = Math.max(MIN_PRICE_FROM, search.priceMinEur ?? MIN_PRICE_FROM);
         if (priceFrom > priceTo) continue;

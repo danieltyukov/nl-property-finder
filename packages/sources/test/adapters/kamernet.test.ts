@@ -1,7 +1,12 @@
 import { describe, expect, test } from 'vitest';
 import { ConfigSchema, type InboundMessage, type Listing, type RawListing } from '@nlpf/core';
 import { parseAlertEmail as mailPackageAlert } from '@nlpf/mail';
-import { createKamernetAdapter, kamernet, kamernetPriceId, kamernetSizeId } from '../../src/adapters/kamernet.js';
+import {
+  createKamernetAdapter,
+  kamernet,
+  kamernetPriceId,
+  kamernetSizeId,
+} from '../../src/adapters/kamernet.js';
 import { fixtureContext, readFixture } from '../../src/testing.js';
 
 const config = ConfigSchema.parse({
@@ -59,11 +64,19 @@ describe('kamernet adapter', () => {
   });
 
   test('buildSearches asks Kamernet for each municipality with its own price ladder id', () => {
-    const reqs = kamernet.buildSearches(config.searches, ConfigSchema.parse({}).sources.kamernet ?? { enabled: true, searchUrls: [], options: {} });
+    const reqs = kamernet.buildSearches(
+      config.searches,
+      ConfigSchema.parse({}).sources.kamernet ?? { enabled: true, searchUrls: [], options: {} },
+    );
     expect(reqs.map((r) => r.params?.citySlug)).toEqual(['delft', 'rotterdam', 'den-haag']);
     for (const r of reqs) {
       expect(r.url).toBe(API);
-      expect(r.params).toMatchObject({ radiusId: 1, maxRentalPriceId: 14, surfaceMinimumId: 0, listingTypeIds: '' });
+      expect(r.params).toMatchObject({
+        radiusId: 1,
+        maxRentalPriceId: 14,
+        surfaceMinimumId: 0,
+        listingTypeIds: '',
+      });
     }
     expect(reqs[2]?.params?.cityName).toBe('Den Haag');
     expect(new Set(reqs.map((r) => r.key)).size).toBe(3);
@@ -71,7 +84,9 @@ describe('kamernet adapter', () => {
 
   test('the request body carries the filters and sorts newest first', async () => {
     const ctx = ctxFor([{ match: '/findlistings', method: 'POST', file: 'kamernet/search-rotterdam.json' }]);
-    const req = kamernet.buildSearches(ctx.searches, ctx.source).find((r) => r.params?.citySlug === 'rotterdam');
+    const req = kamernet
+      .buildSearches(ctx.searches, ctx.source)
+      .find((r) => r.params?.citySlug === 'rotterdam');
     await kamernet.search(req!, ctx);
     const sent = JSON.parse(ctx.requests[0]?.body ?? '{}');
     expect(ctx.requests[0]).toMatchObject({ url: API, method: 'POST' });
@@ -89,15 +104,44 @@ describe('kamernet adapter', () => {
   test('two searches with the same filters share one request; different ones get their own', () => {
     const cfg = ConfigSchema.parse({
       searches: [
-        { id: 'a', name: 'A', regions: [{ name: 'Delft', municipalities: ['Delft'] }], priceMaxEur: 800, types: ['room'], sizeMinM2: 15 },
-        { id: 'b', name: 'B', regions: [{ name: 'Delft', municipalities: ['delft'] }], priceMaxEur: 800, types: ['room'], sizeMinM2: 15 },
-        { id: 'c', name: 'C', regions: [{ name: "'s-Gravenhage", municipalities: [] }], priceMaxEur: 1450, types: ['studio', 'apartment'] },
+        {
+          id: 'a',
+          name: 'A',
+          regions: [{ name: 'Delft', municipalities: ['Delft'] }],
+          priceMaxEur: 800,
+          types: ['room'],
+          sizeMinM2: 15,
+        },
+        {
+          id: 'b',
+          name: 'B',
+          regions: [{ name: 'Delft', municipalities: ['delft'] }],
+          priceMaxEur: 800,
+          types: ['room'],
+          sizeMinM2: 15,
+        },
+        {
+          id: 'c',
+          name: 'C',
+          regions: [{ name: "'s-Gravenhage", municipalities: [] }],
+          priceMaxEur: 1450,
+          types: ['studio', 'apartment'],
+        },
       ],
     });
     const reqs = kamernet.buildSearches(cfg.searches, { enabled: true, searchUrls: [], options: {} });
     expect(reqs).toHaveLength(2);
-    expect(reqs[0]?.params).toMatchObject({ citySlug: 'delft', maxRentalPriceId: 8, surfaceMinimumId: 6, listingTypeIds: '1,16' });
-    expect(reqs[1]?.params).toMatchObject({ citySlug: 'den-haag', maxRentalPriceId: 15, listingTypeIds: '2,4' });
+    expect(reqs[0]?.params).toMatchObject({
+      citySlug: 'delft',
+      maxRentalPriceId: 8,
+      surfaceMinimumId: 6,
+      listingTypeIds: '1,16',
+    });
+    expect(reqs[1]?.params).toMatchObject({
+      citySlug: 'den-haag',
+      maxRentalPriceId: 15,
+      listingTypeIds: '2,4',
+    });
   });
 
   test('price and size ladders never cut off homes under the limit', () => {
@@ -132,7 +176,11 @@ describe('kamernet adapter', () => {
       extra: {},
     });
     const incl = listings.find((l) => l.externalId === '2407683');
-    expect(incl).toMatchObject({ priceEur: 550, priceBasis: 'incl', extra: { availableUntil: '2027-04-01' } });
+    expect(incl).toMatchObject({
+      priceEur: 550,
+      priceBasis: 'incl',
+      extra: { availableUntil: '2027-04-01' },
+    });
     expect(listings.find((l) => l.externalId === '2407512')?.furnishing).toBe('unfurnished');
     expect(listings.find((l) => l.externalId === '2407035')?.furnishing).toBe('upholstered');
     for (const l of listings) expect(l.url.startsWith('https://kamernet.nl/huren/')).toBe(true);
@@ -160,21 +208,42 @@ describe('kamernet adapter', () => {
     const [room] = (await searchDelft()).filter((l) => l.externalId === '2407978');
     const ctx = ctxFor({ '/huren/kamer-delft/louis-couperuslaan/kamer-2407978': 'kamernet/detail.html' });
     const full = await kamernet.detail!(room!, ctx);
-    expect(full.address).toMatchObject({ street: 'Louis Couperuslaan', houseNumber: '85', postcode: '2624 WS', city: 'Delft' });
+    expect(full.address).toMatchObject({
+      street: 'Louis Couperuslaan',
+      houseNumber: '85',
+      postcode: '2624 WS',
+      city: 'Delft',
+    });
     expect(full.description).toContain('indefinite contract');
     expect(full.publishedAt).toBe('2026-09-24T10:18:31.000Z');
     expect(full.agent?.name).toBe('Landlord (placeholder)');
     expect(full.images?.[0]).toMatch(/^https:\/\/resources\.kamernet\.nl\/image\//);
-    expect(full.extra).toMatchObject({ petsAllowed: false, smokingAllowed: false, viewingDate: '2026-10-01' });
+    expect(full.extra).toMatchObject({
+      petsAllowed: false,
+      smokingAllowed: false,
+      viewingDate: '2026-10-01',
+    });
   });
 
   test('isAvailable reads the detail page and treats a missing or inactive listing as gone', async () => {
     const [room] = (await searchDelft()).filter((l) => l.externalId === '2407978');
     const listing = asListing(room!);
-    expect(await kamernet.isAvailable!(listing, ctxFor({ 'kamer-2407978': 'kamernet/detail.html' }))).toBe(true);
+    expect(await kamernet.isAvailable!(listing, ctxFor({ 'kamer-2407978': 'kamernet/detail.html' }))).toBe(
+      true,
+    );
     const inactive = readFixture('kamernet/detail.html').replace(/"isActive":\s*true/, '"isActive": false');
-    expect(await kamernet.isAvailable!(listing, ctxFor([{ match: 'kamer-2407978', body: inactive, headers: { 'content-type': 'text/html' } }]))).toBe(false);
-    expect(await kamernet.isAvailable!(listing, ctxFor([{ match: 'kamer-2407978', status: 404, body: 'not found' }]))).toBe(false);
+    expect(
+      await kamernet.isAvailable!(
+        listing,
+        ctxFor([{ match: 'kamer-2407978', body: inactive, headers: { 'content-type': 'text/html' } }]),
+      ),
+    ).toBe(false);
+    expect(
+      await kamernet.isAvailable!(
+        listing,
+        ctxFor([{ match: 'kamer-2407978', status: 404, body: 'not found' }]),
+      ),
+    ).toBe(false);
   });
 
   test('parseAlertEmail reads the saved-search email with the same ids as the mail package', () => {
@@ -196,7 +265,12 @@ describe('kamernet adapter', () => {
       contact: 'message',
       extra: { via: 'alert', alertMessageId: mail.id },
     });
-    expect(listings[2]).toMatchObject({ type: 'apartment', furnishing: 'unfurnished', priceBasis: 'excl', availableFrom: '2026-09-23' });
+    expect(listings[2]).toMatchObject({
+      type: 'apartment',
+      furnishing: 'unfurnished',
+      priceBasis: 'excl',
+      availableFrom: '2026-09-23',
+    });
     const fromMail = mailPackageAlert(mail);
     expect(fromMail?.sourceId).toBe('kamernet');
     expect(fromMail?.listings.map((l) => l.externalId)).toEqual(listings.map((l) => l.externalId));

@@ -24,7 +24,10 @@ function ctxFor(routes: FixtureContextOptions['routes']) {
   return fixtureContext({ sourceId: 'vesteda', config, routes, now: new Date('2026-09-24T12:00:00Z') });
 }
 
-async function searchCity(m: string, file: string): Promise<{ listings: RawListing[]; body: Record<string, unknown> }> {
+async function searchCity(
+  m: string,
+  file: string,
+): Promise<{ listings: RawListing[]; body: Record<string, unknown> }> {
   const ctx = ctxFor([{ match: API, method: 'POST', file }]);
   const req = vesteda.buildSearches(ctx.searches, ctx.source).find((r) => r.params?.municipality === m);
   const listings = await vesteda.search(req!, ctx);
@@ -36,14 +39,26 @@ describe('vesteda adapter', () => {
     expect(vesteda.id).toBe('vesteda');
     expect(vesteda.regions).toBe('nl');
     expect(vesteda.defaultIntervalSec).toBe(60);
-    expect(vesteda.capabilities).toEqual({ search: 'json', detail: true, contact: 'form', login: 'required', terms: 'forbids' });
+    expect(vesteda.capabilities).toEqual({
+      search: 'json',
+      detail: true,
+      contact: 'form',
+      login: 'required',
+      terms: 'forbids',
+    });
     expect(vesteda.loginUrl).toBe('https://hurenbij.vesteda.com/login/');
   });
 
   test('buildSearches sends each municipality with its centre, radius and the price range', async () => {
     const reqs = vesteda.buildSearches(config.searches, { enabled: true, searchUrls: [], options: {} });
     expect(reqs.map((r) => r.params?.place)).toEqual(['Delft', 'Rotterdam', 'Den Haag']);
-    expect(reqs[0]?.params).toMatchObject({ latitude: 52.0116, longitude: 4.3571, radius: 5, priceFrom: 500, priceTo: 1400 });
+    expect(reqs[0]?.params).toMatchObject({
+      latitude: 52.0116,
+      longitude: 4.3571,
+      radius: 5,
+      priceFrom: 500,
+      priceTo: 1400,
+    });
     const { body } = await searchCity('rotterdam', 'vesteda/search-rotterdam.json');
     expect(body).toMatchObject({
       place: 'Rotterdam',
@@ -80,7 +95,12 @@ describe('vesteda adapter', () => {
       sizeM2: 65,
       bedrooms: 2,
       type: 'apartment',
-      address: { street: 'Aaltje Noordewierstraat', houseNumber: '197', addition: 'D', city: "'s-Gravenhage" },
+      address: {
+        street: 'Aaltje Noordewierstraat',
+        houseNumber: '197',
+        addition: 'D',
+        city: "'s-Gravenhage",
+      },
       agent: { name: 'Vesteda' },
       contact: 'form',
       language: 'nl',
@@ -93,7 +113,9 @@ describe('vesteda adapter', () => {
   test('rented, reserved and rented-under-reservation units are skipped', async () => {
     const { listings } = await searchCity('rotterdam', 'vesteda/search-rotterdam.json');
     expect(listings.map((l) => l.externalId)).toEqual(['148304']);
-    expect(listings[0]).toMatchObject({ address: { postcode: expect.stringMatching(/^\d{4} [A-Z]{2}$/), city: 'Rotterdam' } });
+    expect(listings[0]).toMatchObject({
+      address: { postcode: expect.stringMatching(/^\d{4} [A-Z]{2}$/), city: 'Rotterdam' },
+    });
   });
 
   test('a plain list of units (relevance sorting) is read too', async () => {
@@ -106,11 +128,21 @@ describe('vesteda adapter', () => {
   test('detail adds service costs, availability, energy label and the income requirement', async () => {
     const { listings } = await searchCity('rotterdam', 'vesteda/search-rotterdam.json');
     const unit = listings[0]!;
-    const full = await vesteda.detail!(unit, ctxFor({ '/nl/huurwoningen-rotterdam/de-kuil/albertina-sisulupad-172-rotterdam-148304': 'vesteda/unit.html' }));
+    const full = await vesteda.detail!(
+      unit,
+      ctxFor({
+        '/nl/huurwoningen-rotterdam/de-kuil/albertina-sisulupad-172-rotterdam-148304': 'vesteda/unit.html',
+      }),
+    );
     expect(full.serviceCostsEur).toBe(92);
     expect(full.availableFrom).toBe('2026-09-24');
     expect(full.energyLabel).toBe('A++');
-    expect(full.extra).toMatchObject({ minIncomeEur: 4081, minIncomeTwoEarnersEur: 4665, deposit: '1 of 2 maand(en) borg', requirements: { minIncomeEur: 4081, incomeMultiple: 3.5 } });
+    expect(full.extra).toMatchObject({
+      minIncomeEur: 4081,
+      minIncomeTwoEarnersEur: 4665,
+      deposit: '1 of 2 maand(en) borg',
+      requirements: { minIncomeEur: 4081, incomeMultiple: 3.5 },
+    });
   });
 
   test('isAvailable is true while the unit page says it is for rent', async () => {
@@ -125,9 +157,19 @@ describe('vesteda adapter', () => {
       via: 'poll',
     };
     expect(await vesteda.isAvailable!(listing, ctxFor({ '148304': 'vesteda/unit.html' }))).toBe(true);
-    const rented = readFixture('vesteda/unit.html').replace('Deze woning is te huur.', 'Deze woning is verhuurd.');
-    expect(await vesteda.isAvailable!(listing, ctxFor([{ match: '148304', body: rented, headers: { 'content-type': 'text/html' } }]))).toBe(false);
-    expect(await vesteda.isAvailable!(listing, ctxFor([{ match: '148304', status: 404, body: '' }]))).toBe(false);
+    const rented = readFixture('vesteda/unit.html').replace(
+      'Deze woning is te huur.',
+      'Deze woning is verhuurd.',
+    );
+    expect(
+      await vesteda.isAvailable!(
+        listing,
+        ctxFor([{ match: '148304', body: rented, headers: { 'content-type': 'text/html' } }]),
+      ),
+    ).toBe(false);
+    expect(await vesteda.isAvailable!(listing, ctxFor([{ match: '148304', status: 404, body: '' }]))).toBe(
+      false,
+    );
   });
 
   test('has no alert-email parser (Vesteda alerts need an account and were not seen)', () => {

@@ -7,7 +7,13 @@
  */
 import { load, type Cheerio, type CheerioAPI } from 'cheerio';
 import type { Page } from 'playwright-core';
-import { fromAmsterdam, type InboundMessage, type Lang, type NamedSearch, type SourceContext } from '@nlpf/core';
+import {
+  fromAmsterdam,
+  type InboundMessage,
+  type Lang,
+  type NamedSearch,
+  type SourceContext,
+} from '@nlpf/core';
 import { parseDutchDate } from '../util/parse.js';
 
 type AnyNode = Exclude<Parameters<typeof load>[0], string | Buffer | readonly unknown[]>;
@@ -37,9 +43,11 @@ export const positive = (v: unknown): number | undefined => {
   return n !== undefined && n > 0 ? n : undefined;
 };
 
-export const str = (v: unknown): string | undefined => (typeof v === 'string' && v.trim() ? v.trim() : undefined);
+export const str = (v: unknown): string | undefined =>
+  typeof v === 'string' && v.trim() ? v.trim() : undefined;
 
-export const isObj = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v);
+export const isObj = (v: unknown): v is Record<string, unknown> =>
+  typeof v === 'object' && v !== null && !Array.isArray(v);
 
 /** "Den Haag" becomes "den-haag"; "'s-Gravenhage" becomes "s-gravenhage". */
 export function slugify(text: string): string {
@@ -90,7 +98,14 @@ export function amsterdamMidnight(date: string): string {
 export function relativeDutchDay(text: string | undefined, now: Date): string | undefined {
   const t = clean(text).toLowerCase();
   if (!t) return undefined;
-  const back = t === 'vandaag' || t === 'today' ? 0 : t === 'gisteren' || t === 'yesterday' ? 1 : t === 'eergisteren' ? 2 : undefined;
+  const back =
+    t === 'vandaag' || t === 'today'
+      ? 0
+      : t === 'gisteren' || t === 'yesterday'
+        ? 1
+        : t === 'eergisteren'
+          ? 2
+          : undefined;
   if (back !== undefined) {
     const today = parseDutchDate('per direct', now);
     if (!today) return undefined;
@@ -103,7 +118,8 @@ export function relativeDutchDay(text: string | undefined, now: Date): string | 
   return date ? amsterdamMidnight(date) : undefined;
 }
 
-const NL_WORDS = /\b(de|het|een|en|van|te|huur|kamer|met|voor|is|op|zijn|beschikbaar|woning|per maand|gemeubileerd)\b/gi;
+const NL_WORDS =
+  /\b(de|het|een|en|van|te|huur|kamer|met|voor|is|op|zijn|beschikbaar|woning|per maand|gemeubileerd)\b/gi;
 const EN_WORDS = /\b(the|and|a|for|rent|room|with|in|is|available|month|furnished|apartment|house)\b/gi;
 
 /** Dutch or English, from common words; undefined for text too short to tell. */
@@ -151,7 +167,7 @@ const ALIASES: Record<string, string> = {
   'the hague': 'den haag',
   "'s-hertogenbosch": 'den bosch',
   's-hertogenbosch': 'den bosch',
-  'hertogenbosch': 'den bosch',
+  hertogenbosch: 'den bosch',
 };
 
 /** A municipality name lowercased, trimmed and with its common alias resolved ("'s-Gravenhage" is "den haag"). */
@@ -265,7 +281,8 @@ export function resolvePlace(municipality: string, ctx: SourceContext): Promise<
     pending = ctx
       .fetch(url, { headers: { accept: 'application/json' } })
       .then((res) => {
-        const doc = res.json<{ response?: { docs?: { postcode?: string; centroide_ll?: string }[] } }>().response?.docs?.[0];
+        const doc = res.json<{ response?: { docs?: { postcode?: string; centroide_ll?: string }[] } }>()
+          .response?.docs?.[0];
         const point = /POINT\(([\d.]+) ([\d.]+)\)/.exec(doc?.centroide_ll ?? '');
         const lon = num(point?.[1]);
         const lat = num(point?.[2]);
@@ -290,7 +307,18 @@ export function resolvePlace(municipality: string, ctx: SourceContext): Promise<
 
 /* ---------- alert emails ---------- */
 
-const REDIRECT_PARAMS = ['u', 'url', 'target', 'redirect', 'redirect_url', 'dest', 'destination', 'link', 'l', 'to'];
+const REDIRECT_PARAMS = [
+  'u',
+  'url',
+  'target',
+  'redirect',
+  'redirect_url',
+  'dest',
+  'destination',
+  'link',
+  'l',
+  'to',
+];
 
 /** Follows click-tracking wrappers ("https://click.mail.funda.nl/?u=https%3A...") to the real URL. */
 export function unwrapUrl(href: string): URL | undefined {
@@ -336,11 +364,7 @@ function blockLines($: CheerioAPI, el: Cheerio<AnyNode>): string[] {
   copy.find('p, div, li, tr, td, h1, h2, h3, h4, h5, h6, table').each((_, n) => {
     $(n).append('\n');
   });
-  return copy
-    .text()
-    .split('\n')
-    .map(clean)
-    .filter(Boolean);
+  return copy.text().split('\n').map(clean).filter(Boolean);
 }
 
 /**
@@ -365,10 +389,13 @@ export function alertCards(mail: InboundMessage, match: (url: URL) => string | u
     const owner = new Map<AnyNode, string>();
     for (const [id, { anchors }] of byId) for (const a of anchors) owner.set(a, id);
     const others = (el: Cheerio<AnyNode>, id: string) =>
-      el.find('a[href]').toArray().some((a) => {
-        const o = owner.get(a);
-        return o !== undefined && o !== id;
-      });
+      el
+        .find('a[href]')
+        .toArray()
+        .some((a) => {
+          const o = owner.get(a);
+          return o !== undefined && o !== id;
+        });
     for (const [id, { url, anchors }] of byId) {
       let box = $(anchors[0] as AnyNode);
       for (;;) {
@@ -431,7 +458,12 @@ export async function firstVisible(page: Page, selectors: string[]): Promise<str
 
 /** Visible text of the page body, whitespace collapsed; empty when the page has none. */
 export async function pageText(page: Page): Promise<string> {
-  return clean(await page.locator('body').innerText({ timeout: 5_000 }).catch(() => ''));
+  return clean(
+    await page
+      .locator('body')
+      .innerText({ timeout: 5_000 })
+      .catch(() => ''),
+  );
 }
 
 /**
@@ -442,11 +474,17 @@ export async function pageText(page: Page): Promise<string> {
  */
 export async function waitForConfirmation(
   page: Page,
-  opts: { success: RegExp; successUrl?: RegExp; timeoutMs: number; failure?: () => Promise<string | undefined> },
+  opts: {
+    success: RegExp;
+    successUrl?: RegExp;
+    timeoutMs: number;
+    failure?: () => Promise<string | undefined>;
+  },
 ): Promise<{ text: string; failed?: true } | undefined> {
   const deadline = Date.now() + opts.timeoutMs;
   while (Date.now() < deadline) {
-    if (opts.successUrl?.test(page.url())) return { text: `confirmation page ${new URL(page.url()).pathname}` };
+    if (opts.successUrl?.test(page.url()))
+      return { text: `confirmation page ${new URL(page.url()).pathname}` };
     const text = await pageText(page);
     const m = opts.success.exec(text);
     if (m) {

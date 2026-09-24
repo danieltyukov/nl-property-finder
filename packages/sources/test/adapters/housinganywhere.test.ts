@@ -23,7 +23,12 @@ const config = ConfigSchema.parse({
 const ALGOLIA = 'y8l112mibf-dsn.algolia.net/1/indexes/*/queries';
 
 function ctxFor(routes: FixtureContextOptions['routes']) {
-  return fixtureContext({ sourceId: 'housinganywhere', config, routes, now: new Date('2026-09-24T12:00:00Z') });
+  return fixtureContext({
+    sourceId: 'housinganywhere',
+    config,
+    routes,
+    now: new Date('2026-09-24T12:00:00Z'),
+  });
 }
 
 async function search(): Promise<{ listings: RawListing[]; body: Record<string, unknown> }> {
@@ -61,24 +66,46 @@ describe('housinganywhere adapter', () => {
   });
 
   test('buildSearches puts the cities, rent cap and types into one Algolia filter on the newest-first index', async () => {
-    const reqs = housinganywhere.buildSearches(config.searches, { enabled: true, searchUrls: [], options: {} });
+    const reqs = housinganywhere.buildSearches(config.searches, {
+      enabled: true,
+      searchUrls: [],
+      options: {},
+    });
     expect(reqs).toHaveLength(1);
     expect(reqs[0]?.params).toEqual({
       index: 'production_listings_most_recent',
-      filters: 'isSearchable:true AND exclusivityPartnerIDs:0 AND (city:"Delft" OR city:"Rotterdam" OR city:"The Hague") AND priceEUR <= 1400',
+      filters:
+        'isSearchable:true AND exclusivityPartnerIDs:0 AND (city:"Delft" OR city:"Rotterdam" OR city:"The Hague") AND priceEUR <= 1400',
       hitsPerPage: 40,
     });
     const { body } = await search();
     const [first] = body.requests as Record<string, unknown>[];
-    expect(first).toMatchObject({ indexName: 'production_listings_most_recent', query: '', page: 0, filters: reqs[0]?.params?.filters });
+    expect(first).toMatchObject({
+      indexName: 'production_listings_most_recent',
+      query: '',
+      page: 0,
+      filters: reqs[0]?.params?.filters,
+    });
     expect(first?.attributesToRetrieve).toContain('path');
   });
 
   test('types become propertyType filters and identical searches share one request', () => {
     const cfg = ConfigSchema.parse({
       searches: [
-        { id: 'a', name: 'A', regions: [{ name: 'Delft', municipalities: ['delft'] }], priceMaxEur: 800, types: ['room'] },
-        { id: 'b', name: 'B', regions: [{ name: 'Delft', municipalities: ['Delft'] }], priceMaxEur: 800, types: ['room'] },
+        {
+          id: 'a',
+          name: 'A',
+          regions: [{ name: 'Delft', municipalities: ['delft'] }],
+          priceMaxEur: 800,
+          types: ['room'],
+        },
+        {
+          id: 'b',
+          name: 'B',
+          regions: [{ name: 'Delft', municipalities: ['Delft'] }],
+          priceMaxEur: 800,
+          types: ['room'],
+        },
         { id: 'c', name: 'C', regions: [], priceMinEur: 500, types: ['studio', 'apartment'] },
       ],
     });
@@ -113,11 +140,23 @@ describe('housinganywhere adapter', () => {
       extra: { landlordType: 'rental-company', minimumStayMonths: 12, registrationPossible: true },
     });
     const hague = listings.find((l) => l.externalId === 'ut1728230');
-    expect(hague).toMatchObject({ url: 'https://housinganywhere.com/room/ut1728230/nl/The%20Hague/oranjelaan', address: { city: 'Den Haag' }, type: 'room', priceBasis: 'incl' });
+    expect(hague).toMatchObject({
+      url: 'https://housinganywhere.com/room/ut1728230/nl/The%20Hague/oranjelaan',
+      address: { city: 'Den Haag' },
+      type: 'room',
+      priceBasis: 'incl',
+    });
     // A room's total size is the whole house, so it is not the room size.
-    expect(listings.find((l) => l.externalId === 'ut1737362')).toMatchObject({ type: 'room', extra: { houseSizeM2: 223 } });
+    expect(listings.find((l) => l.externalId === 'ut1737362')).toMatchObject({
+      type: 'room',
+      extra: { houseSizeM2: 223 },
+    });
     expect(listings.find((l) => l.externalId === 'ut1737362')?.sizeM2).toBeUndefined();
-    expect(listings.find((l) => l.externalId === 'ut1721733')).toMatchObject({ type: 'studio', sizeM2: 37, address: { city: 'Delft' } });
+    expect(listings.find((l) => l.externalId === 'ut1721733')).toMatchObject({
+      type: 'studio',
+      sizeM2: 37,
+      address: { city: 'Delft' },
+    });
     for (const l of listings) {
       expect(l.externalId).toMatch(/^ut\d+$/);
       expect(l.url).toMatch(/^https:\/\/housinganywhere\.com\/room\/ut\d+\//);
@@ -126,7 +165,9 @@ describe('housinganywhere adapter', () => {
   });
 
   test('hits that are no longer searchable are skipped', async () => {
-    const data = JSON.parse(readFixture('housinganywhere/search.json')) as { results: { hits: Record<string, unknown>[] }[] };
+    const data = JSON.parse(readFixture('housinganywhere/search.json')) as {
+      results: { hits: Record<string, unknown>[] }[];
+    };
     data.results[0]!.hits[0]!.isSearchable = false;
     const ctx = ctxFor([{ match: ALGOLIA, method: 'POST', body: data }]);
     const [req] = housinganywhere.buildSearches(ctx.searches, ctx.source);
@@ -138,7 +179,10 @@ describe('housinganywhere adapter', () => {
   test('detail adds postcode, deposit and how many tenants already contacted the landlord', async () => {
     const { listings } = await search();
     const studio = listings.find((l) => l.externalId === 'ut1721733')!;
-    const full = await housinganywhere.detail!(studio, ctxFor({ '/room/ut1721733/nl/Delft/nieuwe-gracht': 'housinganywhere/detail.html' }));
+    const full = await housinganywhere.detail!(
+      studio,
+      ctxFor({ '/room/ut1721733/nl/Delft/nieuwe-gracht': 'housinganywhere/detail.html' }),
+    );
     expect(full.address).toMatchObject({ postcode: '2611 DV', city: 'Delft' });
     expect(full.depositEur).toBe(2100);
     expect(full.serviceCostsEur).toBe(217);
@@ -150,10 +194,19 @@ describe('housinganywhere adapter', () => {
   test('isAvailable asks Algolia whether the unit is still searchable', async () => {
     const { listings } = await search();
     const listing = asListing(listings[0]!);
-    const ctx = ctxFor([{ match: ALGOLIA, method: 'POST', body: { results: [{ hits: [{ objectID: 'x' }], nbHits: 1 }] } }]);
+    const ctx = ctxFor([
+      { match: ALGOLIA, method: 'POST', body: { results: [{ hits: [{ objectID: 'x' }], nbHits: 1 }] } },
+    ]);
     expect(await housinganywhere.isAvailable!(listing, ctx)).toBe(true);
-    expect(JSON.parse(ctx.requests[0]?.body ?? '{}').requests[0].filters).toBe('unitTypeInternalID:1739453 AND isSearchable:true');
-    expect(await housinganywhere.isAvailable!(listing, ctxFor([{ match: ALGOLIA, method: 'POST', body: { results: [{ hits: [], nbHits: 0 }] } }]))).toBe(false);
+    expect(JSON.parse(ctx.requests[0]?.body ?? '{}').requests[0].filters).toBe(
+      'unitTypeInternalID:1739453 AND isSearchable:true',
+    );
+    expect(
+      await housinganywhere.isAvailable!(
+        listing,
+        ctxFor([{ match: ALGOLIA, method: 'POST', body: { results: [{ hits: [], nbHits: 0 }] } }]),
+      ),
+    ).toBe(false);
   });
 
   test('parseAlertEmail reads the saved-search email with the same ids as the mail package', () => {
@@ -186,6 +239,8 @@ describe('housinganywhere adapter', () => {
     expect(housingAnywhereCity('delft')).toBe('Delft');
     expect(unitTypeId('/room/ut1739453/nl/Rotterdam/insulindestraat')).toBe('ut1739453');
     expect(unitTypeId('/s/Delft--Netherlands')).toBeUndefined();
-    expect(assignedJson('<script>window.__X__= ({"a":"}{","b":{"c":1}});window.__Y__={}</script>', '__X__')).toEqual({ a: '}{', b: { c: 1 } });
+    expect(
+      assignedJson('<script>window.__X__= ({"a":"}{","b":{"c":1}});window.__Y__={}</script>', '__X__'),
+    ).toEqual({ a: '}{', b: { c: 1 } });
   });
 });

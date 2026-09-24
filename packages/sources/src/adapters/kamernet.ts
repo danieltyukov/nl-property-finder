@@ -13,7 +13,18 @@
  * live, because that needs an account.
  */
 import { load } from 'cheerio';
-import type { ContactResult, Furnishing, InboundMessage, Listing, NamedSearch, PropertyType, RawListing, SearchRequest, SourceAdapter, SourceContext } from '@nlpf/core';
+import type {
+  ContactResult,
+  Furnishing,
+  InboundMessage,
+  Listing,
+  NamedSearch,
+  PropertyType,
+  RawListing,
+  SearchRequest,
+  SourceAdapter,
+  SourceContext,
+} from '@nlpf/core';
 import { NeedsLoginError, SourceHttpError } from '../runtime/errors.js';
 import { normalisePostcode } from '../util/address.js';
 import { detectFurnishing, detectType, parseDutchDate, parsePrice, parseSize } from '../util/parse.js';
@@ -59,8 +70,31 @@ const PRICE_STEPS: [number, number][] = [
 
 /** `SurfaceMinimum` enum: id per m2 step. */
 const SIZE_STEPS: [number, number][] = [
-  [6, 2], [8, 3], [10, 4], [12, 5], [14, 6], [16, 7], [18, 8], [20, 9], [22, 10], [24, 11], [26, 12], [28, 13],
-  [30, 14], [32, 15], [34, 16], [36, 17], [38, 18], [40, 19], [45, 20], [50, 21], [60, 22], [70, 23], [80, 24], [90, 25], [100, 26],
+  [6, 2],
+  [8, 3],
+  [10, 4],
+  [12, 5],
+  [14, 6],
+  [16, 7],
+  [18, 8],
+  [20, 9],
+  [22, 10],
+  [24, 11],
+  [26, 12],
+  [28, 13],
+  [30, 14],
+  [32, 15],
+  [34, 16],
+  [36, 17],
+  [38, 18],
+  [40, 19],
+  [45, 20],
+  [50, 21],
+  [60, 22],
+  [70, 23],
+  [80, 24],
+  [90, 25],
+  [100, 26],
 ];
 
 /** The smallest ladder step at or above the maximum rent, so nothing under the cap is dropped. 0 means no limit. */
@@ -124,7 +158,8 @@ export interface KamernetOptions {
 
 const ALERT_DOMAINS = ['kamernet.nl'];
 
-const DETAIL_PATH = /^\/(?:en\/)?(?:huren|for-rent)\/([a-z-]+)-([a-z0-9-]+)\/([a-z0-9-]+)\/[a-z-]+-(\d{5,})\/?$/i;
+const DETAIL_PATH =
+  /^\/(?:en\/)?(?:huren|for-rent)\/([a-z-]+)-([a-z0-9-]+)\/([a-z0-9-]+)\/[a-z-]+-(\d{5,})\/?$/i;
 
 export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdapter {
   const base = (options.baseUrl ?? 'https://kamernet.nl').replace(/\/+$/, '');
@@ -152,7 +187,8 @@ export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdap
       url,
       title: clean(`${t?.label ?? 'Woonruimte'} ${l.street ?? ''}`),
       priceEur: positive(l.totalRentalPrice),
-      priceBasis: positive(l.totalRentalPrice) === undefined ? undefined : l.utilitiesIncluded ? 'incl' : 'excl',
+      priceBasis:
+        positive(l.totalRentalPrice) === undefined ? undefined : l.utilitiesIncluded ? 'incl' : 'excl',
       sizeM2: positive(l.surfaceArea),
       type: t?.type,
       furnishing: FURNISHING[l.furnishingId ?? 0],
@@ -178,7 +214,9 @@ export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdap
     const $ = load(res.text);
     const raw = $('script#__NEXT_DATA__').first().text();
     if (!raw) return undefined;
-    const data = JSON.parse(raw) as { props?: { pageProps?: { targetPageProps?: { listingDetails?: unknown } } } };
+    const data = JSON.parse(raw) as {
+      props?: { pageProps?: { targetPageProps?: { listingDetails?: unknown } } };
+    };
     const details = data.props?.pageProps?.targetPageProps?.listingDetails;
     return isObj(details) ? details : undefined;
   }
@@ -302,13 +340,16 @@ export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdap
       if (images.length) out.images = images;
       const landlord = str(d.landlordDisplayName);
       if (landlord) out.agent = { ...out.agent, name: landlord };
-      if (d.isReactForFree === true) Object.assign(out.extra ?? {}, { reactForFree: true, isReactForFree: true });
+      if (d.isReactForFree === true)
+        Object.assign(out.extra ?? {}, { reactForFree: true, isReactForFree: true });
       Object.assign(
         out.extra ?? {},
         compact({
-          registrationAllowed: typeof d.isRegistrationAllowed === 'boolean' ? d.isRegistrationAllowed : undefined,
+          registrationAllowed:
+            typeof d.isRegistrationAllowed === 'boolean' ? d.isRegistrationAllowed : undefined,
           petsAllowed: typeof d.candidatePetsAllowed === 'boolean' ? d.candidatePetsAllowed : undefined,
-          smokingAllowed: typeof d.candidateSmokingAllowed === 'boolean' ? d.candidateSmokingAllowed : undefined,
+          smokingAllowed:
+            typeof d.candidateSmokingAllowed === 'boolean' ? d.candidateSmokingAllowed : undefined,
           suitableForPersons: positive(d.suitableForNumberOfPersons),
           landlordResponseRate: str(d.responseRateText),
           viewingDate: ymd(d.viewingDate),
@@ -339,7 +380,11 @@ export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdap
         const profile = await session.page
           .evaluate(() => {
             const el = document.querySelector('script#__NEXT_DATA__');
-            const data = el?.textContent ? (JSON.parse(el.textContent) as { props?: { pageProps?: { authState?: { userProfile?: unknown } } } }) : undefined;
+            const data = el?.textContent
+              ? (JSON.parse(el.textContent) as {
+                  props?: { pageProps?: { authState?: { userProfile?: unknown } } };
+                })
+              : undefined;
             return Boolean(data?.props?.pageProps?.authState?.userProfile);
           })
           .catch(() => false);
@@ -365,7 +410,12 @@ export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdap
         const price = parsePrice(priceLine);
         const availableLine = card.lines.find((l) => /beschikbaar|available/i.test(l));
         const typeEntry = Object.values(TYPES).find((t) => t.slug === kind);
-        const cityLine = card.lines.find((l) => l !== card.title && /^[\p{L}' -]+$/u.test(l) && !/beschikbaar|gemeubileerd|gestoffeerd|kaal/i.test(l));
+        const cityLine = card.lines.find(
+          (l) =>
+            l !== card.title &&
+            /^[\p{L}' -]+$/u.test(l) &&
+            !/beschikbaar|gemeubileerd|gestoffeerd|kaal/i.test(l),
+        );
         const furnishing = detectFurnishing(text);
         return compact<RawListing>({
           sourceId: 'kamernet',
@@ -395,7 +445,12 @@ export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdap
    * NeedsLoginError. Without Premium Kamernet shows an upgrade offer instead
    * of the form: that is a paid wall, never something to get around.
    */
-  async function sendMessage(listing: Listing, body: string, dryRun: boolean, ctx: SourceContext): Promise<ContactResult> {
+  async function sendMessage(
+    listing: Listing,
+    body: string,
+    dryRun: boolean,
+    ctx: SourceContext,
+  ): Promise<ContactResult> {
     const url = conversationUrl(listing.externalId);
     const session = await ctx.browser({ headed });
     const { page } = session;
@@ -403,16 +458,34 @@ export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdap
       const res = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30_000 });
       const path = new URL(page.url()).pathname;
       const text = await pageText(page);
-      if (res?.status() === 401 || /\/(oauth\/signin|login|inloggen)\b/i.test(path) || /niet ingelogd|not logged in/i.test(text)) {
+      if (
+        res?.status() === 401 ||
+        /\/(oauth\/signin|login|inloggen)\b/i.test(path) ||
+        /niet ingelogd|not logged in/i.test(text)
+      ) {
         throw new NeedsLoginError('Kamernet asks for a login before messaging a landlord', { loginUrl });
       }
       if (await showsCaptcha(page)) {
-        return { ok: false, channel: 'message', needs: 'captcha', error: `Kamernet shows a captcha on ${url}` };
+        return {
+          ok: false,
+          channel: 'message',
+          needs: 'captcha',
+          error: `Kamernet shows a captcha on ${url}`,
+        };
       }
-      const field = await firstVisible(page, ['#Message', 'textarea[name="Message"]', 'textarea[name="message"]']);
+      const field = await firstVisible(page, [
+        '#Message',
+        'textarea[name="Message"]',
+        'textarea[name="message"]',
+      ]);
       if (!field) {
         if (/premium/i.test(text) || (await page.locator('a[href*="premium"]').count()) > 0) {
-          return { ok: false, channel: 'message', needs: 'paid', error: 'Kamernet Premium is needed to message this landlord' };
+          return {
+            ok: false,
+            channel: 'message',
+            needs: 'paid',
+            error: 'Kamernet Premium is needed to message this landlord',
+          };
         }
         return { ok: false, channel: 'message', needs: 'human', error: `no message form on ${url}` };
       }
@@ -421,14 +494,22 @@ export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdap
       // unanswered required questions goes to a person.
       const unanswered = await page
         .locator('form input[required], form select[required], form textarea[required]')
-        .evaluateAll((els, skip) =>
-          els
-            .filter((el) => {
-              const e = el as HTMLInputElement;
-              return e.id !== skip && e.name !== 'Message' && e.type !== 'hidden' && !e.value && e.offsetParent !== null;
-            })
-            .map((el) => (el as HTMLInputElement).name || el.id),
-        field.startsWith('#') ? field.slice(1) : '')
+        .evaluateAll(
+          (els, skip) =>
+            els
+              .filter((el) => {
+                const e = el as HTMLInputElement;
+                return (
+                  e.id !== skip &&
+                  e.name !== 'Message' &&
+                  e.type !== 'hidden' &&
+                  !e.value &&
+                  e.offsetParent !== null
+                );
+              })
+              .map((el) => (el as HTMLInputElement).name || el.id),
+          field.startsWith('#') ? field.slice(1) : '',
+        )
         .catch(() => [] as string[]);
       if (unanswered.length) {
         return {
@@ -441,9 +522,14 @@ export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdap
       try {
         await page.locator(field).first().fill(body, { timeout: 10_000 });
       } catch (e) {
-        return { ok: false, channel: 'message', error: `could not fill the message on ${url}: ${firstLine(e)}` };
+        return {
+          ok: false,
+          channel: 'message',
+          error: `could not fill the message on ${url}: ${firstLine(e)}`,
+        };
       }
-      if (dryRun) return { ok: true, channel: 'message', evidence: 'dry run: the message was filled and not sent' };
+      if (dryRun)
+        return { ok: true, channel: 'message', evidence: 'dry run: the message was filled and not sent' };
       try {
         const submit = page
           .locator('form button[type="submit"], form input[type="submit"]')
@@ -454,7 +540,8 @@ export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdap
         return { ok: false, channel: 'message', error: `could not press send on ${url}: ${firstLine(e)}` };
       }
       const confirmation = await waitForConfirmation(page, {
-        success: /bericht (is )?(verstuurd|verzonden)|reactie (is )?(verstuurd|verzonden)|message (has been )?sent|your reaction has been sent/i,
+        success:
+          /bericht (is )?(verstuurd|verzonden)|reactie (is )?(verstuurd|verzonden)|message (has been )?sent|your reaction has been sent/i,
         successUrl: /\/(conversation|conversations|messages|berichten)\//i,
         timeoutMs: confirmTimeoutMs,
       });
@@ -467,7 +554,12 @@ export function createKamernetAdapter(options: KamernetOptions = {}): SourceAdap
         };
       }
       const thread = /\/(?:conversation|conversations|messages|berichten)\/([\w-]+)/i.exec(page.url())?.[1];
-      return compact({ ok: true, channel: 'message' as const, externalId: thread, evidence: confirmation.text.slice(0, 200) });
+      return compact({
+        ok: true,
+        channel: 'message' as const,
+        externalId: thread,
+        evidence: confirmation.text.slice(0, 200),
+      });
     } finally {
       await session.close().catch(() => undefined);
     }

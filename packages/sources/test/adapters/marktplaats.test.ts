@@ -27,7 +27,9 @@ function ctxFor(routes: FixtureContextOptions['routes']) {
 
 async function searchCity(slug: 'delft' | 'rotterdam' | 'den haag', file: string): Promise<RawListing[]> {
   const ctx = ctxFor({ '/lrp/api/search': file });
-  const req = marktplaats.buildSearches(ctx.searches, ctx.source).find((r) => r.params?.municipality === slug);
+  const req = marktplaats
+    .buildSearches(ctx.searches, ctx.source)
+    .find((r) => r.params?.municipality === slug);
   return marktplaats.search(req!, ctx);
 }
 
@@ -46,7 +48,13 @@ describe('marktplaats adapter', () => {
     expect(marktplaats.id).toBe('marktplaats');
     expect(marktplaats.regions).toBe('nl');
     expect(marktplaats.defaultIntervalSec).toBe(60);
-    expect(marktplaats.capabilities).toEqual({ search: 'json', detail: true, contact: 'message', login: 'required', terms: 'forbids' });
+    expect(marktplaats.capabilities).toEqual({
+      search: 'json',
+      detail: true,
+      contact: 'message',
+      login: 'required',
+      terms: 'forbids',
+    });
     // Chat is not automated: without a contact() the router hands these homes to the user.
     expect(marktplaats.contact).toBeUndefined();
   });
@@ -69,7 +77,11 @@ describe('marktplaats adapter', () => {
   });
 
   test('a municipality without a known postcode is looked up once and then searched around it', async () => {
-    const cfg = ConfigSchema.parse({ searches: [{ id: 'l', name: 'L', regions: [{ name: 'Leiden', municipalities: ['leiden'] }], types: ['room'] }] });
+    const cfg = ConfigSchema.parse({
+      searches: [
+        { id: 'l', name: 'L', regions: [{ name: 'Leiden', municipalities: ['leiden'] }], types: ['room'] },
+      ],
+    });
     const [req] = marktplaats.buildSearches(cfg.searches, { enabled: true, searchUrls: [], options: {} });
     expect(req?.url).toBeUndefined();
     const ctx = fixtureContext({
@@ -77,7 +89,10 @@ describe('marktplaats adapter', () => {
       config: cfg,
       now: NOW,
       routes: [
-        { match: 'api.pdok.nl', body: { response: { docs: [{ postcode: '2314ET', centroide_ll: 'POINT(4.519 52.156)' }] } } },
+        {
+          match: 'api.pdok.nl',
+          body: { response: { docs: [{ postcode: '2314ET', centroide_ll: 'POINT(4.519 52.156)' }] } },
+        },
         { match: '/lrp/api/search', file: 'marktplaats/search-delft.json' },
       ],
     });
@@ -90,7 +105,13 @@ describe('marktplaats adapter', () => {
 
   test('search keeps room offers and drops furniture, wanted ads and reserved items', async () => {
     const listings = await searchCity('delft', 'marktplaats/search-delft.json');
-    expect(listings.map((l) => l.title)).toEqual(['Room for rent in Nootdorp', 'Kamer huren in Delft', 'Kamer te huur in delft', 'kamer te huur 500 in rijswijk', 'kamer huren']);
+    expect(listings.map((l) => l.title)).toEqual([
+      'Room for rent in Nootdorp',
+      'Kamer huren in Delft',
+      'Kamer te huur in delft',
+      'kamer te huur 500 in rijswijk',
+      'kamer huren',
+    ]);
     expect(listings[0]).toMatchObject({
       sourceId: 'marktplaats',
       externalId: 'm2445192348',
@@ -100,7 +121,8 @@ describe('marktplaats adapter', () => {
       address: { city: 'Delft' },
       agent: { name: 'Landlord (placeholder)' },
       contact: 'message',
-      contactUrl: 'https://www.marktplaats.nl/v/huizen-en-kamers/kamers-te-huur/m2445192348-room-for-rent-in-nootdorp',
+      contactUrl:
+        'https://www.marktplaats.nl/v/huizen-en-kamers/kamers-te-huur/m2445192348-room-for-rent-in-nootdorp',
       publishedAt: '2026-09-23T22:00:00.000Z',
       language: 'en',
       extra: { sellerVerified: false, priceType: 'FIXED', category: 2771 },
@@ -114,7 +136,15 @@ describe('marktplaats adapter', () => {
     const titles = listings.map((l) => l.title);
     expect(titles).toContain('For rent: shared house near Den Haag Holland Spoor');
     expect(titles).toContain('Kamer met balkon');
-    for (const junk of ['IKEA desk and chair', 'Loungebank', 'Postadres/ briefadres aangeboden Den haag', "I'm looking for a room", 'Kamer gezocht  omgeving Delft/Den Haag.', 'Vakantie woning', 'TE HUUR PRAKTIJKRUIMTE']) {
+    for (const junk of [
+      'IKEA desk and chair',
+      'Loungebank',
+      'Postadres/ briefadres aangeboden Den haag',
+      "I'm looking for a room",
+      'Kamer gezocht  omgeving Delft/Den Haag.',
+      'Vakantie woning',
+      'TE HUUR PRAKTIJKRUIMTE',
+    ]) {
       expect(titles).not.toContain(junk);
     }
     const reserved = await searchCity('rotterdam', 'marktplaats/search-rotterdam.json');
@@ -136,24 +166,56 @@ describe('marktplaats adapter', () => {
   });
 
   test('detail reads the seller type for the scam guard and the full description', async () => {
-    const [room] = (await searchCity('rotterdam', 'marktplaats/search-rotterdam.json')).filter((l) => l.externalId === 'm2441586539');
-    const ctx = ctxFor({ '/v/huizen-en-kamers/kamers-te-huur/m2441586539-kamer-te-huur': 'marktplaats/item.html' });
+    const [room] = (await searchCity('rotterdam', 'marktplaats/search-rotterdam.json')).filter(
+      (l) => l.externalId === 'm2441586539',
+    );
+    const ctx = ctxFor({
+      '/v/huizen-en-kamers/kamers-te-huur/m2441586539-kamer-te-huur': 'marktplaats/item.html',
+    });
     const full = await marktplaats.detail!(room!, ctx);
     expect(full.description).toBe('Alleen vrouwen vanaf 30 jaar. Is vanaf vandaag beschikbaar');
     expect(full.publishedAt).toBe('2026-09-11T16:09:59.000Z');
-    expect(full.extra).toMatchObject({ sellerType: 'TRADER', sellerAccountType: 'Regular', privateLandlord: false, sellerAbroad: false, sellerActiveYears: 2, views: 560, favorites: 9 });
-    const consumer = readFixture('marktplaats/item.html').replace('"sellerType": "TRADER"', '"sellerType": "CONSUMER"');
-    const asConsumer = await marktplaats.detail!(room!, ctxFor([{ match: 'm2441586539', body: consumer, headers: { 'content-type': 'text/html' } }]));
+    expect(full.extra).toMatchObject({
+      sellerType: 'TRADER',
+      sellerAccountType: 'Regular',
+      privateLandlord: false,
+      sellerAbroad: false,
+      sellerActiveYears: 2,
+      views: 560,
+      favorites: 9,
+    });
+    const consumer = readFixture('marktplaats/item.html').replace(
+      '"sellerType": "TRADER"',
+      '"sellerType": "CONSUMER"',
+    );
+    const asConsumer = await marktplaats.detail!(
+      room!,
+      ctxFor([{ match: 'm2441586539', body: consumer, headers: { 'content-type': 'text/html' } }]),
+    );
     expect(asConsumer.extra?.privateLandlord).toBe(true);
   });
 
   test('isAvailable is false for reserved or removed ads', async () => {
-    const [room] = (await searchCity('rotterdam', 'marktplaats/search-rotterdam.json')).filter((l) => l.externalId === 'm2441586539');
+    const [room] = (await searchCity('rotterdam', 'marktplaats/search-rotterdam.json')).filter(
+      (l) => l.externalId === 'm2441586539',
+    );
     const listing = asListing(room!);
-    expect(await marktplaats.isAvailable!(listing, ctxFor({ m2441586539: 'marktplaats/item.html' }))).toBe(true);
-    const reserved = readFixture('marktplaats/item.html').replace('"isReserved": false', '"isReserved": true');
-    expect(await marktplaats.isAvailable!(listing, ctxFor([{ match: 'm2441586539', body: reserved, headers: { 'content-type': 'text/html' } }]))).toBe(false);
-    expect(await marktplaats.isAvailable!(listing, ctxFor([{ match: 'm2441586539', status: 404, body: '' }]))).toBe(false);
+    expect(await marktplaats.isAvailable!(listing, ctxFor({ m2441586539: 'marktplaats/item.html' }))).toBe(
+      true,
+    );
+    const reserved = readFixture('marktplaats/item.html').replace(
+      '"isReserved": false',
+      '"isReserved": true',
+    );
+    expect(
+      await marktplaats.isAvailable!(
+        listing,
+        ctxFor([{ match: 'm2441586539', body: reserved, headers: { 'content-type': 'text/html' } }]),
+      ),
+    ).toBe(false);
+    expect(
+      await marktplaats.isAvailable!(listing, ctxFor([{ match: 'm2441586539', status: 404, body: '' }])),
+    ).toBe(false);
   });
 
   test('parseAlertEmail reads the saved-search email with the same ids as the mail package', () => {
