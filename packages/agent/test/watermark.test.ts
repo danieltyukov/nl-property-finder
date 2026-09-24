@@ -1,35 +1,14 @@
 import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { crc32, deflateSync } from 'node:zlib';
 import { PDFDocument, StandardFonts } from 'pdf-lib';
 import { beforeAll, expect, test } from 'vitest';
 import { stampLine, watermarkDocument } from '../src/watermark.js';
-import { pdfText } from './helpers.js';
+import { pdfText, png } from './helpers.js';
 
 const dir = mkdtempSync(join(tmpdir(), 'nlpf-watermark-'));
 const input = { recipient: 'Delft Rentals', address: 'Oude Delft 12A, Delft', date: '2026-09-24' };
 const STAMP = 'Alleen voor huuraanvraag Oude Delft 12A, Delft, Delft Rentals, 2026-09-24';
-
-/** A small grey RGB PNG, written by hand so the test needs no image library. */
-function png(width: number, height: number): Buffer {
-  const chunk = (type: string, data: Buffer) => {
-    const len = Buffer.alloc(4);
-    len.writeUInt32BE(data.length);
-    const body = Buffer.concat([Buffer.from(type, 'latin1'), data]);
-    const crc = Buffer.alloc(4);
-    crc.writeUInt32BE(crc32(body));
-    return Buffer.concat([len, body, crc]);
-  };
-  const ihdr = Buffer.alloc(13);
-  ihdr.writeUInt32BE(width, 0);
-  ihdr.writeUInt32BE(height, 4);
-  ihdr[8] = 8; // bit depth
-  ihdr[9] = 2; // RGB
-  const row = Buffer.concat([Buffer.from([0]), Buffer.alloc(width * 3, 0xc8)]);
-  const raw = Buffer.concat(Array.from({ length: height }, () => row));
-  return Buffer.concat([Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]), chunk('IHDR', ihdr), chunk('IDAT', deflateSync(raw)), chunk('IEND', Buffer.alloc(0))]);
-}
 
 beforeAll(async () => {
   const doc = await PDFDocument.create();
