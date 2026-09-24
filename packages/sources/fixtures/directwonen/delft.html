@@ -1,0 +1,849 @@
+<!DOCTYPE HTML>
+<html lang="nl">
+<head>
+<title>Huurwoningen Delft | Huis huren in Delft | Direct Wonen</title>
+</head>
+<body class="sidebar-left overview-page">
+<div class="wrap">
+<div class="overlay forgotpwd-overlay">
+<a class="overlay-close">×</a>
+<div class="overlay-container" style="width: 650px; height: 500px;">
+<div class="overlay-header">Vul hieronder je e-mailadres in.</div>
+<div class="forgot-password" id="forgotPasswordDiv" style="text-align:left;margin-left:20px;">
+<form action="/account/forgotpassword" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-success="$('#popUpForgotPass');" data-ajax-update="#forgotPasswordDiv" id="frmForgotPassword" method="post"> <div>
+<br/>
+<div>
+<label for="ForgotPasswordUserEmail">Vul je e-mailadres in en je ontvangt een e-mail met een link om je wachtwoord te resetten.
+Heb je geen e-mail ontvangen?
+1. Controleer dan je e-mailadres, want dan is deze niet bekend in ons systeem. 
+2. Door de link in de email wil deze nog wel eens in een spamfilter blijven hangen. Kijk bij de 'Ongewenste post' of 'Spam'. En voeg supportdesk@directwonen.nl toe aan je adresboek zodat je email van Direct Wonen altijd ontvangt.</label>
+<div class="error-message" id="PopupForgotPasswordErrorMessage" style="display: none; text-align: left;">Vul je e-mailadres in</div>
+<div class="error-message" id="PopupForgotPasswordErrorMessage_InvalidEmail" style="display: none; text-align: left;">Ongeldig e-mailadres</div>
+<br/>
+<input class="dwo_input" hint="E-mailadres" id="ForgotPasswordUserEmail" name="ForgotPasswordUserEmail" required="true" style="width: 300px;" type="email" uid="79d08b8d-bfa1-4a2e-9bd1-2e51ddf8e76f"/>
+<br/>
+<br/>
+<button class="dwo_button control_normal button_importantalternative btn" name="btnSend" type="submit" uid="215f3c05-0905-4ec3-8c7b-f5a234cb0313">Verstuur<i class="pull-right marginLeftNormal icon-chevron-right whiteSprite" uid="a39fa01b-b350-498e-bf2e-b1b2b8fe1ab2"></i></button>
+</div>
+</div>
+<button class="btnRefreshContent dwo_button control_normal button_importantalternative btn" name="btnRefreshContent" style="display: none;" type="submit" uid="5ed14cb7-62a9-4369-a5bb-6ed24985e402"><i class="icon-chevron-right whiteSprite" uid="aabb73ae-06a2-4961-a29d-460f21b2f0ea"></i></button></form> </div>
+</div>
+</div>
+<div class="overlay email-overlay">
+<a class="overlay-close">×</a>
+<div class="overlay-container" style="width:800px; text-align:justify; padding-left:10px;">
+<br/><br/>
+<div class="overlay-header heading-as-h3">
+ Over e-mails
+ </div>
+<div class="heading-as-h3">E-mail alerts</div><p style="width:780px;">Op basis van je zoekopdracht wordt er een e-mail alert aangemaakt. Heb je een actieve e-mail alert dan ontvang je direct een e-mail zodra er een nieuwe kamer wordt aangeboden die aan jouw zoekwens voldoet. Je kan de e-mail alerts altijd uit zetten of aanpassen via de alert pagina. </p><div class="heading-as-h3">Service e-mails</div><p style="width:780px;">directwonen.nl verstuurt verschillende service e-mails waaronder de nieuwsbrief met daarin het laatste nieuws rondom de ontwikkelingen van de website en de woningmarkt. Het is altijd mogelijk je af te melden voor de service e-mails via je instellingen of via de afmeldpagina.</p><div class="heading-as-h3">Overige e-mails</div><p style="width:780px;">Er zijn nog e-mails die directwonen.nl verstuurt waarvoor je je <span style="text-decoration:underline;">niet</span> kan afmelden. Dit zijn e-mails die verstuurd worden na een handeling die je op de website doet zoals het opvragen van je wachtwoord, het aanschaffen van een lidmaatschap, het versturen van een reactie en het aanbieden van een kamer. </p>
+<br/>
+<a class="btn" href="#" id="createNewAccount" onclick="ShowRegisterPopUp()">Aanmelden</a>
+</div>
+</div>
+<div class="page-msg-container" id="pageMessageContainer" title="">
+</div>
+<div class="SuccessPopupOverlay" id="loginSuccessPopup" onclick="document.location='#';">
+<div class="successPopup-wrapper">
+<div class="successPopup-content">
+<span class="thumb-icon-wrap">
+<img alt="Thumb" class="thumb-icon" height="62" src="https://resources.directwonen.nl/Content/images/thumb.webp" width="100"/>
+</span>
+<div><strong>Je bent succesvol ingelogd</strong> en wordt nu automatisch doorgestuurd!</div>
+</div>
+</div>
+</div>
+<div class="SuccessPopupOverlay" id="registerSuccessPopup" onclick="document.location='#';">
+<div class="successPopup-wrapper">
+<div class="successPopup-content">
+<span class="thumb-icon-wrap">
+<img alt="Thumb" class="thumb-icon" height="62" src="https://resources.directwonen.nl/Content/images/thumb.webp" width="100"/>
+</span>
+<div><strong>Je bent succesvol geregistreerd</strong> en wordt nu automatisch doorgestuurd!</div>
+</div>
+</div>
+</div>
+<div class="main">
+<div id="webAdsBanner" style="text-align: center; display: none;">
+</div>
+<section class="top-bar filter-top">
+<div class="top-bar-inner">
+<input class="dwo_input" id="CurrentPageNumber" name="CurrentPageNumber" type="hidden" uid="b57d2fc4-dda9-48d6-92aa-e614c9a71bc7" value="1"/>
+<div class="top-tiles-container">
+<div class="view mobile-display">
+<div class="view-label">
+ Weergave:
+ <a class="active" href="javascript:" onclick="setTilesView(true);">
+<img alt="" height="25" src="https://resources.directwonen.nl/Content/img/tiles.png" width="25"/>
+</a>
+<a class="" href="javascript:" onclick="setTilesView(false);">
+<img alt="" height="25" src="https://resources.directwonen.nl/Content/img/list.png" width="25"/>
+</a>
+</div>
+</div>
+<div class="top-tiles-search-bar">
+<div class="top-bar-second-sort">
+<select id="SortOptionsDropDown" name="SortOptionsDropDown"><option selected="selected" value="1">Nieuwste eerst</option>
+<option value="2">Prijs oplopend</option>
+<option value="4">Prijs aflopend</option>
+<option value="5">Oppervlakte</option>
+<option value="6">Beschikbaar per</option>
+</select>
+</div>
+</div>
+<input id="CreatingNewLeftAlert" name="CreatingNewLeftAlert" type="hidden"/>
+<div>
+<button class="dwo_button control_normal button_importantstandard btn email-alert-btn" id="btnShowAlert" onclick="ShowNewAlertPopup();; return false;">Activeer gratis woningalert</button>
+</div>
+</div>
+</div>
+<div style="clear: both"></div>
+<div></div>
+</section>
+<div class="sticky-top"></div>
+<section class="content">
+<a class="filter-search-btn" href="#0" id="search-toggle">
+<img src="https://resources.directwonen.nl/Content/css/images/search-icon-mobile.png"/>
+</a>
+<div class="top-bar-second" title="Huurwoningen in Delft">
+<div class="breadcrumb-items mobile-view">
+<ol class="breadcrumb-item" itemscope="" itemtype="https://schema.org/BreadcrumbList" style="display:inline-flex !important"><li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><a href="/huurwoningen-huren/nederland" itemprop="item"><span itemprop="name">Alle huurwoningen</span></a><span content="1" itemprop="position"></span><span class="breadcrumb-seperator">›</span></li><li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><span itemprop="name">Huurwoningen Delft</span><span content="2" itemprop="position"></span></li></ol>
+</div>
+<div title="huurwoningen Delft">
+<h1>Huurwoningen Delft</h1>
+</div>
+<div class="alert latest-properties pull-right w-40">
+<span class="latest-properties-inbox">Mis geen nieuwe woningen, ontvang ze per mail.</span> <button class="dwo_button control_normal button_importantstandard btn" id="btnShowAlert" onclick="ShowNewAlertPopup();; return false;" onmouseout="this.style.background='#fbb66a'" onmouseover="this.style.background='#f9901f'" style="height: 55px; font-size: 20px; background: #fbb66a;">Activeer gratis woningalert</button>
+</div>
+<div class="top-bar-second__tabs">
+<div class="top-bar-second__tabs-header">
+<h6 class="advert-search-title top-bar-second__tabs-header-title">Waar ben je naar op zoek?</h6>
+<a class="btn-tab" href="/appartement-huren/delft" id="tabApartement">Appartement</a>
+<a class="btn-tab" href="/studio-huren/delft" id="tabStudio">Studio</a>
+<a class="btn-tab" href="/kamers-huren/delft" id="tabRoom">Kamer</a>
+<a class="btn-tab" href="/eengezinswoning-huren/delft" id="tabHouse"> Eengezinswoning</a>
+</div>
+<div style="clear: both"></div>
+</div>
+</div>
+<div class="tiles-container tiles-container-cutome">
+<div class="tile">
+<a class="inner-content" href="/premiumaccountpayment?ip=4&amp;returnUrl=https%3A%2F%2Fdirectwonen.nl%2Fhuurwoningen-huren%2Fdelft%2Fmartinus-nijhofflaan%2Fappartement-519407&amp;entityId=519407" title="Te huur: Appartement Martinus Nijhofflaan, Delft - 1">
+<div class="new-search-advert">
+<div class="advert-header">
+<div class="advert-location">
+<div class="advert-location-title" title="huurwoningen huren in Delft">
+<span class="advert-location-header h2">Appartement</span>
+</div>
+<div class="advert-location-price">
+ € 1173
+ </div>
+</div>
+<div class="advert-location">
+<div class="advert-location-title" title="huur huurwoningen Delft">
+<h3 class="location-text" title="Huurwoningen te huur in Delft">
+ M. Nijhofflaan, Delft
+ </h3>
+</div>
+<div class="kale-huur" title="huurwoningen huren in Delft">
+ (Excl.)
+ </div>
+</div>
+</div>
+<div class="advertise-content" id="contentFor519407">
+<div class="advert-thumbnail">
+<img alt="Te huur: Appartement Martinus Nijhofflaan, Delft - 1" src="https://resources.directwonen.nl/image/112768d9-9640-4bcb-8ca2-d4999ffd6353"/>
+</div>
+<span class="new-advert-banner smart-only">
+ Smart only
+ </span>
+<div class="small-banner rooms">
+<p class="small-banner-top">2</p>
+<p class="small-banner-bottom">kmr</p>
+</div>
+<div class="small-banner surface">
+<p class="small-banner-top">64</p>
+<p class="small-banner-bottom">
+ m<sup>2</sup>
+</p>
+</div>
+<div class="small-banner favorite" title="Favoriet advertentie">
+<p class="" id="favoriteFor519407">♡</p>
+</div>
+<div class="small-banner more-details" id="openFor519407" title="Meer details">
+<span class="icon-info"></span>
+</div>
+</div>
+<div class="advertise-footer" id="footerFor519407">
+<a class="btn width-100 margin-bottom-5 top-advert-btn-grey" href="/premiumaccountpayment?ip=4&amp;returnUrl=https%3A%2F%2Fdirectwonen.nl%2Fhuurwoningen-huren%2Fdelft%2Fmartinus-nijhofflaan%2Fappartement-519407&amp;entityId=519407">Bekijk woning</a>
+</div>
+<div class="advert-content-detail" id="detailsFor519407" style="display: none;">
+<span style="top: 10px; left: 10px; font-weight: 400; font-size: 14px;">Kenmerken</span>
+<span id="closeFor519407" style="top: 10px; right: 10px; font-size: 14px; cursor: pointer;">✖</span>
+<table>
+<tr>
+<td>Huurprijs:</td>
+<td>
+ € 1173 </td>
+</tr>
+<tr>
+<td>G.W.E.:</td>
+<td id="gwes519407"></td>
+</tr>
+<tr>
+<td>Servicekosten:</td>
+<td id="services519407"></td>
+</tr>
+<tr>
+<td class="total">Totale huurprijs:</td>
+<td class="total" id="total519407"></td>
+</tr>
+<tr>
+<td>Opleverniveau:</td>
+<td id="furnished519407"></td>
+</tr>
+<tr>
+<td>Beschikbaar per:</td>
+<td>Direct </td>
+</tr>
+</table>
+<span style="top: 170px; right: 10px">
+<a href="https://directwonen.nl/huurwoningen-huren/delft/martinus-nijhofflaan/appartement-519407">Alle kenmerken tonen</a>
+</span>
+<div>
+<span class="added-days-count-info" title="40 dagen geleden">
+<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">40 dagen geleden</font></font>
+</span>
+<span style="top: 170px; right: 10px">
+<a href="https://directwonen.nl/huurwoningen-huren/delft/martinus-nijhofflaan/appartement-519407">Alle kenmerken tonen</a>
+</span>
+</div>
+<span style="bottom: 5px; width: 100%">
+<a class="dwo_button control_normal button_importantstandard btn advert-content-detail-button" href="/premiumaccountpayment?ip=4&amp;returnUrl=https%3A%2F%2Fdirectwonen.nl%2Fhuurwoningen-huren%2Fdelft%2Fmartinus-nijhofflaan%2Fappartement-519407&amp;entityId=519407">Appartement bekijken</a>
+</span>
+</div>
+</div>
+</a>
+</div>
+<div class="tile">
+<a class="inner-content" href="https://directwonen.nl/huurwoningen-huren/delft/oude-delft/kamer-520780" title="Te huur: Kamer Oude Delft, Delft - 1">
+<div class="new-search-advert">
+<div class="advert-header">
+<div class="advert-location">
+<div class="advert-location-title" title="huurwoningen huren in Delft">
+<span class="advert-location-header h2">Kamer</span>
+</div>
+<div class="advert-location-price">
+ € 950
+ </div>
+</div>
+<div class="advert-location">
+<div class="advert-location-title" title="huur huurwoningen Delft">
+<h3 class="location-text" title="Huurwoningen te huur in Delft">
+ O. Delft, Delft
+ </h3>
+</div>
+<div class="kale-huur" title="huurwoningen huren in Delft">
+ (Excl.)
+ </div>
+</div>
+</div>
+<div class="advertise-content" id="contentFor520780">
+<div class="advert-thumbnail">
+<img alt="Te huur: Kamer Oude Delft, Delft - 1" src="https://resources.directwonen.nl/image/360add08-24b6-4f7f-889c-71d4117cc5fc"/>
+</div>
+<div class="small-banner rooms">
+<p class="small-banner-top">2</p>
+<p class="small-banner-bottom">kmr</p>
+</div>
+<div class="small-banner surface">
+<p class="small-banner-top">33</p>
+<p class="small-banner-bottom">
+ m<sup>2</sup>
+</p>
+</div>
+<div class="small-banner favorite" title="Favoriet advertentie">
+<p class="" id="favoriteFor520780">♡</p>
+</div>
+<div class="small-banner more-details" id="openFor520780" title="Meer details">
+<span class="icon-info"></span>
+</div>
+</div>
+<div class="advertise-footer" id="footerFor520780">
+<a class="btn width-100 margin-bottom-5 top-advert-btn-green" href="https://directwonen.nl/huurwoningen-huren/delft/oude-delft/kamer-520780">Bekijk woning</a>
+</div>
+<div class="advert-content-detail" id="detailsFor520780" style="display: none;">
+<span style="top: 10px; left: 10px; font-weight: 400; font-size: 14px;">Kenmerken</span>
+<span id="closeFor520780" style="top: 10px; right: 10px; font-size: 14px; cursor: pointer;">✖</span>
+<table>
+<tr>
+<td>Huurprijs:</td>
+<td>
+ € 950 </td>
+</tr>
+<tr>
+<td>G.W.E.:</td>
+<td id="gwes520780"></td>
+</tr>
+<tr>
+<td>Servicekosten:</td>
+<td id="services520780"></td>
+</tr>
+<tr>
+<td class="total">Totale huurprijs:</td>
+<td class="total" id="total520780"></td>
+</tr>
+<tr>
+<td>Opleverniveau:</td>
+<td id="furnished520780"></td>
+</tr>
+<tr>
+<td>Beschikbaar per:</td>
+<td>Direct </td>
+</tr>
+</table>
+<span style="top: 170px; right: 10px">
+<a href="https://directwonen.nl/huurwoningen-huren/delft/oude-delft/kamer-520780">Alle kenmerken tonen</a>
+</span>
+<div>
+<span class="added-days-count-info" title="4 dagen geleden">
+<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">4 dagen geleden</font></font>
+</span>
+<span style="top: 170px; right: 10px">
+<a href="https://directwonen.nl/huurwoningen-huren/delft/oude-delft/kamer-520780">Alle kenmerken tonen</a>
+</span>
+</div>
+<span style="bottom: 5px; width: 100%">
+<a class="dwo_button control_normal button_importantstandard btn advert-content-detail-button" href="https://directwonen.nl/huurwoningen-huren/delft/oude-delft/kamer-520780">Kamer bekijken</a>
+</span>
+</div>
+</div>
+</a>
+</div>
+<div class="tile">
+<a class="inner-content" href="https://directwonen.nl/huurwoningen-huren/delft/mercuriusweg/appartement-519659" title="Te huur: Appartement Mercuriusweg, Delft - 1">
+<div class="new-search-advert">
+<div class="advert-header">
+<div class="advert-location">
+<div class="advert-location-title" title="huurwoningen huren in Delft">
+<span class="advert-location-header h2">Appartement</span>
+</div>
+<div class="advert-location-price">
+ € 1650
+ </div>
+</div>
+<div class="advert-location">
+<div class="advert-location-title" title="huur huurwoningen Delft">
+<h3 class="location-text" title="Huurwoningen te huur in Delft">
+ Mercuriusweg, Delft
+ </h3>
+</div>
+<div class="kale-huur" title="huurwoningen huren in Delft">
+ (Excl.)
+ </div>
+</div>
+</div>
+<div class="advertise-content" id="contentFor519659">
+<div class="advert-thumbnail">
+<img alt="Te huur: Appartement Mercuriusweg, Delft - 1" src="https://resources.directwonen.nl/image/24de7fbc-6717-4928-965c-804f95254119"/>
+</div>
+<div class="small-banner rooms">
+<p class="small-banner-top">2</p>
+<p class="small-banner-bottom">kmr</p>
+</div>
+<div class="small-banner surface">
+<p class="small-banner-top">62</p>
+<p class="small-banner-bottom">
+ m<sup>2</sup>
+</p>
+</div>
+<div class="small-banner favorite" title="Favoriet advertentie">
+<p class="" id="favoriteFor519659">♡</p>
+</div>
+<div class="small-banner more-details" id="openFor519659" title="Meer details">
+<span class="icon-info"></span>
+</div>
+</div>
+<div class="advertise-footer" id="footerFor519659">
+<a class="btn width-100 margin-bottom-5 top-advert-btn-green" href="https://directwonen.nl/huurwoningen-huren/delft/mercuriusweg/appartement-519659">Bekijk woning</a>
+</div>
+<div class="advert-content-detail" id="detailsFor519659" style="display: none;">
+<span style="top: 10px; left: 10px; font-weight: 400; font-size: 14px;">Kenmerken</span>
+<span id="closeFor519659" style="top: 10px; right: 10px; font-size: 14px; cursor: pointer;">✖</span>
+<table>
+<tr>
+<td>Huurprijs:</td>
+<td>
+ € 1650 </td>
+</tr>
+<tr>
+<td>G.W.E.:</td>
+<td id="gwes519659"></td>
+</tr>
+<tr>
+<td>Servicekosten:</td>
+<td id="services519659"></td>
+</tr>
+<tr>
+<td class="total">Totale huurprijs:</td>
+<td class="total" id="total519659"></td>
+</tr>
+<tr>
+<td>Opleverniveau:</td>
+<td id="furnished519659"></td>
+</tr>
+<tr>
+<td>Beschikbaar per:</td>
+<td>Direct </td>
+</tr>
+</table>
+<span style="top: 170px; right: 10px">
+<a href="https://directwonen.nl/huurwoningen-huren/delft/mercuriusweg/appartement-519659">Alle kenmerken tonen</a>
+</span>
+<div>
+<span class="added-days-count-info" title="34 dagen geleden">
+<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">34 dagen geleden</font></font>
+</span>
+<span style="top: 170px; right: 10px">
+<a href="https://directwonen.nl/huurwoningen-huren/delft/mercuriusweg/appartement-519659">Alle kenmerken tonen</a>
+</span>
+</div>
+<span style="bottom: 5px; width: 100%">
+<a class="dwo_button control_normal button_importantstandard btn advert-content-detail-button" href="https://directwonen.nl/huurwoningen-huren/delft/mercuriusweg/appartement-519659">Appartement bekijken</a>
+</span>
+</div>
+</div>
+</a>
+</div>
+<div class="tile">
+<a class="inner-content" href="https://directwonen.nl/huurwoningen-huren/delft/houttuinen/appartement-519519" title="Te huur: Appartement Houttuinen, Delft - 1">
+<div class="new-search-advert">
+<div class="advert-header">
+<div class="advert-location">
+<div class="advert-location-title" title="huurwoningen huren in Delft">
+<span class="advert-location-header h2">Appartement</span>
+</div>
+<div class="advert-location-price">
+ € 2500
+ </div>
+</div>
+<div class="advert-location">
+<div class="advert-location-title" title="huur huurwoningen Delft">
+<h3 class="location-text" title="Huurwoningen te huur in Delft">
+ Houttuinen, Delft
+ </h3>
+</div>
+<div class="kale-huur" title="huurwoningen huren in Delft">
+ (Excl.)
+ </div>
+</div>
+</div>
+<div class="advertise-content" id="contentFor519519">
+<div class="advert-thumbnail">
+<img alt="Te huur: Appartement Houttuinen, Delft - 1" src="https://resources.directwonen.nl/image/1426d193-16b7-484c-984b-120f38513335"/>
+</div>
+<div class="small-banner rooms">
+<p class="small-banner-top">3</p>
+<p class="small-banner-bottom">kmr</p>
+</div>
+<div class="small-banner surface">
+<p class="small-banner-top">72</p>
+<p class="small-banner-bottom">
+ m<sup>2</sup>
+</p>
+</div>
+<div class="small-banner favorite" title="Favoriet advertentie">
+<p class="" id="favoriteFor519519">♡</p>
+</div>
+<div class="small-banner more-details" id="openFor519519" title="Meer details">
+<span class="icon-info"></span>
+</div>
+</div>
+<div class="advertise-footer" id="footerFor519519">
+<a class="btn width-100 margin-bottom-5 top-advert-btn-green" href="https://directwonen.nl/huurwoningen-huren/delft/houttuinen/appartement-519519">Bekijk woning</a>
+</div>
+<div class="advert-content-detail" id="detailsFor519519" style="display: none;">
+<span style="top: 10px; left: 10px; font-weight: 400; font-size: 14px;">Kenmerken</span>
+<span id="closeFor519519" style="top: 10px; right: 10px; font-size: 14px; cursor: pointer;">✖</span>
+<table>
+<tr>
+<td>Huurprijs:</td>
+<td>
+ € 2500 </td>
+</tr>
+<tr>
+<td>G.W.E.:</td>
+<td id="gwes519519"></td>
+</tr>
+<tr>
+<td>Servicekosten:</td>
+<td id="services519519"></td>
+</tr>
+<tr>
+<td class="total">Totale huurprijs:</td>
+<td class="total" id="total519519"></td>
+</tr>
+<tr>
+<td>Opleverniveau:</td>
+<td id="furnished519519"></td>
+</tr>
+<tr>
+<td>Beschikbaar per:</td>
+<td>Direct </td>
+</tr>
+</table>
+<span style="top: 170px; right: 10px">
+<a href="https://directwonen.nl/huurwoningen-huren/delft/houttuinen/appartement-519519">Alle kenmerken tonen</a>
+</span>
+<div>
+<span class="added-days-count-info" title="36 dagen geleden">
+<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">36 dagen geleden</font></font>
+</span>
+<span style="top: 170px; right: 10px">
+<a href="https://directwonen.nl/huurwoningen-huren/delft/houttuinen/appartement-519519">Alle kenmerken tonen</a>
+</span>
+</div>
+<span style="bottom: 5px; width: 100%">
+<a class="dwo_button control_normal button_importantstandard btn advert-content-detail-button" href="https://directwonen.nl/huurwoningen-huren/delft/houttuinen/appartement-519519">Appartement bekijken</a>
+</span>
+</div>
+</div>
+</a>
+</div>
+<div class="tile">
+<a class="inner-content" href="https://directwonen.nl/huurwoningen-huren/delft/houttuinen/appartement-518896" title="Te huur: Appartement Houttuinen, Delft - 1">
+<div class="new-search-advert">
+<div class="advert-header">
+<div class="advert-location">
+<div class="advert-location-title" title="huurwoningen huren in Delft">
+<span class="advert-location-header h2">Appartement</span>
+</div>
+<div class="advert-location-price">
+ € 2100
+ </div>
+</div>
+<div class="advert-location">
+<div class="advert-location-title" title="huur huurwoningen Delft">
+<h3 class="location-text" title="Huurwoningen te huur in Delft">
+ Houttuinen, Delft
+ </h3>
+</div>
+<div class="kale-huur" title="huurwoningen huren in Delft">
+ (Excl.)
+ </div>
+</div>
+</div>
+<div class="advertise-content" id="contentFor518896">
+<div class="advert-thumbnail">
+<img alt="Te huur: Appartement Houttuinen, Delft - 1" src="https://resources.directwonen.nl/image/ac7e9e76-4c9d-4b85-b96b-6cd9ba362ae5"/>
+</div>
+<div class="small-banner rooms">
+<p class="small-banner-top">2</p>
+<p class="small-banner-bottom">kmr</p>
+</div>
+<div class="small-banner surface">
+<p class="small-banner-top">49</p>
+<p class="small-banner-bottom">
+ m<sup>2</sup>
+</p>
+</div>
+<div class="small-banner favorite" title="Favoriet advertentie">
+<p class="" id="favoriteFor518896">♡</p>
+</div>
+<div class="small-banner more-details" id="openFor518896" title="Meer details">
+<span class="icon-info"></span>
+</div>
+</div>
+<div class="advertise-footer" id="footerFor518896">
+<a class="btn width-100 margin-bottom-5 top-advert-btn-green" href="https://directwonen.nl/huurwoningen-huren/delft/houttuinen/appartement-518896">Bekijk woning</a>
+</div>
+<div class="advert-content-detail" id="detailsFor518896" style="display: none;">
+<span style="top: 10px; left: 10px; font-weight: 400; font-size: 14px;">Kenmerken</span>
+<span id="closeFor518896" style="top: 10px; right: 10px; font-size: 14px; cursor: pointer;">✖</span>
+<table>
+<tr>
+<td>Huurprijs:</td>
+<td>
+ € 2100 </td>
+</tr>
+<tr>
+<td>G.W.E.:</td>
+<td id="gwes518896"></td>
+</tr>
+<tr>
+<td>Servicekosten:</td>
+<td id="services518896"></td>
+</tr>
+<tr>
+<td class="total">Totale huurprijs:</td>
+<td class="total" id="total518896"></td>
+</tr>
+<tr>
+<td>Opleverniveau:</td>
+<td id="furnished518896"></td>
+</tr>
+<tr>
+<td>Beschikbaar per:</td>
+<td>Direct </td>
+</tr>
+</table>
+<span style="top: 170px; right: 10px">
+<a href="https://directwonen.nl/huurwoningen-huren/delft/houttuinen/appartement-518896">Alle kenmerken tonen</a>
+</span>
+<div>
+<span class="added-days-count-info" title="51 dagen geleden">
+<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">51 dagen geleden</font></font>
+</span>
+<span style="top: 170px; right: 10px">
+<a href="https://directwonen.nl/huurwoningen-huren/delft/houttuinen/appartement-518896">Alle kenmerken tonen</a>
+</span>
+</div>
+<span style="bottom: 5px; width: 100%">
+<a class="dwo_button control_normal button_importantstandard btn advert-content-detail-button" href="https://directwonen.nl/huurwoningen-huren/delft/houttuinen/appartement-518896">Appartement bekijken</a>
+</span>
+</div>
+</div>
+</a>
+</div>
+<div class="tile">
+<a class="inner-content" href="https://directwonen.nl/huurwoningen-huren/delft/houttuinen/appartement-518157" title="Te huur: Appartement Houttuinen, Delft - 1">
+<div class="new-search-advert">
+<div class="advert-header">
+<div class="advert-location">
+<div class="advert-location-title" title="huurwoningen huren in Delft">
+<span class="advert-location-header h2">Appartement</span>
+</div>
+<div class="advert-location-price">
+ € 1990
+ </div>
+</div>
+<div class="advert-location">
+<div class="advert-location-title" title="huur huurwoningen Delft">
+<h3 class="location-text" title="Huurwoningen te huur in Delft">
+ Houttuinen, Delft
+ </h3>
+</div>
+<div class="kale-huur" title="huurwoningen huren in Delft">
+ (Excl.)
+ </div>
+</div>
+</div>
+<div class="advertise-content" id="contentFor518157">
+<div class="advert-thumbnail">
+<img alt="Te huur: Appartement Houttuinen, Delft - 1" src="https://resources.directwonen.nl/image/29f59918-e2b6-4e13-a33f-c4a49597359d"/>
+</div>
+<div class="small-banner rooms">
+<p class="small-banner-top">2</p>
+<p class="small-banner-bottom">kmr</p>
+</div>
+<div class="small-banner surface">
+<p class="small-banner-top">50</p>
+<p class="small-banner-bottom">
+ m<sup>2</sup>
+</p>
+</div>
+<div class="small-banner favorite" title="Favoriet advertentie">
+<p class="" id="favoriteFor518157">♡</p>
+</div>
+<div class="small-banner more-details" id="openFor518157" title="Meer details">
+<span class="icon-info"></span>
+</div>
+</div>
+<div class="advertise-footer" id="footerFor518157">
+<a class="btn width-100 margin-bottom-5 top-advert-btn-green" href="https://directwonen.nl/huurwoningen-huren/delft/houttuinen/appartement-518157">Bekijk woning</a>
+</div>
+<div class="advert-content-detail" id="detailsFor518157" style="display: none;">
+<span style="top: 10px; left: 10px; font-weight: 400; font-size: 14px;">Kenmerken</span>
+<span id="closeFor518157" style="top: 10px; right: 10px; font-size: 14px; cursor: pointer;">✖</span>
+<table>
+<tr>
+<td>Huurprijs:</td>
+<td>
+ € 1990 </td>
+</tr>
+<tr>
+<td>G.W.E.:</td>
+<td id="gwes518157"></td>
+</tr>
+<tr>
+<td>Servicekosten:</td>
+<td id="services518157"></td>
+</tr>
+<tr>
+<td class="total">Totale huurprijs:</td>
+<td class="total" id="total518157"></td>
+</tr>
+<tr>
+<td>Opleverniveau:</td>
+<td id="furnished518157"></td>
+</tr>
+<tr>
+<td>Beschikbaar per:</td>
+<td>Direct </td>
+</tr>
+</table>
+<span style="top: 170px; right: 10px">
+<a href="https://directwonen.nl/huurwoningen-huren/delft/houttuinen/appartement-518157">Alle kenmerken tonen</a>
+</span>
+<div>
+<span class="added-days-count-info" title="65 dagen geleden">
+<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">65 dagen geleden</font></font>
+</span>
+<span style="top: 170px; right: 10px">
+<a href="https://directwonen.nl/huurwoningen-huren/delft/houttuinen/appartement-518157">Alle kenmerken tonen</a>
+</span>
+</div>
+<span style="bottom: 5px; width: 100%">
+<a class="dwo_button control_normal button_importantstandard btn advert-content-detail-button" href="https://directwonen.nl/huurwoningen-huren/delft/houttuinen/appartement-518157">Appartement bekijken</a>
+</span>
+</div>
+</div>
+</a>
+</div>
+<div class="tile">
+<a class="inner-content" href="https://directwonen.nl/huurwoningen-huren/delft/taj-mahalplaats/woning-516568" title="Te huur: Woning Taj Mahalplaats, Delft - 1">
+<div class="new-search-advert">
+<div class="advert-header">
+<div class="advert-location">
+<div class="advert-location-title" title="huurwoningen huren in Delft">
+<span class="advert-location-header h2">Woning</span>
+</div>
+<div class="advert-location-price">
+ € 3000
+ </div>
+</div>
+<div class="advert-location">
+<div class="advert-location-title" title="huur huurwoningen Delft">
+<h3 class="location-text" title="Huurwoningen te huur in Delft">
+ T. Mahalplaats, Delft
+ </h3>
+</div>
+<div class="kale-huur" title="huurwoningen huren in Delft">
+ (Excl.)
+ </div>
+</div>
+</div>
+<div class="advertise-content" id="contentFor516568">
+<div class="advert-thumbnail">
+<img alt="Te huur: Woning Taj Mahalplaats, Delft - 1" src="https://resources.directwonen.nl/image/10af3010-e9cb-41f2-9698-d4225636398b"/>
+</div>
+<div class="small-banner rooms">
+<p class="small-banner-top">5</p>
+<p class="small-banner-bottom">kmr</p>
+</div>
+<div class="small-banner surface">
+<p class="small-banner-top">144</p>
+<p class="small-banner-bottom">
+ m<sup>2</sup>
+</p>
+</div>
+<div class="small-banner favorite" title="Favoriet advertentie">
+<p class="" id="favoriteFor516568">♡</p>
+</div>
+<div class="small-banner more-details" id="openFor516568" title="Meer details">
+<span class="icon-info"></span>
+</div>
+</div>
+<div class="advertise-footer" id="footerFor516568">
+<a class="btn width-100 margin-bottom-5 top-advert-btn-green" href="https://directwonen.nl/huurwoningen-huren/delft/taj-mahalplaats/woning-516568">Bekijk woning</a>
+</div>
+<div class="advert-content-detail" id="detailsFor516568" style="display: none;">
+<span style="top: 10px; left: 10px; font-weight: 400; font-size: 14px;">Kenmerken</span>
+<span id="closeFor516568" style="top: 10px; right: 10px; font-size: 14px; cursor: pointer;">✖</span>
+<table>
+<tr>
+<td>Huurprijs:</td>
+<td>
+ € 3000 </td>
+</tr>
+<tr>
+<td>G.W.E.:</td>
+<td id="gwes516568"></td>
+</tr>
+<tr>
+<td>Servicekosten:</td>
+<td id="services516568"></td>
+</tr>
+<tr>
+<td class="total">Totale huurprijs:</td>
+<td class="total" id="total516568"></td>
+</tr>
+<tr>
+<td>Opleverniveau:</td>
+<td id="furnished516568"></td>
+</tr>
+<tr>
+<td>Beschikbaar per:</td>
+<td>Direct </td>
+</tr>
+</table>
+<span style="top: 170px; right: 10px">
+<a href="https://directwonen.nl/huurwoningen-huren/delft/taj-mahalplaats/woning-516568">Alle kenmerken tonen</a>
+</span>
+<div>
+<span class="added-days-count-info" title="96 dagen geleden">
+<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">96 dagen geleden</font></font>
+</span>
+<span style="top: 170px; right: 10px">
+<a href="https://directwonen.nl/huurwoningen-huren/delft/taj-mahalplaats/woning-516568">Alle kenmerken tonen</a>
+</span>
+</div>
+<span style="bottom: 5px; width: 100%">
+<a class="dwo_button control_normal button_importantstandard btn advert-content-detail-button" href="https://directwonen.nl/huurwoningen-huren/delft/taj-mahalplaats/woning-516568">Woning bekijken</a>
+</span>
+</div>
+</div>
+</a>
+</div>
+</div>
+<div class="next-results-container" id="nextResultsContainter">
+<div class="pager">
+<div><span class="disabled">«</span><a class="current" href="/huurwoningen-huren/delft" title="">1</a><span class="disabled">»</span></div>
+</div>
+<div>
+<div class="nearby-cities-section">
+<h3>Huurwoningen in de omgeving van Delft</h3>
+<div class="pager">
+<div class="automated-links">
+<a href="https://directwonen.nl/huurwoningen-huren/rijswijk-zh">Rijswijk Zh</a>
+<a href="https://directwonen.nl/huurwoningen-huren/wateringen">Wateringen</a>
+<a href="https://directwonen.nl/huurwoningen-huren/berkel-en-rodenrijs">Berkel En Rodenrijs</a>
+<a href="https://directwonen.nl/huurwoningen-huren/voorburg">Voorburg</a>
+<a href="https://directwonen.nl/huurwoningen-huren/schiedam">Schiedam</a>
+</div>
+</div>
+</div>
+<div class="hr-border"> </div>
+<h3>Huurwoning huren Delft</h3><p>Huurwoningen huren in Delft is erg prettig wanneer je in de buurt van de steden <a href="https://directwonen.nl/huurwoningen-huren/den-haag" title="Huurwoningen Den Haag">Den Haag</a> en <a href="https://directwonen.nl/huurwoningen-huren/rotterdam" title="Huurwoningen Rotterdam ">Rotterdam </a>wilt wonen. Daarnaast heeft de stad Delft natuurlijk ook heel veel te bieden en zit je ook nog eens in de buurt van de zee. Huurwoningen huren in Delft kan nu al door te kiezen uit een <a href="https://directwonen.nl/appartement-huren/delft" title="appartement huren Delft">appartement </a>of misschien was jij wel op zoek naar een <a href="https://directwonen.nl/huurwoningen-huren/delft" title="huurwoning huren Delft">woning</a>? Natuurlijk houdt het hier niet op, want de stad heeft nog veel meer te bieden! Weet jij al wat je allemaal kunt doen in Delft? </p><p>Tussen de grote steden Rotterdam en Den Haag vind je de stad Delft. Huurwoningen huren in Delft wordt vaak overwogen door de ligging en de mogelijkheden die vanuit hier hebt. Om de zoektocht iets makkelijker te maken hebben we een aantal interessante straten op een rij gezet. Huurwoningen huren in Delft is bijvoorbeeld mogelijk in <a href="https://directwonen.nl/huurwoningen-huren/delft/de-colignystraat" title="Huurwoningen De Colignystraat">De Colignystraat</a>, <a href="https://directwonen.nl/huurwoningen-huren/delft/brabantse-turfmarkt" title="Huurwoningen Brabantse Turfmarkt">Brabantse Turfmarkt</a>, <a href="https://directwonen.nl/huurwoningen-huren/delft/derde-werelddreef" title="Huurwoningen Derde Werelddreef">Derde Werelddreef</a>, <a href="https://directwonen.nl/huurwoningen-huren/delft/zagwijnpad" title="Huurwoningen Zagwijnpad ">Zagwijnpad </a>of <a href="https://directwonen.nl/huurwoningen-huren/delft/cesar-franckstraat" title="Huurwoningen Cesar Franckstraat">Cesar Franckstraat</a>. </p><h3>Winkelen in de stad</h3><p>Huurwoningen huren in Delft maakt het mogelijk om gebruik te maken de uitgebreide winkelmogelijkheden. De mogelijkheden die voor jou open staan zijn erg groot zo kun je kunt bijvoorbeeld gaan winkelen op de <a href="https://directwonen.nl/huurwoningen-huren/delft/markt" title="Huurwoningen Markt">Markt</a>, aan de gracht, de Langendijk, in de Hoven of in de Veste. Bij Huurwoningen huren in Delft is het daarnaast ook leuk om in steden te gaan winkelen zoals Den Haag en Rotterdam, die niet ver van Delft vandaan liggen. </p><h3>Wat je kunt doen in jouw vrije tijd</h3><p>Vrije tijd kan volop besteed worden aan het bezichtigen van monumenten, het bezoeken van musea of misschien wil je wel naar de bioscoop? Huurwoningen huren in Delft geeft jou deze mogelijkheid. Daarnaast kan je ook van de natuur genieten in het Abtswoudepark, Hof van Delftpark of Wilhelminapark. Voor wie Delft even achter zich wil laten kan naar de nabijgelegen grote steden gaan zoals Den Haag of Rotterdam, maar een bezoekje aan het strand en de duinen in Scheveningen is ook zeker een aanrader! </p><h3>Het ontstaan van de stad Delft</h3><p>De geschiedenis van Delft is erg leuk om te weten. Huurwoningen huren in Delft kan dan ook niet zonder een stukje van de geschiedenis te weten. Heb je al eens gehoord van de Delf? Door de afgraving van deze rivier ontstond namelijk de stad Delft. Het woord zegt het eigenlijk al een beetje, het delven betekend namelijk graven. Ook komen er bekende Nederlanders uit deze stad. Denk bijvoorbeeld aan muziekwetenschapper en televisiepresentator Gregor Bak, de voetbalcommentator van NOS Ronald van der Geer en actrice Eva Duijvestein.</p>
+</div>
+<a class="next-results-link" href="#top">Terug naar boven</a>
+<div style="clear: both"></div>
+</div>
+<input id="saveFavoriteTranslation" type="hidden" value="Bewaren om later op te reageren"/>
+<input id="removeFavoriteTranslation" type="hidden" value="Verwijder als favoriet"/>
+</section>
+</div>
+<div class="" id="seaSection">
+<div style="height: 125px" title="Huurwoningen in Delft"></div>
+</div>
+</div>
+<div class="DWO_banner"></div>
+<script type="application/ld+json">
+ { 
+ "@context" : "http://schema.org",
+ "@id" : "https://directwonen.nl/Organization",
+ "@type" :"Organization",
+ "name" :"Direct Wonen",
+ "sameAs": "https://directwonen.nl/ervaringen",
+ "aggregateRating": {
+ "@type" : "AggregateRating",
+ "bestRating": "5",
+ "worstRating": "1",
+ "ratingValue": "4",
+ "reviewCount": "118",
+ "url":"https://directwonen.nl/ervaringen"
+ }
+ } 
+ </script>
+</body>
+</html>
