@@ -197,6 +197,12 @@ describe('Zig portal adapter', () => {
     expect(listings.map((l) => l.externalId)).toEqual(['266783']);
   });
 
+  test("buildSearches: the official name 's-Gravenhage matches the portals' Den Haag", async () => {
+    const config = { searches: [{ id: 'dh', name: 'Den Haag', regions: [{ name: 'Den Haag', municipalities: ["'s-Gravenhage"] }] }] };
+    const listings = await searchFixture(createZigAdapter(woonnetHaaglanden), 'zig-woonnet-haaglanden/getallobjects.json', config);
+    expect(listings.map((l) => l.address.city)).toEqual(['Den Haag']);
+  });
+
   test('portalFilters: no municipality filter when a search is drawn without municipalities', () => {
     const config = ConfigSchema.parse({
       searches: [

@@ -75,6 +75,18 @@ export interface PortalFilters {
   maxRentEur?: number;
 }
 
+const MUNICIPALITY_ALIASES: Record<string, string> = {
+  "'s-gravenhage": 'den haag',
+  's-gravenhage': 'den haag',
+  'the hague': 'den haag',
+};
+
+/** A municipality name as the portals write it: lowercase, "'s-Gravenhage" and "The Hague" as "den haag". */
+export function normaliseMunicipality(name: string): string {
+  const n = name.trim().toLowerCase().replace(/\s+/g, ' ');
+  return MUNICIPALITY_ALIASES[n] ?? n;
+}
+
 /**
  * Filters every enabled search agrees on: the union of their municipalities
  * (only when each search names municipalities) and the highest maximum rent
@@ -91,7 +103,7 @@ export function portalFilters(searches: NamedSearch[]): PortalFilters {
     if (s.regions.length === 0) everyNamed = false;
     for (const r of s.regions) {
       if (r.municipalities.length === 0) everyNamed = false;
-      for (const m of r.municipalities) names.add(m.trim().toLowerCase());
+      for (const m of r.municipalities) names.add(normaliseMunicipality(m));
     }
   }
   if (everyNamed && names.size > 0) out.municipalities = [...names].sort();
@@ -112,7 +124,7 @@ export function filterParams(f: PortalFilters): Record<string, string | number> 
 export function readFilters(req: SearchRequest): PortalFilters {
   const out: PortalFilters = {};
   const m = req.params?.municipalities;
-  if (typeof m === 'string' && m.trim()) out.municipalities = m.split(',').map((s) => s.trim().toLowerCase()).filter(Boolean);
+  if (typeof m === 'string' && m.trim()) out.municipalities = m.split(',').map(normaliseMunicipality).filter(Boolean);
   const max = Number(req.params?.maxRentEur);
   if (req.params?.maxRentEur !== undefined && Number.isFinite(max)) out.maxRentEur = max;
   return out;
@@ -132,7 +144,7 @@ export function placePasses(
   aliases: Record<string, string> = {},
 ): boolean {
   if (!filter?.length || !place) return true;
-  const p = place.trim().toLowerCase();
+  const p = normaliseMunicipality(place);
   const municipality = aliases[p] ?? p;
   if (!known.has(municipality)) return true;
   return filter.includes(municipality) || filter.includes(p);
@@ -427,7 +439,7 @@ export function zigListing(def: ZigPortalDef, o: ZigObject, now: Date): RawListi
 /** Whether a listing's place passes the municipality filter. Zig sends the municipality, so this is exact. */
 function inMunicipalities(listing: RawListing, filter: string[] | undefined): boolean {
   if (!filter?.length) return true;
-  const names = [listing.address.municipality, listing.address.city].filter(Boolean).map((s) => (s ?? '').toLowerCase());
+  const names = [listing.address.municipality, listing.address.city].filter(Boolean).map((s) => normaliseMunicipality(s ?? ''));
   return names.some((n) => filter.includes(n));
 }
 
