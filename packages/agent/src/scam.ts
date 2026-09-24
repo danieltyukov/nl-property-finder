@@ -116,23 +116,31 @@ export function scamSignals(listing: Listing, context: { medianPricePerM2?: numb
   return [...out];
 }
 
+/*
+ * Strong signals are what real rental scams do (Fraudehelpdesk, !WOON): money
+ * before a viewing, keys by post, a landlord abroad. Weak signals are common
+ * on honest listings too: Huurzone and Kamernet hide the street, Marktplaats is
+ * full of private landlords, rooms are cheap. Tuned on the first live day
+ * (2026-09-24): weak signals alone flagged 31 honest listings, so they now only
+ * count when several stack up.
+ */
 const WEIGHTS: Record<string, number> = {
   payment_before_viewing: 3,
   keys_by_post: 3,
   landlord_abroad: 2,
-  price_far_below_median: 2,
-  off_platform_contact: 1,
   whatsapp_only: 1,
+  price_far_below_median: 1,
+  off_platform_contact: 1,
   too_good_description: 1,
-  no_address: 1,
-  risky_source: 1,
+  no_address: 0.5,
+  risky_source: 0.5,
 };
 
-/** Weighted: 4 or more is likely (never contacted), 2 or 3 is possible (a task), less is none. */
+/** Weighted: 4 or more is likely (never contacted), 3 is possible (a task), less is none (kept as reasons). */
 export function scamLevel(signals: string[]): ScamVerdict['level'] {
   const score = [...new Set(signals)].reduce((n, s) => n + (WEIGHTS[s] ?? 1), 0);
   if (score >= 4) return 'likely';
-  if (score >= 2) return 'possible';
+  if (score >= 3) return 'possible';
   return 'none';
 }
 

@@ -57,7 +57,16 @@ test('off-platform contact and a missing address', () => {
   });
   const signals = scamSignals(l, {});
   expect(signals).toEqual(expect.arrayContaining(['off_platform_contact', 'no_address']));
-  expect(scamLevel(signals)).toBe('possible');
+  // Common on honest private listings: recorded, but not worth a person's time on its own.
+  expect(scamLevel(signals)).toBe('none');
+  expect(scamLevel([...signals, 'price_far_below_median', 'too_good_description'])).toBe('possible');
+});
+
+test('weak signals alone never interrupt the person', () => {
+  expect(scamLevel(['price_far_below_median'])).toBe('none');
+  expect(scamLevel(['no_address', 'risky_source'])).toBe('none');
+  expect(scamLevel(['price_far_below_median', 'off_platform_contact'])).toBe('none');
+  expect(scamLevel(['payment_before_viewing'])).toBe('possible');
 });
 
 test('too good to be true stories', () => {
