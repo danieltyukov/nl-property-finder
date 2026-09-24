@@ -583,14 +583,14 @@ export function createZigAdapter(def: ZigPortalDef, options: ZigAdapterOptions =
     // "kanReageren" says whether the ad accepts reactions at all; only
     // "loggedin" says whether this session is recognised.
     if (!rd.loggedin) throw new NeedsLoginError(`${def.name}: log in with nlpf connect ${def.id} to react`, { loginUrl });
+    const action = (rd.action ?? '').trim().toLowerCase();
+    if (action === 'remove') return { ok: true, channel: 'form', evidence: 'already reacted: the portal offers to withdraw the reaction' };
     if (o.model?.advertentieSluitenNaEersteReactie) {
       return fail(
         `${def.name} asks to book this home for good ("definitief boeken") and to accept no other offer; a person must decide that`,
         'human',
       );
     }
-    const action = (rd.action ?? '').trim().toLowerCase();
-    if (action === 'remove') return { ok: true, channel: 'form', evidence: 'already reacted: the portal offers to withdraw the reaction' };
     if (action && action !== 'add') return fail(`${def.name} offers the action "${action}" instead of a reaction`, 'human');
     if (!rd.kanReageren) {
       const code = (rd.redenMagNietReagerenCode ?? '').trim();
@@ -621,7 +621,7 @@ export function createZigAdapter(def: ZigPortalDef, options: ZigAdapterOptions =
       }
       if (Date.now() >= deadline) break;
       ctx.signal.throwIfAborted();
-      await sleep(700);
+      await sleep(1_000);
     }
     return fail(`reacted on ${def.name} but the reaction is not among the active reactions; check before reacting again`, 'human');
   }
