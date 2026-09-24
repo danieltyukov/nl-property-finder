@@ -163,6 +163,7 @@ export const OGONLINE_AGENCIES: OgonlineAgencyDef[] = [
     regions: ['amsterdam', 'amstelveen', 'diemen', 'ouder-amstel', 'almere', 'utrecht'],
     contact: 'form',
     email: 'info@keij-stefels.nl',
+    intervalSec: 600, // a 2 MB list with few rentals on offer at a time
     verifiedAt: '2026-09-24',
   },
   {
@@ -181,6 +182,7 @@ export const OGONLINE_AGENCIES: OgonlineAgencyDef[] = [
     regions: ['den haag', 'leidschendam-voorburg', 'delft', 'rijswijk', 'pijnacker-nootdorp', 'wassenaar', 'voorschoten', 'westland'],
     contact: 'form',
     email: 'info@expat-realestate.nl',
+    intervalSec: 600, // a 3 MB list
     verifiedAt: '2026-09-24',
   },
   {
@@ -209,6 +211,7 @@ export const OGONLINE_AGENCIES: OgonlineAgencyDef[] = [
     regions: ['den haag', 'rijswijk'],
     contact: 'form',
     email: 'info@nelisse.nl',
+    intervalSec: 900, // a 2 MB list, mostly sales
     verifiedAt: '2026-09-24',
   },
   {
