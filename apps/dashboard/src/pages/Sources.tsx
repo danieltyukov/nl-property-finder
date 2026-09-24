@@ -13,6 +13,7 @@ import { useNow } from '../components/state';
 import { Button, Dot, ErrorNote, Loading, PageHeader, StatusPill, Tag, Toggle } from '../components/ui';
 import { ago, duration, eur } from '../lib/format';
 import { CHANNEL, SOURCE_HEALTH } from '../lib/labels';
+import { safeHref } from '../lib/url';
 
 const PLAN_NAMES: Record<string, string> = {
   'kamernet-premium': 'Kamernet Premium',
@@ -102,8 +103,8 @@ function SourceCard({ source, now }: { source: SourceView; now: number }) {
         <Dot tone={health.tone} pulse={source.enabled && source.health === 'ok'} />
         <h2 className="source-name">{source.name}</h2>
         <StatusPill status={health} />
-        {source.homepage ? (
-          <a className="source-home" href={source.homepage} target="_blank" rel="noreferrer" aria-label={`${source.name} website`}>
+        {safeHref(source.homepage) ? (
+          <a className="source-home" href={safeHref(source.homepage)} target="_blank" rel="noreferrer" aria-label={`${source.name} website`}>
             <Icon name="external" size={14} />
           </a>
         ) : null}
@@ -155,9 +156,13 @@ function SourceCard({ source, now }: { source: SourceView; now: number }) {
             <ul className="plain-list">
               {result.sample.slice(0, 3).map((l) => (
                 <li key={l.url}>
-                  <a href={l.url} target="_blank" rel="noreferrer">
-                    {l.title}
-                  </a>{' '}
+                  {safeHref(l.url) ? (
+                    <a href={safeHref(l.url)} target="_blank" rel="noreferrer">
+                      {l.title}
+                    </a>
+                  ) : (
+                    l.title
+                  )}{' '}
                   <span className="mono">{eur(l.priceEur)}</span>
                 </li>
               ))}

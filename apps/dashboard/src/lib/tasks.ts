@@ -6,6 +6,7 @@
  */
 import type { ProposedSlot, Task } from '@nlpf/core';
 import type { ResolveTaskInput } from '../core';
+import { safeHref } from './url';
 
 export type ResolveAction = ResolveTaskInput['action'];
 
@@ -43,7 +44,7 @@ export function taskDraft(task: Task): string | undefined {
 }
 
 export function taskActions(task: Task): TaskActions {
-  const url = payloadString(task, 'url');
+  const url = safeHref(payloadString(task, 'url'));
   const draft = taskDraft(task);
   switch (task.kind) {
     case 'viewing_booked':

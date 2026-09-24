@@ -14,6 +14,7 @@ import { Button, ErrorNote, Loading, Pill, StatusPill, Tag } from '../components
 import { ago, dayTime, eur, fullAddress, hm, m2, place, street, ymd } from '../lib/format';
 import { FURNISHING, INTENT, PROPERTY_TYPE, propertyStatus, sourceName } from '../lib/labels';
 import { lastAction } from '../lib/property';
+import { safeHref } from '../lib/url';
 
 function requirementLines(r: Requirements): string[] {
   const lines: string[] = [];
@@ -195,10 +196,12 @@ function DrawerBody({ view }: { view: PropertyView }) {
                   {responses !== undefined ? ` · ${responses} responses so far` : ''}
                   {l.state === 'gone' ? ' · offline' : ''}
                 </span>
-                <a href={l.url} target="_blank" rel="noreferrer" className="listing-link">
-                  Open on {sourceName(l.sourceId)}
-                  <Icon name="external" size={12} />
-                </a>
+                {safeHref(l.url) ? (
+                  <a href={safeHref(l.url)} target="_blank" rel="noreferrer" className="listing-link">
+                    Open on {sourceName(l.sourceId)}
+                    <Icon name="external" size={12} />
+                  </a>
+                ) : null}
               </li>
             );
           })}

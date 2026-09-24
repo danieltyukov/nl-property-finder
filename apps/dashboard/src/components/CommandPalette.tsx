@@ -43,11 +43,15 @@ export function CommandPalette() {
   const close = () => ui.setPaletteOpen(false);
 
   useEffect(() => {
-    if (open) {
-      setQuery('');
-      setActive(0);
-      requestAnimationFrame(() => inputRef.current?.focus());
-    }
+    if (!open) return;
+    const previous = document.activeElement as HTMLElement | null;
+    setQuery('');
+    setActive(0);
+    requestAnimationFrame(() => inputRef.current?.focus());
+    // Hand focus back to whatever opened the palette.
+    return () => {
+      if (previous && document.contains(previous)) previous.focus();
+    };
   }, [open]);
 
   const commands = useMemo<Command[]>(() => {
@@ -159,6 +163,9 @@ export function CommandPalette() {
               } else if (e.key === 'Escape') {
                 e.preventDefault();
                 close();
+              } else if (e.key === 'Tab') {
+                // The field is the only stop in the palette; Tab stays in it.
+                e.preventDefault();
               }
             }}
           />

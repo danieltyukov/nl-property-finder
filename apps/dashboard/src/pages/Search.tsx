@@ -14,6 +14,7 @@ import { Icon } from '../components/Icon';
 import { Button, Card, EmptyState, Field, IconButton, Loading, PageHeader, Tag, Toggle } from '../components/ui';
 import { eur, ymd } from '../lib/format';
 import { FURNISHING, PROPERTY_TYPE } from '../lib/labels';
+import { safeHref } from '../lib/url';
 
 const RegionMap = lazy(() => import('../components/RegionMap'));
 
@@ -473,8 +474,8 @@ function Registrations({ config }: { config: ConfigView }) {
                 return (
                   <tr key={`${r.portal}-${i}`}>
                     <th scope="row">
-                      {r.url ? (
-                        <a href={r.url} target="_blank" rel="noreferrer">
+                      {safeHref(r.url) ? (
+                        <a href={safeHref(r.url)} target="_blank" rel="noreferrer">
                           {r.portal}
                         </a>
                       ) : (
