@@ -661,7 +661,7 @@ textarea.input {
 }
 
 .input.time {
-  width: 110px;
+  width: 132px;
 }
 
 .search-field {
@@ -870,7 +870,7 @@ textarea.input {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) auto;
 }
 
-.variant-row.row-with-remove {
+.form-grid.variant-row.row-with-remove {
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr) 90px auto;
 }
 
@@ -3229,7 +3229,7 @@ textarea.input {
   .form-grid.commute,
   .row-with-remove,
   .form-grid.row-with-remove:not(.three),
-  .variant-row.row-with-remove {
+  .form-grid.variant-row.row-with-remove {
     grid-template-columns: minmax(0, 1fr);
   }
 
