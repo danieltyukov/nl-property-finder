@@ -163,6 +163,21 @@ describe('huisjeAdapter', () => {
     const result = await a.contact!(listing, message('Hallo'), context('huisje', withLogin));
     expect(result.ok).toBe(true);
     expect(box.control.submissions()).toHaveLength(1);
+
+    // reset drops every session and the wall; with the wall back up the old cookie has expired.
+    box.control.reset();
+    box.control.setLoginRequired(true);
+    expect(await a.checkSession!(context('huisje', withLogin))).toBe('expired');
+    expect(await a.checkSession!(context('huisje', withLogin))).toBe('ok');
+  });
+
+  test('a guest session counts as ok while Huisje asks for no login', async () => {
+    const a = adapter();
+    expect(await a.checkSession!(context('huisje'))).toBe('ok');
+    box.control.setLoginRequired(true);
+    expect(await a.checkSession!(context('huisje'))).toBe('none');
+    box.control.setLoginRequired(false);
+    expect(await a.checkSession!(context('huisje'))).toBe('ok');
   });
 
   test('setBlocked makes search throw SourceBlockedError with status 429', async () => {

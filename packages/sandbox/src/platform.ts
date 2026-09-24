@@ -300,6 +300,16 @@ export function huisjeRoutes(core: SandboxCore): Hono {
     return email ? c.json({ email }) : c.json({ error: 'not_logged_in' }, 401);
   });
 
+  /** Whether this visitor can use the platform right now: logged in, or a guest while no login is required. */
+  app.get('/api/session', (c) => {
+    const email = session(c);
+    return c.json({
+      loggedIn: Boolean(email),
+      email: email ?? null,
+      loginRequired: core.state.loginRequired,
+    });
+  });
+
   app.get('/api/inbox', (c) => {
     if (core.state.loginRequired && !session(c)) return loginNeeded(c);
     const since = c.req.query('since');

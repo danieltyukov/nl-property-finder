@@ -331,18 +331,23 @@ export function huisjeAdapter(baseUrl: string, opts: HuisjeAdapterOptions = {}):
       }
     },
 
+    /**
+     * 'ok' when the adapter can act: logged in, or a guest while Huisje does
+     * not ask for a login. 'expired' when a session cookie stopped working,
+     * 'none' when a login is required and there is no session.
+     */
     async checkSession(ctx) {
-      if (!cookie && !(await login(ctx).catch(() => false))) return 'none';
-      try {
-        await ctx.fetch(`${base}/huisje/api/me`, { headers: headers({ accept: 'application/json' }) });
-        return 'ok';
-      } catch (e) {
-        if (e instanceof SourceHttpError && e.status === 401) {
-          cookie = undefined;
-          return 'expired';
-        }
-        throw e;
+      if (!cookie && credentials(ctx)) await login(ctx).catch(() => false);
+      const res = await ctx.fetch(`${base}/huisje/api/session`, {
+        headers: headers({ accept: 'application/json' }),
+      });
+      const s = res.json<{ loggedIn: boolean; loginRequired: boolean }>();
+      if (s.loggedIn || !s.loginRequired) return 'ok';
+      if (cookie) {
+        cookie = undefined;
+        return 'expired';
       }
+      return 'none';
     },
   };
   return adapter;
