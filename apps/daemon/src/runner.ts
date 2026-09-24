@@ -14,10 +14,17 @@ export interface RunnerDeps {
   log: Logger;
   handlers: Partial<Record<JobKind, JobHandler>>;
   now: () => Date;
+  /** Slots for work that decides and sends (evaluate, contact, replies). */
   concurrency?: number;
+  /** Separate slots for reading sites, which can take a minute in a real browser. */
+  pollConcurrency?: number;
   intervalMs?: number;
   maxAttempts?: number;
 }
+
+/** Jobs that read sites. They run in their own lane so a slow site never delays a message. */
+const POLL_KINDS: JobKind[] = ['poll', 'sync_inbox'];
+const WORK_KINDS: JobKind[] = ['evaluate', 'contact', 'triage', 'reply', 'notify', 'detail', 'followup', 'daily'];
 
 /**
  * Runs due jobs. At most `concurrency` at once and at most one per source, so
@@ -27,8 +34,10 @@ export interface RunnerDeps {
  */
 export function createRunner(deps: RunnerDeps) {
   const concurrency = deps.concurrency ?? 4;
+  const pollConcurrency = deps.pollConcurrency ?? 3;
   const maxAttempts = deps.maxAttempts ?? 4;
   const running = new Set<number>();
+  const runningPolls = new Set<number>();
   const busySources = new Set<string>();
   let timer: NodeJS.Timeout | undefined;
   let stopped = true;
@@ -56,16 +65,20 @@ export function createRunner(deps: RunnerDeps) {
       }
     } finally {
       running.delete(job.id);
+      runningPolls.delete(job.id);
       if (src) busySources.delete(src);
       if (running.size === 0) idleWaiters.splice(0).forEach((w) => w());
     }
   }
 
   function pump() {
-    const free = concurrency - running.size;
-    if (free <= 0) return;
     const nowIso = deps.now().toISOString();
-    const jobs = deps.store.jobs.claim(nowIso, free);
+    const workFree = concurrency - (running.size - runningPolls.size);
+    const pollFree = pollConcurrency - runningPolls.size;
+    const jobs = [
+      ...(workFree > 0 ? deps.store.jobs.claim(nowIso, workFree, WORK_KINDS) : []),
+      ...(pollFree > 0 ? deps.store.jobs.claim(nowIso, pollFree, POLL_KINDS) : []),
+    ];
     for (const job of jobs) {
       const src = sourceOf(job);
       if (src && busySources.has(src)) {
@@ -77,6 +90,7 @@ export function createRunner(deps: RunnerDeps) {
         continue;
       }
       running.add(job.id);
+      if (POLL_KINDS.includes(job.kind)) runningPolls.add(job.id);
       if (src) busySources.add(src);
       void execute(job);
     }

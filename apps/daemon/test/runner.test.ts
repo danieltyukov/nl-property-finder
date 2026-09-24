@@ -44,3 +44,25 @@ test('runs due jobs, one per source at a time, retries failures, never retries c
   expect(store.jobs.get('contact:p1')?.state).toBe('failed');
   expect(store.jobs.get('notify:1')).toMatchObject({ state: 'pending', runAt: '2026-09-24T09:00:00.000Z' });
 });
+
+test('slow site checks never hold up evaluating and contacting', async () => {
+  const store = openStore(':memory:');
+  const clock = new Date('2026-09-24T08:00:00Z');
+  let release: () => void = () => undefined;
+  const slow = new Promise<void>((r) => (release = r));
+  const done: string[] = [];
+  const runner = createRunner({
+    store, log: memoryLogger(), now: () => clock, concurrency: 2, pollConcurrency: 2,
+    handlers: {
+      poll: async () => slow,
+      evaluate: async (job) => void done.push(job.key),
+    },
+  });
+  for (let i = 0; i < 5; i++) store.jobs.enqueue('poll', `poll:s${i}:1`, { sourceId: `s${i}` }, '2026-09-24T07:59:00Z');
+  for (let i = 0; i < 3; i++) store.jobs.enqueue('evaluate', `evaluate:p${i}`, {}, '2026-09-24T07:59:00Z');
+  runner.start();
+  await new Promise((r) => setTimeout(r, 400));
+  expect(done.sort()).toEqual(['evaluate:p0', 'evaluate:p1', 'evaluate:p2']);
+  release();
+  await runner.stop();
+});

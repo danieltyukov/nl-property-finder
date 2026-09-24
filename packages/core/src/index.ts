@@ -10,3 +10,4 @@ export * from './ids.js';
 export * from './events.js';
 export * from './store/store.js';
 export * from './api.js';
+export * from './places.js';

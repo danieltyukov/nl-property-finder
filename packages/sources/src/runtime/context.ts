@@ -1,4 +1,4 @@
-import { SourceConfigSchema, type BrowserSession, type Config, type Logger, type SourceContext } from '@nlpf/core';
+import { SourceConfigSchema, type BrowserSession, type Config, type Logger, type SourceContext, searchesForAdapters } from '@nlpf/core';
 import type { BrowserMode } from './browser.js';
 import type { PoliteFetch } from './fetch.js';
 
@@ -61,7 +61,7 @@ export function createSourceContext(deps: SourceContextDeps): SourceContext {
 
     log: deps.log.child({ source: deps.sourceId }),
     profile: deps.config.profile,
-    searches: deps.config.searches.filter((s) => s.enabled),
+    searches: searchesForAdapters(deps.config.searches),
     source: deps.config.sources[deps.sourceId] ?? SourceConfigSchema.parse({}),
     now: deps.now ?? (() => new Date()),
     signal,

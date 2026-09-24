@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import { chooseSlot, VIEWING_MINUTES, withdrawalText, messageLanguage, profileLanguage } from '@nlpf/agent';
-import { SourceConfigSchema, type ProposedSlot, type SourceState, type StatsView, type Task } from '@nlpf/core';
+import { SourceConfigSchema, searchesForAdapters, type ProposedSlot, type SourceState, type StatsView, type Task } from '@nlpf/core';
 import type { DaemonActions, DocumentInfo } from './context.js';
 import { draftFirstMessage, tenantProfileFile } from './pipelines/contact.js';
 import { documentFiles, documentIndex, prepareAttachment, sendInConversation, writeDocumentIndex } from './pipelines/inbound.js';
@@ -218,7 +218,7 @@ export function createActions(d: ActionDeps): DaemonActions {
       const cfg = rt.config();
       const started = Date.now();
       try {
-        const reqs = adapter.buildSearches(cfg.searches.filter((s) => s.enabled), SourceConfigSchema.parse(cfg.sources[id] ?? {}));
+        const reqs = adapter.buildSearches(searchesForAdapters(cfg.searches), SourceConfigSchema.parse(cfg.sources[id] ?? {}));
         const first = reqs[0];
         if (!first) return { ok: true, count: 0, sample: [], ms: Date.now() - started, error: 'No search applies to this source with your current searches.' };
         const listings = await adapter.search(first, rt.sourceContext(adapter));

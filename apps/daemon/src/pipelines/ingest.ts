@@ -1,6 +1,6 @@
 import { NeedsLoginError, SourceBlockedError, SourceHttpError } from '@nlpf/sources';
 import { assignProperty, normaliseListing } from '@nlpf/agent';
-import { SourceConfigSchema, type Job, type Listing, type RawListing, type SourceState } from '@nlpf/core';
+import { SourceConfigSchema, searchesForAdapters, type Job, type Listing, type RawListing, type SourceState } from '@nlpf/core';
 import { createHealth } from '../health.js';
 import { initialState } from '../scheduler.js';
 import { RetryLater } from '../runner.js';
@@ -88,7 +88,7 @@ export async function handlePoll(rt: Runtime, job: Job): Promise<void> {
   let fresh = 0;
   try {
     // An unconfigured source still gets a full config with defaults (searchUrls, options).
-    const requests = adapter.buildSearches(cfg.searches.filter((s) => s.enabled), SourceConfigSchema.parse(cfg.sources[sourceId] ?? {}));
+    const requests = adapter.buildSearches(searchesForAdapters(cfg.searches), SourceConfigSchema.parse(cfg.sources[sourceId] ?? {}));
     for (const req of requests) {
       const raws = await adapter.search(req, ctx);
       count += raws.length;
