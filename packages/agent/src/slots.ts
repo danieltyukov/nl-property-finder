@@ -1,4 +1,4 @@
-import { amsterdam, fromAmsterdam, type ProposedSlot } from '@nlpf/core';
+import { amsterdam, fromAmsterdam, type AutomationConfig, type ProposedSlot } from '@nlpf/core';
 import { localDatePlus } from './window.js';
 
 /*
@@ -392,4 +392,60 @@ export function parseSlots(text: string, now: Date): ProposedSlot[] {
       return true;
     })
     .sort((a, b) => a.start.localeCompare(b.start));
+}
+
+/** How long a viewing is assumed to take when the landlord gives only a start time. */
+export const VIEWING_MINUTES = 30;
+const STEP_MINUTES = 15;
+const MINUTE = 60_000;
+
+const toMin = (hhmm: string) => {
+  const [h = 0, m = 0] = hhmm.split(':').map(Number);
+  return h * 60 + m;
+};
+
+function fitsAvailability(start: Date, end: Date, availability: AutomationConfig['availability']): boolean {
+  const s = amsterdam(start);
+  const e = amsterdam(end);
+  if (s.y !== e.y || s.m !== e.m || s.d !== e.d) return false;
+  const sm = s.hh * 60 + s.mm;
+  const em = e.hh * 60 + e.mm;
+  return availability.some((a) => a.days.includes(s.weekday) && sm >= toMin(a.start) && em <= toMin(a.end));
+}
+
+function clashes(start: Date, end: Date, bufferMin: number, busy: { start: string; end: string }[]): boolean {
+  const s = start.getTime() - bufferMin * MINUTE;
+  const e = end.getTime() + bufferMin * MINUTE;
+  return busy.some((b) => s < Date.parse(b.end) && e > Date.parse(b.start));
+}
+
+/**
+ * The earliest certain slot that lies inside the person's availability and
+ * keeps `bufferMin` minutes of travel time around every booked viewing. A
+ * long window ("tussen 17 en 19 uur") is narrowed to its first free half
+ * hour. Uncertain slots are never chosen; they go to a person.
+ */
+export function chooseSlot(
+  slots: ProposedSlot[],
+  availability: AutomationConfig['availability'],
+  bufferMin: number,
+  busy: { start: string; end: string }[],
+): ProposedSlot | null {
+  const ordered = slots.filter((s) => s.certain).sort((a, b) => a.start.localeCompare(b.start));
+  for (const slot of ordered) {
+    const start = Date.parse(slot.start);
+    const end = slot.end ? Date.parse(slot.end) : start + VIEWING_MINUTES * MINUTE;
+    if (end - start <= VIEWING_MINUTES * MINUTE) {
+      if (fitsAvailability(new Date(start), new Date(end), availability) && !clashes(new Date(start), new Date(end), bufferMin, busy)) return slot;
+      continue;
+    }
+    for (let s = start; s + VIEWING_MINUTES * MINUTE <= end; s += STEP_MINUTES * MINUTE) {
+      const a = new Date(s);
+      const b = new Date(s + VIEWING_MINUTES * MINUTE);
+      if (fitsAvailability(a, b, availability) && !clashes(a, b, bufferMin, busy)) {
+        return { ...slot, start: a.toISOString(), end: b.toISOString() };
+      }
+    }
+  }
+  return null;
 }
