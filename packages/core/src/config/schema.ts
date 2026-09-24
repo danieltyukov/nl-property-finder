@@ -14,6 +14,7 @@ export const ProfileSchema = z.object({
   lastName: z.string().default(''),
   email: z.string().default(''),                     // the dedicated mailbox address
   phone: z.string().optional(),
+  salutation: z.enum(['dhr', 'mevr', 'none']).optional(), // Dutch agency forms often require one
   birthYear: z.number().int().optional(),
   nationality: z.string().optional(),
   occupation: z.enum(['student', 'phd', 'employed', 'self_employed', 'starting_job', 'other']).default('student'),

@@ -34,6 +34,16 @@ export function ProfileFields({ profile, onChange }: { profile: Profile; onChang
     <div className="form-grid">
       <Field label="First name">{(id) => <input id={id} className="input" autoComplete="given-name" value={profile.firstName} onChange={(e) => set('firstName', e.currentTarget.value)} />}</Field>
       <Field label="Last name">{(id) => <input id={id} className="input" autoComplete="family-name" value={profile.lastName} onChange={(e) => set('lastName', e.currentTarget.value)} />}</Field>
+      <Field label="Salutation" hint="Many Dutch agency forms ask for one.">
+        {(id, hint) => (
+          <select id={id} className="input" aria-describedby={hint} value={profile.salutation ?? ''} onChange={(e) => set('salutation', (e.currentTarget.value || undefined) as Profile['salutation'])}>
+            <option value="">Not set</option>
+            <option value="dhr">Dhr. (Mr)</option>
+            <option value="mevr">Mevr. (Ms)</option>
+            <option value="none">Neither</option>
+          </select>
+        )}
+      </Field>
       <Field label="Email address" hint="The dedicated mailbox the agent reads and writes from.">
         {(id, hint) => <input id={id} className="input" type="email" aria-describedby={hint} value={profile.email} onChange={(e) => set('email', e.currentTarget.value)} />}
       </Field>
@@ -52,7 +62,7 @@ export function ProfileFields({ profile, onChange }: { profile: Profile; onChang
         )}
       </Field>
       <Field label="University or employer">{(id) => <input id={id} className="input" value={profile.organisation ?? ''} onChange={(e) => set('organisation', e.currentTarget.value || undefined)} />}</Field>
-      <Field label="Gross monthly income (EUR)" hint="Used to check income requirements. Never sent as a number unless you write it in a template.">
+      <Field label="Gross monthly income (EUR)" hint="Used to check income requirements, and mentioned in first messages so landlords see you qualify.">
         {(id, hint) => <input id={id} className="input mono" inputMode="numeric" aria-describedby={hint} value={profile.incomeMonthlyGrossEur ?? ''} onChange={(e) => set('incomeMonthlyGrossEur', num(e.currentTarget.value))} />}
       </Field>
       <Field label="Move in from">{(id) => <input id={id} className="input mono" type="date" value={profile.moveInFrom ?? ''} onChange={(e) => set('moveInFrom', e.currentTarget.value || undefined)} />}</Field>

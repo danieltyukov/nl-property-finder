@@ -19,5 +19,10 @@ export * from './generic/presets.js';
 
 // Test helpers live in ./testing.ts and are imported from there directly.
 
+// Generic adapters for portal systems and agency sites, to configure more instances.
+export { createZigAdapter, type ZigPortalDef } from './generic/zig.js';
+export { createEmbraceAdapter, type EmbracePortalDef } from './generic/embrace.js';
+export { createOgonlineAdapter, type OgonlineAgencyDef } from './generic/ogonline.js';
+
 // Every built-in source.
 export * from './builtin.js';

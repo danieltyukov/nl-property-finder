@@ -320,8 +320,10 @@ const CAPTCHA =
 const MALE = /^(?:m|male|man|dhr\.?|de heer|heer|mr\.?|mister)$/i;
 const FEMALE = /^(?:f|v|female|vrouw|mw\.?|mevr\.?|mevrouw|ms\.?|mrs\.?)$/i;
 
-/** The salutation from `profile.facts` ("salutation", "aanhef" or "gender"), as male or female. */
+/** The salutation from `profile.salutation`, or from `profile.facts` ("salutation", "aanhef" or "gender"), as male or female. */
 export function salutationOf(profile: Profile): 'male' | 'female' | undefined {
+  if (profile.salutation === 'dhr') return 'male';
+  if (profile.salutation === 'mevr') return 'female';
   const raw = profile.facts?.salutation ?? profile.facts?.aanhef ?? profile.facts?.gender ?? '';
   const v = raw.trim();
   if (MALE.test(v)) return 'male';
