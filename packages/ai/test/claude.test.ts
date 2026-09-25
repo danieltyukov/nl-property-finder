@@ -1,8 +1,9 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { describe, expect, it } from 'vitest';
-import { AiSchema, memoryLogger, type AiUsage } from '@nlpf/core';
+import { AiSchema, ProfileSchema, memoryLogger, type AiUsage } from '@nlpf/core';
 import type { BudgetGuard } from '../src/budget.js';
 import { createClaudeProvider } from '../src/claude.js';
+import { promptProfile } from '../src/profile.js';
 import { createRulesProvider } from '../src/rules.js';
 import { fakeClient, type FakeResult } from './fake-client.js';
 import { NOW, makeListing, makeMessage, makeProfile, makeSearch } from './helpers.js';
@@ -91,6 +92,13 @@ describe('Claude provider', () => {
     expect(systemText).not.toContain(NOW);
     expect(JSON.stringify(b?.system)).toBe(JSON.stringify(a?.system));
     expect(JSON.stringify(a?.messages)).toContain('23 September 2026');
+  });
+
+  it('shows the model every profile field except the form-only salutation', () => {
+    // A field left out here is invisible to the model, however the prompt refers to it.
+    const shown = Object.keys(promptProfile(makeProfile()));
+    const expected = Object.keys(ProfileSchema.shape).filter((k) => k !== 'salutation');
+    expect(shown.sort()).toEqual(expected.sort());
   });
 
   it('records usage, including cache reads, with the budget and in usage()', async () => {

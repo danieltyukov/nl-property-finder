@@ -31,6 +31,7 @@ export function promptProfile(profile: Profile): Record<string, unknown> {
     nationality: profile.nationality ?? null,
     occupation: profile.occupation,
     organisation: profile.organisation ?? null,
+    job: profile.job ?? null,
     incomeMonthlyGrossEur: profile.incomeMonthlyGrossEur ?? null,
     guarantor: profile.guarantor ?? null,
     coApplicants: profile.coApplicants,
