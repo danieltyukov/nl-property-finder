@@ -191,6 +191,23 @@ describe('systemd manager', () => {
     expect(readFileSync(desktop, 'utf8')).toContain(`Exec=/usr/bin/node ${spec.entry} open`);
   });
 
+  test('on installs the bundled icon into the hicolor theme so the launcher is not a blank gear', async () => {
+    const home = tempHome();
+    const dist = join(home, 'dist');
+    mkdirSync(join(dist, 'icons'), { recursive: true });
+    writeFileSync(join(dist, 'icons', 'nl-property-finder.svg'), '<svg/>');
+    const { exec, calls } = stubExec();
+    const svc = createServiceManager({ platform: 'linux', env: {}, home, exec });
+    await svc.on({ ...spec, entry: join(dist, 'nlpf.mjs') });
+    const theme = join(home, '.local', 'share', 'icons', 'hicolor');
+    expect(readFileSync(join(theme, 'scalable', 'apps', 'nl-property-finder.svg'), 'utf8')).toBe('<svg/>');
+    expect(calls).toContain(`gtk-update-icon-cache -f -t ${theme}`);
+
+    calls.length = 0;
+    await svc.on({ ...spec, entry: join(dist, 'nlpf.mjs') });
+    expect(calls.some((c) => c.startsWith('gtk-update-icon-cache'))).toBe(false);
+  });
+
   test('on again with the same unit does not reload or restart a running agent', async () => {
     const home = tempHome();
     const { exec, calls } = stubExec((cmd) =>

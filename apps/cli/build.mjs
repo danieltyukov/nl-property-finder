@@ -67,7 +67,14 @@ chmodSync(join(outdir, 'nlpf.mjs'), 0o755);
 // The daemon serves the dashboard from dist/dashboard when it runs from this
 // bundle, so an installed nlpf needs no source tree beside it.
 const dashboard = join(root, 'apps', 'dashboard', 'dist');
-if (existsSync(join(dashboard, 'index.html'))) cpSync(dashboard, join(outdir, 'dashboard'), { recursive: true });
+if (existsSync(join(dashboard, 'index.html')))
+  cpSync(dashboard, join(outdir, 'dashboard'), { recursive: true });
 else console.warn('apps/dashboard/dist is missing; build the dashboard first so the bundle can serve it.');
+
+// nlpf on installs this into the icon theme, so the launcher it writes shows the app icon.
+cpSync(
+  join(root, 'packages', 'design', 'logo', 'app-icon.svg'),
+  join(outdir, 'icons', 'nl-property-finder.svg'),
+);
 
 console.log(`Built ${join(outdir, 'nlpf.mjs')}`);

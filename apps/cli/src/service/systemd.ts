@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import {
   SERVICE_NAME,
   mustRun,
@@ -93,6 +93,17 @@ export function desktopEntryPath(env: NodeJS.ProcessEnv, home: string): string {
   return join(env.XDG_DATA_HOME || join(home, '.local', 'share'), 'applications', `${SERVICE_NAME}.desktop`);
 }
 
+/** Where the launcher's `Icon=nl-property-finder` resolves in the user's hicolor theme. */
+export function desktopIconPath(env: NodeJS.ProcessEnv, home: string): string {
+  const data = env.XDG_DATA_HOME || join(home, '.local', 'share');
+  return join(data, 'icons', 'hicolor', 'scalable', 'apps', `${SERVICE_NAME}.svg`);
+}
+
+/** The icon the build puts next to the bundle, or null when running without one. */
+function bundledIcon(entry: string): string | null {
+  return readIfExists(join(dirname(entry), 'icons', `${SERVICE_NAME}.svg`));
+}
+
 export function createSystemdManager(deps: ServiceDeps): ServiceManager {
   const file = systemdUnitPath(deps.env, deps.home);
   const ctl = (...args: string[]) => deps.exec('systemctl', ['--user', ...args]);
@@ -105,6 +116,12 @@ export function createSystemdManager(deps: ServiceDeps): ServiceManager {
       const wasActive = (await ctl('is-active', UNIT)).stdout.trim() === 'active';
       const changed = writeIfChanged(file, renderSystemdUnit(spec));
       try {
+        const icon = bundledIcon(spec.entry);
+        const iconFile = desktopIconPath(deps.env, deps.home);
+        if (icon !== null && writeIfChanged(iconFile, icon)) {
+          // A theme cache older than the new file would hide it; refreshing is best effort.
+          await deps.exec('gtk-update-icon-cache', ['-f', '-t', join(dirname(iconFile), '..', '..')]);
+        }
         writeIfChanged(
           desktopEntryPath(deps.env, deps.home),
           renderDesktopEntry({ exec: [spec.node, spec.entry, 'open'] }),
