@@ -69,3 +69,17 @@ test('disabled searches do not count for regions', () => {
   expect(isSourceEnabled(rijnmond, config)).toBe(false);
   expect(isSourceEnabled(roommatch, config)).toBe(true);
 });
+
+test("a search naming 's-Gravenhage turns on a source that lists den haag, and the other way round", () => {
+  const denHaagAgency = fakeAdapter('agency', ['den haag']);
+  const formal = ConfigSchema.parse({
+    searches: [{ id: 'main', name: 'Den Haag', regions: [{ name: 'Den Haag', municipalities: ["'s-Gravenhage"] }] }],
+  });
+  expect(isSourceEnabled(denHaagAgency, formal)).toBe(true);
+
+  const formalAgency = fakeAdapter('formal', ["'s-gravenhage"]);
+  const everyday = ConfigSchema.parse({
+    searches: [{ id: 'main', name: 'Den Haag', regions: [{ name: 'Den Haag', municipalities: ['The Hague'] }] }],
+  });
+  expect(isSourceEnabled(formalAgency, everyday)).toBe(true);
+});

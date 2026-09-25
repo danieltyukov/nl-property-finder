@@ -1,4 +1,4 @@
-import type { Config, SourceAdapter } from '@nlpf/core';
+import { everydayMunicipality, type Config, type SourceAdapter } from '@nlpf/core';
 
 export interface Registry {
   all(): SourceAdapter[];
@@ -8,7 +8,8 @@ export interface Registry {
 }
 
 /**
- * Municipalities the enabled searches cover, lowercased, or null when some
+ * Municipalities the enabled searches cover, in their everyday lowercase form
+ * ("'s-Gravenhage" is "den haag"), or null when some
  * search covers the whole country or is drawn with postcodes or a polygon
  * only (so no source can be ruled out by name).
  */
@@ -19,7 +20,7 @@ function coveredMunicipalities(config: Config): Set<string> | null {
     if (search.regions.length === 0) return null;
     for (const region of search.regions) {
       if (region.municipalities.length === 0) return null;
-      for (const m of region.municipalities) names.add(m.trim().toLowerCase());
+      for (const m of region.municipalities) names.add(everydayMunicipality(m));
     }
   }
   return names;
@@ -35,7 +36,7 @@ export function isSourceEnabled(adapter: SourceAdapter, config: Config, covered 
   const own = config.sources[adapter.id];
   if (own) return own.enabled;
   if (adapter.regions === 'nl' || covered === null) return true;
-  return adapter.regions.some((r) => covered.has(r.toLowerCase()));
+  return adapter.regions.some((r) => covered.has(everydayMunicipality(r)));
 }
 
 export function createRegistry(adapters: SourceAdapter[]): Registry {
