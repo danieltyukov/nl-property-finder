@@ -86,9 +86,30 @@ export function closing(p: Profile, lang: Lang): string {
 
 /* ---------- sentences about the person ---------- */
 
-export function occupationSentence(p: Profile, lang: Lang): string {
+/** "I work at Acme as an engineer." / "Ik werk bij Acme als engineer.", or '' without a job. */
+function jobSentence(p: Profile, lang: Lang): string {
+  const employer = p.job?.employer.trim();
+  if (!employer) return '';
+  const role = p.job?.role?.trim();
+  if (lang === 'nl') return `Ik werk bij ${employer}${role ? ` als ${role}` : ''}.`;
+  return `I work at ${employer}${role ? ` as ${/^[aeiou]/i.test(role) ? 'an' : 'a'} ${role}` : ''}.`;
+}
+
+/**
+ * Who the person is, in one sentence. A student with a job is introduced by
+ * both, or by the job alone with `focus: 'job'` (for homes that turn students
+ * away). Only facts from the profile are used.
+ */
+export function occupationSentence(p: Profile, lang: Lang, opts: { focus?: 'job' } = {}): string {
   const org = p.organisation?.trim();
   const nl = lang === 'nl';
+  const job = p.occupation === 'student' ? jobSentence(p, lang) : '';
+  if (job && opts.focus === 'job') return job;
+  if (job) {
+    const study = nl ? (org ? `Ik studeer aan ${org}` : 'Ik ben student') : org ? `I study at ${org}` : 'I am a student';
+    // "I work at Acme." becomes "... and work at Acme."
+    return `${study} ${nl ? 'en' : 'and'} ${job.replace(/^(?:I|Ik) /, '')}`;
+  }
   switch (p.occupation) {
     case 'student':
       return nl ? (org ? `Ik studeer aan ${org}.` : 'Ik ben student.') : org ? `I study at ${org}.` : 'I am a student.';

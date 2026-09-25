@@ -19,6 +19,7 @@ export const ProfileSchema = z.object({
   nationality: z.string().optional(),
   occupation: z.enum(['student', 'phd', 'employed', 'self_employed', 'starting_job', 'other']).default('student'),
   organisation: z.string().optional(),               // university or employer
+  job: z.object({ employer: z.string(), role: z.string().optional() }).optional(), // work next to studying: where students are turned away the agent applies as a working tenant
   incomeMonthlyGrossEur: z.number().optional(),
   guarantor: z.object({ relation: z.string(), incomeMonthlyGrossEur: z.number().optional(), country: z.string().optional() }).optional(),
   coApplicants: z.array(z.object({

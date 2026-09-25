@@ -4,6 +4,7 @@ import {
   moveInSentence, occupationSentence,
 } from '../profile.js';
 import { formatDate, formatEur, userLanguage } from '../text.js';
+import { extractRequirements } from './extract.js';
 
 /**
  * The built-in first messages, used when the configured template for the
@@ -78,6 +79,8 @@ export function templateValues(listing: Listing, profile: Profile, lang: Lang): 
   const who = addressee(listing.agent?.name);
   const agentName = who.kind === 'unknown' ? (nl ? 'verhuurder' : 'landlord') : who.name;
   const addr = listing.address;
+  // A student with a job leads with the job where the listing turns students away.
+  const noStudents = extractRequirements(`${listing.title}\n${listing.description ?? ''}`).studentsAllowed === false;
   const values: Record<string, string> = {
     firstname: profile.firstName,
     lastname: profile.lastName,
@@ -111,7 +114,7 @@ export function templateValues(listing: Listing, profile: Profile, lang: Lang): 
     signature: (profile.signature ?? '').trim() || fullName(profile),
     listingref: listingRef(listing, lang),
     nameline: fullName(profile) ? (nl ? `Mijn naam is ${fullName(profile)}.` : `My name is ${fullName(profile)}.`) : '',
-    occupationline: occupationSentence(profile, lang),
+    occupationline: occupationSentence(profile, lang, noStudents ? { focus: 'job' } : {}),
     incomeline: incomeSentence(profile, lang),
     householdline: householdSentence(profile, lang),
     lifestyleline: lifestyleSentence(profile, lang),

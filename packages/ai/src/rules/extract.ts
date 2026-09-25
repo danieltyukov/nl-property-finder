@@ -345,7 +345,7 @@ export function scoreListing(
     else add(-5, 'Registering at the address is not possible.', 'Inschrijven op het adres is niet mogelijk.');
   } else if (req.registrationAllowed === true) add(5, 'Registering at the address is possible.', 'Inschrijven op het adres is mogelijk.');
 
-  if (req.studentsAllowed === false && isStudent(profile)) add(-45, 'No students, and you are a student.', 'Geen studenten, en je bent student.');
+  if (req.studentsAllowed === false && isStudent(profile) && !profile.job) add(-45, 'No students, and you are a student.', 'Geen studenten, en je bent student.');
   else if (req.studentsAllowed === true && isStudent(profile)) add(8, 'Students are welcome.', 'Studenten zijn welkom.');
 
   const household = (profile.incomeMonthlyGrossEur ?? 0) + profile.coApplicants.reduce((s, c) => s + (c.incomeMonthlyGrossEur ?? 0), 0);

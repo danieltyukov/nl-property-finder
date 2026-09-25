@@ -68,6 +68,16 @@ describe('rules extract', () => {
     expect(bad.score).toBeLessThan(40);
   });
 
+  it('does not score a student with a job down for a no-students rule', async () => {
+    const listing = makeListing({ description: 'Geen studenten.' });
+    const student = await rules.extract({ listing, profile: makeProfile({ occupation: 'student' }), search: makeSearch() });
+    const working = await rules.extract({
+      listing, profile: makeProfile({ occupation: 'student', job: { employer: 'Acme', role: 'engineer' } }), search: makeSearch(),
+    });
+    expect(working.score).toBeGreaterThan(student.score);
+    expect(working.reasons.join(' ')).not.toMatch(/you are a student/i);
+  });
+
   it('writes the summary in the person language', async () => {
     const listing = makeListing({ description: 'Geen studenten.' });
     const en = await rules.extract({ listing, profile: makeProfile({ languages: ['en'] }), search: makeSearch() });
@@ -121,6 +131,18 @@ describe('rules compose', () => {
     expect(out.body).toMatch(/^Beste Jan Bakker,/);
     expect(out.body).not.toMatch(/inkomen/i);
     expect(out.body).not.toMatch(/\n{3,}/);
+  });
+
+  it('introduces a student with a job by the job where students are turned away, and by both otherwise', async () => {
+    const profile = makeProfile({ occupation: 'student', job: { employer: 'Acme', role: 'engineer' } });
+    const noStudents = await rules.compose({
+      listing: makeListing({ description: 'Alleen voor werkenden, geen studenten.' }), profile, template: '', language: 'en', channel: 'form',
+    });
+    expect(noStudents.body).toContain('I work at Acme as an engineer.');
+    expect(noStudents.body).not.toMatch(/study/i);
+
+    const open = await rules.compose({ listing: makeListing({ description: 'Mooi appartement.' }), profile, template: '', language: 'nl', channel: 'form' });
+    expect(open.body).toContain('Ik studeer aan TU Delft en werk bij Acme als engineer.');
   });
 
   it('knows every placeholder it documents', () => {

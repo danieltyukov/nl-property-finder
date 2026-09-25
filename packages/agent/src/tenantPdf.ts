@@ -22,6 +22,7 @@ const T = {
     title: 'Tenant profile',
     occupation: 'Occupation',
     organisation: 'University or employer',
+    job: 'Work',
     household: 'Household',
     moveIn: 'Move-in from',
     stay: 'Planned stay',
@@ -82,6 +83,7 @@ const T = {
     title: 'Huurdersprofiel',
     occupation: 'Beroep',
     organisation: 'Universiteit of werkgever',
+    job: 'Werk',
     household: 'Huishouden',
     moveIn: 'Verhuizen vanaf',
     stay: 'Geplande huurperiode',
@@ -204,6 +206,7 @@ export async function renderTenantProfilePdf(
   const rows: [string, string | undefined][] = [
     [t.occupation, occupation],
     [t.organisation, profile.organisation],
+    [t.job, profile.job ? [profile.job.role, profile.job.employer].filter(Boolean).join(', ') : undefined],
     [t.household, `${household.join(', ')}${co.length ? `, ${t.with} ${co.join(', ')}` : ''}`],
     [t.moveIn, profile.moveInFrom ? formatDate(profile.moveInFrom, t.monthNames) : undefined],
     [t.stay, profile.stayMonths ? t.months(profile.stayMonths) : undefined],

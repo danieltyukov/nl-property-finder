@@ -93,7 +93,8 @@ export function evaluateRequirements(
 ): FilterResult {
   if (search.requireRegistration && req.registrationAllowed === false)
     return fail('registration not allowed');
-  if (req.studentsAllowed === false && profile.occupation === 'student') return fail('no students');
+  // A student with a job applies as a working tenant, so only a student without one is turned away.
+  if (req.studentsAllowed === false && profile.occupation === 'student' && !profile.job) return fail('no students');
 
   const byMultiple =
     req.incomeMultiple !== undefined && ctx.rentEur !== undefined

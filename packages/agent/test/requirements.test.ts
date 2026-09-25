@@ -52,6 +52,9 @@ test('registration, students, pets, smoking', () => {
   expect(
     evaluateRequirements({ studentsAllowed: false }, profile({ occupation: 'employed' }), s).passed,
   ).toBe(true);
+  // A student with a job applies as a working tenant where students are turned away.
+  const working = profile({ occupation: 'student', job: { employer: 'Acme' } });
+  expect(evaluateRequirements({ studentsAllowed: false }, working, s).passed).toBe(true);
   expect(
     evaluateRequirements(
       { petsAllowed: false },

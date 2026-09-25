@@ -62,6 +62,16 @@ export function ProfileFields({ profile, onChange }: { profile: Profile; onChang
         )}
       </Field>
       <Field label="University or employer">{(id) => <input id={id} className="input" value={profile.organisation ?? ''} onChange={(e) => set('organisation', e.currentTarget.value || undefined)} />}</Field>
+      {profile.occupation === 'student' && (
+        <>
+          <Field label="Employer, if you also work" hint="Where a listing turns students away, the agent applies as a working tenant.">
+            {(id, hint) => <input id={id} className="input" aria-describedby={hint} value={profile.job?.employer ?? ''} onChange={(e) => { const employer = e.currentTarget.value; set('job', employer ? { ...profile.job, employer } : undefined); }} />}
+          </Field>
+          <Field label="Job title">
+            {(id) => <input id={id} className="input" disabled={!profile.job} value={profile.job?.role ?? ''} onChange={(e) => { const role = e.currentTarget.value; set('job', profile.job ? { ...profile.job, role: role || undefined } : undefined); }} />}
+          </Field>
+        </>
+      )}
       <Field label="Gross monthly income (EUR)" hint="Used to check income requirements, and mentioned in first messages so landlords see you qualify.">
         {(id, hint) => <input id={id} className="input mono" inputMode="numeric" aria-describedby={hint} value={profile.incomeMonthlyGrossEur ?? ''} onChange={(e) => set('incomeMonthlyGrossEur', num(e.currentTarget.value))} />}
       </Field>

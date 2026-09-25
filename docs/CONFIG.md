@@ -17,6 +17,7 @@ config refers to them by name.
 | `birthYear`, `nationality` | Given only when asked |
 | `occupation` | `student`, `phd`, `employed`, `self_employed`, `starting_job`, `other` |
 | `organisation` | University or employer |
+| `job` | For a student who also works: `employer` and `role`. Where a listing turns students away, the agent applies as a working tenant and introduces you by the job; elsewhere it mentions both |
 | `incomeMonthlyGrossEur` | Used in income checks and when asked |
 | `guarantor` | `relation`, `incomeMonthlyGrossEur`, `country` |
 | `coApplicants` | People applying with you; incomes add up in requirement checks |
