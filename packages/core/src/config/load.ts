@@ -94,6 +94,23 @@ export function watchConfig(paths: Paths, onChange: (c: LoadedConfig) => void): 
   };
 }
 
+/**
+ * One value from secrets.env. setSecret writes JSON strings, so a double-quoted
+ * value is decoded as one (a password with `\` or `"` survives the round trip);
+ * a hand-written quoted value that is not valid JSON is taken as it is.
+ */
+function unquote(v: string): string {
+  if (v.length >= 2 && v.startsWith('"') && v.endsWith('"')) {
+    try {
+      return JSON.parse(v) as string;
+    } catch {
+      return v.slice(1, -1);
+    }
+  }
+  if (v.length >= 2 && v.startsWith("'") && v.endsWith("'")) return v.slice(1, -1);
+  return v;
+}
+
 /** Parses secrets.env (KEY=value lines, # comments, optional quotes). */
 export function loadSecrets(paths: Paths): Record<string, string> {
   if (!existsSync(paths.secretsFile)) return {};
@@ -101,9 +118,7 @@ export function loadSecrets(paths: Paths): Record<string, string> {
   for (const line of readFileSync(paths.secretsFile, 'utf8').split('\n')) {
     const m = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*?)\s*$/);
     if (!m || line.trimStart().startsWith('#')) continue;
-    let v = m[2] ?? '';
-    if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) v = v.slice(1, -1);
-    out[m[1]!] = v;
+    out[m[1]!] = unquote(m[2] ?? '');
   }
   return out;
 }

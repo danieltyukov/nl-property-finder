@@ -54,6 +54,17 @@ test('secrets file is private and parses quotes', () => {
   expect(loadSecrets(p).ANTHROPIC_API_KEY).toBeUndefined();
 });
 
+test('a secret with backslashes, quotes and dollar signs reads back exactly as it was set', () => {
+  const p = home();
+  const tricky = 'a\\b"c$d?e*f]g';
+  setSecret(p, 'NLPF_MAIL_PASSWORD', tricky);
+  setSecret(p, 'OTHER', 'x');
+  expect(loadSecrets(p).NLPF_MAIL_PASSWORD).toBe(tricky);
+  // A hand-written file keeps working: a quoted value that is not a JSON string is taken as it is.
+  writeFileSync(p.secretsFile, 'A="C:\\path\\x"\nB=\'single $quoted\'\nC=bare\\value\n');
+  expect(loadSecrets(p)).toEqual({ A: 'C:\\path\\x', B: 'single $quoted', C: 'bare\\value' });
+});
+
 test('the JSON schema is written for editors', () => {
   const p = home();
   writeJsonSchema(p);
