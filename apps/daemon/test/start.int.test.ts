@@ -171,6 +171,7 @@ test('a home listed only on a source you switched off is neither contacted nor p
   const { listing: stored } = store.listings.upsert(listing('31', { sourceId: 'off' }), 'poll', now);
   store.properties.create({ id: 'p31', key: 'k31', address: { city: 'Delft' }, title: 'Oude Delft 31' }, now);
   store.listings.setProperty(stored.id, 'p31');
+  store.applications.ensure('p31', now); // queued, as a home drafted before the source was switched off
   store.jobs.enqueue('evaluate', 'evaluate:p31', { propertyId: 'p31' }, now);
   store.close();
   const src = fakeSource([]);
@@ -181,6 +182,8 @@ test('a home listed only on a source you switched off is neither contacted nor p
   const tasks = await (await fetch(`${h.url}/api/v1/tasks`, { headers: { 'x-nlpf-token': TOKEN } })).json();
   expect(tasks.items).toEqual([]);
   expect(src.contacted).toEqual([]);
+  const { items } = await (await fetch(`${h.url}/api/v1/properties`, { headers: { 'x-nlpf-token': TOKEN } })).json();
+  expect(items.find((i: { property: { id: string } }) => i.property.id === 'p31')?.application?.status).toBe('skipped');
 }, 30_000);
 
 test('a form that shows a captcha is not fought: the message goes to the agency email on the listing', async () => {
