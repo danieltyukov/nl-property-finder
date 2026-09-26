@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.1.5 - 2026-09-26
+
+### Added
+
+- `profile.address` and `profile.birthDate`, for application forms that
+  require them. First messages leave them out; they are given only when asked.
+
 ## 0.1.4 - 2026-09-26
 
 ### Fixed
