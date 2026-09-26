@@ -22,16 +22,24 @@ const config = ConfigSchema.parse({
  * Stands in for Funda's Nuxt app on the recorded form markup: the consent
  * banner hides on "Alles weigeren", and sending posts the field values to
  * /submit and shows a confirmation, except for listing 2, which never
- * confirms. The real confirmation text was not seen live.
+ * confirms. Listing 3 behaves like a slow page: the app takes over after a
+ * moment and empties the fields, and the consent banner comes back late.
+ * The real confirmation text was not seen live.
  */
 const FORM_JS = `
-document.getElementById('didomi-notice-disagree-button').addEventListener('click', () => {
-  document.getElementById('didomi-host').remove();
-});
+const banner = document.getElementById('didomi-host');
+const decline = () => document.getElementById('didomi-host').remove();
+document.getElementById('didomi-notice-disagree-button').addEventListener('click', decline);
+const slow = new URLSearchParams(location.search).get('listingId') === '3';
+let hydrated = !slow;
+if (slow) {
+  setTimeout(() => { hydrated = true; for (const el of document.querySelectorAll('form input, form textarea')) el.value = ''; }, 400);
+  setTimeout(() => { if (!document.getElementById('didomi-host')) document.body.prepend(banner); }, 600);
+}
 const form = document.querySelector('form');
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  if (document.getElementById('didomi-host')) return;
+  if (!hydrated || document.getElementById('didomi-host')) return;
   const fields = {};
   for (const el of form.querySelectorAll('input, textarea')) fields[el.id] = el.value;
   await fetch('/submit' + location.search, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(fields) });
@@ -127,6 +135,15 @@ describe.skipIf(!resolveChromium())('funda guest contact form in a real browser'
       phoneNumber: '0612345678',
     });
     expect(posts().at(-1)?.query.get('listingId')).toBe('1');
+  });
+
+  test('fields the page empties while it loads are filled again, and a late consent banner is declined', async () => {
+    const { adapter, ctx, listing, message } = setup('3');
+    const result = await adapter.contact!(listing, message(false), ctx);
+    expect(result.ok).toBe(true);
+    const sent = JSON.parse(posts().at(-1)?.body ?? '{}') as Record<string, string>;
+    expect(sent).toMatchObject({ emailAddress: 'sam@nlpf.test', firstName: 'Sam', lastName: 'de Vries' });
+    expect(sent.questionInput).toContain('Voorbeeldstraat 1');
   });
 
   test('no confirmation after sending asks a person to check instead of retrying', async () => {

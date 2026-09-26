@@ -717,9 +717,22 @@ export function createFundaAdapter(options: FundaOptions = {}): SourceAdapter {
         ['#lastName', p.lastName],
       ];
       if (phone) values.push(['#phoneNumber', phone]);
+      // Funda is a Nuxt app: until it has taken over the page it ignores the send button, and
+      // taking over empties fields filled before it. So wait for the page to settle, then fill,
+      // and fill again whatever the page cleared.
+      await page.waitForLoadState('networkidle', { timeout: 10_000 }).catch(() => undefined);
       try {
-        for (const [selector, value] of values)
-          await page.locator(selector).first().fill(value, { timeout: 10_000 });
+        let kept = false;
+        for (let round = 0; round < 3 && !kept; round++) {
+          for (const [selector, value] of values) {
+            const field = page.locator(selector).first();
+            if ((await field.inputValue({ timeout: 10_000 })) !== value) await field.fill(value, { timeout: 10_000 });
+          }
+          await page.waitForTimeout(750);
+          const now = await Promise.all(values.map(([selector]) => page.locator(selector).first().inputValue()));
+          kept = now.every((v, i) => v === values[i]![1]);
+        }
+        if (!kept) return { ok: false, channel: 'form', error: `the Funda form on ${url} kept clearing the fields` };
       } catch (e) {
         return {
           ok: false,
@@ -730,13 +743,15 @@ export function createFundaAdapter(options: FundaOptions = {}): SourceAdapter {
       if (message.dryRun)
         return { ok: true, channel: 'form', evidence: 'dry run: the form was filled and not sent' };
 
+      // The consent banner can come back after the first decline and cover the button.
+      await dismissConsent(page);
       try {
         await page
           .locator('form:has(#questionInput) button[type="submit"]')
           .first()
           .click({ timeout: 10_000 });
       } catch (e) {
-        return { ok: false, channel: 'form', error: `could not press send on ${url}: ${firstLine(e)}` };
+        return { ok: false, channel: 'form', error: `could not press send on ${url}: ${clickFailure(e)}` };
       }
       const confirmation = await waitForConfirmation(page, {
         success:
@@ -769,6 +784,12 @@ export function createFundaAdapter(options: FundaOptions = {}): SourceAdapter {
   }
 
   return adapter;
+}
+
+/** Why a click failed: the line naming what covered or disabled the element, else the first line. */
+function clickFailure(e: unknown): string {
+  const lines = String(e instanceof Error ? e.message : e).split('\n').map((l) => l.trim());
+  return lines.find((l) => /intercepts pointer events|not stable|not visible|not enabled|disabled/i.test(l)) ?? lines[0] ?? '';
 }
 
 /** Declines Funda's Didomi consent banner when it covers the page. */
