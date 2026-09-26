@@ -185,7 +185,7 @@ export function createMvgmAdapter(): SourceAdapter {
     homepage: BASE,
     regions: 'nl',
     defaultIntervalSec: 300,
-    capabilities: { search: 'html', detail: true, contact: 'form', login: 'required', terms: 'unknown' },
+    capabilities: { search: 'html', detail: true, contact: 'form', login: 'required', terms: 'unknown', landlordPortal: true },
     loginUrl: `${BASE}/account/`,
 
     buildSearches(searches, source) {

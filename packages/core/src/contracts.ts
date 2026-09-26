@@ -57,6 +57,7 @@ export interface SourceCapabilities {
   paid?: { feature: 'contact' | 'early-access' | 'alerts'; plan: string };
   terms: 'allows' | 'forbids' | 'unknown';   // what the platform's terms say about automated access (docs/research/platforms.md section 5)
   browser?: 'headless' | 'headed';  // 'headed' runs in a real window on a private Xvfb display (Cloudflare-managed sites)
+  landlordPortal?: boolean;         // the landlord's own application channel (MVGM, Vesteda): it wins over the same home on a listing platform, where such landlords answer "apply on our website"
 }
 
 export interface SourceAdapter {

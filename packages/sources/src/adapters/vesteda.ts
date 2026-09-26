@@ -198,7 +198,7 @@ export function createVestedaAdapter(options: VestedaOptions = {}): SourceAdapte
     homepage: BASE,
     regions: 'nl',
     defaultIntervalSec: 60,
-    capabilities: { search: 'json', detail: true, contact: 'form', login: 'required', terms: 'forbids' },
+    capabilities: { search: 'json', detail: true, contact: 'form', login: 'required', terms: 'forbids', landlordPortal: true },
     loginUrl: 'https://hurenbij.vesteda.com/login/',
 
     buildSearches(searches: NamedSearch[]): SearchRequest[] {

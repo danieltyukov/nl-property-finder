@@ -124,6 +124,19 @@ describe('planContact', () => {
     });
   });
 
+  test("the landlord's own portal beats a guest form for the same home on a listing platform", () => {
+    // MVGM answers a Funda message with "apply on our website"; its portal is where the application counts.
+    const mvgm = adapter({
+      id: 'mvgm',
+      name: 'MVGM',
+      capabilities: { search: 'html', detail: true, contact: 'form', login: 'required', terms: 'unknown', landlordPortal: true },
+    });
+    const reg = registryOf([funda, mvgm]);
+    const onFunda = listing({ sourceId: 'funda', contact: 'form' });
+    const onPortal = listing({ sourceId: 'mvgm', contact: 'form' });
+    expect(planContact(onFunda, [onFunda, onPortal], reg, optedIn)).toMatchObject({ plan: 'send', via: { id: onPortal.id } });
+  });
+
   test('an agent email beats nothing but loses to a platform form', () => {
     const a = listing({
       sourceId: 'agency:example',

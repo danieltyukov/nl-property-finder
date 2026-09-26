@@ -45,6 +45,7 @@ describe('vesteda adapter', () => {
       contact: 'form',
       login: 'required',
       terms: 'forbids',
+      landlordPortal: true,
     });
     expect(vesteda.loginUrl).toBe('https://hurenbij.vesteda.com/login/');
     expect(typeof vesteda.contact).toBe('function');

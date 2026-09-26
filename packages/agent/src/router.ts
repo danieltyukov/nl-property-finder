@@ -62,8 +62,13 @@ function planLabel(adapter: SourceAdapter, plan: string): string {
   return `${adapter.name} ${words.join(' ')}`.trim();
 }
 
-/** Fastest first: a guest form, a form after login, a platform message, then email. */
+/**
+ * The landlord's own portal first (its applications are the ones it
+ * processes), then fastest first: a guest form, a form after login, a
+ * platform message, then email.
+ */
 function rank(method: string, adapter: SourceAdapter): number {
+  if (adapter.capabilities.landlordPortal && (method === 'form' || method === 'message')) return -1;
   if (method === 'form') return adapter.capabilities.login === 'required' ? 1 : 0;
   if (method === 'message') return 2;
   return 3;
