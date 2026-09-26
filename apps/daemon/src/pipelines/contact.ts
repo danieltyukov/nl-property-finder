@@ -15,6 +15,7 @@ import { NeedsLoginError } from '@nlpf/sources';
 import type { Application, Attachment, Channel, ContactResult, Conversation, Job, Listing, Message, Property } from '@nlpf/core';
 import { RetryLater } from '../runner.js';
 import { openTask, startOfToday, type Runtime } from '../runtime.js';
+import { oneAtATime } from '../serial.js';
 
 const SECOND = 1000;
 
@@ -103,7 +104,8 @@ export async function handleContact(rt: Runtime, job: Job): Promise<void> {
     throw new RetryLater(nextWindowStart(new Date(startOfToday(tomorrow)), cfg.automation.sendWindow), 'daily cap reached');
   }
 
-  const listings = rt.store.listings.list({ propertyId }).filter((l) => l.state === 'active');
+  const enabled = new Set(rt.adapters().map((a) => a.id));
+  const listings = rt.store.listings.list({ propertyId }).filter((l) => l.state === 'active' && enabled.has(l.sourceId));
   const primary = listings[0];
   if (!primary) return;
   const registry = { get: (id: string) => rt.adapter(id) };
@@ -146,7 +148,8 @@ export async function handleContact(rt: Runtime, job: Job): Promise<void> {
     return;
   }
 
-  const { channel, via } = plan;
+  const { via } = plan;
+  let { channel } = plan;
   const adapter = channel.sourceId ? rt.adapter(channel.sourceId) : undefined;
 
   // Still online? A stale listing is the most common complaint about every alert service.
@@ -173,27 +176,46 @@ export async function handleContact(rt: Runtime, job: Job): Promise<void> {
   let result: ContactResult;
   let messageId: string | undefined;
   const attachments: Attachment[] = [];
+  const sendEmail = async (address: string | undefined): Promise<ContactResult> => {
+    const mailbox = rt.mailbox();
+    if (!mailbox || !address) throw new Error('No mailbox configured for email contact.');
+    const profilePdf = await tenantProfileFile(rt).catch(() => undefined);
+    if (profilePdf && cfg.automation.documents.public === 'auto' && !attachments.length) attachments.push({ filename: 'tenant-profile.pdf', path: profilePdf });
+    const sent = await mailbox.send({
+      to: address,
+      subject: draft.subject ?? property.title,
+      text: draft.body,
+      attachments: attachments.map((a) => ({ filename: a.filename, path: a.path! })),
+    });
+    messageId = sent.messageId;
+    return { ok: true, channel: 'email', externalId: sent.messageId };
+  };
   try {
     if (channel.kind === 'email') {
-      const mailbox = rt.mailbox();
-      if (!mailbox || !channel.address) throw new Error('No mailbox configured for email contact.');
-      const profilePdf = await tenantProfileFile(rt).catch(() => undefined);
-      if (profilePdf && cfg.automation.documents.public === 'auto') attachments.push({ filename: 'tenant-profile.pdf', path: profilePdf });
-      const sent = await mailbox.send({
-        to: channel.address,
-        subject: draft.subject ?? property.title,
-        text: draft.body,
-        attachments: attachments.map((a) => ({ filename: a.filename, path: a.path! })),
-      });
-      messageId = sent.messageId;
-      result = { ok: true, channel: 'email', externalId: sent.messageId };
+      result = await sendEmail(channel.address);
     } else {
       if (!adapter?.contact) throw new Error(`${channel.sourceId} cannot send messages.`);
-      result = await adapter.contact(via, { subject: draft.subject, body: draft.body, language: draft.language, profile: cfg.profile, dryRun: false }, rt.sourceContext(adapter));
+      // One form or message at a time per site: the runner cannot see which site a contact job
+      // uses, and parallel sessions in one site's browser profile slow its pages until forms fail.
+      result = await oneAtATime(`contact:${adapter.id}`, () =>
+        adapter.contact!(via, { subject: draft.subject, body: draft.body, language: draft.language, profile: cfg.profile, dryRun: false }, rt.sourceContext(adapter)),
+      );
     }
   } catch (err) {
     if (err instanceof NeedsLoginError) result = { ok: false, channel: channel.kind, needs: 'login', error: err.message };
     else result = { ok: false, channel: channel.kind, error: (err as Error).message };
+  }
+
+  // A captcha is never solved. When the listing names the agency's public address, the same
+  // message goes there by email instead of waiting for a person.
+  const agencyEmail = via.agent?.email;
+  if (!result.ok && result.needs === 'captcha' && agencyEmail && rt.mailbox()) {
+    try {
+      result = await sendEmail(agencyEmail);
+      channel = { ...channel, kind: 'email', address: agencyEmail };
+    } catch (err) {
+      rt.bus.emit('message.failed', `Email to ${agencyEmail} after a captcha failed: ${(err as Error).message}`, { propertyId });
+    }
   }
 
   if (!result.ok) {

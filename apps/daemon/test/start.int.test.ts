@@ -163,3 +163,41 @@ test('going live after a dry run sends each draft that still matches, once', asy
   await new Promise((r) => setTimeout(r, 1500));
   expect(src.contacted).toEqual(['fake:21']);
 }, 30_000);
+
+test('a home listed only on a source you switched off is neither contacted nor put in your inbox', async () => {
+  const paths = home({ sources: { off: { enabled: false } } });
+  const store = openStore(paths.dbFile);
+  const now = new Date().toISOString();
+  const { listing: stored } = store.listings.upsert(listing('31', { sourceId: 'off' }), 'poll', now);
+  store.properties.create({ id: 'p31', key: 'k31', address: { city: 'Delft' }, title: 'Oude Delft 31' }, now);
+  store.listings.setProperty(stored.id, 'p31');
+  store.jobs.enqueue('evaluate', 'evaluate:p31', { propertyId: 'p31' }, now);
+  store.close();
+  const src = fakeSource([]);
+  const off = { ...fakeSource([]).adapter, id: 'off', name: 'Off' };
+  const h = await startDaemon({ paths, port: 0, adapters: [src.adapter, off], log: memoryLogger() });
+  handles.push(h);
+  await new Promise((r) => setTimeout(r, 2500));
+  const tasks = await (await fetch(`${h.url}/api/v1/tasks`, { headers: { 'x-nlpf-token': TOKEN } })).json();
+  expect(tasks.items).toEqual([]);
+  expect(src.contacted).toEqual([]);
+}, 30_000);
+
+test('a form that shows a captcha is not fought: the message goes to the agency email on the listing', async () => {
+  const paths = home({ mail: { provider: 'memory', address: 'sam@example.test' } });
+  const src = fakeSource([listing('41', { agent: { name: 'Verra', email: 'denhaag@agency.test' } })]);
+  src.adapter.contact = async () => ({ ok: false, channel: 'form', needs: 'captcha', error: 'captcha' });
+  const h = await startDaemon({ paths, port: 0, adapters: [src.adapter], log: memoryLogger() });
+  handles.push(h);
+  const auth = { headers: { 'x-nlpf-token': TOKEN } };
+  let status = '';
+  const end = Date.now() + 15_000;
+  while (status !== 'contacted' && Date.now() < end) {
+    const { items } = await (await fetch(`${h.url}/api/v1/properties`, auth)).json();
+    status = items[0]?.application?.status ?? '';
+    await new Promise((r) => setTimeout(r, 200));
+  }
+  expect(status).toBe('contacted');
+  const tasks = await (await fetch(`${h.url}/api/v1/tasks`, auth)).json();
+  expect(tasks.items.filter((t: { kind: string }) => t.kind === 'captcha')).toEqual([]);
+}, 30_000);

@@ -43,7 +43,9 @@ export async function handleEvaluate(rt: Runtime, job: Job): Promise<void> {
   if (!property) return;
   const app = rt.store.applications.byProperty(propertyId);
   if (app && !['queued', 'skipped'].includes(app.status)) return; // already in progress
-  const listings = rt.store.listings.list({ propertyId });
+  // Listings from a source the person switched off do not count: a home seen only there is left alone.
+  const enabled = new Set(rt.adapters().map((a) => a.id));
+  const listings = rt.store.listings.list({ propertyId }).filter((l) => enabled.has(l.sourceId));
   const listing = bestListing(listings);
   if (!listing) return;
 
