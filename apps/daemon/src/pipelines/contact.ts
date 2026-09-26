@@ -224,7 +224,10 @@ export async function handleContact(rt: Runtime, job: Job): Promise<void> {
     const reason =
       result.needs === 'login' ? `${sourceName} logged the agent out. Log in again with nlpf connect ${channel.sourceId}, then approve to send.`
       : result.needs === 'captcha' ? `${sourceName} showed a captcha. Send the message yourself, it is ready below.`
-      : result.needs === 'human' ? `The form on ${sourceName} was sent but showed no confirmation. Check whether it arrived before sending again.`
+      : result.needs === 'human'
+        ? result.error
+          ? `${sourceName} needs you: ${result.error}`
+          : `The form on ${sourceName} was sent but showed no confirmation. Check whether it arrived before sending again.`
       : result.needs === 'paid' ? `${sourceName} wants a paid plan to react. The message is ready if you want to send it yourself.`
       : `Sending through ${sourceName} failed: ${result.error ?? 'unknown error'}. The message is ready below.`;
     rt.store.applications.update(app.id, { status: 'manual', note: reason }, nowIso);

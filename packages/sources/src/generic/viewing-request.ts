@@ -157,10 +157,21 @@ async function fillStep(step: Locator, answers: Answers): Promise<void> {
   }
 }
 
+/** Text that fits `max` characters, cut after the last whole sentence (or word) that fits. */
+export function fitRemark(text: string, max: number): string {
+  const clean = text.replace(/[ \t]+/g, ' ').trim();
+  if (clean.length <= max) return clean;
+  const head = clean.slice(0, max);
+  const sentence = Math.max(head.lastIndexOf('. '), head.lastIndexOf('.\n'), head.lastIndexOf('\n'));
+  if (sentence > max / 3) return head.slice(0, sentence + 1).trim();
+  const word = head.lastIndexOf(' ');
+  return (word > 0 ? head.slice(0, word) : head).trim();
+}
+
 /** Visible validation messages on the page, without the bare "*" required markers. */
 async function stepErrors(page: Page): Promise<string[]> {
   const texts = await page
-    .locator('.invalid-feedback:visible, .field-validation-error:visible, .alert-danger:visible, .error:visible')
+    .locator('.invalid-feedback:visible, .field-validation-error:visible, .alert-danger:visible, .error:visible, [id$="-error"]:visible')
     .allInnerTexts()
     .catch(() => [] as string[]);
   return texts.map((t) => t.replace(/\s+/g, ' ').trim()).filter((t) => t && t !== '*');
@@ -211,6 +222,7 @@ export async function requestViewing(
     }
 
     for (let step = 0; step < 8; step++) {
+      ctx.log.info('viewing request step', { portal: portal.name, step, at: await stepKey(page) });
       await fillStep(currentStep(page), answers);
       if (message.dryRun) return { ok: true, channel: 'form', evidence: 'dry run: the first step was filled and nothing was saved' };
       if (await page.locator('button:visible', { hasText: SEND }).count()) break;
@@ -237,7 +249,11 @@ export async function requestViewing(
     const final = currentStep(page);
     const remarks = final.locator('textarea').first();
     if ((await remarks.count()) && (await remarks.isVisible().catch(() => false)) && (await remarks.inputValue()) === '') {
-      await remarks.fill(message.body.slice(0, 2000));
+      // MVGM's remarks take at most 450 characters (data-rule-maxlength); a longer one blocks sending.
+      const limit = await remarks.evaluate((el) =>
+        Number(el.getAttribute('maxlength') ?? el.getAttribute('data-rule-maxlength') ?? el.getAttribute('data-val-length-max') ?? 2000),
+      );
+      await remarks.fill(fitRemark(message.body, limit));
     }
     const agree = final.locator('input[type="checkbox"][name^="akkoord"]');
     for (let i = 0; i < (await agree.count()); i++) await agree.nth(i).check({ force: true });

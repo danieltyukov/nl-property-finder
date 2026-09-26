@@ -53,7 +53,7 @@ function portalPage(opts: { savingsKnown: boolean }): string {
   <input type="file" name="ident_a"><button type="button" class="next">Opslaan en volgende</button>
 </div>
 <div role="tabpanel" id="verklaring" hidden>
-  <textarea name="AlgemeneOpmerking"></textarea>
+  <textarea name="AlgemeneOpmerking" data-rule-maxlength="60"></textarea>
   <label><input type="checkbox" name="akkoord_a"> Ik ga akkoord</label>
   <button type="button" class="send">Verstuur formulier</button>
 </div>
@@ -69,6 +69,11 @@ for (const b of form.querySelectorAll('.next')) b.addEventListener('click', () =
   const next = panel.nextElementSibling; panel.hidden = true; next.hidden = false; location.hash = next.id;
 });
 form.querySelector('.send').addEventListener('click', async () => {
+  // Like the live page's validation plugin: a remark over data-rule-maxlength blocks sending.
+  const remark = form.querySelector('[name=AlgemeneOpmerking]');
+  if (remark.value.length > Number(remark.dataset.ruleMaxlength)) {
+    const e = document.createElement('label'); e.className = 'error'; e.id = 'AlgemeneOpmerking-error'; e.textContent = 'Voer niet meer dan 60 tekens in.'; remark.after(e); return;
+  }
   const data = {}; for (const el of form.elements) { if (!el.name || el.type === 'file') continue; if ((el.type === 'radio' || el.type === 'checkbox') && !el.checked) continue; data[el.name] = el.value; }
   await fetch('/submit', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(data) });
   location.href = '/mijnwoning/';
@@ -112,7 +117,12 @@ describe.skipIf(!resolveChromium())('viewing request portal in a real browser', 
       signal: new AbortController().signal,
     });
     const listing = { id: `mvgm:${id}`, sourceId: 'mvgm', externalId: id, url: `${server.url}/object/${id}/`, title: 'Oude Delft 12A', address: { city: 'Delft' }, contact: 'form' } as unknown as Listing;
-    const message = (dryRun: boolean): OutboundMessage => ({ body: 'Beste verhuurder, graag kom ik kijken.', language: 'nl', profile: config.profile, dryRun });
+    const message = (dryRun: boolean): OutboundMessage => ({
+      body: 'Beste verhuurder, graag kom ik kijken. Ik werk bij Acme en woon nu in Delft. Met vriendelijke groet, Sam',
+      language: 'nl',
+      profile: config.profile,
+      dryRun,
+    });
     return { ctx, listing, message };
   }
   const posts = () => server.requests.filter((r) => r.method === 'POST' && r.path === '/submit');
@@ -129,6 +139,8 @@ describe.skipIf(!resolveChromium())('viewing request portal in a real browser', 
       a_wanneerhuren: 'direct', a_samenhuren: 'Alleen', gez_pers: '1', a_werksituatie: 'Loondienst', a_maandinkomen: '3200',
       AlgemeneOpmerking: 'Beste verhuurder, graag kom ik kijken.', akkoord_a: 'on',
     });
+    // The remark was fitted to the form's 60-character limit at a sentence end.
+    expect(sent.AlgemeneOpmerking!.length).toBeLessThanOrEqual(60);
     // Answers the portal remembered stay as the person left them.
     expect(sent).toMatchObject({ a_roepnaam: 'Sam', a_achternaam: 'de Vries', a_email: 'account@nlpf.test', a_spaargeld_jn: 'Ja' });
   });

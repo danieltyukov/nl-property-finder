@@ -252,3 +252,19 @@ test('a drafted home that no longer fits the search is skipped when going live, 
   expect(await statusNow()).toBe('skipped');
   expect(src.contacted).toEqual([]);
 }, 30_000);
+
+test('when a form needs a person, the inbox item says what the site asked for', async () => {
+  const paths = home();
+  const src = fakeSource([listing('71')]);
+  src.adapter.contact = async () => ({ ok: false, channel: 'form', needs: 'human', error: 'MVGM wants an answer the profile does not give: Vul a_spaargeld in' });
+  const h = await startDaemon({ paths, port: 0, adapters: [src.adapter], log: memoryLogger() });
+  handles.push(h);
+  let reason = '';
+  const end = Date.now() + 15_000;
+  while (!reason && Date.now() < end) {
+    const { items } = await (await fetch(`${h.url}/api/v1/tasks`, { headers: { 'x-nlpf-token': TOKEN } })).json();
+    reason = items.find((t: { kind: string }) => t.kind === 'send_uncertain')?.reason ?? '';
+    await new Promise((r) => setTimeout(r, 200));
+  }
+  expect(reason).toContain('Vul a_spaargeld in');
+}, 30_000);

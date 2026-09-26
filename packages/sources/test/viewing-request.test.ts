@@ -60,3 +60,11 @@ test('initials and a Dutch phone number', () => {
   expect(dutchPhone('0031 6 1234 5678')).toBe('0612345678');
   expect(dutchPhone('06-12345678')).toBe('0612345678');
 });
+
+test('a remark is fitted to the form limit at a sentence end', async () => {
+  const { fitRemark } = await import('../src/generic/viewing-request.js');
+  const text = 'Beste verhuurder, graag kom ik kijken. Ik werk bij Acme. Groet, Sam';
+  expect(fitRemark(text, 200)).toBe(text);
+  expect(fitRemark(text, 50)).toBe('Beste verhuurder, graag kom ik kijken.');
+  expect(fitRemark('een lange zin zonder punt die doorloopt', 20).length).toBeLessThanOrEqual(20);
+});
