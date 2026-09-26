@@ -72,6 +72,7 @@ describe('spec defaults', () => {
     scam_suspect: 'task:scam_review:2',
     alert: 'ingest_alert',
     newsletter: 'ignore',
+    confirmation: 'ignore',
     other: 'task:reply_needed:2',
   };
   for (const [intent, action] of Object.entries(expected) as [Intent, string][]) {

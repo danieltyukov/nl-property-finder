@@ -13,7 +13,7 @@ import { DOCUMENT_KINDS } from './types.js';
 
 export const INTENTS = [
   'viewing_invite', 'viewing_slots', 'info_request', 'documents_request', 'application_form', 'rejection',
-  'listing_gone', 'offer', 'contract', 'payment_request', 'scam_suspect', 'alert', 'newsletter', 'other',
+  'listing_gone', 'offer', 'contract', 'payment_request', 'scam_suspect', 'alert', 'newsletter', 'confirmation', 'other',
 ] as const satisfies readonly Intent[];
 // Fails to compile when `Intent` gains a value this list does not have.
 const _allIntents: Exclude<Intent, (typeof INTENTS)[number]> extends never ? true : never = true;

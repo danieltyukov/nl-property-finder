@@ -92,6 +92,7 @@ function defaultAction(intent: Intent, ctx: PolicyContext, explicitAuto: boolean
     case 'alert':
       return { kind: 'ingest_alert' };
     case 'newsletter':
+    case 'confirmation':
       return { kind: 'ignore' };
     default:
       return taskFor(intent);

@@ -6,7 +6,7 @@ const propertyType = z.enum(['room', 'studio', 'apartment', 'house', 'other']);
 const furnishing = z.enum(['unfurnished', 'upholstered', 'furnished', 'unknown']);
 const intent = z.enum([
   'viewing_invite', 'viewing_slots', 'info_request', 'documents_request', 'application_form', 'rejection',
-  'listing_gone', 'offer', 'contract', 'payment_request', 'scam_suspect', 'alert', 'newsletter', 'other',
+  'listing_gone', 'offer', 'contract', 'payment_request', 'scam_suspect', 'alert', 'newsletter', 'confirmation', 'other',
 ]);
 
 export const ProfileSchema = z.object({

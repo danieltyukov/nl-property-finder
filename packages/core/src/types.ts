@@ -126,7 +126,7 @@ export interface Application {
 export type Intent =
   | 'viewing_invite' | 'viewing_slots' | 'info_request' | 'documents_request' | 'application_form'
   | 'rejection' | 'listing_gone' | 'offer' | 'contract' | 'payment_request' | 'scam_suspect'
-  | 'alert' | 'newsletter' | 'other';
+  | 'alert' | 'newsletter' | 'confirmation' | 'other';
 
 export type Author = 'agent' | 'human' | 'landlord' | 'system';
 

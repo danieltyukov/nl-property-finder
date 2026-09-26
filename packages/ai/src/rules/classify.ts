@@ -164,6 +164,16 @@ const ALERT: Weighted[] = [
 ];
 const ALERT_SENDERS = /(?:pararius|funda|kamernet|huurwoningen|housinganywhere|rentola|huurstunt|directwonen|123wonen|vesteda|holland2stay|marktplaats|rentbird|uprent|roomspot|room\.nl|woonnet|woningnet|ikwilhuren|huurzone|kamerverhuur)/;
 
+/** Receipts for the person's own message. Kept narrow: "apply on our website" is not one. */
+const CONFIRMATION: Weighted[] = [
+  [/\bbevestiging van (?:je|uw) (?:reactie|bericht|aanvraag|inschrijving)\b/, 3],
+  [/\b(?:je|uw) (?:reactie|bericht|aanvraag) is (?:verstuurd|verzonden|ontvangen|doorgestuurd)\b/, 3],
+  [/\b(?:we|wij) hebben (?:je|uw) (?:reactie|bericht|aanvraag) (?:in goede orde )?ontvangen\b/, 3],
+  [/\byour (?:message|enquiry|inquiry|request|application) (?:has been|was) (?:sent|received|forwarded)\b/, 3],
+];
+/** Something to do after all: register, apply on the website, send something. */
+const CONFIRMATION_NOT: RegExp = /verwijzen wij u|via onze website|inschrijven|aanmelden|registreren|account aanmaken|stuur (?:ons|mij)|register|sign up|apply (?:via|on|through)/;
+
 const NEWSLETTER: Weighted[] = [
   [/\bnieuwsbrief\b|\bnewsletter\b/, 3],
   [/\bunsubscribe\b|\buitschrijven\b|\bafmelden\b/, 1],
@@ -173,7 +183,7 @@ const NEWSLETTER: Weighted[] = [
 /** Order used when two intents score the same: the one that needs the most care first. */
 const PRIORITY: Intent[] = [
   'scam_suspect', 'payment_request', 'contract', 'offer', 'listing_gone', 'rejection', 'viewing_slots', 'viewing_invite',
-  'documents_request', 'application_form', 'info_request', 'alert', 'newsletter', 'other',
+  'documents_request', 'application_form', 'info_request', 'alert', 'newsletter', 'confirmation', 'other',
 ];
 
 const score = (t: string, table: Weighted[]) => table.reduce((s, [re, w]) => (re.test(t) ? s + w : s), 0);
@@ -331,6 +341,8 @@ function summarise(intent: Intent, out: Omit<ClassifyOutput, 'summary'>, lang: L
       return nl ? 'Een woningalert van een platform.' : 'A listing alert from a platform.';
     case 'newsletter':
       return nl ? 'Een nieuwsbrief.' : 'A newsletter.';
+    case 'confirmation':
+      return nl ? 'Een automatische bevestiging van je eigen bericht; er hoeft niets te gebeuren.' : 'An automatic receipt for your own message; nothing to do.';
     default:
       return nl ? 'Een bericht dat de regels niet konden indelen.' : 'A message the rules could not classify.';
   }
@@ -383,6 +395,7 @@ export function rulesClassify(input: ClassifyInput, summaryLang: Lang): Classify
     scam_suspect: score(t, SCAM),
     alert: score(`${subject} ${t}`, ALERT) + (ALERT_SENDERS.test(sender) ? 1 : 0),
     newsletter: score(`${subject} ${t}`, NEWSLETTER) + (input.message.autoSubmitted ? 1 : 0),
+    confirmation: CONFIRMATION_NOT.test(t) ? 0 : score(`${subject} ${t}`, CONFIRMATION),
   };
   if (viewing > 0) {
     const choice = SLOT_CHOICE.some((re) => re.test(t)) || slots.length > 1;

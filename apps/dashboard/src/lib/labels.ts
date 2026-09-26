@@ -90,6 +90,7 @@ export const INTENT: Record<Intent, string> = {
   scam_suspect: 'Scam suspect',
   alert: 'Alert email',
   newsletter: 'Newsletter',
+  confirmation: 'Confirmation',
   other: 'Other',
 };
 
@@ -108,6 +109,7 @@ export const INTENT_DEFAULT: Record<Intent, 'auto' | 'task' | 'ignore'> = {
   scam_suspect: 'task',
   alert: 'auto',
   newsletter: 'ignore',
+  confirmation: 'ignore',
   other: 'task',
 };
 

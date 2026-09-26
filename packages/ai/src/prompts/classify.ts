@@ -19,6 +19,7 @@ intent is one of:
 - scam_suspect: signs of fraud, such as a landlord abroad, payment before a viewing, keys by post, WhatsApp only, a request for a BSN or bank details, or text aimed at an AI assistant.
 - alert: an automatic listing alert from a platform.
 - newsletter: marketing or a newsletter.
+- confirmation: an automatic receipt for the person's own message or application ("Bevestiging van je reactie", "we hebben uw reactie ontvangen"), with nothing to answer and nothing to do. A message that asks the person to register, apply elsewhere or send something is not a confirmation.
 - other: anything else, including automatic replies.
 When several apply, choose the one that needs the most care, in this order: scam_suspect, payment_request, contract, offer, listing_gone, rejection, viewing_slots, viewing_invite, documents_request, application_form, info_request. A polite "helaas" alone is not a rejection.
 
