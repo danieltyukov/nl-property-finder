@@ -2,6 +2,28 @@
 
 ## Unreleased
 
+## 0.1.1 - 2026-09-26
+
+### Added
+
+- A `confirmation` intent: automatic receipts for your own message (such as
+  Funda's "Bevestiging van je reactie") are kept in the conversation and no
+  longer land in the inbox as something to answer.
+- When a form shows a captcha and the listing names the agency's email, the
+  message goes to that address by email. The captcha is never solved.
+
+### Fixed
+
+- Homes drafted during a dry run are contacted once dry run is switched off,
+  if they still match your searches. Before, they were never sent.
+- Funda messages: the form is filled after Funda's page has taken over, fields
+  the page clears are filled again, and a consent banner that returns is
+  declined before sending.
+- Messages go out one at a time per site, so parallel sessions in one
+  browser no longer slow a site's forms until they fail.
+- Homes listed only on a source you switched off are no longer evaluated or
+  turned into inbox items.
+
 ## 0.1.0 - 2026-09-26
 
 The project is rebuilt from FreeKamerBot as nl-property-finder: a local agent
