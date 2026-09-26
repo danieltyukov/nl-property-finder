@@ -72,6 +72,8 @@ describe.skipIf(!chromiumPath)('browser pool with a real Chromium', () => {
     dir = mkdtempSync(join(tmpdir(), 'nlpf-pool-'));
     server = await startFixtureServer({
       '/': { body: '<!doctype html><title>Pool test page</title><h1>ok</h1>' },
+      // Pararius logs in with a cookie that has no expiry: it lasts for the browser session only.
+      '/session-login': { headers: { 'set-cookie': 'sid=live; Path=/' }, body: '<!doctype html><title>in</title>' },
       '/login': {
         headers: { 'set-cookie': 'session=abc123; Path=/; Max-Age=3600' },
         body: '<!doctype html><title>Logged in</title>',
@@ -117,6 +119,27 @@ describe.skipIf(!chromiumPath)('browser pool with a real Chromium', () => {
       const s = await second.session('persist');
       const cookies = await s.page.context().cookies(server.url);
       expect(cookies.find((c) => c.name === 'session')?.value).toBe('abc123');
+    } finally {
+      await second.closeAll();
+    }
+  });
+
+  test('a login cookie without an expiry also survives a browser restart', async () => {
+    const first = createBrowserPool({ dir, log: memoryLogger() });
+    try {
+      const s = await first.session('session-only');
+      await s.page.goto(`${server.url}/session-login`);
+      await s.close();
+    } finally {
+      await first.closeAll();
+    }
+    const second = createBrowserPool({ dir, log: memoryLogger() });
+    try {
+      const s = await second.session('session-only');
+      const cookies = await s.page.context().cookies(server.url);
+      expect(cookies.find((c) => c.name === 'sid')?.value).toBe('live');
+      // Keeping the session must not reopen the tabs of the last run.
+      expect(s.page.context().pages().every((p) => !p.url().includes('/session-login'))).toBe(true);
     } finally {
       await second.closeAll();
     }

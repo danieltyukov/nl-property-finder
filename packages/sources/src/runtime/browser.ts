@@ -1,5 +1,5 @@
-import { mkdirSync } from 'node:fs';
-import { join } from 'node:path';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
 import { chromium, type BrowserContext, type Page } from 'playwright-core';
 import type { BrowserSession, Logger } from '@nlpf/core';
 import { chromeMajorVersion, resolveChromium } from './chromium.js';
@@ -72,6 +72,28 @@ interface Entry {
 }
 
 const RANK: Record<BrowserMode, number> = { headless: 1, headed: 2, visible: 3 };
+
+/**
+ * Sets the profile's "continue where you left off" startup setting, the one
+ * that makes Chrome keep session cookies when it closes. Some platforms
+ * (Pararius) log in with a cookie that has no expiry, and without this the
+ * login is gone as soon as the login window closes. Chrome still opens the
+ * page it is launched with, so no old tabs come back.
+ */
+export function keepSessionCookies(userDataDir: string): void {
+  const file = join(userDataDir, 'Default', 'Preferences');
+  let prefs: Record<string, unknown> = {};
+  try {
+    prefs = JSON.parse(readFileSync(file, 'utf8')) as Record<string, unknown>;
+  } catch {
+    // A new profile, or one Chrome has not written yet.
+  }
+  const session = (prefs.session ?? {}) as Record<string, unknown>;
+  if (session.restore_on_startup === 1) return;
+  prefs.session = { ...session, restore_on_startup: 1 };
+  mkdirSync(dirname(file), { recursive: true });
+  writeFileSync(file, JSON.stringify(prefs));
+}
 
 /** Folder name for a source's profile ("agency:de-gracht" becomes "agency_de-gracht"). */
 export function profileDirName(sourceId: string): string {
@@ -171,6 +193,7 @@ export function createBrowserPool(opts: BrowserPoolOptions): BrowserPool {
     }
     const userDataDir = join(opts.dir, profileDirName(entry.sourceId));
     mkdirSync(userDataDir, { recursive: true });
+    keepSessionCookies(userDataDir);
     const env: Record<string, string | undefined> = { ...baseEnv };
     const args = [...BASE_ARGS];
     const { mode } = entry;
