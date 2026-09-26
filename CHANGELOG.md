@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+## 0.1.10 - 2026-09-26
+
+### Fixed
+
+- MVGM viewing requests go through: the remark is fitted to the form's
+  450-character limit, which silently blocked sending before.
+- An inbox item that needs you says what the site asked for, instead of a
+  fixed sentence.
+
 ## 0.1.9 - 2026-09-26
 
 ### Fixed
