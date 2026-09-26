@@ -51,8 +51,9 @@ import { handleDaily, handleFollowups, syncInboxes, tickPeriodic } from './pipel
 import { openTask, type Runtime } from './runtime.js';
 import { ensureToken } from './token.js';
 import { adaptiveInterval } from '@nlpf/agent';
+import pkg from '../package.json' with { type: 'json' };
 
-export const VERSION = '0.1.0';
+export const VERSION: string = pkg.version;
 
 export interface StartDaemonOptions {
   paths: Paths;
