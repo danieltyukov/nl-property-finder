@@ -16,6 +16,11 @@ export const ProfileSchema = z.object({
   phone: z.string().optional(),
   salutation: z.enum(['dhr', 'mevr', 'none']).optional(), // Dutch agency forms often require one
   birthYear: z.number().int().optional(),
+  birthDate: z.string().optional(),                  // YYYY-MM-DD; application forms (MVGM, Vesteda) ask for it
+  address: z.object({                                // where the person lives now; application forms ask for it
+    street: z.string(), houseNumber: z.string(), addition: z.string().optional(),
+    postcode: z.string(), city: z.string(), country: z.string().default('Nederland'),
+  }).optional(),
   nationality: z.string().optional(),
   occupation: z.enum(['student', 'phd', 'employed', 'self_employed', 'starting_job', 'other']).default('student'),
   organisation: z.string().optional(),               // university or employer

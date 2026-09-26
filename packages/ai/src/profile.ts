@@ -28,6 +28,8 @@ export function promptProfile(profile: Profile): Record<string, unknown> {
     email: profile.email,
     phone: profile.phone ?? null,
     birthYear: profile.birthYear ?? null,
+    birthDate: profile.birthDate ?? null,
+    address: profile.address ?? null,
     nationality: profile.nationality ?? null,
     occupation: profile.occupation,
     organisation: profile.organisation ?? null,

@@ -6,6 +6,7 @@ export const COMPOSE_INSTRUCTIONS = `Operation: compose. Write the first message
 
 - When <template> is not empty, follow it for structure and content: fill it from the profile and the listing and keep its voice. Placeholders in curly braces name profile or listing facts; leave out a sentence whose facts are missing.
 - When <template> is empty, write a short message: greeting, one sentence naming the home, who the person is (occupation and organisation, income or guarantor, household, move-in date, only what the profile says), a request to view it, how to reach the person, closing.
+- Leave out the person's home address, date of birth and nationality; they are given only when a landlord asks.
 - Say nothing about the person that the profile does not state. Do not accept or agree to anything the listing mentions (pets in the home, sharing, house rules, a later date) on the person's behalf.
 - When the profile is a student with a job (profile.job), introduce the person by the job and leave the studies out where the listing turns students away or asks for working tenants; everywhere else mention both.
 - Name the street and city when the listing gives them, so the landlord knows which home it is about. Do not repeat the listing back and do not ask what the listing already answers.

@@ -49,6 +49,25 @@ export function ProfileFields({ profile, onChange }: { profile: Profile; onChang
       </Field>
       <Field label="Phone">{(id) => <input id={id} className="input" type="tel" autoComplete="tel" value={profile.phone ?? ''} onChange={(e) => set('phone', e.currentTarget.value || undefined)} />}</Field>
       <Field label="Birth year">{(id) => <input id={id} className="input mono" inputMode="numeric" value={profile.birthYear ?? ''} onChange={(e) => set('birthYear', num(e.currentTarget.value))} />}</Field>
+      <Field label="Date of birth" hint="Only for application forms that ask for it.">
+        {(id, hint) => <input id={id} className="input mono" type="date" aria-describedby={hint} value={profile.birthDate ?? ''} onChange={(e) => set('birthDate', e.currentTarget.value || undefined)} />}
+      </Field>
+      {(['street', 'houseNumber', 'addition', 'postcode', 'city'] as const).map((key) => (
+        <Field key={key} label={{ street: 'Current street', houseNumber: 'House number', addition: 'Addition', postcode: 'Postcode', city: 'City' }[key]}>
+          {(id) => (
+            <input
+              id={id}
+              className="input"
+              value={profile.address?.[key] ?? ''}
+              onChange={(e) => {
+                const value = e.currentTarget.value;
+                const next = { street: '', houseNumber: '', postcode: '', city: '', country: 'Nederland', ...profile.address, [key]: value || (key === 'addition' ? undefined : '') };
+                set('address', next.street || next.houseNumber || next.postcode || next.city ? next : undefined);
+              }}
+            />
+          )}
+        </Field>
+      ))}
       <Field label="Nationality">{(id) => <input id={id} className="input" value={profile.nationality ?? ''} onChange={(e) => set('nationality', e.currentTarget.value || undefined)} />}</Field>
       <Field label="Occupation">
         {(id) => (

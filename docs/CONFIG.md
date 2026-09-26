@@ -14,7 +14,8 @@ config refers to them by name.
 | `firstName`, `lastName` | Used in every message |
 | `email` | The dedicated mailbox address landlords reply to |
 | `phone` | Given to landlords who ask for it; used on guest forms that require it |
-| `birthYear`, `nationality` | Given only when asked |
+| `birthYear`, `birthDate`, `nationality` | Given only when asked; `birthDate` is `YYYY-MM-DD` for application forms |
+| `address` | Where you live now: `street`, `houseNumber`, `addition`, `postcode`, `city`, `country`. Given only when asked, and filled into application forms that require it |
 | `occupation` | `student`, `phd`, `employed`, `self_employed`, `starting_job`, `other` |
 | `organisation` | University or employer |
 | `job` | For a student who also works: `employer` and `role`. Where a listing turns students away, the agent applies as a working tenant and introduces you by the job; elsewhere it mentions both |
