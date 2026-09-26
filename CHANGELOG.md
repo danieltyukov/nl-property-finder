@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## 0.1.3 - 2026-09-26
+
+### Fixed
+
+- Logins on platforms that use a session-only cookie (Pararius) survive the
+  login window closing and the agent restarting: each browser profile keeps
+  its session cookies, the way Chrome does with "continue where you left off".
+
 ## 0.1.2 - 2026-09-26
 
 ### Fixed
