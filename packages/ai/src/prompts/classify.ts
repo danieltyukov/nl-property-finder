@@ -26,7 +26,7 @@ Also return:
 - confidence from 0 to 1.
 - slots: every proposed viewing time, as ISO 8601 with the Europe/Amsterdam offset, resolved against the current time in the request. Give end when a range is given. text is the original wording. certain is false when anything is ambiguous: no time given, weekday and date disagree, unclear morning or evening, or a date in the past.
 - questions: the questions asked of the person, as short standalone questions in the message's language. Leave out questions about viewing times and documents, which the tool handles separately.
-- documents: the kinds of documents requested, from: ${DOCUMENT_KINDS.join(', ')}.
+- documents: the kinds of documents requested, from: ${DOCUMENT_KINDS.join(', ')}. passport only when the message names a passport; id for any other identity document, and both when either is accepted.
 - deadline: ISO 8601 when the message sets a deadline for a reply or documents, else null.
 - addressMention: the street address the message is about when it names one, else null.
 - summary: one plain sentence for the person saying what the message asks, in the summary language.`;

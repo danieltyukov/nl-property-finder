@@ -96,3 +96,31 @@ describe('documentsToSend', () => {
     expect(out.approve).toEqual([]);
   });
 });
+
+describe('identity documents: the ID card first, the passport only when it is asked for', () => {
+  const card: DocumentFile = { name: 'ID card.pdf', path: '/d/id.pdf', sensitivity: 'identity', kind: 'id' };
+  const passport: DocumentFile = { name: 'Passport.pdf', path: '/d/pp.pdf', sensitivity: 'identity', kind: 'passport' };
+  const both = [card, passport];
+  const approved = (requested: string[], fs: DocumentFile[]) =>
+    documentsToSend(requested, policy, { viewingBooked: true, scam: none, files: fs }).approve.map((f) => f.name);
+
+  test('a request for ID gets the ID card', () => {
+    expect(approved(['kopie identiteitsbewijs'], both)).toEqual(['ID card.pdf']);
+    expect(approved(['id'], both)).toEqual(['ID card.pdf']);
+  });
+
+  test('a request that accepts either gets the ID card', () => {
+    expect(approved(['paspoort of ID-kaart'], both)).toEqual(['ID card.pdf']);
+    expect(approved(['id', 'passport'], both)).toEqual(['ID card.pdf']);
+  });
+
+  test('the passport goes out only when the passport itself is asked for', () => {
+    expect(approved(['kopie paspoort'], both)).toEqual(['Passport.pdf']);
+    expect(approved(['passport'], both)).toEqual(['Passport.pdf']);
+  });
+
+  test('either one stands in when the other is missing', () => {
+    expect(approved(['identiteitsbewijs'], [passport])).toEqual(['Passport.pdf']);
+    expect(approved(['passport'], [card])).toEqual(['ID card.pdf']);
+  });
+});

@@ -17,7 +17,7 @@ export interface NlpfAiProvider extends AiProvider {
  * agent can match requests against `DocumentFile.kind`.
  */
 export const DOCUMENT_KINDS = [
-  'payslip', 'employer_statement', 'employment_contract', 'id', 'bank_statement', 'income_statement',
+  'payslip', 'employer_statement', 'employment_contract', 'id', 'passport', 'bank_statement', 'income_statement',
   'enrolment', 'landlord_reference', 'bkr', 'guarantor', 'tenant_profile', 'other',
 ] as const;
 export type DocumentKind = (typeof DOCUMENT_KINDS)[number];

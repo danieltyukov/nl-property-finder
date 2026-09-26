@@ -199,6 +199,14 @@ describe('rules classify', () => {
     for (const [text, intent] of cases) expect((await classify(text)).intent, text).toBe(intent);
   });
 
+  it('tells a passport request apart from a request for any ID', async () => {
+    expect((await classify('Kunt u een kopie van uw paspoort sturen?')).documents).toEqual(['passport']);
+    expect((await classify('Kunt u een kopie van uw identiteitsbewijs sturen?')).documents).toEqual(['id']);
+    expect((await classify('Please send a copy of your ID card or passport.')).documents).toEqual(
+      expect.arrayContaining(['id', 'passport']),
+    );
+  });
+
   it('lists requested documents, questions, the address and a deadline', async () => {
     const out = await classify(
       'Beste Sam, voor de woning aan de Oude Delft 12A willen we graag uw loonstroken en een werkgeversverklaring ontvangen, uiterlijk vrijdag 25 september. Rookt u?',

@@ -12,8 +12,6 @@ export interface DocumentFile {
 export const DOCUMENT_KINDS: Record<string, string[]> = {
   id: [
     'identiteitsbewijs',
-    'paspoort',
-    'passport',
     'idkaart',
     'idcard',
     'identitycard',
@@ -26,6 +24,7 @@ export const DOCUMENT_KINDS: Record<string, string[]> = {
     'copyofid',
     'identity',
   ],
+  passport: ['paspoort', 'passport'],
   payslip: [
     'loonstrook',
     'loonstroken',
@@ -120,6 +119,18 @@ function fileKind(f: DocumentFile): string | undefined {
 }
 
 /**
+ * One identity document per request: the ID card, unless the passport itself
+ * is asked for. Where either would do, the ID card goes; each stands in for
+ * the other when only one is on file.
+ */
+function preferIdCard(kinds: Set<string>, files: DocumentFile[]): void {
+  const has = (kind: string) => files.some((f) => fileKind(f) === kind);
+  if (kinds.has('id') && kinds.has('passport')) kinds.delete(has('id') ? 'passport' : 'id');
+  else if (kinds.has('id') && !has('id') && has('passport')) kinds.add('passport').delete('id');
+  else if (kinds.has('passport') && !has('passport') && has('id')) kinds.add('id').delete('passport');
+}
+
+/**
  * Splits the requested documents into those the agent may send now and
  * those that need approval (spec, Agent pipeline step 11). Identity
  * documents always need approval, whatever the config says. Private
@@ -134,6 +145,7 @@ export function documentsToSend(
   ctx: { viewingBooked: boolean; scam: ScamVerdict; files: DocumentFile[] },
 ): { send: DocumentFile[]; approve: DocumentFile[] } {
   const { kinds, generic } = kindsRequested(requested);
+  preferIdCard(kinds, ctx.files);
   const chosen = ctx.files.filter((f) => {
     const k = fileKind(f);
     return (k !== undefined && kinds.has(k)) || (generic && f.sensitivity === 'public');
