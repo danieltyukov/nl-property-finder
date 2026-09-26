@@ -201,3 +201,51 @@ test('a form that shows a captcha is not fought: the message goes to the agency 
   const tasks = await (await fetch(`${h.url}/api/v1/tasks`, auth)).json();
   expect(tasks.items.filter((t: { kind: string }) => t.kind === 'captcha')).toEqual([]);
 }, 30_000);
+
+test('dismissing a send-yourself item closes its application; marking it sent marks it contacted', async () => {
+  const paths = home();
+  const src = fakeSource([listing('51'), listing('52')]);
+  src.adapter.contact = async () => ({ ok: false, channel: 'form', needs: 'captcha', error: 'captcha' });
+  const h = await startDaemon({ paths, port: 0, adapters: [src.adapter], log: memoryLogger() });
+  handles.push(h);
+  const auth = { 'x-nlpf-token': TOKEN };
+  const get = async (path: string) => (await fetch(`${h.url}/api/v1${path}`, { headers: auth })).json();
+  let tasks: { id: string; kind: string; propertyId: string }[] = [];
+  const end = Date.now() + 15_000;
+  while (tasks.length < 2 && Date.now() < end) {
+    tasks = (await get('/tasks')).items.filter((t: { kind: string }) => t.kind === 'captcha');
+    await new Promise((r) => setTimeout(r, 200));
+  }
+  expect(tasks).toHaveLength(2);
+  const resolve = (id: string, action: string) =>
+    fetch(`${h.url}/api/v1/tasks/${id}/resolve`, { method: 'POST', headers: { ...auth, 'content-type': 'application/json' }, body: JSON.stringify({ action }) });
+  await resolve(tasks[0]!.id, 'dismiss');
+  await resolve(tasks[1]!.id, 'done');
+  const { items } = await get('/properties');
+  const statusOf = (pid: string) => items.find((i: { property: { id: string } }) => i.property.id === pid)?.application?.status;
+  expect(statusOf(tasks[0]!.propertyId)).toBe('skipped');
+  expect(statusOf(tasks[1]!.propertyId)).toBe('contacted');
+}, 30_000);
+
+test('a drafted home that no longer fits the search is skipped when going live, not left queued', async () => {
+  const paths = home({ automation: { dryRun: true, sendWindow: { start: '00:00', end: '23:59' } } });
+  const src = fakeSource([listing('61')]);
+  const h = await startDaemon({ paths, port: 0, adapters: [src.adapter], log: memoryLogger() });
+  handles.push(h);
+  const auth = { 'x-nlpf-token': TOKEN };
+  const statusNow = async () => (await (await fetch(`${h.url}/api/v1/properties`, { headers: auth })).json()).items[0]?.application?.status;
+  // Wait for the dry-run draft, so no send job is still pending when dry run goes off.
+  const drafted = async () => (await (await fetch(`${h.url}/api/v1/conversations`, { headers: auth })).json()).items.length > 0;
+  let end = Date.now() + 10_000;
+  while (!(await drafted()) && Date.now() < end) await new Promise((r) => setTimeout(r, 100));
+  const patch = async (section: string, value: unknown) =>
+    fetch(`${h.url}/api/v1/config`, { method: 'PATCH', headers: { ...auth, 'content-type': 'application/json' }, body: JSON.stringify({ section, value }) });
+  const cfg = await (await fetch(`${h.url}/api/v1/config`, { headers: auth })).json();
+  const r = await patch('searches', cfg.searches.map((s: Record<string, unknown>) => ({ ...s, priceMaxEur: 500 })));
+  expect(r.status, await r.clone().text()).toBe(200);
+  await patch('automation', { ...cfg.automation, dryRun: false });
+  end = Date.now() + 10_000;
+  while ((await statusNow()) === 'queued' && Date.now() < end) await new Promise((r) => setTimeout(r, 100));
+  expect(await statusNow()).toBe('skipped');
+  expect(src.contacted).toEqual([]);
+}, 30_000);

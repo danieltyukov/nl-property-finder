@@ -38,6 +38,14 @@ export function createActions(d: ActionDeps): DaemonActions {
   const { rt } = d;
   const now = () => rt.now().toISOString();
 
+  /** Items where the person sends the first message: "Mark as sent" or Dismiss settles the application. */
+  const SENT_BY_HAND = new Set<Task['kind']>(['react_manually', 'captcha', 'reconnect']);
+  const settleApplication = (task: Task, status: 'skipped' | 'contacted') => {
+    const app = task.applicationId ? rt.store.applications.get(task.applicationId) : task.propertyId ? rt.store.applications.byProperty(task.propertyId) : undefined;
+    if (!app || !['manual', 'queued'].includes(app.status)) return;
+    rt.store.applications.update(app.id, status === 'contacted' ? { status, contactedAt: now() } : { status }, now());
+  };
+
   const finish = (task: Task, state: Task['state'] = 'done', extra: Partial<Task> = {}) =>
     rt.store.tasks.update(task.id, { state, resolvedBy: 'human', ...extra }, now());
 
@@ -81,8 +89,12 @@ export function createActions(d: ActionDeps): DaemonActions {
       const payload = task.payload ?? {};
       switch (body.action) {
         case 'dismiss':
+          // A dismissed "send it yourself" means the home is not pursued: its application closes.
+          if (SENT_BY_HAND.has(task.kind)) settleApplication(task, 'skipped');
           return finish(task, 'dismissed');
         case 'done':
+          // "Mark as sent": the person sent it, so the application counts as contacted.
+          if (SENT_BY_HAND.has(task.kind)) settleApplication(task, 'contacted');
           return finish(task, 'done');
         case 'snooze':
           return rt.store.tasks.update(task.id, { state: 'snoozed', snoozedUntil: body.until ?? new Date(rt.now().getTime() + 3 * 3_600_000).toISOString() }, now());

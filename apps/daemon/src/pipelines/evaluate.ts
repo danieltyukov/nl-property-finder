@@ -9,7 +9,7 @@ import {
   scamSignals,
   scamVerdict,
 } from '@nlpf/agent';
-import type { Job, Listing, Match, NamedSearch, RentCheck } from '@nlpf/core';
+import type { Application, Job, Listing, Match, NamedSearch, RentCheck } from '@nlpf/core';
 import { euro, openTask, type Runtime } from '../runtime.js';
 
 /** The listing with the most to go on: a description first, then a price, then the newest. */
@@ -35,6 +35,11 @@ export function medianPricePerM2(rt: Runtime, listing: Listing): number | undefi
   if (rows.length < 8) return undefined;
   const sorted = rows.map((r) => r.ppm).sort((a, b) => a - b);
   return sorted[Math.floor(sorted.length / 2)];
+}
+
+/** A home drafted or queued earlier that no longer matches is not pursued any more. */
+function skipQueued(rt: Runtime, app: Application | undefined, nowIso: string): void {
+  if (app?.status === 'queued') rt.store.applications.update(app.id, { status: 'skipped', note: 'No longer matches your searches' }, nowIso);
 }
 
 export async function handleEvaluate(rt: Runtime, job: Job): Promise<void> {
@@ -72,6 +77,7 @@ export async function handleEvaluate(rt: Runtime, job: Job): Promise<void> {
     };
     rt.store.matches.put(m);
     rt.bus.emit('property.rejected', `Skipped ${listing.title}: ${failedRule}`, { propertyId, failedRule, listingId: listing.id });
+    skipQueued(rt, app, nowIso);
     return;
   }
 
@@ -140,6 +146,7 @@ export async function handleEvaluate(rt: Runtime, job: Job): Promise<void> {
 
   if (!passed) {
     rt.bus.emit('property.rejected', `Skipped ${listing.title}: ${failed}`, { propertyId, failedRule: failed, listingId: listing.id });
+    skipQueued(rt, app, nowIso);
     return;
   }
   if (scam.level === 'likely') {
