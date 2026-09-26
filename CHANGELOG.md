@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.1.4 - 2026-09-26
+
+### Fixed
+
+- A captcha item in the inbox opens the listing, with the message ready to
+  copy, instead of a login window that failed for sources without a login.
+
 ## 0.1.3 - 2026-09-26
 
 ### Fixed
