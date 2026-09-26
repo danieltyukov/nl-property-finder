@@ -30,3 +30,8 @@ you only the decisions. See `docs/superpowers/specs/` for the design.
   +address the mailbox reads even when Gmail rewrites From.
 - Claude now sees `profile.job`, and first messages no longer accept anything
   on the person's behalf that the profile does not say.
+- A HousingAnywhere login is recognised even when the page's preloaded state
+  still says logged out, so `nlpf connect` completes and messaging does not
+  stop at a login wall.
+- `nlpf connect` on a source without a login (Marktplaats, Vesteda) says so,
+  instead of reporting that a login window is opening.
