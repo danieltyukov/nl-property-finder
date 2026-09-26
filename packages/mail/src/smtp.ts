@@ -32,6 +32,9 @@ export async function buildEmail(from: string, mail: OutboundEmail, opts: SmtpOp
   const composer = createTransport({ streamTransport: true, buffer: true, newline: 'windows' });
   const info = await composer.sendMail({
     from: opts.fromName ? { name: opts.fromName, address: from } : from,
+    // Gmail can put the login address on the From line of a +address it has not verified as an
+    // alias; Reply-To keeps replies on the address the mailbox folder or filter watches.
+    replyTo: from,
     to: mail.to,
     subject: mail.subject,
     text: mail.text,

@@ -26,3 +26,9 @@ test('a first message has no thread headers', async () => {
   expect(back.inReplyTo).toBeUndefined();
   expect(back.references).toBeUndefined();
 });
+
+test('replies are asked for at the sending address, even if the server rewrites From', async () => {
+  // Gmail may put the login address on the From line of a +address; Reply-To keeps the +address.
+  const built = await buildEmail('sam+huur@example.test', { to: 'jan@example.test', subject: 'Reactie', text: 'Beste Jan' });
+  expect(built.raw.toString()).toMatch(/^Reply-To: sam\+huur@example\.test\r$/m);
+});
