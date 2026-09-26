@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+## 0.1.8 - 2026-09-26
+
+### Added
+
+- Viewing requests on MVGM (ikwilhuren.nu) and Vesteda: the agent fills the
+  application from your profile, keeps the answers the portal remembered from
+  your previous application, adds its message as the remark and sends. Log in
+  once with `nlpf connect mvgm` and `nlpf connect vesteda`, and make one
+  application yourself on each so the portal holds your documents.
+
 ## 0.1.7 - 2026-09-26
 
 ### Fixed
