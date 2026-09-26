@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.1.7 - 2026-09-26
+
+### Fixed
+
+- A queued home whose listings are all on sources you switched off is skipped
+  instead of staying queued.
+
 ## 0.1.6 - 2026-09-26
 
 ### Fixed
