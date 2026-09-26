@@ -145,6 +145,12 @@ const settle = async (ms = 20) => {
   for (let i = 0; i < 5; i++) await new Promise((r) => setTimeout(r, ms / 5));
 };
 
+/** Waits until `done()` holds: parsing mail takes longer when the whole suite runs, so no fixed pause fits. */
+const until = async (done: () => boolean, ms = 3000) => {
+  const end = Date.now() + ms;
+  while (!done() && Date.now() < end) await new Promise((r) => setTimeout(r, 5));
+};
+
 const opened: { stop(): Promise<void> }[] = [];
 afterEach(async () => {
   vi.useRealTimers();
@@ -178,7 +184,7 @@ describe('IMAP mailbox', () => {
     const { mb, got, onMessage } = setup(server, { onWatermark: (uid, validity) => marks.push([uid, validity]) });
     mb.setWatermark(1, '1111');
     await mb.start(onMessage);
-    await settle();
+    await until(() => mb.watermark() === 3 && server.messages.every((m) => m.seen));
     expect(got.map((m) => m.id)).toEqual(['<two@example.test>', '<three@example.test>']);
     expect(server.messages.map((m) => m.seen)).toEqual([true, true, true]);
     expect(mb.watermark()).toBe(3);
@@ -193,11 +199,11 @@ describe('IMAP mailbox', () => {
     server.add(rawMail('unread'));
     const { mb, got, onMessage } = setup(server);
     await mb.start(onMessage);
-    await settle();
+    await until(() => mb.watermark() === 2);
     expect(got.map((m) => m.id)).toEqual(['<unread@example.test>']);
     expect(mb.watermark()).toBe(2);
     server.deliver(rawMail('pushed'));
-    await settle();
+    await until(() => mb.watermark() === 3);
     expect(got.map((m) => m.id)).toEqual(['<unread@example.test>', '<pushed@example.test>']);
     expect(mb.watermark()).toBe(3);
   });
