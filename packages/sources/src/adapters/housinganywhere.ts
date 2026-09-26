@@ -417,15 +417,28 @@ export function createHousingAnywhereAdapter(options: HousingAnywhereOptions = {
     },
   };
 
+  /**
+   * Whether the page shows a logged-in visitor. The preloaded state says so
+   * when the server knows the session; when it still says logged out, the
+   * page gets time to settle, and a HousingAnywhere page (one that has the
+   * state at all, so not a block or captcha page) without a sign-in link
+   * counts as logged in, as the header shows the avatar instead.
+   */
   async function isAuthenticated(page: import('playwright-core').Page): Promise<boolean> {
-    return page
-      .evaluate(() => {
-        const state = (
-          window as unknown as { __PRELOADED_STATE__?: { authLogic?: { isAuthenticated?: boolean } } }
-        ).__PRELOADED_STATE__;
-        return state?.authLogic?.isAuthenticated === true;
-      })
-      .catch(() => false);
+    const flag = () =>
+      page
+        .evaluate(() => {
+          const state = (
+            window as unknown as { __PRELOADED_STATE__?: { authLogic?: { isAuthenticated?: boolean } } }
+          ).__PRELOADED_STATE__;
+          return state ? state.authLogic?.isAuthenticated === true : null;
+        })
+        .catch(() => null);
+    const first = await flag();
+    if (first !== false) return first === true;
+    await page.waitForLoadState('networkidle', { timeout: 10_000 }).catch(() => undefined);
+    if ((await flag()) === true) return true;
+    return (await page.locator('a[href*="/oauth/signin"]').count().catch(() => 1)) === 0;
   }
 
   /**

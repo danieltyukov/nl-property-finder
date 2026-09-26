@@ -26,7 +26,9 @@ const config = ConfigSchema.parse({
  * for a logged-in tenant (a message box, a subscription offer or a date
  * picker) is modelled here and was not seen live.
  */
-function listingPage(opts: { authenticated: boolean; opens: 'message' | 'subscription' | 'dates' }): string {
+function listingPage(opts: { authenticated: boolean; opens: 'message' | 'subscription' | 'dates'; signInLink?: boolean }): string {
+  // The live logged-out header links to /oauth/signin?target=tenant; a logged-in one shows the avatar instead.
+  const header = opts.signInLink ?? !opts.authenticated ? '<header><a href="/oauth/signin?target=tenant">Log in</a></header>' : '<header><span>DT</span></header>';
   const panel = {
     message: `<div role="dialog"><label for="msg">Message to the landlord</label><textarea id="msg"></textarea>
       <button type="button" id="send">Send message</button></div>`,
@@ -36,6 +38,7 @@ function listingPage(opts: { authenticated: boolean; opens: 'message' | 'subscri
   }[opts.opens];
   return `<!doctype html><html lang="en"><head><title>Studio for rent in Delft | HousingAnywhere</title></head><body>
 <script>window.__PRELOADED_STATE__= (${JSON.stringify({ authLogic: { user: null, isAuthenticated: opts.authenticated } })});</script>
+${header}
 <main><h1>Studio in Teststraat</h1>
 <button type="button" data-test-locator="ListingActionButtonsContact/CheckAvailability">Apply to rent</button>
 <template id="panel">${panel}</template></main>
@@ -70,6 +73,10 @@ describe.skipIf(!resolveChromium())('housinganywhere message flow in a real brow
         body: listingPage({ authenticated: true, opens: 'subscription' }),
       },
       '/room/ut1000004/nl/Delft/teststraat': { body: listingPage({ authenticated: true, opens: 'dates' }) },
+      // Logged in, but the preloaded state is filled in only after the page loads.
+      '/room/ut1000005/nl/Delft/teststraat': {
+        body: listingPage({ authenticated: false, opens: 'message', signInLink: false }),
+      },
       'POST /api/conversations': { body: { ok: true } },
     });
   });
@@ -142,6 +149,11 @@ describe.skipIf(!resolveChromium())('housinganywhere message flow in a real brow
     const err = await adapter.contact!(listing, message(false), ctx).catch((e: unknown) => e);
     expect(err).toBeInstanceOf(NeedsLoginError);
     expect((err as NeedsLoginError).loginUrl).toBe(`${server.url}/oauth/signin`);
+  });
+
+  test('a logged-in page whose preloaded state still says logged out is recognised by its header', async () => {
+    const { adapter, ctx, listing, message } = setup(5);
+    expect(await adapter.contact!(listing, message(true), ctx)).toMatchObject({ ok: true, channel: 'message' });
   });
 
   test('a subscription offer is a paid wall', async () => {
