@@ -38,6 +38,8 @@ export interface SourceView extends SourceState {
   contactMode?: 'auto' | 'watch_only';
   config?: Partial<SourceConfig>;
   termsNote?: string;
+  /** Whether `nlpf connect` can log in to it: the source has a login the agent can check. */
+  canConnect?: boolean;
 }
 
 export const ResolveTaskBody = z.object({

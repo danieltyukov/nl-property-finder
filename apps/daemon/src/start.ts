@@ -391,6 +391,7 @@ export async function startDaemon(opts: StartDaemonOptions): Promise<DaemonHandl
           regions: a.regions,
           intervalSec: own?.intervalSec ?? a.defaultIntervalSec,
           contactMode,
+          canConnect: Boolean(a.checkSession),
           config: own,
           termsNote: a.capabilities.terms === 'forbids'
             ? `${a.name}'s terms forbid automated access. Switching on automatic messages risks your ${a.name} account.`

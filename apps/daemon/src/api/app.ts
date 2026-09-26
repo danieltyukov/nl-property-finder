@@ -218,6 +218,11 @@ export function createApp(ctx: DaemonContext): Hono {
   api.patch('/sources/:id', async (c) => json(c, await ctx.actions.patchSource(c.req.param('id'), await body(c, SourcePatchBody))));
   api.post('/sources/:id/test', async (c) => json(c, await ctx.actions.testSource(c.req.param('id'))));
   api.post('/sources/:id/connect', async (c) => {
+    const source = ctx.sources().find((s) => s.sourceId === c.req.param('id'));
+    if (!source) throw notFound('Source');
+    if (!source.canConnect) {
+      throw new HttpError(400, 'no_login', `${source.name} has no login to connect to. The agent reads it without one.`);
+    }
     void ctx.actions.connectSource(c.req.param('id')).catch((e) => ctx.log.warn('connect failed', { source: c.req.param('id'), error: e }));
     return c.json({ started: true }, 202);
   });
