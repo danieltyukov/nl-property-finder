@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+## 0.1.6 - 2026-09-26
+
+### Fixed
+
+- Resolving a "send it yourself" item settles its application: Dismiss closes
+  it as skipped, Mark as sent counts it as contacted. Before, every such home
+  stayed open on the board.
+- A queued home that no longer matches your searches when checked again is
+  skipped instead of staying queued.
+- The applications board has a Needs you column; homes waiting on you are no
+  longer listed under Replied, and skipped homes are left off.
+- The overview says why a source sent nothing (switched off, watch only,
+  needs a paid plan, no automatic contact, none sent yet) instead of calling
+  every such source watch only.
+
 ## 0.1.5 - 2026-09-26
 
 ### Added
