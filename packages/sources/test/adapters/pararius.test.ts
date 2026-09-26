@@ -236,17 +236,31 @@ async function listingFromSearch() {
 }
 
 describe('pararius session check', () => {
-  test('reads the login state from the masthead without opening the login page', async () => {
+  const SEARCH = 'https://www.pararius.nl/huurwoningen/nederland';
+  const CONTACT = 'https://www.pararius.nl/contact/fd826b6c-b92c-59b2-acf8-4175ad916d1f';
+  const LOGIN = 'https://www.pararius.nl/inloggen';
+
+  test('reads the masthead login button', () => {
     const loggedOut = readFixture('pararius/search-delft.html');
     expect(mastheadLoginState(loggedOut)).toBe('out');
-    const { ctx, browser } = ctxWith({ 'https://www.pararius.nl/': { html: loggedOut } });
-    expect(await pararius.checkSession!(ctx)).toBe('none');
-    expect(browser.visits).toEqual(['https://www.pararius.nl/']);
+  });
 
-    const loggedIn = loggedOut.replace(/<a[^>]*masthead__button--login[\s\S]*?<\/a>/, '');
-    expect(mastheadLoginState(loggedIn)).toBe('in');
-    const second = ctxWith({ 'https://www.pararius.nl/': { html: loggedIn } });
-    expect(await pararius.checkSession!(second.ctx)).toBe('ok');
+  test('logged out: a listing contact page sends it to the login page', async () => {
+    const { ctx, browser } = ctxWith({ [SEARCH]: 'pararius/search-delft.html', [CONTACT]: { redirect: LOGIN }, [LOGIN]: 'pararius/login.html' });
+    expect(await pararius.checkSession!(ctx)).toBe('none');
+    expect(browser.visits).toEqual([SEARCH, CONTACT]);
+  });
+
+  test('logged in: a listing contact page shows the message form', async () => {
+    const { ctx } = ctxWith({ [SEARCH]: 'pararius/search-delft.html', [CONTACT]: 'pararius/contact-form.html' });
+    expect(await pararius.checkSession!(ctx)).toBe('ok');
+  });
+
+  test('a masthead without a login button is not enough to call it logged in', async () => {
+    // The old check read only the masthead; this is the page it wrongly took as logged in.
+    const noButton = readFixture('pararius/search-delft.html').replace(/<a[^>]*masthead__button--login[\s\S]*?<\/a>/, '');
+    const { ctx } = ctxWith({ 'https://www.pararius.nl/': { html: noButton }, [SEARCH]: { html: noButton }, [CONTACT]: { redirect: LOGIN }, [LOGIN]: 'pararius/login.html' });
+    expect(await pararius.checkSession!(ctx)).toBe('none');
   });
 });
 

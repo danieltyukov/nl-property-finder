@@ -270,7 +270,6 @@ export function parariusSearchUrl(base: string, area: Area): string {
 const SEARCH_READY = 'section.listing-search-item, .no-search-results__title, .search-list-header__count';
 const DETAIL_READY = '.listing-detail-summary, .page--listing-detail, .no-search-results__title, .search-list-header__count';
 const CONTACT_READY = 'form textarea, .form--login-email, input[type="password"], .listing-reaction-button--click-out, .listing-detail-summary';
-const MASTHEAD_READY = 'wc-masthead, .masthead';
 
 const LOGIN_PATH = /^\/(inloggen|login|account\/inloggen)(\/|$)/i;
 
@@ -339,6 +338,9 @@ export function createParariusAdapter(options: ParariusOptions = {}): SourceAdap
       return false;
     }
   };
+
+  /** A listing contact page the session check opens; found on the first check. */
+  let probeUrl: string | undefined;
 
   const withContact = (l: RawListing): RawListing => {
     const uuid = typeof l.extra?.uuid === 'string' ? l.extra.uuid : undefined;
@@ -586,12 +588,24 @@ export function createParariusAdapter(options: ParariusOptions = {}): SourceAdap
     },
 
     async checkSession(ctx) {
-      // The logged-out masthead has a login button on every page, so the
-      // home page answers without touching the login page. UNVERIFIED for
-      // the logged-in side: no logged-in page was recorded.
+      // Checked the way sending needs it: a listing's contact page sends a
+      // visitor without a session to /inloggen and shows the message form to
+      // one with a session. The masthead alone said "logged in" for pages
+      // whose login button it did not see, and closed login windows early.
       return withBrowserPage(ctx, async (page) => {
-        const loaded = await loadPage(page, `${base}/`, { ready: MASTHEAD_READY, waitMs, signal: ctx.signal });
-        return mastheadLoginState(loaded.html) === 'in' ? 'ok' : 'none';
+        if (!probeUrl) {
+          const found = await loadPage(page, `${base}/huurwoningen/nederland`, { ready: SEARCH_READY, waitMs, signal: ctx.signal });
+          probeUrl = parseParariusCards(found.html, { sourceId: 'pararius', baseUrl: found.url })
+            .listings.map((l) => withContact(l).contactUrl)
+            .find((u): u is string => !!u);
+          if (!probeUrl) return 'none';
+        }
+        const loaded = await loadPage(page, probeUrl, { ready: CONTACT_READY, waitMs, signal: ctx.signal });
+        const $ = load(loaded.html);
+        if (LOGIN_PATH.test(new URL(loaded.url).pathname) || $('.form--login-email, input[type="password"]').length > 0) return 'none';
+        if ($('form textarea').length > 0) return 'ok';
+        probeUrl = undefined; // gone or advertised elsewhere: try another listing next time
+        return 'none';
       });
     },
 
