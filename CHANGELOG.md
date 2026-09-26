@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+## 0.1.2 - 2026-09-26
+
+### Fixed
+
+- The Pararius login check opens a listing's contact page instead of reading
+  the page header. The header check reported a login that had not happened,
+  and closed the login window before the login finished.
+- The agent reports its real version in `nlpf status` and the dashboard.
+
 ## 0.1.1 - 2026-09-26
 
 ### Added
