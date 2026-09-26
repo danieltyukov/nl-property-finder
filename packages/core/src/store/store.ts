@@ -112,6 +112,8 @@ export interface Store {
     fail(id: number, error: string, now: string, retryAt?: string): void;
     recover(now: string): Job[];
     get(key: string): Job | undefined;
+    /** Runs a finished job again. Null for a job that is waiting, running, failed or interrupted, or unknown. */
+    rearm(key: string, runAt: string): Job | null;
     nextRunAt(kinds?: JobKind[]): string | undefined;
   };
   usage: { add(month: string, u: AiUsage): void; get(month: string): AiUsage };
@@ -554,6 +556,12 @@ export function openStore(file: string): Store {
     fail(id, error, now, retryAt) {
       if (retryAt) q("UPDATE jobs SET state = 'pending', run_at = ?, last_error = ?, updated_at = ? WHERE id = ?").run(retryAt, error, now, id);
       else q("UPDATE jobs SET state = 'failed', last_error = ?, updated_at = ? WHERE id = ?").run(error, now, id);
+    },
+    rearm(key, runAt) {
+      const info = q("UPDATE jobs SET state = 'pending', run_at = ?, attempts = 0, last_error = NULL, updated_at = ? WHERE key = ? AND state = 'done'").run(
+        runAt, new Date().toISOString(), key,
+      );
+      return info.changes ? toJob(q('SELECT * FROM jobs WHERE key = ?').get(key)!) : null;
     },
     recover(now) {
       return db.transaction(() => {

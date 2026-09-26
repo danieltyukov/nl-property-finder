@@ -189,5 +189,11 @@ export async function handleEvaluate(rt: Runtime, job: Job): Promise<void> {
     }, `approve_outreach:${propertyId}`);
     return;
   }
-  rt.store.jobs.enqueue('contact', `contact:${propertyId}`, { propertyId }, nowIso);
+  const contactKey = `contact:${propertyId}`;
+  // A dry run finishes the contact job with a draft and leaves the application queued. Once
+  // live, evaluating the home again runs that job again; rearm never touches a job that is
+  // running or was interrupted mid-send, and the contact step sends only while still queued.
+  if (!rt.store.jobs.enqueue('contact', contactKey, { propertyId }, nowIso) && !cfg.automation.dryRun) {
+    rt.store.jobs.rearm(contactKey, nowIso);
+  }
 }

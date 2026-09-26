@@ -37,3 +37,22 @@ test('jobs are claimed only when due, once, and failed ones can be retried', () 
   expect(s.jobs.enqueue('evaluate', 'evaluate:a', {}, '2026-09-23T10:50:00Z')?.state).toBe('pending');
   expect(s.jobs.nextRunAt()).toBe('2026-09-23T10:50:00Z');
 });
+
+test('rearm runs a finished job again, and never an interrupted, running or waiting one', () => {
+  const s = openStore(':memory:');
+  s.jobs.enqueue('contact', 'contact:done', { propertyId: 'done' }, '2026-09-23T10:00:00Z');
+  const [done] = s.jobs.claim('2026-09-23T10:00:01Z', 10);
+  s.jobs.complete(done!.id, '2026-09-23T10:00:02Z');
+  expect(s.jobs.rearm('contact:done', '2026-09-23T11:00:00Z')?.state).toBe('pending');
+  expect(s.jobs.claim('2026-09-23T11:00:01Z', 10).map((j) => j.key)).toEqual(['contact:done']);
+
+  // Running now (just claimed above), and interrupted after a crash: both could have sent already.
+  expect(s.jobs.rearm('contact:done', '2026-09-23T12:00:00Z')).toBeNull();
+  s.jobs.recover('2026-09-23T12:00:00Z');
+  expect(s.jobs.get('contact:done')?.state).toBe('interrupted');
+  expect(s.jobs.rearm('contact:done', '2026-09-23T12:00:00Z')).toBeNull();
+
+  s.jobs.enqueue('contact', 'contact:waiting', {}, '2026-09-23T13:00:00Z');
+  expect(s.jobs.rearm('contact:waiting', '2026-09-23T12:00:00Z')).toBeNull();
+  expect(s.jobs.rearm('contact:missing', '2026-09-23T12:00:00Z')).toBeNull();
+});

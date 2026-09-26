@@ -45,7 +45,7 @@ import { createScheduler, initialState } from './scheduler.js';
 import { handleContact } from './pipelines/contact.js';
 import { handleEvaluate } from './pipelines/evaluate.js';
 import { handleInbound } from './pipelines/inbound.js';
-import { handlePoll, handleSyncInbox } from './pipelines/ingest.js';
+import { handlePoll, handleSyncInbox, queueEvaluate } from './pipelines/ingest.js';
 import { startNotifications } from './pipelines/notify.js';
 import { handleDaily, handleFollowups, syncInboxes, tickPeriodic } from './pipelines/periodic.js';
 import { openTask, type Runtime } from './runtime.js';
@@ -343,9 +343,13 @@ export async function startDaemon(opts: StartDaemonOptions): Promise<DaemonHandl
   // Reload when config.yaml or the secrets change on disk.
   const reload = (next: Config) => {
     const aiChanged = JSON.stringify(next.ai) !== JSON.stringify(config.ai) || JSON.stringify(next.profile) !== JSON.stringify(config.profile);
+    const wentLive = config.automation.dryRun && !next.automation.dryRun;
     config = demo ? demoConfig(next) : next;
     registry = buildRegistry();
     if (aiChanged) ai = buildAi();
+    // Homes drafted during the dry run are checked against the current searches and, if they
+    // still match, contacted for real. Homes already contacted are not queued, so none twice.
+    if (wentLive) for (const app of store.applications.list({ status: 'queued', limit: 100_000 })) queueEvaluate(rt, app.propertyId, true);
   };
   const unwatch = watchConfig(paths, (c) => {
     if (c.errors.length) {

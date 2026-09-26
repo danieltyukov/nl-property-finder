@@ -131,3 +131,35 @@ test('a source that blocks us backs off instead of crashing, and recovers', asyn
   expect(Date.parse(grumpy.nextRunAt) - Date.now()).toBeGreaterThan(500_000);
   expect(calls).toBe(1);
 });
+
+test('going live after a dry run sends each draft that still matches, once', async () => {
+  const paths = home({ automation: { dryRun: true, sendWindow: { start: '00:00', end: '23:59' } } });
+  const src = fakeSource([listing('21')]);
+  const h = await startDaemon({ paths, port: 0, adapters: [src.adapter], log: memoryLogger() });
+  handles.push(h);
+  const auth = { 'x-nlpf-token': TOKEN };
+  const drafted = async () => {
+    const convs = await (await fetch(`${h.url}/api/v1/conversations`, { headers: auth })).json();
+    return convs.items.length > 0;
+  };
+  const end = Date.now() + 10_000;
+  while (!(await drafted()) && Date.now() < end) await new Promise((r) => setTimeout(r, 100));
+  expect(src.contacted).toEqual([]);
+
+  const setDryRun = async (dryRun: boolean) => {
+    const cfg = await (await fetch(`${h.url}/api/v1/config`, { headers: auth })).json();
+    await fetch(`${h.url}/api/v1/config`, {
+      method: 'PATCH',
+      headers: { ...auth, 'content-type': 'application/json' },
+      body: JSON.stringify({ section: 'automation', value: { ...cfg.automation, dryRun } }),
+    });
+  };
+  await setDryRun(false);
+  await waitFor(() => src.contacted.length === 1);
+
+  // Switching dry run on and off again does not message the same landlord twice.
+  await setDryRun(true);
+  await setDryRun(false);
+  await new Promise((r) => setTimeout(r, 1500));
+  expect(src.contacted).toEqual(['fake:21']);
+}, 30_000);
