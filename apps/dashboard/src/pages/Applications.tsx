@@ -13,12 +13,14 @@ import { ago, dayTime, duration, eur, place, street } from '../lib/format';
 import { APPLICATION_STATUS, CHANNEL, sourceName } from '../lib/labels';
 import { isOpen } from '../components/FoundPlace';
 
+/** Skipped homes were never pursued (dismissed, or they stopped matching), so they are not on the board. */
 const COLUMNS: { id: string; label: string; statuses: ApplicationStatus[] }[] = [
+  { id: 'needs-you', label: 'Needs you', statuses: ['manual'] },
   { id: 'sent', label: 'Sent', statuses: ['queued', 'contacted'] },
-  { id: 'replied', label: 'Replied', statuses: ['replied', 'manual'] },
+  { id: 'replied', label: 'Replied', statuses: ['replied'] },
   { id: 'viewing', label: 'Viewing', statuses: ['viewing_proposed', 'viewing_booked', 'viewed'] },
   { id: 'offer', label: 'Offer', statuses: ['offer'] },
-  { id: 'closed', label: 'Closed', statuses: ['rejected', 'withdrawn', 'gone', 'skipped'] },
+  { id: 'closed', label: 'Closed', statuses: ['rejected', 'withdrawn', 'gone'] },
 ];
 
 export function ApplicationsPage() {

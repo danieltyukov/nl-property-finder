@@ -9,7 +9,7 @@ import { LiveFeed } from '../components/LiveFeed';
 import { PipelineStrip } from '../components/PipelineStrip';
 import { Card, Dot, EmptyState, PageHeader } from '../components/ui';
 import { ago, duration, pct } from '../lib/format';
-import { SOURCE_HEALTH, sourceName } from '../lib/labels';
+import { noReactionLabel, SOURCE_HEALTH, sourceName } from '../lib/labels';
 
 export function OverviewPage() {
   const status = useStatus();
@@ -84,7 +84,7 @@ export function OverviewPage() {
                         <td className="num">{row.matched7d}</td>
                         <td className="num">{row.contacted7d}</td>
                         <td className="num">{row.replies7d}</td>
-                        <td className="num">{row.medianReactionMs != null ? duration(row.medianReactionMs) : <span className="muted">watch only</span>}</td>
+                        <td className="num">{row.medianReactionMs != null ? duration(row.medianReactionMs) : <span className="muted">{noReactionLabel(sources.data?.find((x) => x.sourceId === row.sourceId))}</span>}</td>
                       </tr>
                     ))}
                   </tbody>

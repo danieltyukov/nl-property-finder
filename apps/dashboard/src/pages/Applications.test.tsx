@@ -16,6 +16,14 @@ test('the board groups applications by status with reaction time and channel', a
   expect(within(screen.getByRole('region', { name: 'Offer' })).getByText('Kralingse Plaslaan 20')).toBeTruthy();
 });
 
+test('a home waiting on you sits in Needs you, not Replied', async () => {
+  renderApp({ path: '/applications' });
+  const needs = await screen.findByRole('region', { name: 'Needs you' });
+  const manual = applicationsOf(buildWorld()).find((a) => a.application.status === 'manual')!;
+  expect(within(needs).getByText(manual.property!.title)).toBeTruthy();
+  expect(within(screen.getByRole('region', { name: 'Replied' })).queryByText(manual.property!.title)).toBeNull();
+});
+
 test('"I found a place" shows one preview per open conversation and calls withdrawAll with pause: true', async () => {
   const user = userEvent.setup();
   const world = buildWorld();

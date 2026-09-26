@@ -9,6 +9,7 @@ import type {
   NlpfEvent,
   PropertyView,
   SourceHealth,
+  SourceView,
   TaskKind,
 } from '@nlpf/core';
 
@@ -261,3 +262,13 @@ export const FURNISHING: Record<string, string> = {
   furnished: 'Furnished',
   unknown: 'Not stated',
 };
+
+/** Why a source has sent nothing, for the reaction column: its state, not a blanket "watch only". */
+export function noReactionLabel(source: SourceView | undefined): string {
+  if (!source) return 'none sent yet';
+  if (!source.enabled) return 'switched off';
+  if (source.contactMode === 'watch_only') return 'watch only';
+  if (source.capabilities?.paid && !source.config?.paidPlan) return 'needs a paid plan';
+  if (source.capabilities?.contact === 'none') return 'no automatic contact';
+  return 'none sent yet';
+}
