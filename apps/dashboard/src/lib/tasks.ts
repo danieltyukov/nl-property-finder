@@ -94,7 +94,13 @@ export function taskActions(task: Task): TaskActions {
     case 'reconnect':
       return { primary: { kind: 'connect', label: 'Log in', done: 'Login window opened' }, secondary: [], canEdit: false };
     case 'captcha':
-      return { primary: { kind: 'connect', label: 'Open window', done: 'Window opened' }, secondary: [], canEdit: false };
+      // The agent never solves a captcha: the person opens the listing and sends the ready message.
+      return {
+        primary: resolve('done', 'Mark as sent', 'Marked as sent'),
+        secondary: [],
+        canEdit: false,
+        link: url ? { label: 'Open listing', href: url } : undefined,
+      };
     case 'source_broken':
       return { primary: { kind: 'poll', label: 'Check now', done: 'Check started' }, secondary: [], canEdit: false };
     case 'config_invalid':
