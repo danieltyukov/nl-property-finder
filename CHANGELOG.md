@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## 0.1.9 - 2026-09-26
+
+### Fixed
+
+- A home listed on MVGM or Vesteda and also on a listing platform is applied
+  for on the landlord's own portal. A Funda message to MVGM only got "apply on
+  our website" back.
+
 ## 0.1.8 - 2026-09-26
 
 ### Added
