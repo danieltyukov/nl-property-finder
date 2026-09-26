@@ -3,6 +3,7 @@ import { load, type CheerioAPI } from 'cheerio';
 import type { NamedSearch, RawListing, SearchRequest, SourceAdapter, SourceConfig } from '@nlpf/core';
 import { trimTrailingSlashes } from '@nlpf/core';
 import { UNAVAILABLE_STATUS } from '../generic/presets.js';
+import { checkPortalSession, requestViewing, type ViewingRequestPortal } from '../generic/viewing-request.js';
 import { SourceHttpError } from '../runtime/errors.js';
 import { splitAddress } from '../util/address.js';
 import { detectType, parseBedrooms, parseDutchDate, parsePrice, parseSize } from '../util/parse.js';
@@ -12,7 +13,9 @@ import { detectType, parseBedrooms, parseDutchDate, parsePrice, parseSize } from
  * newest first with ?sort=aanbodDESC (VERIFIED 2026-09-24). The price,
  * size and type filters are posted into the session with a CSRF token, so
  * only the city goes in the URL; a GET price parameter is ignored
- * (VERIFIED). Reacting needs a free account, so listings are notify-only.
+ * (VERIFIED). Reacting is a viewing request in a free account, on the portal
+ * MVGM shares with Vesteda (generic/viewing-request.ts): the object URL ends
+ * in the id of /bezichtigingsaanvraag/<id>/ (VERIFIED 2026-09-26).
  */
 
 const BASE = 'https://ikwilhuren.nu';
@@ -58,6 +61,16 @@ function objectId(url: string): string {
   const path = trimTrailingSlashes(new URL(url).pathname);
   return /-([0-9a-f]{32})$/.exec(path)?.[1] ?? path;
 }
+
+/** The viewing-request portal: the application page's id is the one at the end of the object URL. */
+const PORTAL: ViewingRequestPortal = {
+  name: 'MVGM',
+  base: BASE,
+  requestPath: (listing) => {
+    const id = objectId(listing.url);
+    return /^[0-9a-f]{32}$/.test(id) ? `/bezichtigingsaanvraag/${id}/` : undefined;
+  },
+};
 
 const unavailable = (status: string) => UNAVAILABLE_STATUS.some((w) => status.toLowerCase().includes(w));
 
@@ -105,7 +118,7 @@ export function parseMvgmList(html: string, now: Date = new Date()): RawListing[
         images: image ? [new URL(image, BASE).toString()] : undefined,
         publishedAt: since ? new Date(now.getTime() - Number(since) * 86_400_000).toISOString() : undefined,
         agent: { ...AGENT },
-        contact: 'none',
+        contact: 'form',
         language: 'nl',
       }),
     );
@@ -172,7 +185,8 @@ export function createMvgmAdapter(): SourceAdapter {
     homepage: BASE,
     regions: 'nl',
     defaultIntervalSec: 300,
-    capabilities: { search: 'html', detail: true, contact: 'none', login: 'required', terms: 'unknown' },
+    capabilities: { search: 'html', detail: true, contact: 'form', login: 'required', terms: 'unknown' },
+    loginUrl: `${BASE}/account/`,
 
     buildSearches(searches, source) {
       const cities = searchCities(searches);
@@ -196,6 +210,17 @@ export function createMvgmAdapter(): SourceAdapter {
       const res = await ctx.fetch(listing.url);
       return parseMvgmDetail(listing, res.text, ctx.now());
     },
+
+    async checkSession(ctx) {
+      const session = await ctx.browser();
+      try {
+        return await checkPortalSession(session.page, PORTAL);
+      } finally {
+        await session.close().catch(() => undefined);
+      }
+    },
+
+    contact: (listing, message, ctx) => requestViewing(PORTAL, listing, message, ctx),
 
     async isAvailable(listing, ctx) {
       try {

@@ -101,7 +101,7 @@ platform, knowing that the risk is your account on that platform.
 | [Lankhuijzen Makelaars](https://www.lankhuijzen.nl) | Yes | Yes | Contact form |
 | [Lex van Leeuwen Makelaars](https://www.lexvanleeuwen.nl) | Yes | Yes | Contact form |
 | [Marktplaats](https://www.marktplaats.nl) | Yes | Opt-in | Platform message |
-| [MVGM (ikwilhuren.nu)](https://ikwilhuren.nu) | Yes | Watch only | None |
+| [MVGM (ikwilhuren.nu)](https://ikwilhuren.nu) | Yes | After you connect | Contact form |
 | [NederWoon](https://www.nederwoon.nl) | Yes | Watch only | None |
 | [Nelisse Makelaarsgroep](https://www.nelisse.nl) | Yes | Yes | Contact form |
 | [Pararius](https://www.pararius.nl) | Yes | Opt-in | Contact form |

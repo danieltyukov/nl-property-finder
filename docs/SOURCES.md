@@ -38,7 +38,7 @@ per platform with `nlpf sources enable-contact <id>` or in the dashboard.
 | [Lankhuijzen Makelaars](https://www.lankhuijzen.nl) | Yes | Yes | Contact form |
 | [Lex van Leeuwen Makelaars](https://www.lexvanleeuwen.nl) | Yes | Yes | Contact form |
 | [Marktplaats](https://www.marktplaats.nl) | Yes | Opt-in | Platform message |
-| [MVGM (ikwilhuren.nu)](https://ikwilhuren.nu) | Yes | Watch only | None |
+| [MVGM (ikwilhuren.nu)](https://ikwilhuren.nu) | Yes | After you connect | Contact form |
 | [NederWoon](https://www.nederwoon.nl) | Yes | Watch only | None |
 | [Nelisse Makelaarsgroep](https://www.nelisse.nl) | Yes | Yes | Contact form |
 | [Pararius](https://www.pararius.nl) | Yes | Opt-in | Contact form |
@@ -461,11 +461,11 @@ Id `mvgm`. https://ikwilhuren.nu
 | Regions | The whole country |
 | Reads listings from | its web pages |
 | Checked every | about 300 seconds |
-| Contact | None |
+| Contact | Contact form |
 | Login | required |
 | Paid plan to react | no |
 | Terms on automation | unknown |
-| Default | Watch only: it needs one login with nlpf connect |
+| Default | After you connect: it needs one login with nlpf connect |
 
 ## NederWoon
 

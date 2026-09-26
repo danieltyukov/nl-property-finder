@@ -47,6 +47,13 @@ describe('vesteda adapter', () => {
       terms: 'forbids',
     });
     expect(vesteda.loginUrl).toBe('https://hurenbij.vesteda.com/login/');
+    expect(typeof vesteda.contact).toBe('function');
+    expect(typeof vesteda.checkSession).toBe('function');
+  });
+
+  test('each unit keeps its portal id, which names its viewing request page', async () => {
+    const { listings } = await searchCity('den haag', 'vesteda/search-den-haag.json');
+    expect(listings.every((l) => /^[0-9a-f]{32}$/.test(String(l.extra?.entityguid)))).toBe(true);
   });
 
   test('buildSearches sends each municipality with its centre, radius and the price range', async () => {

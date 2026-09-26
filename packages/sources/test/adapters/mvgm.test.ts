@@ -18,11 +18,14 @@ describe('mvgm', () => {
     expect(htmlAdapters().map((a) => a.id)).toContain('mvgm');
   });
 
-  test('describes a nationwide portal that needs an account to react', () => {
+  test('describes a nationwide portal that reacts with a viewing request from a free account', () => {
     expect(adapter.id).toBe('mvgm');
     expect(adapter.regions).toBe('nl');
-    expect(adapter.capabilities).toMatchObject({ search: 'html', contact: 'none', login: 'required', terms: 'unknown' });
+    expect(adapter.capabilities).toMatchObject({ search: 'html', contact: 'form', login: 'required', terms: 'unknown' });
     expect(adapter.capabilities.paid).toBeUndefined();
+    expect(adapter.loginUrl).toBe('https://ikwilhuren.nu/account/');
+    expect(typeof adapter.contact).toBe('function');
+    expect(typeof adapter.checkSession).toBe('function');
   });
 
   test('buildSearches asks for each city newest first; the price filter is session-only, so it is not in the URL', () => {
@@ -58,7 +61,7 @@ describe('mvgm', () => {
       type: 'apartment',
       address: { street: 'Van Oldenbarneveltplaats', houseNumber: '14', addition: 'C', postcode: '3012 AH', city: 'Rotterdam' },
       availableFrom: '2026-09-24',
-      contact: 'none',
+      contact: 'form',
       agent: { name: 'MVGM', url: 'https://ikwilhuren.nu' },
     });
     expect(listings[0]?.images?.[0]).toMatch(/^https:\/\/c\.static\.nbo\.nl\/media\//);

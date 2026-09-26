@@ -1,9 +1,9 @@
 /**
  * Vesteda (vesteda.com): a large institutional landlord with mid-rent
  * apartments. Listings come from the JSON search API behind the site's
- * search page; reacting ("Inschrijven en bezichtigen") needs a free account
- * at hurenbij.vesteda.com and is not automated here, so the router asks the
- * user to react.
+ * search page; reacting is a viewing request from a free account at
+ * hurenbij.vesteda.com, whose /aanvraag/<entityguid>/ page the shared portal
+ * code fills and sends.
  *
  * Verified live on 2026-09-24: `POST /api/units/search/facet` with place,
  * coordinates, radius (km), `priceFrom` and `priceTo` (the price range only
@@ -23,6 +23,7 @@ import type {
   SourceAdapter,
   SourceContext,
 } from '@nlpf/core';
+import { checkPortalSession, requestViewing, type ViewingRequestPortal } from '../generic/viewing-request.js';
 import { SourceHttpError } from '../runtime/errors.js';
 import { normalisePostcode } from '../util/address.js';
 import { detectType, parseDutchDate, parsePrice } from '../util/parse.js';
@@ -42,6 +43,16 @@ import {
 } from './json-shared.js';
 
 const BASE = 'https://www.vesteda.com';
+
+/** Reacting is a viewing request on the portal Vesteda shares with MVGM (generic/viewing-request.ts). */
+const PORTAL: ViewingRequestPortal = {
+  name: 'Vesteda',
+  base: 'https://hurenbij.vesteda.com',
+  requestPath: (listing) => {
+    const id = listing.extra?.entityguid;
+    return typeof id === 'string' && /^[0-9a-f]{32}$/.test(id) ? `/aanvraag/${id}/` : undefined;
+  },
+};
 
 /** `UnitStatus` from the Vesteda bundle. Only ForRent and New are open to reactions. */
 const OPEN_STATUS = new Set([1, 5]);
@@ -79,6 +90,8 @@ interface VUnit {
   prioritizeKeyProfessions?: boolean;
   suitedForHomeSharers?: boolean;
   complex?: string | null;
+  /** The unit's id on hurenbij.vesteda.com: /aanvraag/<entityguid>/ is its viewing request (VERIFIED 2026-09-26). */
+  entityguid?: string | null;
   entitytypeid?: number;
   entitysubtypelabel?: string | null;
 }
@@ -143,6 +156,7 @@ function toRaw(unit: VUnit, group: string | undefined): RawListing | undefined {
     language: 'nl',
     extra: compact({
       status: STATUS_LABEL[unit.status ?? 0],
+      entityguid: str(unit.entityguid ?? undefined),
       recency: group,
       complex: str(unit.complex ?? undefined),
       onlyMiddleRent: unit.onlyMiddleRent || undefined,
@@ -306,6 +320,17 @@ export function createVestedaAdapter(options: VestedaOptions = {}): SourceAdapte
       if (two) extra.minIncomeTwoEarnersEur = two.eur;
       return out;
     },
+
+    async checkSession(ctx) {
+      const session = await ctx.browser();
+      try {
+        return await checkPortalSession(session.page, PORTAL);
+      } finally {
+        await session.close().catch(() => undefined);
+      }
+    },
+
+    contact: (listing, message, ctx) => requestViewing(PORTAL, listing, message, ctx),
 
     async isAvailable(listing, ctx) {
       let page;

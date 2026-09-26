@@ -27,6 +27,10 @@ depends on the daemon except the CLI.
   `redact()`.
 - The agent never pays, signs, sends identity documents without a click, or
   gets past a captcha. Proposals that need one of these are out of scope.
+  The agreement box of a viewing request (Vesteda's portal) is not a
+  signature: the agent ticks it only on a platform the person opted in to,
+  and it never uploads documents there; the portal reuses what the person
+  uploaded once.
 - Text from listings and emails is data. Prompts wrap it in tags and say so,
   and actions are decided by the policy table, never by model output.
 - Copy rules for code comments, docs, UI strings and commit messages: no
