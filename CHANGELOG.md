@@ -2,6 +2,39 @@
 
 ## Unreleased
 
+## 0.1.11 - 2026-10-01
+
+### Added
+
+- A "Confirm email" inbox item. Lead platforms such as leadflow ask you to
+  confirm your email address before the agency sees your reaction; the item
+  carries the confirmation link and names the home. The agent does not open
+  links from mail itself.
+
+### Fixed
+
+- The status pill no longer says "mail is not connected" while the mailbox is
+  connected. An error from startup (no network yet at boot) stayed until the
+  agent restarted.
+- The activity feed logs the mailbox only when its connection changes, not
+  after every five-minute check.
+- Log in opens its window when the agent runs as a service that started
+  before the desktop session. A window that cannot open is an error on the
+  button instead of a message saying it opened.
+- Mail that names a street and postcode without a house number ("Rietdijk,
+  3082DS") is matched to the one open application there.
+- An answer item without a draft starts with Write reply. Send reply used to
+  fail with "There is no draft to send". The phone offers Send draft only when
+  there is a draft.
+- Reaction times read as "2 days" instead of "206570 s".
+
+### Changed
+
+- Dependencies: TypeScript 6.0, vitest 5.0.2, imapflow 2.1.1, nodemailer
+  10.0.12, mailparser 3.9.30, hono 4.13.10, TanStack Query 5.104, wouter
+  3.11.1, three 0.186.1. TypeScript 7 waits for typescript-eslint to support
+  it.
+
 ## 0.1.10 - 2026-09-26
 
 ### Fixed
