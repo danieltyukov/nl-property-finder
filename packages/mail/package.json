@@ -10,9 +10,9 @@
   "exports": "./src/index.ts",
   "dependencies": {
     "@nlpf/core": "*",
-    "imapflow": "^2.1.1",
+    "imapflow": "^2.1.2",
     "nodemailer": "^10.0.12",
-    "mailparser": "^3.9.30"
+    "mailparser": "^3.9.31"
   },
   "devDependencies": {
     "@types/nodemailer": "^8.0.2",
