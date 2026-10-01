@@ -12,8 +12,8 @@
     "@nlpf/design": "*",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "@tanstack/react-query": "^5.103.2",
-    "wouter": "^3.11.0",
+    "@tanstack/react-query": "^5.104.0",
+    "wouter": "^3.11.1",
     "leaflet": "^1.9.4",
     "@geoman-io/leaflet-geoman-free": "^2.20.2"
   },
