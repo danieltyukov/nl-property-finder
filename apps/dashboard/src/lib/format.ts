@@ -5,6 +5,7 @@
  * interface; prices are whole euros.
  */
 import type { Address } from '@nlpf/core';
+import { durationText } from '../core';
 
 export const TZ = 'Europe/Amsterdam';
 
@@ -100,15 +101,7 @@ export function ymd(value: string | null | undefined): string {
 /** "38 s", "4 min", "2 h 5 min", "3 days". */
 export function duration(ms: number | null | undefined): string {
   if (ms === null || ms === undefined || Number.isNaN(ms)) return '';
-  const s = Math.round(Math.abs(ms) / 1000);
-  if (s < 60) return `${s} s`;
-  const min = Math.round(s / 60);
-  if (min < 60) return `${min} min`;
-  const h = Math.floor(min / 60);
-  const rest = min % 60;
-  if (h < 24) return rest ? `${h} h ${rest} min` : `${h} h`;
-  const d = Math.round(h / 24);
-  return d === 1 ? '1 day' : `${d} days`;
+  return durationText(ms);
 }
 
 /** "40 s ago", "3 min ago", "yesterday 14:05", "Mon 22 Sep". Future instants read "in 3 min". */

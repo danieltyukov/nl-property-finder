@@ -11,6 +11,7 @@ const ACTIONS: Partial<Record<Task['kind'], { id: string; label: string }[]>> = 
   scam_review: [{ id: 'approve', label: 'Contact anyway' }, { id: 'dismiss', label: 'Ignore' }],
   viewing_choice: [{ id: 'approve', label: 'Earliest time' }, { id: 'snooze', label: 'Later' }],
   call_now: [{ id: 'done', label: 'Called' }, { id: 'dismiss', label: 'Skip' }],
+  confirm_email: [{ id: 'done', label: 'Confirmed' }, { id: 'snooze', label: 'Later' }],
 };
 
 const PRIORITY: Record<1 | 2 | 3, Notification['priority']> = { 1: 5, 2: 4, 3: 3 };
@@ -32,7 +33,8 @@ export function notificationFor(rt: Runtime, e: NlpfEvent): Notification | undef
       tags: [task.kind],
       key: `task:${task.id}`,
       taskId: task.id,
-      actions: ACTIONS[task.kind],
+      // "Send draft" only when there is one: a question the agent could not answer has none.
+      actions: task.kind === 'reply_needed' && typeof task.payload?.draft !== 'string' ? [{ id: 'snooze', label: 'Later' }] : ACTIONS[task.kind],
       call: task.kind === 'call_now' ? phone : undefined,
     };
   }

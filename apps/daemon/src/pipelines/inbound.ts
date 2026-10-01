@@ -4,6 +4,7 @@ import {
   chooseSlot,
   decidePolicy,
   documentsToSend,
+  emailConfirmation,
   feeFlags,
   isAutoSubmitted,
   matchInbound,
@@ -186,10 +187,28 @@ export async function handleInbound(rt: Runtime, msg: InboundMessage, deps: Inbo
   const who = msg.from.name ?? msg.from.address ?? 'a landlord';
   rt.bus.emit('message.received', `Reply from ${who}${msg.subject ? `: ${msg.subject}` : ''}`, { conversationId: conversation.id, messageId: stored.id, applicationId: application?.id });
 
+  const property = application ? rt.store.properties.get(application.propertyId) : undefined;
+
+  // "Confirm your email address" from a lead platform: the agency sees the reaction only after
+  // the person opens the link. Checked before the automatic-mail rule, which such mail often trips.
+  const confirm = emailConfirmation(msg);
+  if (confirm) {
+    openTask(rt, {
+      kind: 'confirm_email',
+      title: `Confirm your email with ${confirm.service}${property ? `: ${property.title}` : ''}`,
+      reason: `${who} asks you to confirm your email address${property ? ` before your reaction to ${property.title} reaches the landlord` : ''}. ${confirm.url ? 'Open the link, then mark this done.' : 'The message has no clear link; open it in your mailbox.'} The agent does not open links from mail itself.`,
+      priority: 1,
+      propertyId: property?.id,
+      applicationId: application?.id,
+      conversationId: conversation.id,
+      payload: { url: confirm.url, messageId: stored.id, from: msg.from.address },
+    }, `confirm_email:${stored.id}`);
+    return;
+  }
+
   // Out-of-office and other automatic mail is stored and never answered.
   if (isAutoSubmitted(msg)) return;
 
-  const property = application ? rt.store.properties.get(application.propertyId) : undefined;
   const history = rt.store.messages.list(conversation.id);
   const lastOutbound = [...history].reverse().find((m) => m.direction === 'out');
   const classification: ClassifyOutput = await rt.ai().classify({ message: msg, property, lastOutbound, now: nowIso });

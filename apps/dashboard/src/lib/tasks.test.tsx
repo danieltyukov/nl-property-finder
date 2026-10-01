@@ -21,3 +21,17 @@ test('a source with nothing sent says why, instead of calling every one watch on
   expect(noReactionLabel(src({}))).toBe('none sent yet');
   expect(noReactionLabel(undefined)).toBe('none sent yet');
 });
+
+test('a question the agent could not draft an answer to starts with writing one, not with sending nothing', () => {
+  const actions = taskActions(task('reply_needed', { summary: 'Asks for a viewing time' }));
+  expect(actions.primary).toMatchObject({ kind: 'edit', label: 'Write reply' });
+  expect(actions.secondary).toEqual([expect.objectContaining({ action: 'done', label: 'Mark answered' })]);
+  expect(taskActions(task('reply_needed', { draft: 'Beste,' })).primary).toMatchObject({ action: 'send_draft', label: 'Send reply' });
+});
+
+test('a request to confirm the email address offers its link', () => {
+  const actions = taskActions(task('confirm_email', { url: 'https://u1.ct.sendgrid.net/ls/click?upn=confirm' }));
+  expect(actions.primary).toMatchObject({ action: 'done', label: 'Mark confirmed' });
+  expect(actions.link).toEqual({ label: 'Open confirmation link', href: 'https://u1.ct.sendgrid.net/ls/click?upn=confirm' });
+  expect(taskActions(task('confirm_email', { url: 'javascript:alert(1)' })).link).toBeUndefined();
+});

@@ -19,6 +19,7 @@ import type {
 
 export { API_PREFIX, ROUTES } from '../../../packages/core/src/api.js';
 export { ConfigSchema, NamedSearchSchema } from '../../../packages/core/src/config/schema.js';
+export { durationText } from '../../../packages/core/src/time.js';
 
 export type ResolveTaskInput = z.input<typeof ResolveTaskBodySchema>;
 export type SendMessageInput = z.input<typeof SendMessageBodySchema>;

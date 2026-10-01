@@ -162,7 +162,7 @@ export type TaskKind =
   | 'viewing_booked' | 'viewing_choice' | 'reply_needed' | 'documents_approval' | 'application_form'
   | 'offer_or_contract' | 'payment_warning' | 'scam_review' | 'react_manually' | 'approve_outreach'
   | 'send_uncertain' | 'reconnect' | 'captcha' | 'source_broken' | 'config_invalid'
-  | 'call_now' | 'registration_renewal';
+  | 'call_now' | 'registration_renewal' | 'confirm_email';
 
 export interface Task {
   id: string;

@@ -13,6 +13,7 @@ import {
 } from '@nlpf/agent';
 import { NeedsLoginError } from '@nlpf/sources';
 import type { Application, Attachment, Channel, ContactResult, Conversation, Job, Listing, Message, Property } from '@nlpf/core';
+import { durationText } from '@nlpf/core';
 import { RetryLater } from '../runner.js';
 import { openTask, startOfToday, type Runtime } from '../runtime.js';
 import { oneAtATime } from '../serial.js';
@@ -252,7 +253,7 @@ export async function handleContact(rt: Runtime, job: Job): Promise<void> {
   const reactionMs = Math.max(0, now.getTime() - firstSeen);
   recordOutbound(rt, { app, property, via, channel, draft, result, messageId, status: 'sent', attachments, threadCapable: !!adapter?.reply });
   rt.store.applications.update(app.id, { status: 'contacted', contactedAt: nowIso, reactionMs, channel }, nowIso);
-  rt.bus.emit('message.sent', `Sent to ${via.agent?.name ?? adapter?.name ?? 'the landlord'} about ${property.title}, ${Math.round(reactionMs / 1000)} s after it appeared`, {
+  rt.bus.emit('message.sent', `Sent to ${via.agent?.name ?? adapter?.name ?? 'the landlord'} about ${property.title}, ${durationText(reactionMs)} after it appeared`, {
     propertyId, channel: channel.kind, sourceId: channel.sourceId, reactionMs,
   });
 }

@@ -85,10 +85,26 @@ function addressMentions(text: string, street: string, number: string): string[]
   return [...fold(text).matchAll(re)].map((m) => normAddition(m[1] ?? m[2] ?? m[3] ?? ''));
 }
 
+/**
+ * True when the text names the street followed by its postcode, with no
+ * house number ("Rietdijk, 3082DS, Rotterdam"). Lead platforms write the
+ * address that way. A street and postcode cover a block, not one home.
+ */
+function streetWithPostcode(text: string, street: string, postcode: string): boolean {
+  const tokens = fold(street)
+    .split(/[^a-z0-9]+/)
+    .filter(Boolean);
+  const pc = /^(\d{4})\s*([a-z]{2})$/.exec(fold(postcode).trim());
+  if (!tokens.length || !pc) return false;
+  const re = new RegExp(`(?<![a-z0-9])${tokens.map(escape).join("[\\s.'-]*")}[\\s,]+${pc[1]}\\s?${pc[2]}(?![a-z0-9])`);
+  return re.test(fold(text));
+}
+
 function matchByAddress(msg: InboundMessage, store: Store): InboundMatch | undefined {
   const text = `${msg.subject ?? ''}\n${msg.text}`;
   const exact: Application[] = [];
   const partial: Application[] = [];
+  const block: Application[] = [];
   for (const app of store.applications.list({ limit: 500 })) {
     if (CLOSED.has(app.status)) continue;
     const p = store.properties.get(app.propertyId);
@@ -96,12 +112,22 @@ function matchByAddress(msg: InboundMessage, store: Store): InboundMatch | undef
     const { number, addition } = splitHouseNumber(p.address.houseNumber, p.address.addition);
     if (!number) continue;
     const mentions = addressMentions(text, p.address.street, number);
-    if (!mentions.length) continue;
+    if (!mentions.length) {
+      if (p.address.postcode && streetWithPostcode(text, p.address.street, p.address.postcode)) block.push(app);
+      continue;
+    }
     if (mentions.some((a) => a === addition)) exact.push(app);
     else if (mentions.some((a) => !a || !addition)) partial.push(app);
   }
+  // A street and postcode alone count only when nothing names a number and one open application fits.
   const app =
-    exact.length === 1 ? exact[0] : exact.length === 0 && partial.length === 1 ? partial[0] : undefined;
+    exact.length === 1
+      ? exact[0]
+      : exact.length === 0 && partial.length === 1
+        ? partial[0]
+        : exact.length === 0 && partial.length === 0 && block.length === 1
+          ? block[0]
+          : undefined;
   if (!app) return undefined;
   const conversation = pick(store.conversations.byApplication(app.id));
   const out: InboundMatch = { applicationId: app.id, confidence: 'address' };

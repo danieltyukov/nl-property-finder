@@ -3,6 +3,7 @@ export * from './runtime/errors.js';
 export * from './runtime/fetch.js';
 export * from './runtime/chromium.js';
 export * from './runtime/xvfb.js';
+export * from './runtime/desktop.js';
 export * from './runtime/browser.js';
 export * from './runtime/context.js';
 export * from './runtime/registry.js';

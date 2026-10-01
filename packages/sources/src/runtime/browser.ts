@@ -4,6 +4,7 @@ import { chromium, type BrowserContext, type Page } from 'playwright-core';
 import type { BrowserSession, Logger } from '@nlpf/core';
 import { chromeMajorVersion, resolveChromium } from './chromium.js';
 import { BrowserUnavailableError } from './errors.js';
+import { desktopSessionEnv } from './desktop.js';
 import { CHROME_MAJOR, desktopUserAgent } from './fetch.js';
 import { findExecutable, startXvfb, type XvfbDisplay } from './xvfb.js';
 
@@ -44,6 +45,11 @@ export interface BrowserPoolOptions {
   /** Environment the browsers start from. Default `process.env`. */
   env?: NodeJS.ProcessEnv;
   platform?: NodeJS.Platform;
+  /**
+   * Display variables for a `visible` window when `env` has none. Default: the
+   * desktop session's, from the systemd user manager (see `desktopSessionEnv`).
+   */
+  desktopEnv?: () => Record<string, string> | undefined;
 }
 
 export interface BrowserPoolInfo {
@@ -149,12 +155,14 @@ export function createBrowserPool(opts: BrowserPoolOptions): BrowserPool {
     return run;
   }
 
-  const hasDesktop = () => Boolean(baseEnv.DISPLAY || baseEnv.WAYLAND_DISPLAY);
+  // Read when a window is needed, not at startup: the desktop may log in after the daemon started.
+  const desktop = (): Record<string, string> | undefined =>
+    baseEnv.DISPLAY || baseEnv.WAYLAND_DISPLAY ? {} : (opts.desktopEnv ?? (() => desktopSessionEnv(baseEnv)))();
 
   function effectiveMode(requested: BrowserMode): BrowserMode {
     if (platform !== 'linux') return requested;
     if (requested === 'visible') {
-      if (!hasDesktop()) throw new Error('a visible window needs a desktop session, and neither DISPLAY nor WAYLAND_DISPLAY is set');
+      if (!desktop()) throw new Error('a visible window needs a desktop session, and none was found: DISPLAY and WAYLAND_DISPLAY are not set');
       return requested;
     }
     if (requested !== 'headed') return requested;
@@ -221,6 +229,7 @@ export function createBrowserPool(opts: BrowserPoolOptions): BrowserPool {
       }
     } else if (mode === 'visible') {
       args.push('--window-size=1280,900');
+      if (platform === 'linux') Object.assign(env, desktop());
       entry.display = env.DISPLAY ?? env.WAYLAND_DISPLAY;
     }
 

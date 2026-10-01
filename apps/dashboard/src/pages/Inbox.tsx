@@ -10,7 +10,7 @@ import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query';
 import { Link } from 'wouter';
 import type { ContractReview, Task } from '@nlpf/core';
-import { useApi } from '../api/client';
+import { ApiError, useApi } from '../api/client';
 import { qk, useProperty, useSourceMutations, useStats, useStatus, useTasks } from '../api/hooks';
 import { useFeedback } from '../components/Feedback';
 import { Icon } from '../components/Icon';
@@ -98,8 +98,19 @@ export function InboxCard({ tasks, loading, error }: { tasks: Task[]; loading?: 
     [tasks, index, focusItem],
   );
 
+  const startEdit = useCallback(
+    (task: Task) => {
+      setDrafts((d) => ({ ...d, [task.id]: d[task.id] ?? taskDraft(task) ?? '' }));
+      setEditing(task.id);
+      setExpanded((current) => new Set(current).add(task.id));
+      requestAnimationFrame(() => document.getElementById(`draft-${task.id}`)?.focus());
+    },
+    [],
+  );
+
   const run = useCallback(
     (task: Task, action: TaskAction, extra: { draft?: string } = {}) => {
+      if (action.kind === 'edit') return startEdit(task);
       if (action.kind === 'connect' || action.kind === 'poll') {
         if (!task.sourceId) return;
         const m = action.kind === 'connect' ? sources.connect : sources.poll;
@@ -110,7 +121,8 @@ export function InboxCard({ tasks, loading, error }: { tasks: Task[]; loading?: 
                 ? `A login window for ${sourceName(task.sourceId)} opened on this computer. Log in there; the item clears itself once the session works.`
                 : `Checking ${sourceName(task.sourceId)} now.`,
             ),
-          onError: (e) => feedback.toast(`Could not reach the agent: ${e.message}`, 'error'),
+          // An ApiError is the agent answering, for example that no login window can open here.
+          onError: (e) => feedback.toast(e instanceof ApiError ? e.message : `Could not reach the agent: ${e.message}`, 'error'),
         });
         return;
       }
@@ -121,6 +133,7 @@ export function InboxCard({ tasks, loading, error }: { tasks: Task[]; loading?: 
       if (action.action === 'send_draft' || (draft !== undefined && action.action === 'approve' && editing === task.id)) {
         body.action = 'send_draft';
         body.draft = draft ?? taskDraft(task) ?? '';
+        if (!body.draft.trim()) return startEdit(task);
       }
       if (task.kind === 'viewing_choice' && action.action === 'approve') body.slot = slots[task.id] ?? 0;
       if (action.action === 'snooze') body.until = new Date(Date.now() + 3 * 3600_000).toISOString();
@@ -135,7 +148,7 @@ export function InboxCard({ tasks, loading, error }: { tasks: Task[]; loading?: 
       });
       if (neighbour) focusItem(neighbour.id);
     },
-    [api, client, drafts, editing, feedback, focusItem, slots, sources.connect, sources.poll, tasks],
+    [api, client, drafts, editing, feedback, focusItem, slots, sources.connect, sources.poll, startEdit, tasks],
   );
 
   const toggleExpand = useCallback((id: string) => {
@@ -146,16 +159,6 @@ export function InboxCard({ tasks, loading, error }: { tasks: Task[]; loading?: 
       return next;
     });
   }, []);
-
-  const startEdit = useCallback(
-    (task: Task) => {
-      setDrafts((d) => ({ ...d, [task.id]: d[task.id] ?? taskDraft(task) ?? '' }));
-      setEditing(task.id);
-      setExpanded((current) => new Set(current).add(task.id));
-      requestAnimationFrame(() => document.getElementById(`draft-${task.id}`)?.focus());
-    },
-    [],
-  );
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -352,12 +355,13 @@ function InboxItem(props: {
               onChange={(e) => props.onDraft(e.currentTarget.value)}
               onKeyDown={(e) => {
                 if (e.key === 'Escape') props.onCancelEdit();
-                if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) props.onRun({ kind: 'resolve', action: 'send_draft', label: 'Send', done: 'Reply sent' }, { draft: e.currentTarget.value });
+                if (e.key === 'Enter' && (e.ctrlKey || e.metaKey) && e.currentTarget.value.trim()) props.onRun({ kind: 'resolve', action: 'send_draft', label: 'Send', done: 'Reply sent' }, { draft: e.currentTarget.value });
               }}
             />
             <div className="draft-edit-actions">
               <Button
                 variant="primary"
+                disabled={!(props.draft ?? draft ?? '').trim()}
                 onClick={() => props.onRun({ kind: 'resolve', action: 'send_draft', label: 'Send', done: 'Reply sent' }, { draft: props.draft ?? draft ?? '' })}
                 shortcut="Ctrl Enter"
               >
@@ -381,7 +385,7 @@ function InboxItem(props: {
           <Button variant="primary" shortcut="A" onClick={() => props.onRun(actions.primary)}>
             {primaryLabel}
           </Button>
-          {actions.canEdit && !editing ? (
+          {actions.canEdit && !editing && actions.primary.kind !== 'edit' ? (
             <Button shortcut="E" onClick={props.onEdit}>
               {task.kind === 'viewing_choice' ? 'Other time' : 'Edit draft'}
             </Button>

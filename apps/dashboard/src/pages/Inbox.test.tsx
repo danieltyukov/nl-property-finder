@@ -88,6 +88,25 @@ test('E opens the draft for editing and sending it resolves with send_draft', as
   );
 });
 
+test('a reply with no draft opens the editor on A, and Send waits for text', async () => {
+  const user = userEvent.setup();
+  const world = buildWorld();
+  world.tasks = world.tasks.filter((t) => t.kind === 'reply_needed').map((t) => ({ ...t, payload: { ...t.payload, draft: undefined } }));
+  const api = makeApi(world);
+  renderApp({ api, undoMs: 20 });
+  await screen.findByRole('button', { name: 'Write reply' });
+
+  await user.keyboard('a');
+  const box = screen.getByLabelText('Your reply');
+  expect(screen.getByRole('button', { name: 'Send' }).hasAttribute('disabled')).toBe(true);
+  await user.type(box, 'Donderdag past goed.');
+  await user.click(screen.getByRole('button', { name: 'Send' }));
+
+  await waitFor(() =>
+    expect(api.resolveTask).toHaveBeenCalledWith('t_reply_phoenix', { action: 'send_draft', draft: 'Donderdag past goed.' }),
+  );
+});
+
 test('an empty inbox says what the agent is doing', async () => {
   const world = buildWorld();
   world.tasks = [];

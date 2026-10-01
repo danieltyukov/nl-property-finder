@@ -21,6 +21,7 @@ import {
   type InboundMessage,
   type Logger,
   type Mailbox,
+  type MailStatus,
   type Paths,
   type SourceAdapter,
 } from '@nlpf/core';
@@ -35,11 +36,13 @@ import {
   createPoliteFetch,
   createRegistry,
   createSourceContext,
+  desktopSessionEnv,
   loadAgencyAdapters,
 } from '@nlpf/sources';
 import { createActions } from './actions.js';
 import { createApp } from './api/app.js';
 import type { DaemonContext } from './context.js';
+import { mailStatusChanged, mailStatusView } from './mailstatus.js';
 import { createRunner } from './runner.js';
 import { createScheduler, initialState } from './scheduler.js';
 import { handleContact } from './pipelines/contact.js';
@@ -212,7 +215,9 @@ export async function startDaemon(opts: StartDaemonOptions): Promise<DaemonHandl
 
   // Mail.
   let mailbox: Mailbox | undefined;
-  const mailStatus = { connected: false, address: config.mail.address as string | undefined, error: undefined as string | undefined, lastIdleAt: undefined as string | undefined };
+  // A mailbox that could not be set up or started; a live connection reports its own errors.
+  let mailSetupError: string | undefined;
+  let lastMailStatus: MailStatus | undefined;
   try {
     if (memoryMailbox) mailbox = memoryMailbox;
     else {
@@ -221,7 +226,8 @@ export async function startDaemon(opts: StartDaemonOptions): Promise<DaemonHandl
         attachmentsDir: join(paths.documentsDir, '.received'),
         onWatermark: (uid, validity) => store.kv.set('mail-watermark', JSON.stringify({ uid, validity })),
         onStatus: (s) => {
-          Object.assign(mailStatus, s);
+          if (!mailStatusChanged(lastMailStatus, s)) return;
+          lastMailStatus = { ...s };
           bus.emit('mail.status', s.connected ? 'Mailbox connected' : `Mailbox disconnected${s.error ? `: ${s.error}` : ''}`, { ...s });
         },
       });
@@ -235,7 +241,7 @@ export async function startDaemon(opts: StartDaemonOptions): Promise<DaemonHandl
       }
     }
   } catch (e) {
-    mailStatus.error = (e as Error).message;
+    mailSetupError = (e as Error).message;
     store.tasks.open({ kind: 'config_invalid', title: 'The mailbox is not set up', reason: `${(e as Error).message}. Run nlpf init or set it in Settings.`, priority: 2 }, now().toISOString(), 'mailbox_setup');
   }
 
@@ -273,7 +279,8 @@ export async function startDaemon(opts: StartDaemonOptions): Promise<DaemonHandl
       : (url) =>
           new Promise<void>((res) => {
             const cmd = process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'explorer' : 'xdg-open';
-            execFile(cmd, [url], () => res());
+            const env = process.platform === 'linux' ? { ...process.env, ...desktopSessionEnv() } : process.env;
+            execFile(cmd, [url], { env }, () => res());
           }),
   };
 
@@ -377,7 +384,7 @@ export async function startDaemon(opts: StartDaemonOptions): Promise<DaemonHandl
       bus.emit('config.updated', `Settings changed: ${String(section)}`, { section });
       return config;
     },
-    mailStatus: () => ({ ...(mailbox?.status() ?? {}), connected: mailbox?.status().connected ?? false, address: config.mail.address, error: mailStatus.error }),
+    mailStatus: () => mailStatusView(mailbox?.status(), config.mail.address, mailSetupError),
     ai: () => ({ provider: ai.id, usageThisMonth: ai.usage(), budget: config.ai.monthlyTokenBudget }),
     nextPollAt: () => scheduler.nextRunAt(),
     sources: () => {
@@ -433,8 +440,8 @@ export async function startDaemon(opts: StartDaemonOptions): Promise<DaemonHandl
       .catch((e) => log.warn('action channel failed', { channel: ch.id, error: (e as Error).message }));
   }
   if (mailbox) await mailbox.start(inbound).catch((e) => {
-    mailStatus.error = (e as Error).message;
-    log.warn('mailbox did not start', { error: mailStatus.error });
+    mailSetupError = (e as Error).message;
+    log.warn('mailbox did not start', { error: mailSetupError });
   });
   runner.start();
   const tick = setInterval(() => {

@@ -87,3 +87,16 @@ export function amsterdamDate(date: Date): string {
   const p = amsterdam(date);
   return `${p.y}-${String(p.m).padStart(2, '0')}-${String(p.d).padStart(2, '0')}`;
 }
+
+/** A length of time as people say it: "40 s", "12 min", "3 h 20 min", "2 days". */
+export function durationText(ms: number): string {
+  const s = Math.round(Math.abs(ms) / 1000);
+  if (s < 60) return `${s} s`;
+  const min = Math.round(s / 60);
+  if (min < 60) return `${min} min`;
+  const h = Math.floor(min / 60);
+  const rest = min % 60;
+  if (h < 24) return rest ? `${h} h ${rest} min` : `${h} h`;
+  const d = Math.round(h / 24);
+  return d === 1 ? '1 day' : `${d} days`;
+}

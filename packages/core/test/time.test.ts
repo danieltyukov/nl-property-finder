@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { amsterdam, fromAmsterdam, isWithinWindow, amsterdamDate } from '../src/index.js';
+import { amsterdam, durationText, fromAmsterdam, isWithinWindow, amsterdamDate } from '../src/index.js';
 
 test('summer and winter offsets', () => {
   expect(fromAmsterdam(2026, 9, 24, 18, 30).toISOString()).toBe('2026-09-24T16:30:00.000Z');
@@ -21,4 +21,12 @@ test('windows, including across midnight', () => {
   expect(isWithinWindow(at('2026-09-24T05:00:00Z'), '07:00', '23:30')).toBe(true); // 07:00 local
   expect(isWithinWindow(at('2026-09-24T22:30:00Z'), '23:00', '07:00')).toBe(true);
   expect(amsterdamDate(at('2026-09-24T22:30:00Z'))).toBe('2026-09-25');
+});
+
+test('durations read the way people say them', () => {
+  expect(durationText(3_400)).toBe('3 s');
+  expect(durationText(12 * 60_000)).toBe('12 min');
+  expect(durationText(3 * 3_600_000 + 20 * 60_000)).toBe('3 h 20 min');
+  expect(durationText(206_570_032)).toBe('2 days');
+  expect(durationText(30 * 3_600_000)).toBe('1 day');
 });

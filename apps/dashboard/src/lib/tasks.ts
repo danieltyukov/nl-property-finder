@@ -13,7 +13,8 @@ export type ResolveAction = ResolveTaskInput['action'];
 export type TaskAction =
   | { kind: 'resolve'; action: ResolveAction; label: string; done: string }
   | { kind: 'connect'; label: string; done: string }
-  | { kind: 'poll'; label: string; done: string };
+  | { kind: 'poll'; label: string; done: string }
+  | { kind: 'edit'; label: string; done: string };
 
 export interface TaskActions {
   primary: TaskAction;
@@ -56,7 +57,17 @@ export function taskActions(task: Task): TaskActions {
     case 'viewing_choice':
       return { primary: resolve('approve', 'Accept time', 'Time accepted'), secondary: [], canEdit: true };
     case 'reply_needed':
-      return { primary: resolve('send_draft', 'Send reply', 'Reply sent'), secondary: [], canEdit: true };
+      // Without a draft there is nothing to send yet: the first step is writing one.
+      return draft
+        ? { primary: resolve('send_draft', 'Send reply', 'Reply sent'), secondary: [], canEdit: true }
+        : { primary: { kind: 'edit', label: 'Write reply', done: '' }, secondary: [resolve('done', 'Mark answered', 'Marked answered')], canEdit: true };
+    case 'confirm_email':
+      return {
+        primary: resolve('done', 'Mark confirmed', 'Marked confirmed'),
+        secondary: [],
+        canEdit: false,
+        link: url ? { label: 'Open confirmation link', href: url } : undefined,
+      };
     case 'documents_approval':
       return { primary: resolve('approve', 'Approve and send', 'Documents approved'), secondary: [], canEdit: Boolean(draft) };
     case 'approve_outreach':

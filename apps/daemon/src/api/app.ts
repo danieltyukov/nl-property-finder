@@ -35,6 +35,9 @@ export class HttpError extends Error {
 
 const notFound = (what: string) => new HttpError(404, 'not_found', `${what} not found.`);
 
+/** How long a login request waits to see whether its window could open at all. */
+const CONNECT_GRACE_MS = 1500;
+
 async function body<T extends z.ZodType>(c: Context, schema: T): Promise<z.infer<T>> {
   let raw: unknown = {};
   const text = await c.req.text();
@@ -223,7 +226,15 @@ export function createApp(ctx: DaemonContext): Hono {
     if (!source.canConnect) {
       throw new HttpError(400, 'no_login', `${source.name} has no login to connect to. The agent reads it without one.`);
     }
-    void ctx.actions.connectSource(c.req.param('id')).catch((e) => ctx.log.warn('connect failed', { source: c.req.param('id'), error: e }));
+    // The window waits up to ten minutes for a login, so this does not wait for it. A window that
+    // cannot open at all (no desktop session, no Chromium) fails within moments: say so then.
+    const outcome: { error?: Error } = {};
+    const done = ctx.actions.connectSource(source.sourceId).catch((e: unknown) => {
+      outcome.error = e instanceof Error ? e : new Error(String(e));
+      ctx.log.warn('connect failed', { source: source.sourceId, error: outcome.error });
+    });
+    await Promise.race([done, new Promise((r) => setTimeout(r, CONNECT_GRACE_MS))]);
+    if (outcome.error) throw new HttpError(503, 'connect_failed', `Could not open a login window for ${source.name}: ${outcome.error.message}`);
     return c.json({ started: true }, 202);
   });
   api.post('/sources/:id/poll', async (c) => (await ctx.actions.pollSource(c.req.param('id')), c.json({ queued: true }, 202)));

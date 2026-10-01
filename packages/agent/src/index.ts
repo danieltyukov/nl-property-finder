@@ -14,6 +14,7 @@ export * from './window.js';
 export * from './policy.js';
 export * from './slots.js';
 export * from './matchInbound.js';
+export * from './confirmEmail.js';
 export * from './documents.js';
 export * from './tenantPdf.js';
 export * from './rentcheck.js';

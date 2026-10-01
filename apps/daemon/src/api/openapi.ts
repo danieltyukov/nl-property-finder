@@ -31,7 +31,7 @@ const DESCRIPTIONS: Partial<Record<keyof typeof ROUTES, string>> = {
   sources: 'Every source with its health.',
   patchSource: 'Enable or disable a source, change its interval, contact mode or paid plan.',
   testSource: 'Run one search on a source now and return what it found, without storing it.',
-  connectSource: 'Open a browser window to log in to a source. Returns immediately.',
+  connectSource: 'Open a browser window to log in to a source. Returns without waiting for the login, or 503 when no window can open.',
   pollSource: 'Check a source now.',
   config: 'The configuration, without secrets. secretsPresent lists which secrets are set.',
   patchConfig: 'Replace one section of the configuration.',

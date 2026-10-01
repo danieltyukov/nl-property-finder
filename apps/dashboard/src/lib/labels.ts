@@ -75,6 +75,7 @@ export const TASK_KIND: Record<TaskKind, string> = {
   config_invalid: 'Config error',
   call_now: 'Call now',
   registration_renewal: 'Renew registration',
+  confirm_email: 'Confirm email',
 };
 
 export const INTENT: Record<Intent, string> = {

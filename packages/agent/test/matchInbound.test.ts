@@ -172,6 +172,21 @@ test('another number or addition on the same street does not match', () => {
   expect(matchInbound(mail({ text: 'Over Oude Delft 12B' }), store)).toEqual({ confidence: 'none' });
 });
 
+test('a lead platform naming the street and postcode without a number matches the one open home there', () => {
+  const m = mail({
+    from: { address: 'contact@leadflow.example' },
+    text: 'Je hebt gereageerd op de woning aan de Oude Delft, 2611CC, Delft, aangeboden door Delft Rentals.',
+  });
+  expect(matchInbound(m, store)).toEqual({ conversationId: ids.c_oude, applicationId: ids.app_oude, confidence: 'address' });
+  // Another postcode on the same street is another block.
+  expect(matchInbound(mail({ text: 'De woning aan de Oude Delft, 2611 BD, Delft.' }), store)).toEqual({ confidence: 'none' });
+});
+
+test('a street and postcode shared by two open homes match neither', () => {
+  home('oude2', { street: 'Oude Delft', houseNumber: '14', postcode: '2611 CC' });
+  expect(matchInbound(mail({ text: 'De woning aan de Oude Delft, 2611 CC, Delft.' }), store)).toEqual({ confidence: 'none' });
+});
+
 test('a closed application is not matched by address', () => {
   store.applications.update(ids.app_oude!, { status: 'withdrawn' }, T);
   expect(matchInbound(mail({ text: 'Oude Delft 12A is nog beschikbaar' }), store)).toEqual({
