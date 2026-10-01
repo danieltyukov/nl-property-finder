@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.1.12 - 2026-10-01
+
+### Changed
+
+- Dependencies: typescript-eslint 8.71, Anthropic SDK 0.129, MCP SDK 1.31,
+  imapflow 2.1.2, mailparser 3.9.31.
+
 ## 0.1.11 - 2026-10-01
 
 ### Added
