@@ -15,6 +15,9 @@ updates:
         versions: ['>=23']
       - dependency-name: 'jsdom'
         versions: ['>=27']
+      # typescript-eslint 8 supports TypeScript below 6.1. Lift this once it supports 7.
+      - dependency-name: 'typescript'
+        versions: ['>=6.1']
   - package-ecosystem: github-actions
     directory: /
     schedule:

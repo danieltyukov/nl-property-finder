@@ -170,7 +170,8 @@ describe('IMAP mailbox against GreenMail', () => {
     await agent.connect();
     const sent = await agent.status('Sent', { messages: true });
     await agent.logout();
-    expect(sent.messages).toBe(1);
+    // imapflow 2.1 types status() as false when the server refuses the folder.
+    expect(sent && sent.messages).toBe(1);
   });
 
   test('restarting with the saved watermark does not deliver anything twice', async () => {
