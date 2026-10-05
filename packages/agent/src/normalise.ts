@@ -1,4 +1,5 @@
 import type { Furnishing, PropertyType, RawListing } from '@nlpf/core';
+import { agentFromPhotos } from './agencies.js';
 import { canonicalAddress } from './cluster.js';
 import { fold, guessLanguage } from './text.js';
 
@@ -84,7 +85,8 @@ const clean = (s: string | undefined): string | undefined => {
 /**
  * Trims text, fills type and furnishing from the text when the source left
  * them out, formats the postcode as "2611 BC", splits "12-A" into number and
- * addition, and title-cases the city.
+ * addition, and title-cases the city. A listing without an agent email gets
+ * one when its photos come from a known agent's website.
  */
 export function normaliseListing(raw: RawListing): RawListing {
   const text = [raw.title, raw.description].filter(Boolean).join(' ');
@@ -116,5 +118,7 @@ export function normaliseListing(raw: RawListing): RawListing {
     const lang = guessLanguage(text);
     if (lang) out.language = lang;
   }
+  const agent = agentFromPhotos(raw.agent, raw.extra?.imageOrigin);
+  if (agent) out.agent = agent;
   return out;
 }

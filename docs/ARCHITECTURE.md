@@ -45,8 +45,11 @@ CLI and MCP depend only on `core`'s API contract and talk HTTP to the daemon.
    landlord across every listing of the property: a guest form, a form after
    login, a platform message, the agent's email. When the only copy is behind
    a paid feature the user does not have, it looks for another copy (the
-   paywall router), and when there is none it opens a "react manually" task
-   with the message ready. The listing is re-checked right before sending.
+   paywall router). Failing that, it emails the agent when the listing's
+   photos come from a known agent's own website (`packages/agent/src/agencies.ts`
+   holds each agent's published address), and only then opens a "react
+   manually" task with the message ready. The listing is re-checked right
+   before sending.
 5. **Triage.** Every reply, by email or platform message, is matched to its
    conversation (mail headers, platform thread, sender, the address in the
    text) and classified. The policy table decides: answer routine questions

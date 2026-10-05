@@ -2,6 +2,7 @@
 // fetchJson, no timers, no global state. Every function is covered by a test
 // in packages/agent/test.
 export * from './normalise.js';
+export * from './agencies.js';
 export * from './geocode.js';
 export * from './cluster.js';
 export * from './regions.js';
