@@ -1,3 +1,4 @@
+import { connect, type Socket } from 'node:net';
 import type { Config, OutboundEmail } from '@nlpf/core';
 import { createTransport } from 'nodemailer';
 import { newMessageId, normalizeMessageId } from './threads.js';
@@ -49,6 +50,32 @@ export async function buildEmail(from: string, mail: OutboundEmail, opts: SmtpOp
   return { messageId, raw, from, to: [mail.to] };
 }
 
+const CONNECT_TIMEOUT_MS = 30_000;
+
+/**
+ * Opens the TCP connection to the SMTP server with Node's own connect: the
+ * system resolver on every send, and IPv4 and IPv6 tried side by side.
+ * nodemailer's resolver reads the network interfaces once, when it loads, so
+ * a daemon started at boot before Wi-Fi had an IPv4 address only ever tried
+ * IPv6 and failed every send with ENETUNREACH until it was restarted.
+ */
+function openSocket(host: string, port: number): Promise<Socket> {
+  return new Promise((resolve, reject) => {
+    const socket = connect({ host, port, autoSelectFamily: true });
+    const fail = (err: Error) => {
+      socket.destroy();
+      reject(err);
+    };
+    socket.setTimeout(CONNECT_TIMEOUT_MS, () => fail(Object.assign(new Error(`Connection to ${host}:${port} timed out`), { code: 'ETIMEDOUT' })));
+    socket.once('error', fail);
+    socket.once('connect', () => {
+      socket.setTimeout(0);
+      socket.removeListener('error', fail);
+      resolve(socket);
+    });
+  });
+}
+
 /** Sends through the configured SMTP server with the mailbox credentials. */
 export function createSmtpSender(cfg: Config['mail'], password: string, opts: SmtpOptions = {}): MailSender {
   const transport = createTransport({
@@ -56,9 +83,16 @@ export function createSmtpSender(cfg: Config['mail'], password: string, opts: Sm
     port: cfg.smtp.port,
     secure: cfg.smtp.secure,
     auth: { user: cfg.user || cfg.address, pass: password },
-    connectionTimeout: 30_000,
+    connectionTimeout: CONNECT_TIMEOUT_MS,
     greetingTimeout: 20_000,
     socketTimeout: 60_000,
+    // nodemailer still does the TLS handshake on this socket (port 465) or STARTTLS (587).
+    getSocket: (_options, callback) => {
+      openSocket(cfg.smtp.host, cfg.smtp.port).then(
+        (connection) => callback(null, { connection }),
+        (err: Error) => callback(err),
+      );
+    },
   });
   return {
     async send(mail) {
