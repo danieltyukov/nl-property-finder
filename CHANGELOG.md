@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+## 0.1.13 - 2026-10-05
+
+### Added
+
+- A home that is only on a paid platform is emailed to its agent when the
+  listing's photos come from that agent's own website. Huurwoningen hides the
+  agent from non-members, but its photos keep the address they were copied
+  from. Known so far: CityBird Rentals, Frisia Makelaars and Minor
+  Makelaardij. Agents that take reactions on their own website only are left
+  out on purpose.
+
+### Fixed
+
+- Email sends again after the computer starts. The agent starts before Wi-Fi
+  has an IPv4 address, and the mail library then only ever tried the server's
+  IPv6 address: every send failed with ENETUNREACH until a restart. The SMTP
+  connection now uses the system resolver on every send and tries IPv4 and
+  IPv6 side by side.
+
 ## 0.1.12 - 2026-10-01
 
 ### Changed
