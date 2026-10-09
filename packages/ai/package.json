@@ -10,7 +10,7 @@
   "exports": "./src/index.ts",
   "dependencies": {
     "@nlpf/core": "*",
-    "@anthropic-ai/sdk": "^0.129.0",
+    "@anthropic-ai/sdk": "^0.131.0",
     "zod": "^4.6.5"
   }
 }
