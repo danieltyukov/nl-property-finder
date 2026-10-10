@@ -57,3 +57,11 @@ test('a confirmation that a reaction arrived is not a request to confirm the ema
   expect(emailConfirmation(funda)).toBeUndefined();
   expect(emailConfirmation(mail({ subject: 'Re: uw reactie', text: 'Kunt u donderdag om 14:00 komen kijken?' }))).toBeUndefined();
 });
+
+test('a link ending in a long run of punctuation is trimmed without slowing down', () => {
+  const tail = `${'!'.repeat(100_000)}x`;
+  const text = `Please verify your email address:\nhttps://portal.example/verify?t=${tail}!!.\n`;
+  const t0 = performance.now();
+  expect(emailConfirmation(mail({ subject: 'Welcome', text }))?.url).toBe(`https://portal.example/verify?t=${tail}`);
+  expect(performance.now() - t0).toBeLessThan(200);
+});
