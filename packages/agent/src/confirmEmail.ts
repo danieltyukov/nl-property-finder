@@ -1,4 +1,4 @@
-import type { InboundMessage } from '@nlpf/core';
+import { trimCharsEnd, type InboundMessage } from '@nlpf/core';
 
 export interface EmailConfirmation {
   /** Who asks: the sender's display name, or the name in its domain ("leadflow" for contact@leadflow.rent). */
@@ -41,7 +41,7 @@ function confirmationLink(text: string): string | undefined {
       label = above.slice(above.lastIndexOf('\n') + 1);
     }
     prevEnd = at + m[0].length;
-    if (LINK_LABEL.test(label.toLowerCase())) return m[0].replace(/[.,;:!?]+$/, '');
+    if (LINK_LABEL.test(label.toLowerCase())) return trimCharsEnd(m[0], '.,;:!?');
   }
   return undefined;
 }
