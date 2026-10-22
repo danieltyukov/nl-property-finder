@@ -16,8 +16,8 @@
     "@nlpf/notify": "*",
     "@nlpf/sandbox": "*",
     "hono": "^4.13.13",
-    "@hono/node-server": "^2.1.4",
-    "zod": "^4.6.6"
+    "@hono/node-server": "^2.1.5",
+    "zod": "^4.6.7"
   },
   "scripts": {
     "dev": "tsx watch ../cli/src/main.ts daemon"

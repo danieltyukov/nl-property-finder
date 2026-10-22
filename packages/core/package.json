@@ -13,10 +13,10 @@
     "./schema": "./src/config/schema.ts"
   },
   "dependencies": {
-    "zod": "^4.6.6",
+    "zod": "^4.6.7",
     "yaml": "^2.9.1",
     "better-sqlite3": "^13.0.3",
-    "playwright-core": "^1.64.0"
+    "playwright-core": "^1.64.1"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^9.6.0"
