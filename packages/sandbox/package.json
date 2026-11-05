@@ -11,8 +11,8 @@
   "dependencies": {
     "@nlpf/core": "*",
     "@nlpf/sources": "*",
-    "hono": "^4.13.14",
-    "@hono/node-server": "^2.1.5",
-    "nodemailer": "^10.2.1"
+    "hono": "^4.13.16",
+    "@hono/node-server": "^2.1.6",
+    "nodemailer": "^10.3.1"
   }
 }
