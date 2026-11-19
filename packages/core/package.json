@@ -15,8 +15,8 @@
   "dependencies": {
     "zod": "^4.6.7",
     "yaml": "^2.9.1",
-    "better-sqlite3": "^13.0.3",
-    "playwright-core": "^1.65.0"
+    "better-sqlite3": "^13.2.0",
+    "playwright-core": "^1.65.1"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^9.6.0"
