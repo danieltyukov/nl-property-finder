@@ -12,10 +12,10 @@
     "@nlpf/design": "*",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "@tanstack/react-query": "^5.107.1",
+    "@tanstack/react-query": "^5.108.4",
     "wouter": "^3.13.0",
     "leaflet": "^1.9.4",
-    "@geoman-io/leaflet-geoman-free": "^2.20.6"
+    "@geoman-io/leaflet-geoman-free": "^2.20.8"
   },
   "devDependencies": {
     "vite": "^8.3.8",
@@ -24,7 +24,7 @@
     "@types/react-dom": "^19.0.0",
     "@types/leaflet": "^1.9.20",
     "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^14.6.12",
+    "@testing-library/user-event": "^14.6.13",
     "jsdom": "^26.1.0"
   },
   "scripts": {
